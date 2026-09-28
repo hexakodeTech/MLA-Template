@@ -13,22 +13,22 @@ export const PrototypeBanner: React.FC = () => {
   return (
     <aside
       aria-label="Prototype Presentation Notice"
-      className="bg-navy-950 text-white border-b border-navy-800 text-xs py-2 px-4 transition-all relative z-50"
+      className="bg-forest-dark text-ivory dark:bg-[#10231A] dark:text-[#F5F2E9] border-b border-forest/40 dark:border-[#35463C] text-xs py-2 px-4 transition-all relative z-50 font-sans"
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="inline-flex items-center gap-1.5 bg-gold-500/20 text-gold-400 font-semibold px-2 py-0.5 rounded border border-gold-500/30 uppercase tracking-wider text-[10px]">
+        <div className="flex items-center gap-2.5 flex-wrap">
+          <span className="inline-flex items-center gap-1.5 bg-terracotta text-white font-semibold px-2 py-0.5 rounded-xs uppercase tracking-wider text-[10px]">
             <ShieldCheck className="w-3.5 h-3.5" />
             HexaKode Prototype
           </span>
-          <p className="text-slate-200">
+          <p className="text-ivory/90 text-[11px] sm:text-xs">
             {language === "ml" ? (
               <span>
-                <strong>ക്ലയന്റ് അവതരണ മാതൃക:</strong> ശ്രീ രമേഷ് പിഷാരടിയുടെ ഔദ്യോഗിക പോർട്ടൽ മാതൃക. വിവരങ്ങൾ ഓഫീസിന്റെ അന്തിമ സ്ഥിരീകരണത്തിന് വിധേയമാണ്.
+                <strong>ഔദ്യോഗിക വെബ്സൈറ്റ് മാതൃക:</strong> ക്ലയന്റ് അവതരണത്തിനായി തയ്യാറാക്കിയത്. ജീവചരിത്രവും സമ്പർക്ക വിവരങ്ങളും ഓഫീസിന്റെ സ്ഥിരീകരണത്തിന് കാത്തിരിക്കുന്നു.
               </span>
             ) : (
               <span>
-                <strong>Official Proposal &amp; Working Prototype:</strong> Designed &amp; developed by <strong>HexaKode</strong>. Unverified contact, biographical, and project details are structured placeholders awaiting official office confirmation.
+                <strong>Official Proposal &amp; Working Concept:</strong> Commissioned by <strong>HexaKode</strong>. Content fields are structured placeholders awaiting official office confirmation.
               </span>
             )}
           </p>
@@ -36,7 +36,7 @@ export const PrototypeBanner: React.FC = () => {
         <button
           onClick={() => setDismissed(true)}
           aria-label="Dismiss banner"
-          className="text-slate-400 hover:text-white p-1 rounded transition-colors focus:outline-none focus:ring-1 focus:ring-white shrink-0"
+          className="text-ivory/60 hover:text-ivory p-1 rounded-sm transition-colors focus:outline-none focus:ring-1 focus:ring-ivory shrink-0"
         >
           <X className="w-3.5 h-3.5" />
         </button>

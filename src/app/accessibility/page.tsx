@@ -10,28 +10,28 @@ export default function AccessibilityPage() {
   const { language, t } = useLanguage();
 
   return (
-    <div className="py-8 sm:py-12 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <div className="py-10 sm:py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 font-sans bg-ivory dark:bg-[#111C18] text-charcoal dark:text-[#F5F2E9]">
       {/* Breadcrumbs */}
       <Breadcrumbs items={[{ label: t("accessibilityStatement") }]} />
 
       {/* Header */}
-      <div className="border-b border-slate-200 pb-8">
+      <div className="border-b border-sage-border dark:border-[#35463C] pb-8">
         <div className="flex items-center gap-2 mb-3">
-          <Badge variant="green">Digital Inclusion</Badge>
-          <Badge variant="navy">WCAG 2.1 AA Standards</Badge>
+          <Badge variant="forest">Digital Inclusion</Badge>
+          <Badge variant="sage">WCAG 2.1 AA Standards</Badge>
         </div>
-        <h1 className="font-serif font-bold text-3xl sm:text-4xl text-navy-950 tracking-tight">
+        <h1 className="font-display text-4xl sm:text-5xl text-charcoal dark:text-[#F5F2E9] tracking-tight">
           {language === "ml" ? "പ്രവേശനക്ഷമത പ്രസ്താവന" : "Accessibility Statement"}
         </h1>
-        <p className="mt-2 text-slate-600 text-sm sm:text-base leading-relaxed">
+        <p className="mt-3 text-charcoal-muted dark:text-[#C3CDC4] text-sm sm:text-base leading-relaxed">
           Commitment to ensuring an inclusive, barrier-free digital experience for all constituents, regardless of ability or assistive device.
         </p>
       </div>
 
       {/* Main Statement */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-8 text-sm text-slate-700 leading-relaxed">
+      <div className="bg-white dark:bg-[#182720] rounded-sm border border-sage-border dark:border-[#35463C] p-6 sm:p-8 shadow-xs space-y-8 text-sm text-charcoal-muted dark:text-[#C3CDC4] leading-relaxed">
         <section className="space-y-3">
-          <h2 className="font-serif font-bold text-lg text-navy-950">
+          <h2 className="font-display text-2xl text-charcoal dark:text-[#F5F2E9]">
             Our Commitment
           </h2>
           <p>
@@ -44,46 +44,46 @@ export default function AccessibilityPage() {
 
         {/* Technical Accessibility Features */}
         <section className="space-y-4">
-          <h2 className="font-serif font-bold text-lg text-navy-950">
+          <h2 className="font-display text-2xl text-charcoal dark:text-[#F5F2E9]">
             Implemented Accessibility Features
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl bg-sand-100/70 border border-sand-200 space-y-1.5">
-              <div className="flex items-center gap-2 font-semibold text-navy-950">
-                <Keyboard className="w-4 h-4 text-forest-700" />
+            <div className="p-4 rounded-xs bg-sage/25 dark:bg-[#21342A] border border-sage-border dark:border-[#35463C] space-y-1.5">
+              <div className="flex items-center gap-2 font-semibold text-charcoal dark:text-[#F5F2E9]">
+                <Keyboard className="w-4 h-4 text-forest dark:text-[#8CB99B]" />
                 <span>Full Keyboard Operability</span>
               </div>
-              <p className="text-xs text-slate-600">
+              <p className="text-xs text-charcoal-muted dark:text-[#C3CDC4]">
                 All navigation menus, category filters, interactive modals, and forms can be navigated using Tab, Shift+Tab, Enter, and Escape keys.
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-sand-100/70 border border-sand-200 space-y-1.5">
-              <div className="flex items-center gap-2 font-semibold text-navy-950">
-                <Eye className="w-4 h-4 text-forest-700" />
+            <div className="p-4 rounded-xs bg-sage/25 dark:bg-[#21342A] border border-sage-border dark:border-[#35463C] space-y-1.5">
+              <div className="flex items-center gap-2 font-semibold text-charcoal dark:text-[#F5F2E9]">
+                <Eye className="w-4 h-4 text-forest dark:text-[#8CB99B]" />
                 <span>High Color Contrast</span>
               </div>
-              <p className="text-xs text-slate-600">
+              <p className="text-xs text-charcoal-muted dark:text-[#C3CDC4]">
                 Text and interactive elements meet or exceed the minimum 4.5:1 contrast ratio against background surfaces for optimal legibility.
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-sand-100/70 border border-sand-200 space-y-1.5">
-              <div className="flex items-center gap-2 font-semibold text-navy-950">
-                <Monitor className="w-4 h-4 text-forest-700" />
+            <div className="p-4 rounded-xs bg-sage/25 dark:bg-[#21342A] border border-sage-border dark:border-[#35463C] space-y-1.5">
+              <div className="flex items-center gap-2 font-semibold text-charcoal dark:text-[#F5F2E9]">
+                <Monitor className="w-4 h-4 text-forest dark:text-[#8CB99B]" />
                 <span>Semantic Landmarks &amp; ARIA</span>
               </div>
-              <p className="text-xs text-slate-600">
+              <p className="text-xs text-charcoal-muted dark:text-[#C3CDC4]">
                 Clear landmarks (&lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;footer&gt;) and descriptive ARIA attributes ensure seamless screen reader parsing.
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-sand-100/70 border border-sand-200 space-y-1.5">
-              <div className="flex items-center gap-2 font-semibold text-navy-950">
-                <Sparkles className="w-4 h-4 text-forest-700" />
+            <div className="p-4 rounded-xs bg-sage/25 dark:bg-[#21342A] border border-sage-border dark:border-[#35463C] space-y-1.5">
+              <div className="flex items-center gap-2 font-semibold text-charcoal dark:text-[#F5F2E9]">
+                <Sparkles className="w-4 h-4 text-forest dark:text-[#8CB99B]" />
                 <span>Bilingual Unicode Typography</span>
               </div>
-              <p className="text-xs text-slate-600">
+              <p className="text-xs text-charcoal-muted dark:text-[#C3CDC4]">
                 Full support for Malayalam Unicode typography (Noto Sans Malayalam) preventing font distortion or truncation on mobile screens.
               </p>
             </div>
@@ -91,7 +91,7 @@ export default function AccessibilityPage() {
         </section>
 
         <section className="space-y-3">
-          <h2 className="font-serif font-bold text-lg text-navy-950">
+          <h2 className="font-display text-2xl text-charcoal dark:text-[#F5F2E9]">
             Testing &amp; Compliance Status
           </h2>
           <p>
@@ -100,12 +100,12 @@ export default function AccessibilityPage() {
         </section>
 
         <section className="space-y-3">
-          <h2 className="font-serif font-bold text-lg text-navy-950">
+          <h2 className="font-display text-2xl text-charcoal dark:text-[#F5F2E9]">
             Feedback and Assistance
           </h2>
           <p>
             If you encounter any difficulty accessing information or utilizing any feature on this website, please report the issue to our technical team via the{" "}
-            <a href="/contact" className="text-navy-900 font-semibold underline">
+            <a href="/contact" className="text-forest dark:text-[#8CB99B] font-semibold underline hover:text-forest-dark dark:hover:text-[#9dc4ab]">
               contact form
             </a>{" "}
             or email us with details of the assistive technology used.

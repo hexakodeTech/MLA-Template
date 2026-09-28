@@ -4,169 +4,191 @@ import React, { useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
-  Landmark,
   Compass,
   PhoneCall,
-  ChevronRight,
-  Info,
   Clock,
-  Building,
-  FileCheck,
   MapPin,
+  Info,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
-import { Card } from "@/components/ui/Card";
 import { NewsCard } from "@/components/news/NewsCard";
 import { ActivityCard } from "@/components/activities/ActivityCard";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { Lightbox } from "@/components/gallery/Lightbox";
+import { ProjectTracker } from "@/components/constituency/ProjectTracker";
+import { ResourceDirectory } from "@/components/constituency/ResourceDirectory";
 import {
   representativeProfile,
   mockNews,
   mockActivities,
   mockGallery,
+  mockProjects,
+  publicResources,
 } from "@/data/mockData";
 
 export default function HomePage() {
   const { language, getLocalized, t } = useLanguage();
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [constituencyTab, setConstituencyTab] = useState<"projects" | "directory">("projects");
 
   const openLightbox = (index: number) => {
     setLightboxIndex(index);
     setLightboxOpen(true);
   };
 
+  const leadNews = mockNews[0];
+  const sideNews = mockNews.slice(1, 4);
+
+  const featuredActivity = mockActivities[0];
+  const supportingActivities = mockActivities.slice(1, 3);
+
   return (
-    <div className="flex flex-col gap-16 lg:gap-24 pb-16">
-      {/* SECTION 2: HERO SECTION */}
+    <div className="flex flex-col font-sans bg-ivory text-charcoal">
+      {/* =========================================================================
+          1. HERO SECTION — COMPLETE REIMAGINATION ("The Modern Public Office")
+          ========================================================================= */}
       <section
         aria-labelledby="hero-heading"
-        className="relative bg-gradient-to-b from-navy-950 via-navy-900 to-navy-950 text-white pt-12 pb-20 lg:pt-16 lg:pb-28 overflow-hidden"
+        className="relative bg-ivory dark:bg-[#111C18] pt-10 pb-20 lg:pt-16 lg:pb-32 overflow-hidden border-b border-sage-border/60 dark:border-[#35463C]/60"
       >
-        {/* Subtle background ornamentation */}
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-forest-600/10 rounded-full blur-3xl pointer-events-none" />
+        {/* Soft, atmospheric ambient background animation */}
+        <div
+          aria-hidden="true"
+          className="absolute -top-32 -left-32 w-[550px] h-[550px] rounded-full bg-sage/50 dark:bg-[#21342A]/40 blur-3xl pointer-events-none animate-ambient-1"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full bg-sage/35 dark:bg-[#21342A]/30 blur-3xl pointer-events-none animate-ambient-2"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute -bottom-20 left-1/3 w-[450px] h-[450px] rounded-full bg-terracotta/5 dark:bg-[#E19A76]/10 blur-3xl pointer-events-none"
+        />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Content Column */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-navy-800/80 border border-navy-700/80 text-gold-400 text-xs font-medium">
-                <span className="w-2 h-2 rounded-full bg-gold-400 animate-pulse"></span>
-                <span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Left Column: Large Editorial Typography & Clear Paths */}
+            <div className="lg:col-span-7 space-y-6 sm:space-y-8">
+              <div className="inline-flex items-center gap-2">
+                <span className="text-[11px] font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76]">
                   {language === "ml"
-                    ? "പാലക്കാട് മണ്ഡലം ഔദ്യോഗിക വിവര പോർട്ടൽ"
-                    : "Palakkad Constituency Official Information Portal"}
+                    ? "പാലക്കാട് മണ്ഡലം · കേരളം"
+                    : "Palakkad Constituency · Kerala"}
+                </span>
+                <span className="text-sage-dark dark:text-[#53675A]">•</span>
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-charcoal-light dark:text-[#99A99D]">
+                  {language === "ml" ? "ഔദ്യോഗിക പോർട്ടൽ" : "Public Information"}
                 </span>
               </div>
 
+              {/* Large, Confident Headline with Editorial Rhythm */}
               <h1
                 id="hero-heading"
-                className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold tracking-tight text-white leading-tight"
+                className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[68px] text-charcoal dark:text-[#F5F2E9] leading-[1.08] tracking-tight"
               >
-                {t("heroHeadline")}
+                A Connected Constituency <br />
+                <span className="text-forest dark:text-[#8CB99B] italic font-normal">Starts with Information.</span>
               </h1>
 
-              <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+              {/* Supporting Paragraph */}
+              <p className="text-charcoal-muted dark:text-[#C3CDC4] text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl font-light">
                 {t("heroDescription")}
               </p>
 
-              {/* CTAs */}
-              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+              {/* CTA Buttons */}
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <Button
                   href="/about"
-                  variant="gold"
+                  variant="primary"
                   size="lg"
-                  icon={<ArrowRight className="w-4 h-4 text-navy-950" />}
+                  icon={<ArrowRight className="w-4 h-4 text-ivory dark:text-[#10231A] group-hover:translate-x-1 transition-transform" />}
+                  iconPosition="right"
                 >
-                  {t("heroCtaPrimary")}
+                  {language === "ml" ? "പ്രതിനിധിയെക്കുറിച്ച് വായിക്കുക →" : "ABOUT THE REPRESENTATIVE →"}
                 </Button>
                 <Button
                   href="/contact"
-                  variant="outline-light"
+                  variant="outline"
                   size="lg"
-                  icon={<PhoneCall className="w-4 h-4 text-slate-300" />}
+                  icon={<PhoneCall className="w-4 h-4 text-forest dark:text-[#8CB99B]" />}
                   iconPosition="left"
                 >
-                  {t("heroCtaSecondary")}
+                  {language === "ml" ? "ഓഫീസുമായി ബന്ധപ്പെടുക" : "CONTACT THE OFFICE"}
                 </Button>
               </div>
 
-              {/* Key Quick Indicators */}
-              <div className="pt-6 border-t border-navy-800/80 grid grid-cols-3 gap-4 text-left">
+              {/* Quick Regional Facts Bar */}
+              <div className="pt-8 border-t border-sage-border dark:border-[#35463C] grid grid-cols-3 gap-6">
                 <div>
-                  <span className="block font-serif text-lg sm:text-xl font-bold text-white">
+                  <span className="block font-display text-xl sm:text-2xl text-charcoal dark:text-[#F5F2E9]">
                     Palakkad
                   </span>
-                  <span className="text-[11px] text-slate-400">
-                    {language === "ml" ? "കേരളത്തിന്റെ നെല്ലറ" : "Constituency Region"}
+                  <span className="text-[11px] text-charcoal-light dark:text-[#99A99D] font-semibold uppercase tracking-wider">
+                    {language === "ml" ? "മണ്ഡല പ്രദേശം" : "Agrarian Heartland"}
                   </span>
                 </div>
                 <div>
-                  <span className="block font-serif text-lg sm:text-xl font-bold text-gold-400">
+                  <span className="block font-display text-xl sm:text-2xl text-forest dark:text-[#8CB99B]">
                     Direct Desk
                   </span>
-                  <span className="text-[11px] text-slate-400">
-                    {language === "ml" ? "പൊതു പരാതി പരിഹാരം" : "Citizen Redressal"}
+                  <span className="text-[11px] text-charcoal-light dark:text-[#99A99D] font-semibold uppercase tracking-wider">
+                    {language === "ml" ? "പരാതി പരിഹാരം" : "Citizen Service"}
                   </span>
                 </div>
                 <div>
-                  <span className="block font-serif text-lg sm:text-xl font-bold text-emerald-400">
+                  <span className="block font-display text-xl sm:text-2xl text-terracotta dark:text-[#E19A76]">
                     Verified
                   </span>
-                  <span className="text-[11px] text-slate-400">
-                    {language === "ml" ? "ഔദ്യോഗിക അറിയിപ്പുകൾ" : "Public Notices"}
+                  <span className="text-[11px] text-charcoal-light dark:text-[#99A99D] font-semibold uppercase tracking-wider">
+                    {language === "ml" ? "അറിയിപ്പുകൾ" : "Public Notices"}
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Right Photo Column */}
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="relative w-full max-w-sm sm:max-w-md">
-                <div className="relative bg-navy-800 rounded-2xl border-2 border-navy-700/80 p-3 shadow-2xl overflow-hidden group">
-                  {/* Decorative Border Frame */}
-                  <div className="relative aspect-[4/5] rounded-xl overflow-hidden bg-slate-900 border border-navy-700 flex flex-col justify-end">
-                    {/* Placeholder Photographic Asset */}
+            {/* Right Column: Dominant Editorial Photograph & Architectural Frame */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-end">
+              <div className="relative w-full max-w-md sm:max-w-lg">
+                {/* Background Sage Architectural Block */}
+                <div
+                  aria-hidden="true"
+                  className="absolute -top-4 -right-4 w-full h-full bg-sage/60 dark:bg-[#21342A]/60 rounded-sm -z-10"
+                />
+
+                <div className="relative bg-white dark:bg-[#182720] rounded-sm border border-sage-border dark:border-[#35463C] p-3.5 shadow-sm overflow-hidden">
+                  <div className="relative aspect-[3/4] rounded-xs overflow-hidden bg-sage/30 dark:bg-[#21342A]/40 flex flex-col justify-end">
+                    {/* Placeholder Photographic Portrait */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1000&q=80"
                       alt="Representative Official Portrait Placeholder"
-                      className="w-full h-full object-cover grayscale contrast-105 opacity-80"
+                      className="w-full h-full object-cover filter contrast-105 opacity-90"
                     />
 
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/40 to-transparent"></div>
+                    {/* Gradient Overlay for Text Legibility */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-forest-dark/95 via-forest-dark/30 to-transparent" />
 
-                    {/* Temporary Placeholder Badge Overlay */}
+                    {/* Floating Editorial Notice */}
                     <div className="absolute top-4 left-4 right-4">
-                      <div className="bg-navy-950/90 backdrop-blur-md border border-navy-700 rounded-lg p-2.5 text-xs text-slate-300 flex items-start gap-2 shadow-lg">
-                        <Info className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />
-                        <div>
-                          <p className="font-semibold text-white">
-                            {language === "ml"
-                              ? "മാതൃകാ ഛായാചിത്രം"
-                              : "Official Portrait Placeholder"}
-                          </p>
-                          <p className="text-[10px] text-slate-400">
-                            Approved portrait will be placed here upon office confirmation.
-                          </p>
-                        </div>
+                      <div className="bg-ivory/95 dark:bg-[#21342A]/95 backdrop-blur-sm border border-sage-border dark:border-[#35463C] rounded-xs px-3 py-2 text-xs flex items-center gap-2 shadow-xs">
+                        <Info className="w-3.5 h-3.5 text-terracotta dark:text-[#E19A76] shrink-0" />
+                        <span className="text-[11px] font-semibold text-charcoal dark:text-[#F5F2E9]">
+                          Temporary portrait placeholder · Awaiting approved asset
+                        </span>
                       </div>
                     </div>
 
-                    {/* Card Details at Bottom of Portrait */}
-                    <div className="relative z-10 p-5 text-white">
-                      <Badge variant="gold" size="sm" className="mb-2">
+                    {/* Editorial Subject Card at Bottom */}
+                    <div className="relative z-10 p-6 text-ivory dark:text-[#F5F2E9]">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-terracotta dark:text-[#10231A] bg-ivory dark:bg-[#8CB99B] px-2 py-0.5 rounded-xs inline-block mb-1.5 font-sans font-semibold">
                         {language === "ml" ? "ജനപ്രതിനിധി" : "Public Representative"}
-                      </Badge>
-                      <h2 className="font-serif font-bold text-2xl tracking-tight text-white">
+                      </span>
+                      <h2 className="font-display text-2xl sm:text-3xl text-ivory dark:text-[#F5F2E9] leading-tight">
                         {getLocalized(representativeProfile.name)}
                       </h2>
-                      <p className="text-xs text-slate-300 mt-1 font-medium">
+                      <p className="text-xs text-ivory/80 dark:text-[#C3CDC4] font-mono mt-1">
                         {getLocalized(representativeProfile.constituencyName)}
                       </p>
                     </div>
@@ -178,439 +200,413 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 3: WELCOME SECTION */}
+      {/* =========================================================================
+          2. INTRODUCTION SECTION — BREAK THE ACADEMIC PATTERN
+          ========================================================================= */}
       <section
         aria-labelledby="welcome-heading"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full border-b border-sage-border/60 dark:border-[#35463C]/60"
       >
-        <div className="bg-white rounded-2xl border border-slate-200 p-8 sm:p-12 shadow-sm relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-slate-50 rounded-full -mr-20 -mt-20 pointer-events-none" />
-
-          <div className="relative z-10 max-w-3xl space-y-4">
-            <span className="text-xs font-semibold text-forest-800 uppercase tracking-wider block">
-              {language === "ml" ? "ആമുഖം" : "Institutional Introduction"}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+          {/* Left: Uppercase Editorial Label */}
+          <div className="lg:col-span-4 space-y-2">
+            <span className="text-xs font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76] block">
+              A Public Information Portal
             </span>
+            <div className="w-12 h-0.5 bg-forest dark:bg-[#8CB99B] mt-2"></div>
+            <p className="text-xs text-charcoal-light dark:text-[#99A99D] font-mono pt-3">
+              Office of Shri Ramesh Pisharady · Palakkad
+            </p>
+          </div>
 
+          {/* Right: Large Headline, Flowing Paragraph, and Link */}
+          <div className="lg:col-span-8 space-y-6">
             <h2
               id="welcome-heading"
-              className="font-serif font-bold text-2xl sm:text-3xl text-navy-950 tracking-tight"
+              className="font-display text-3xl sm:text-4xl lg:text-5xl text-charcoal dark:text-[#F5F2E9] leading-tight tracking-tight"
             >
               {t("welcomeHeading")}
             </h2>
 
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+            <p className="text-charcoal-muted dark:text-[#C3CDC4] text-base sm:text-lg leading-relaxed font-light">
               {t("welcomeDescription")}
             </p>
 
-            <div className="pt-2 flex items-center gap-4">
-              <Button
+            <div className="pt-2">
+              <Link
                 href="/about"
-                variant="outline"
-                size="md"
-                icon={<ArrowRight className="w-4 h-4 text-navy-900" />}
+                className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-forest dark:text-[#8CB99B] hover:text-forest-dark dark:hover:text-[#9dc4ab] transition-colors group"
               >
-                {language === "ml" ? "ഓഫീസ് ദൗത്യം വായിക്കുക" : "Learn About the Office & Mission"}
-              </Button>
+                <span>EXPLORE THE WEBSITE</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 4: ABOUT THE REPRESENTATIVE */}
+      {/* =========================================================================
+          3. ABOUT SECTION — EDITORIAL PROFILE
+          ========================================================================= */}
       <section
         aria-labelledby="about-preview-heading"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          {/* Portrait Placeholder Box */}
-          <div className="lg:col-span-5">
-            <div className="bg-sand-100 rounded-2xl border border-sand-300 p-4 relative">
-              <div className="aspect-[4/3] rounded-xl bg-slate-200 overflow-hidden relative flex items-center justify-center">
-                <img
-                  src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80"
-                  alt="Representative profile representation"
-                  className="w-full h-full object-cover opacity-85"
-                />
-                <div className="absolute inset-0 bg-navy-950/20 backdrop-blur-[1px]"></div>
-                <div className="absolute bottom-3 left-3 right-3 bg-white/95 rounded-lg p-2.5 text-xs border border-slate-200 shadow">
-                  <span className="font-semibold text-navy-950 block">
-                    {getLocalized(representativeProfile.name)}
-                  </span>
-                  <span className="text-[11px] text-slate-500">
-                    {getLocalized(representativeProfile.designationStatus)}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Structured Text Content */}
-          <div className="lg:col-span-7 space-y-4">
-            <div className="inline-flex items-center gap-2">
-              <Badge variant="navy">{language === "ml" ? "പ്രൊഫൈൽ" : "Representative Profile"}</Badge>
-              <Badge variant="sample">
-                {language === "ml" ? "അംഗീകാരത്തിന് വിധേയം" : "Official Approval Pending"}
-              </Badge>
-            </div>
-
-            <h2
-              id="about-preview-heading"
-              className="font-serif font-bold text-2xl sm:text-3xl text-navy-950"
-            >
-              {language === "ml" ? "ശ്രീ രമേഷ് പിഷാരടിയെക്കുറിച്ച്" : "About Shri Ramesh Pisharady"}
-            </h2>
-
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              {getLocalized(representativeProfile.officialBioNotice)}
-            </p>
-
-            <div className="bg-sand-100/80 rounded-xl p-4 border border-sand-200 text-xs text-slate-600 space-y-2">
-              <p className="font-semibold text-navy-900">
-                {language === "ml" ? "പ്രവർത്തന മുൻഗണനകൾ:" : "Key Representative Commitments:"}
-              </p>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-700">
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-forest-600 shrink-0"></span>
-                  <span>
-                    {language === "ml" ? "സുതാര്യമായ പരാതി പരിഹാരം" : "Transparent Grievance Handling"}
-                  </span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-forest-600 shrink-0"></span>
-                  <span>
-                    {language === "ml" ? "ശുദ്ധജല, റോഡ് അടിസ്ഥാന വികസനം" : "Water & Transport Connectivity"}
-                  </span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-forest-600 shrink-0"></span>
-                  <span>
-                    {language === "ml" ? "കാർഷിക ക്ഷേമ ഏകോപനം" : "Agrarian Support & Welfare"}
-                  </span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-forest-600 shrink-0"></span>
-                  <span>
-                    {language === "ml" ? "സാംസ്കാരിക പൈതൃക സംരക്ഷണം" : "Heritage & Cultural Promotion"}
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="pt-2">
-              <Button
-                href="/about"
-                variant="primary"
-                size="md"
-                icon={<ArrowRight className="w-4 h-4 text-gold-400" />}
-              >
-                {t("readMore")}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 5: LATEST UPDATES (NEWS & ANNOUNCEMENTS) */}
-      <section
-        aria-labelledby="news-heading"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full"
-      >
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <Badge variant="navy">{t("navNews")}</Badge>
-              <span className="text-xs text-slate-500 font-medium">Stay Informed</span>
-            </div>
-            <h2
-              id="news-heading"
-              className="font-serif font-bold text-2xl sm:text-3xl text-navy-950"
-            >
-              {language === "ml" ? "ഏറ്റവും പുതിയ അറിയിപ്പുകൾ" : "Official News & Announcements"}
-            </h2>
-            <p className="text-slate-600 text-sm mt-1 max-w-2xl">
-              {language === "ml"
-                ? "ഓഫീസിൽ നിന്നുള്ള ഔദ്യോഗിക പത്രക്കുറിപ്പുകൾ, യോഗ വിവരങ്ങൾ, പൊതു അറിയിപ്പുകൾ."
-                : "Official notices, public meeting announcements, constituency updates and verified administrative releases."}
-            </p>
-          </div>
-
-          <Button
-            href="/news"
-            variant="outline"
-            size="sm"
-            icon={<ArrowRight className="w-3.5 h-3.5" />}
-          >
-            {t("viewAllUpdates")}
-          </Button>
-        </div>
-
-        {/* News Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockNews.slice(0, 3).map((item) => (
-            <NewsCard key={item.id} item={item} />
-          ))}
-        </div>
-      </section>
-
-      {/* SECTION 6: CONSTITUENCY INFORMATION */}
-      <section
-        aria-labelledby="constituency-overview-heading"
-        className="bg-sand-100/70 border-y border-sand-200 py-16"
+        className="py-16 sm:py-24 bg-sage/20 dark:bg-[#182720]/40 border-b border-sage-border/60 dark:border-[#35463C]/60"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-10">
-            <Badge variant="green" className="mb-2">
-              {language === "ml" ? "മണ്ഡലം ഒറ്റനോട്ടത്തിൽ" : "Constituency Overview"}
-            </Badge>
-            <h2
-              id="constituency-overview-heading"
-              className="font-serif font-bold text-2xl sm:text-3xl text-navy-950"
-            >
-              {language === "ml"
-                ? "നിങ്ങളുടെ മണ്ഡലം ഒറ്റനോട്ടത്തിൽ"
-                : "Your Constituency at a Glance"}
-            </h2>
-            <p className="text-slate-600 text-sm sm:text-base mt-2">
-              {language === "ml"
-                ? "പാലക്കാട് മണ്ഡലത്തിന്റെ വിവരങ്ങൾ, വികസന പദ്ധതികൾ, സർക്കാർ ഹെൽപ്പ്‌ലൈനുകൾ എന്നിവ ഇവിടെ ലഭ്യമാണ്."
-                : "Explore constituency information, public resources and documented updates on local projects. Find verified contacts to help access public services."}
-            </p>
-          </div>
-
-          {/* Suggested 4 Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Card 1: Constituency Profile */}
-            <Card hoverEffect className="flex flex-col justify-between">
-              <div>
-                <div className="w-10 h-10 rounded-lg bg-navy-900 text-gold-400 flex items-center justify-center mb-4">
-                  <Compass className="w-5 h-5" />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Left: Large Editorial Portrait & Vertical Line */}
+            <div className="lg:col-span-5 relative">
+              <div className="relative bg-white dark:bg-[#21342A] p-3 rounded-sm border border-sage-border dark:border-[#35463C] shadow-xs">
+                <div className="aspect-[4/5] rounded-xs bg-sage/30 dark:bg-[#182720]/50 overflow-hidden relative">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80"
+                    alt="Representative Portrait"
+                    className="w-full h-full object-cover filter contrast-105 opacity-90"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-forest-dark/80 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4 text-ivory dark:text-[#F5F2E9]">
+                    <p className="font-display text-xl">{getLocalized(representativeProfile.name)}</p>
+                    <p className="text-xs text-ivory/80 dark:text-[#C3CDC4] font-mono">Palakkad Constituency, Kerala</p>
+                  </div>
                 </div>
-                <h3 className="font-serif font-bold text-lg text-navy-950">
-                  {language === "ml" ? "മണ്ഡല പ്രൊഫൈൽ" : "Constituency Profile"}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                  {language === "ml"
-                    ? "പാലക്കാടിന്റെ ഭൂപ്രകൃതി, താലൂക്കുകൾ, കാർഷിക പൈതൃകം, പ്രധാന കേന്ദ്രങ്ങൾ എന്നിവയുടെ സമഗ്ര വിവരണം."
-                    : "Geographical overview, taluk administrative divisions, agricultural background and heritage landmarks of Palakkad."}
-                </p>
               </div>
-              <div className="mt-5 pt-4 border-t border-slate-100">
+              <p className="text-[11px] text-charcoal-light dark:text-[#99A99D] font-mono mt-2.5 text-center">
+                Official approved portrait will be updated upon secretarial confirmation.
+              </p>
+            </div>
+
+            {/* Right: Editorial Narrative */}
+            <div className="lg:col-span-7 space-y-6">
+              <span className="text-xs font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76] block">
+                About the Representative
+              </span>
+
+              <h2
+                id="about-preview-heading"
+                className="font-display text-3xl sm:text-4xl lg:text-5xl text-charcoal dark:text-[#F5F2E9] leading-tight"
+              >
+                A Closer Look at <br />
+                <span className="text-forest dark:text-[#8CB99B]">Shri Ramesh Pisharady</span>
+              </h2>
+
+              <p className="text-charcoal-muted dark:text-[#C3CDC4] text-base sm:text-lg leading-relaxed font-light">
+                {getLocalized(representativeProfile.officialBioNotice)}
+              </p>
+
+              {/* Confirmed Concise Facts */}
+              <div className="bg-white dark:bg-[#21342A] p-6 rounded-sm border border-sage-border dark:border-[#35463C] space-y-3 text-xs sm:text-sm">
+                <div className="flex items-start gap-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-forest dark:bg-[#8CB99B] mt-2 shrink-0"></span>
+                  <div>
+                    <strong className="text-charcoal dark:text-[#F5F2E9] block">Constituency:</strong>
+                    <span className="text-charcoal-muted dark:text-[#C3CDC4]">Palakkad, Kerala, India (Gateway to the Western Ghats)</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 pt-2 border-t border-sage-border/50 dark:border-[#35463C]/50">
+                  <span className="w-1.5 h-1.5 rounded-full bg-forest dark:bg-[#8CB99B] mt-2 shrink-0"></span>
+                  <div>
+                    <strong className="text-charcoal dark:text-[#F5F2E9] block">Public Liaison:</strong>
+                    <span className="text-charcoal-muted dark:text-[#C3CDC4]">Active Citizen Redressal &amp; Infrastructure Oversight Desk</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 pt-2 border-t border-sage-border/50 dark:border-[#35463C]/50">
+                  <span className="w-1.5 h-1.5 rounded-full bg-forest dark:bg-[#8CB99B] mt-2 shrink-0"></span>
+                  <div>
+                    <strong className="text-charcoal dark:text-[#F5F2E9] block">Official Verification:</strong>
+                    <span className="text-charcoal-muted dark:text-[#C3CDC4]">All policy and biographical data cleared by representative secretariat.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-2">
                 <Link
-                  href="/constituency"
-                  className="text-xs font-semibold text-navy-900 hover:text-gold-600 flex items-center gap-1"
+                  href="/about"
+                  className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-forest dark:text-[#8CB99B] hover:text-forest-dark dark:hover:text-[#9dc4ab] transition-colors group"
                 >
-                  <span>{language === "ml" ? "വിശദമായി കാണുക" : "View Profile"}</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
+                  <span>READ COMPLETE OVERVIEW</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
                 </Link>
               </div>
-            </Card>
-
-            {/* Card 2: Public Service Resources */}
-            <Card hoverEffect className="flex flex-col justify-between">
-              <div>
-                <div className="w-10 h-10 rounded-lg bg-forest-800 text-white flex items-center justify-center mb-4">
-                  <Building className="w-5 h-5" />
-                </div>
-                <h3 className="font-serif font-bold text-lg text-navy-950">
-                  {language === "ml" ? "പൊതുജന സേവനങ്ങൾ" : "Public Service Resources"}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                  {language === "ml"
-                    ? "കളക്ടറേറ്റ്, താലൂക്ക് ഓഫീസുകൾ, വാട്ടർ അതോറിറ്റി, കെ.എസ്.ഇ.ബി എന്നിവയുടെ ഡയറക്ടറി."
-                    : "Verified directory of District Collectorate, Taluk Offices, KSEB, Water Authority and civic service desks."}
-                </p>
-              </div>
-              <div className="mt-5 pt-4 border-t border-slate-100">
-                <Link
-                  href="/constituency#resources"
-                  className="text-xs font-semibold text-navy-900 hover:text-gold-600 flex items-center gap-1"
-                >
-                  <span>{language === "ml" ? "ഡയറക്ടറി പരിശോധിക്കുക" : "Explore Directory"}</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </Card>
-
-            {/* Card 3: Development Projects */}
-            <Card hoverEffect className="flex flex-col justify-between">
-              <div>
-                <div className="w-10 h-10 rounded-lg bg-gold-500 text-navy-950 flex items-center justify-center mb-4">
-                  <FileCheck className="w-5 h-5" />
-                </div>
-                <h3 className="font-serif font-bold text-lg text-navy-950">
-                  {language === "ml" ? "വികസന പദ്ധതികൾ" : "Development Projects"}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                  {language === "ml"
-                    ? "കുടിവെള്ള പദ്ധതികൾ, ഗ്രാമീണ റോഡുകൾ, ആരോഗ്യ കേന്ദ്രങ്ങളുടെ നവീകരണം എന്നിവയുടെ ഔദ്യോഗിക സ്ഥിതിവിവരം."
-                    : "Documented status of sanctioned infrastructure projects with official source attributions and timelines."}
-                </p>
-              </div>
-              <div className="mt-5 pt-4 border-t border-slate-100">
-                <Link
-                  href="/constituency#projects"
-                  className="text-xs font-semibold text-navy-900 hover:text-gold-600 flex items-center gap-1"
-                >
-                  <span>{language === "ml" ? "പദ്ധതികൾ കാണുക" : "Track Projects"}</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </Card>
-
-            {/* Card 4: Important Contacts */}
-            <Card hoverEffect className="flex flex-col justify-between">
-              <div>
-                <div className="w-10 h-10 rounded-lg bg-slate-800 text-white flex items-center justify-center mb-4">
-                  <PhoneCall className="w-5 h-5" />
-                </div>
-                <h3 className="font-serif font-bold text-lg text-navy-950">
-                  {language === "ml" ? "പ്രധാന നമ്പറുകൾ" : "Important Contacts"}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                  {language === "ml"
-                    ? "അടിയന്തിര സഹായ ലൈനുകൾ, പോലീസ്, ഫയർ സർവീസ്, ആശുപത്രി കൺട്രോൾ റൂമുകൾ."
-                    : "Immediate contact numbers for 24x7 emergencies, police, fire & rescue, and district health units."}
-                </p>
-              </div>
-              <div className="mt-5 pt-4 border-t border-slate-100">
-                <Link
-                  href="/contact"
-                  className="text-xs font-semibold text-navy-900 hover:text-gold-600 flex items-center gap-1"
-                >
-                  <span>{language === "ml" ? "ബന്ധപ്പെടുക" : "Find Contacts"}</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </Card>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 7: PUBLIC ACTIVITIES */}
+      {/* =========================================================================
+          4. NEWS & ANNOUNCEMENTS — MAGAZINE-STYLE LAYOUT
+          ========================================================================= */}
+      <section
+        aria-labelledby="news-heading"
+        className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full border-b border-sage-border/60 dark:border-[#35463C]/60"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-sage-border dark:border-[#35463C]">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76] block mb-1">
+              Latest Updates
+            </span>
+            <h2
+              id="news-heading"
+              className="font-display text-3xl sm:text-4xl text-charcoal dark:text-[#F5F2E9]"
+            >
+              News &amp; Announcements
+            </h2>
+            <p className="text-xs sm:text-sm text-charcoal-muted dark:text-[#C3CDC4] mt-1">
+              Official notices, public meetings, constituency updates and information published by the office.
+            </p>
+          </div>
+
+          <Link
+            href="/news"
+            className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-forest dark:text-[#8CB99B] hover:text-forest-dark dark:hover:text-[#9dc4ab] shrink-0 transition-colors"
+          >
+            <span>View All Updates</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        {/* Magazine Asymmetrical Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Dominant Lead Article on Left */}
+          <div className="lg:col-span-7">
+            {leadNews && <NewsCard item={leadNews} featured />}
+          </div>
+
+          {/* Compact Vertical Stack of Supporting Articles on Right */}
+          <div className="lg:col-span-5 bg-white dark:bg-[#182720] p-6 sm:p-7 rounded-sm border border-sage-border dark:border-[#35463C] space-y-1">
+            <span className="text-xs font-bold uppercase tracking-widest text-charcoal-light dark:text-[#99A99D] block pb-3 border-b border-sage-border dark:border-[#35463C]">
+              Recent Notices &amp; Bulletins
+            </span>
+            {sideNews.map((item) => (
+              <NewsCard key={item.id} item={item} compact />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          5. CONSTITUENCY SECTION — INFORMATION HUB (Deep Forest High-Contrast)
+          ========================================================================= */}
+      <section
+        aria-labelledby="constituency-heading"
+        className="py-16 sm:py-24 bg-forest-dark dark:bg-[#111C18] text-ivory dark:text-[#F5F2E9] border-b border-forest/50 dark:border-[#35463C]"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 pb-6 border-b border-forest/40 dark:border-[#35463C]/60">
+            <div className="max-w-2xl">
+              <span className="text-xs font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76] block mb-1">
+                Constituency Hub
+              </span>
+              <h2
+                id="constituency-heading"
+                className="font-display text-3xl sm:text-4xl lg:text-5xl text-ivory dark:text-[#F5F2E9]"
+              >
+                Your Constituency at a Glance
+              </h2>
+              <p className="text-sm text-ivory/80 dark:text-[#C3CDC4] mt-2 font-light leading-relaxed">
+                Explore constituency information, public resources and documented updates on local projects. Find relevant links and information to help you access public services.
+              </p>
+            </div>
+
+            {/* Interactive Switcher between Projects and Public Directory */}
+            <div className="flex items-center gap-2 bg-forest-surface dark:bg-[#182720] p-1 rounded-xs border border-forest/50 dark:border-[#35463C] shrink-0">
+              <button
+                onClick={() => setConstituencyTab("projects")}
+                className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xs transition-all ${
+                  constituencyTab === "projects"
+                    ? "bg-sage dark:bg-[#8CB99B] text-charcoal dark:text-[#10231A] shadow-xs"
+                    : "text-ivory/70 dark:text-[#C3CDC4] hover:text-ivory dark:hover:text-[#F5F2E9]"
+                }`}
+              >
+                Development Projects
+              </button>
+              <button
+                onClick={() => setConstituencyTab("directory")}
+                className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xs transition-all ${
+                  constituencyTab === "directory"
+                    ? "bg-sage dark:bg-[#8CB99B] text-charcoal dark:text-[#10231A] shadow-xs"
+                    : "text-ivory/70 dark:text-[#C3CDC4] hover:text-ivory dark:hover:text-[#F5F2E9]"
+                }`}
+              >
+                Public Resources
+              </button>
+            </div>
+          </div>
+
+          {/* Active Tab Panel */}
+          <div>
+            {constituencyTab === "projects" ? (
+              <ProjectTracker projects={mockProjects} darkTheme />
+            ) : (
+              <ResourceDirectory resources={publicResources} darkTheme />
+            )}
+          </div>
+
+          <div className="mt-10 pt-6 border-t border-forest/40 dark:border-[#35463C]/60 flex justify-end">
+            <Link
+              href="/constituency"
+              className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-sage dark:text-[#8CB99B] hover:text-ivory dark:hover:text-[#F5F2E9] transition-colors group"
+            >
+              <span>Explore Complete Constituency Guide</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          6. PUBLIC ACTIVITIES — VISUAL STORYTELLING
+          ========================================================================= */}
       <section
         aria-labelledby="activities-heading"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full"
+        className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full border-b border-sage-border/60 dark:border-[#35463C]/60"
       >
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-sage-border dark:border-[#35463C]">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <Badge variant="green">{t("navActivities")}</Badge>
-              <span className="text-xs text-slate-500 font-medium">
-                Stay Connected with Official Activities
-              </span>
-            </div>
+            <span className="text-xs font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76] block mb-1">
+              Public Engagements
+            </span>
             <h2
               id="activities-heading"
-              className="font-serif font-bold text-2xl sm:text-3xl text-navy-950"
+              className="font-display text-3xl sm:text-4xl text-charcoal dark:text-[#F5F2E9]"
             >
-              {language === "ml"
-                ? "പൊതു പരിപാടികളും ഇടപെടലുകളും"
-                : "Public Activities & Engagements"}
+              Public Activities &amp; Engagements
             </h2>
-            <p className="text-slate-600 text-sm mt-1 max-w-2xl">
-              {language === "ml"
-                ? "ഔദ്യോഗിക സന്ദർശനങ്ങൾ, പരിശോധനകൾ, ജനസമ്പർക്ക പരിപാടികൾ എന്നിവയുടെ വിവരങ്ങൾ."
-                : "Official updates on public meetings, hospital visits, civic hearings and community events conducted across Palakkad."}
+            <p className="text-xs sm:text-sm text-charcoal-muted dark:text-[#C3CDC4] mt-1">
+              Find updates about public meetings, official visits, community events and other activities published by the office.
             </p>
           </div>
 
-          <Button
+          <Link
             href="/activities"
-            variant="outline"
-            size="sm"
-            icon={<ArrowRight className="w-3.5 h-3.5" />}
+            className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-forest dark:text-[#8CB99B] hover:text-forest-dark dark:hover:text-[#9dc4ab] shrink-0 transition-colors"
           >
-            {t("viewAllActivities")}
-          </Button>
+            <span>View All Activities</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
 
-        {/* Activity Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockActivities.slice(0, 3).map((act) => (
-            <ActivityCard key={act.id} activity={act} />
-          ))}
+        {/* Asymmetrical Grid: 1 Featured Activity + 2 Supporting */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="lg:col-span-7">
+            {featuredActivity && <ActivityCard activity={featuredActivity} featured />}
+          </div>
+          <div className="lg:col-span-5 grid grid-cols-1 gap-6">
+            {supportingActivities.map((act) => (
+              <ActivityCard key={act.id} activity={act} />
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* SECTION 8: GALLERY (MOMENTS FROM THE CONSTITUENCY) */}
+      {/* =========================================================================
+          7. PHOTO GALLERY — FULL-BLEED EDITORIAL GRID
+          ========================================================================= */}
       <section
         aria-labelledby="gallery-heading"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full"
+        className="py-16 sm:py-24 bg-sage/20 dark:bg-[#182720]/40 border-b border-sage-border/60 dark:border-[#35463C]/60"
       >
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <Badge variant="gold">{t("navGallery")}</Badge>
-              <span className="text-xs text-slate-500 font-medium">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-sage-border dark:border-[#35463C]">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76] block mb-1">
                 Visual Documentation
               </span>
+              <h2
+                id="gallery-heading"
+                className="font-display text-3xl sm:text-4xl text-charcoal dark:text-[#F5F2E9]"
+              >
+                Moments from the Constituency
+              </h2>
+              <p className="text-xs sm:text-sm text-charcoal-muted dark:text-[#C3CDC4] mt-1">
+                Curated photographic impressions documenting public meetings, visits, civic infrastructure and Palakkad landscapes.
+              </p>
             </div>
-            <h2
-              id="gallery-heading"
-              className="font-serif font-bold text-2xl sm:text-3xl text-navy-950"
+
+            <Link
+              href="/gallery"
+              className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-forest dark:text-[#8CB99B] hover:text-forest-dark dark:hover:text-[#9dc4ab] shrink-0 transition-colors"
             >
-              {language === "ml" ? "മണ്ഡലത്തിലെ നിമിഷങ്ങൾ" : "Moments from the Constituency"}
-            </h2>
-            <p className="text-slate-600 text-sm mt-1 max-w-2xl">
-              {language === "ml"
-                ? "ഔദ്യോഗിക പരിപാടികൾ, പൈതൃക കേന്ദ്രങ്ങൾ, വികസന സ്ഥലങ്ങൾ എന്നിവയുടെ ചിത്രങ്ങൾ."
-                : "Photographs documenting official meetings, visits, community assemblies and local landscape in Palakkad."}
-            </p>
+              <span>Explore Full Gallery</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
 
-          <Button
-            href="/gallery"
-            variant="outline"
-            size="sm"
-            icon={<ArrowRight className="w-3.5 h-3.5" />}
-          >
-            {t("viewAllGallery")}
-          </Button>
-        </div>
-
-        {/* Clickable Photo Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {mockGallery.slice(0, 6).map((item, index) => (
+          {/* Asymmetrical Masonry Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6">
+            {/* Large Lead Photo */}
             <div
-              key={item.id}
-              onClick={() => openLightbox(index)}
+              onClick={() => openLightbox(0)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  openLightbox(index);
+                  openLightbox(0);
                 }
               }}
               tabIndex={0}
               role="button"
-              aria-label={`View photograph: ${getLocalized(item.title)}`}
-              className="group relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 border border-slate-200 cursor-pointer shadow-sm hover:shadow-md transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy-900"
+              aria-label={`View photo: ${getLocalized(mockGallery[0].title)}`}
+              className="sm:col-span-2 lg:col-span-7 group relative aspect-[16/11] rounded-sm overflow-hidden bg-white dark:bg-[#182720] border border-sage-border dark:border-[#35463C] cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest dark:focus-visible:ring-[#8CB99B]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={item.imageUrl}
-                alt={getLocalized(item.altText)}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                src={mockGallery[0].imageUrl}
+                alt={getLocalized(mockGallery[0].altText)}
+                className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-navy-950/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
-
-              <div className="absolute top-3 left-3">
-                <span className="text-[10px] font-semibold bg-white/90 text-navy-950 px-2 py-0.5 rounded shadow">
-                  {item.category}
+              <div className="absolute inset-0 bg-gradient-to-t from-forest-dark/85 via-forest-dark/20 to-transparent" />
+              <div className="absolute top-4 left-4">
+                <span className="text-[10px] font-bold uppercase tracking-wider bg-ivory dark:bg-[#21342A] text-charcoal dark:text-[#F5F2E9] px-2.5 py-0.5 rounded-xs">
+                  {mockGallery[0].category}
                 </span>
               </div>
-
-              <div className="absolute bottom-3 left-3 right-3 text-white">
-                <p className="font-serif font-semibold text-sm line-clamp-1">
-                  {getLocalized(item.title)}
+              <div className="absolute bottom-4 left-4 right-4 text-ivory dark:text-[#F5F2E9]">
+                <p className="font-display text-xl sm:text-2xl leading-snug">
+                  {getLocalized(mockGallery[0].title)}
                 </p>
-                <div className="flex items-center justify-between text-[11px] text-slate-300 mt-1">
-                  <span>{item.date}</span>
-                  <span className="text-gold-400 group-hover:underline">Click to expand</span>
+                <div className="flex items-center justify-between text-xs text-ivory/80 dark:text-[#C3CDC4] mt-1 font-mono">
+                  <span>{mockGallery[0].date}</span>
+                  <span className="text-terracotta-soft dark:text-[#E19A76] group-hover:underline">Click to expand</span>
                 </div>
               </div>
             </div>
-          ))}
+
+            {/* Smaller Stacked Photos on Right */}
+            <div className="sm:col-span-2 lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+              {mockGallery.slice(1, 3).map((item, idx) => (
+                <div
+                  key={item.id}
+                  onClick={() => openLightbox(idx + 1)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      openLightbox(idx + 1);
+                    }
+                  }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`View photo: ${getLocalized(item.title)}`}
+                  className="group relative aspect-[16/10] rounded-sm overflow-hidden bg-white dark:bg-[#182720] border border-sage-border dark:border-[#35463C] cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest dark:focus-visible:ring-[#8CB99B]"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.imageUrl}
+                    alt={getLocalized(item.altText)}
+                    className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-forest-dark/80 via-transparent to-transparent" />
+                  <div className="absolute bottom-3 left-3 right-3 text-ivory dark:text-[#F5F2E9]">
+                    <p className="font-display text-base leading-snug line-clamp-1">
+                      {getLocalized(item.title)}
+                    </p>
+                    <span className="text-[10px] text-ivory/70 dark:text-[#C3CDC4] font-mono">{item.date}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Lightbox Modal */}
@@ -623,99 +619,75 @@ export default function HomePage() {
         />
       </section>
 
-      {/* SECTION 9: CONTACT */}
+      {/* =========================================================================
+          8. CONTACT SECTION — WARM AND APPROACHABLE (Deep Forest Background)
+          ========================================================================= */}
       <section
         aria-labelledby="contact-heading"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full"
+        className="py-16 sm:py-24 bg-forest-dark dark:bg-[#111C18] text-ivory dark:text-[#F5F2E9]"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          {/* Left Column: Office Contact Details */}
-          <div className="lg:col-span-5 space-y-6">
-            <div>
-              <Badge variant="navy" className="mb-2">
-                {language === "ml" ? "ബന്ധപ്പെടുക" : "Official Enquiry"}
-              </Badge>
-              <h2
-                id="contact-heading"
-                className="font-serif font-bold text-2xl sm:text-3xl text-navy-950"
-              >
-                {language === "ml" ? "ഓഫീസുമായി ബന്ധപ്പെടുക" : "Get in Touch with the Office"}
-              </h2>
-              <p className="text-slate-600 text-sm mt-2 leading-relaxed">
-                {language === "ml"
-                  ? "ഔദ്യോഗിക ആവശ്യങ്ങൾക്കും നിവേദനങ്ങൾക്കും താഴെ പറയുന്ന മാർഗ്ഗങ്ങളിലൂടെ ഓഫീസുമായി ബന്ധപ്പെടാം."
-                  : "Find verified office contact details and the appropriate channels for submitting your queries, petitions, and communications."}
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4 shadow-sm text-sm">
-              <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-forest-700 shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="font-semibold text-navy-950">
-                    {language === "ml" ? "ഓഫീസ് വിലാസം" : "Office Address"}
-                  </h4>
-                  <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
-                    [To be confirmed by office]
-                    <br />
-                    Constituency Office of Shri Ramesh Pisharady
-                    <br />
-                    Palakkad District, Kerala – PIN: 678001
-                  </p>
-                </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            {/* Left: Heading & Office Particulars */}
+            <div className="lg:col-span-5 space-y-6">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76] block mb-1">
+                  Connect Directly
+                </span>
+                <h2
+                  id="contact-heading"
+                  className="font-display text-3xl sm:text-4xl lg:text-5xl text-ivory dark:text-[#F5F2E9] leading-tight"
+                >
+                  Get in Touch <br />
+                  <span className="text-sage dark:text-[#8CB99B] font-normal italic">with the Office</span>
+                </h2>
+                <p className="text-sm text-ivory/80 dark:text-[#C3CDC4] mt-3 font-light leading-relaxed">
+                  For official enquiries, use the verified contact details below or submit an enquiry through the office&apos;s contact form.
+                </p>
               </div>
 
-              <div className="flex items-start gap-3 pt-3 border-t border-slate-100">
-                <PhoneCall className="w-5 h-5 text-forest-700 shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="font-semibold text-navy-950">
-                    {language === "ml" ? "ഫോൺ നമ്പർ" : "Official Phone"}
-                  </h4>
-                  <p className="text-xs text-slate-600 mt-0.5">
-                    [Verified office number to be updated]
-                  </p>
-                  <p className="text-[11px] font-mono text-slate-400 mt-0.5">
-                    Demo: +91 491 2500000
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 pt-3 border-t border-slate-100">
-                <Landmark className="w-5 h-5 text-forest-700 shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="font-semibold text-navy-950">
-                    {language === "ml" ? "ഔദ്യോഗിക ഇമെയിൽ" : "Official Email"}
-                  </h4>
-                  <p className="text-xs text-slate-600 mt-0.5">
-                    [Official email awaiting confirmation]
-                  </p>
-                  <p className="text-[11px] font-mono text-slate-400 mt-0.5">
-                    office.pisharady@demo.gov.in
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 pt-3 border-t border-slate-100">
-                <Clock className="w-5 h-5 text-forest-700 shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="font-semibold text-navy-950">
-                    {language === "ml" ? "ഓഫീസ് സമയം" : "Office Hours"}
-                  </h4>
-                  <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
-                    Monday to Friday: 09:30 AM – 05:00 PM
-                    <br />
-                    <span className="text-[11px] text-slate-400">
-                      (Public Hearings: 10:00 AM – 01:00 PM [Tentative])
+              {/* Verified Contact Details Box */}
+              <div className="bg-forest-surface dark:bg-[#182720] p-6 rounded-sm border border-forest/50 dark:border-[#35463C] space-y-5 text-xs text-ivory/90 dark:text-[#F5F2E9]">
+                <div className="flex items-start gap-3.5">
+                  <MapPin className="w-4 h-4 text-terracotta dark:text-[#E19A76] shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold uppercase tracking-wider block text-ivory dark:text-[#F5F2E9]">Office Address</span>
+                    <span className="text-ivory/70 dark:text-[#C3CDC4] leading-relaxed block mt-0.5">
+                      [To be confirmed] · Constituency Office of Shri Ramesh Pisharady, Palakkad District, Kerala – PIN: 678001
                     </span>
-                  </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5 pt-3 border-t border-forest/40 dark:border-[#35463C]/60">
+                  <PhoneCall className="w-4 h-4 text-terracotta dark:text-[#E19A76] shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold uppercase tracking-wider block text-ivory dark:text-[#F5F2E9]">Phone</span>
+                    <span className="text-ivory/70 dark:text-[#C3CDC4] block mt-0.5">[Verified office number to be added] · Demo: +91 491 2500000</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5 pt-3 border-t border-forest/40 dark:border-[#35463C]/60">
+                  <Compass className="w-4 h-4 text-terracotta dark:text-[#E19A76] shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold uppercase tracking-wider block text-ivory dark:text-[#F5F2E9]">Email</span>
+                    <span className="text-ivory/70 dark:text-[#C3CDC4] block mt-0.5">office.pisharady@demo.gov.in (Official email placeholder)</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5 pt-3 border-t border-forest/40 dark:border-[#35463C]/60">
+                  <Clock className="w-4 h-4 text-terracotta dark:text-[#E19A76] shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold uppercase tracking-wider block text-ivory dark:text-[#F5F2E9]">Office Hours</span>
+                    <span className="text-ivory/70 dark:text-[#C3CDC4] block mt-0.5">Mon – Fri: 09:30 AM – 05:00 PM [To be confirmed]</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Right Column: Contact Form */}
-          <div className="lg:col-span-7">
-            <ContactForm />
+            {/* Right: Clean Warm Ivory Contact Form */}
+            <div className="lg:col-span-7">
+              <ContactForm />
+            </div>
           </div>
         </div>
       </section>

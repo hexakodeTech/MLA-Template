@@ -10,94 +10,157 @@ import { useLanguage } from "@/context/LanguageContext";
 interface NewsCardProps {
   item: NewsItem;
   featured?: boolean;
+  compact?: boolean;
 }
 
-export const NewsCard: React.FC<NewsCardProps> = ({ item, featured = false }) => {
-  const { getLocalized, language, t } = useLanguage();
+export const NewsCard: React.FC<NewsCardProps> = ({
+  item,
+  featured = false,
+  compact = false,
+}) => {
+  const { getLocalized, t } = useLanguage();
 
-  return (
-    <article
-      className={`group bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 transition-all duration-200 overflow-hidden flex flex-col ${
-        featured ? "md:grid md:grid-cols-12 md:gap-6" : ""
-      }`}
-    >
-      {/* Thumbnail */}
-      <div
-        className={`relative bg-slate-100 overflow-hidden ${
-          featured ? "md:col-span-5 aspect-[16/10] md:aspect-auto" : "aspect-[16/10]"
-        }`}
-      >
-        {item.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={item.imageUrl}
-            alt={getLocalized(item.title)}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            loading="lazy"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-slate-100 text-slate-400 text-xs">
-            Official Media Placeholder
+  if (compact) {
+    return (
+      <article className="group py-4.5 border-b border-sage-border dark:border-[#35463C] first:pt-0 last:border-b-0 flex items-start gap-4">
+        {item.imageUrl && (
+          <div className="w-20 sm:w-24 aspect-[4/3] rounded-xs bg-sage/40 dark:bg-[#111C18] overflow-hidden shrink-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={item.imageUrl}
+              alt={getLocalized(item.title)}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+            />
           </div>
         )}
-        <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap">
-          <Badge variant="navy">{item.category}</Badge>
-          {item.isSample && (
-            <Badge variant="sample">
-              {language === "ml" ? "മാതൃക" : "Sample"}
-            </Badge>
-          )}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-terracotta dark:text-[#E19A76]">
+              {item.category}
+            </span>
+            <span className="text-[10px] text-charcoal-light dark:text-[#99A99D] font-mono">• {item.date}</span>
+          </div>
+          <h4 className="font-display text-base sm:text-lg text-charcoal dark:text-[#F5F2E9] group-hover:text-forest dark:group-hover:text-[#8CB99B] transition-colors line-clamp-2 leading-snug">
+            <Link href={`/news/${item.slug}`} className="focus:outline-none focus:underline">
+              {getLocalized(item.title)}
+            </Link>
+          </h4>
         </div>
-      </div>
+      </article>
+    );
+  }
 
-      {/* Content */}
-      <div
-        className={`p-5 flex-1 flex flex-col justify-between ${
-          featured ? "md:col-span-7 md:p-6" : ""
-        }`}
-      >
-        <div>
-          <div className="flex items-center gap-2 text-xs text-slate-500 mb-2 font-medium">
-            <Calendar className="w-3.5 h-3.5 text-gold-500" />
-            <time dateTime={item.date}>{item.date}</time>
-            {item.sourceAttribution && (
-              <>
-                <span>•</span>
-                <span className="text-slate-400 truncate">{item.sourceAttribution}</span>
-              </>
-            )}
+  if (featured) {
+    return (
+      <article className="group bg-white dark:bg-[#182720] rounded-sm border border-sage-border dark:border-[#35463C] overflow-hidden grid grid-cols-1 lg:grid-cols-12 hover:border-forest/40 dark:hover:border-[#8CB99B]/40 transition-all duration-300">
+        <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto min-h-[280px] bg-sage/30 dark:bg-[#111C18] overflow-hidden">
+          {item.imageUrl && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={item.imageUrl}
+              alt={getLocalized(item.title)}
+              className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+              loading="lazy"
+            />
+          )}
+          <div className="absolute top-4 left-4 flex gap-2">
+            <Badge variant="forest">{item.category}</Badge>
+            {item.isSample && <Badge variant="sample">Sample</Badge>}
+          </div>
+        </div>
+
+        <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between space-y-4">
+          <div>
+            <div className="flex items-center gap-2 text-xs text-charcoal-light dark:text-[#99A99D] font-mono mb-2">
+              <Calendar className="w-3.5 h-3.5 text-terracotta dark:text-[#E19A76]" />
+              <time dateTime={item.date}>{item.date}</time>
+              {item.sourceAttribution && (
+                <>
+                  <span>•</span>
+                  <span className="text-charcoal-light dark:text-[#99A99D] truncate">{item.sourceAttribution}</span>
+                </>
+              )}
+            </div>
+
+            <h3 className="font-display text-2xl sm:text-3xl text-charcoal dark:text-[#F5F2E9] group-hover:text-forest dark:group-hover:text-[#8CB99B] transition-colors leading-tight">
+              <Link href={`/news/${item.slug}`} className="focus:outline-none focus:underline">
+                {getLocalized(item.title)}
+              </Link>
+            </h3>
+
+            <p className="mt-3 text-sm text-charcoal-muted dark:text-[#C3CDC4] leading-relaxed line-clamp-4">
+              {getLocalized(item.summary)}
+            </p>
           </div>
 
-          <h3
-            className={`font-serif font-bold text-navy-950 group-hover:text-navy-700 transition-colors line-clamp-2 ${
-              featured ? "text-xl md:text-2xl" : "text-base"
-            }`}
-          >
+          <div className="pt-4 border-t border-sage-border dark:border-[#35463C] flex items-center justify-between">
+            <Link
+              href={`/news/${item.slug}`}
+              className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-forest dark:text-[#8CB99B] group-hover:text-forest-dark dark:group-hover:text-[#9dc4ab] transition-colors"
+            >
+              <span>{t("readMore")}</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+
+            {item.isSample && (
+              <span className="text-[10px] text-terracotta dark:text-[#E19A76] bg-terracotta-soft dark:bg-terracotta/20 px-2 py-0.5 rounded-xs font-mono">
+                Sample Release
+              </span>
+            )}
+          </div>
+        </div>
+      </article>
+    );
+  }
+
+  // Standard Editorial Card
+  return (
+    <article className="group bg-white dark:bg-[#182720] rounded-sm border border-sage-border dark:border-[#35463C] overflow-hidden flex flex-col justify-between hover:border-forest/40 dark:hover:border-[#8CB99B]/40 transition-all duration-300">
+      <div>
+        <div className="relative aspect-[16/10] bg-sage/30 dark:bg-[#111C18] overflow-hidden">
+          {item.imageUrl && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={item.imageUrl}
+              alt={getLocalized(item.title)}
+              className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+              loading="lazy"
+            />
+          )}
+          <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap">
+            <Badge variant="forest">{item.category}</Badge>
+            {item.isSample && <Badge variant="sample">Sample</Badge>}
+          </div>
+        </div>
+
+        <div className="p-5 sm:p-6 space-y-2.5">
+          <div className="flex items-center gap-2 text-xs text-charcoal-light dark:text-[#99A99D] font-mono">
+            <Calendar className="w-3 h-3 text-terracotta dark:text-[#E19A76]" />
+            <time dateTime={item.date}>{item.date}</time>
+          </div>
+
+          <h3 className="font-display text-xl text-charcoal dark:text-[#F5F2E9] group-hover:text-forest dark:group-hover:text-[#8CB99B] transition-colors leading-snug line-clamp-2">
             <Link href={`/news/${item.slug}`} className="focus:outline-none focus:underline">
               {getLocalized(item.title)}
             </Link>
           </h3>
 
-          <p className="mt-2.5 text-xs sm:text-sm text-slate-600 line-clamp-3 leading-relaxed">
+          <p className="text-xs sm:text-sm text-charcoal-muted dark:text-[#C3CDC4] leading-relaxed line-clamp-3">
             {getLocalized(item.summary)}
           </p>
         </div>
+      </div>
 
-        <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
-          <Link
-            href={`/news/${item.slug}`}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-navy-900 group-hover:text-gold-600 transition-colors"
-          >
-            <span>{t("readMore")}</span>
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-          </Link>
-
-          {item.isSample && (
-            <span className="text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
-              Demo Entry
-            </span>
-          )}
-        </div>
+      <div className="p-5 sm:p-6 pt-0 flex items-center justify-between border-t border-sage-border/50 dark:border-[#35463C]/50 mt-4">
+        <Link
+          href={`/news/${item.slug}`}
+          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-forest dark:text-[#8CB99B] group-hover:text-forest-dark dark:group-hover:text-[#9dc4ab] transition-colors"
+        >
+          <span>{t("readMore")}</span>
+          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+        </Link>
+        <span className="text-[10px] text-charcoal-light dark:text-[#99A99D] font-mono">Official Notice</span>
       </div>
     </article>
   );

@@ -221,7 +221,7 @@ export const mockActivities: ActivityItem[] = [
       en: "A vibrant seminar focusing on traditional art forms unique to the Palakkad gap cultural region. Emphasized supporting elder traditional artists with welfare access and institutional recognition.",
       ml: "പാരമ്പര്യ കലാകാരന്മാരെ ആദരിക്കുകയും പുതിയ തലമുറയിലേക്ക് കലകൾ പകർന്നു നൽകുകയും ചെയ്യുന്ന പരിപാടി.",
     },
-    imageUrl: "https://images.unsplash.com/photo-1460518451282-474b15672083?auto=format&fit=crop&w=1000&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1000&q=80",
     imageCaption: {
       en: "Cultural celebration and seminar dais (Sample Record)",
       ml: "സാംസ്കാരിക സമ്മേളന വേദി",
@@ -307,7 +307,7 @@ export const mockGallery: GalleryItem[] = [
     },
     category: "Constituency Visits",
     date: "2026-08",
-    imageUrl: "https://images.unsplash.com/photo-1590073242678-70ee3fc28e8e?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80",
     altText: {
       en: "Granite walls of historic fort surrounded by green moat and public walking path",
       ml: "പാലക്കാട് ചരിത്ര കോട്ടയുടെ കാഴ്ചകൾ",

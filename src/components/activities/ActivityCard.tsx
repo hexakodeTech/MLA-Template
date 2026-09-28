@@ -9,73 +9,129 @@ import { useLanguage } from "@/context/LanguageContext";
 
 interface ActivityCardProps {
   activity: ActivityItem;
+  featured?: boolean;
 }
 
-export const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
+export const ActivityCard: React.FC<ActivityCardProps> = ({
+  activity,
+  featured = false,
+}) => {
   const { getLocalized, language, t } = useLanguage();
 
-  return (
-    <article className="group bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 transition-all duration-200 overflow-hidden flex flex-col">
-      <div className="relative aspect-[16/10] bg-slate-100 overflow-hidden">
-        {activity.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={activity.imageUrl}
-            alt={getLocalized(activity.title)}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            loading="lazy"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-slate-100 text-slate-400 text-xs">
-            Activity Photograph Placeholder
-          </div>
-        )}
-        <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap">
-          <Badge variant="green">{activity.category}</Badge>
-          {activity.isSample && (
-            <Badge variant="sample">
-              {language === "ml" ? "മാതൃക" : "Sample"}
-            </Badge>
+  if (featured) {
+    return (
+      <article className="group bg-white dark:bg-[#182720] rounded-sm border border-sage-border dark:border-[#35463C] overflow-hidden grid grid-cols-1 md:grid-cols-12 hover:border-forest/40 dark:hover:border-[#8CB99B]/40 transition-all duration-300">
+        <div className="md:col-span-6 relative aspect-[16/10] md:aspect-auto min-h-[260px] bg-sage/30 dark:bg-[#111C18] overflow-hidden">
+          {activity.imageUrl && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={activity.imageUrl}
+              alt={getLocalized(activity.title)}
+              className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+              loading="lazy"
+            />
           )}
+          <div className="absolute top-3 left-3 flex gap-2">
+            <Badge variant="forest">{activity.category}</Badge>
+            {activity.isSample && <Badge variant="sample">Sample</Badge>}
+          </div>
         </div>
-      </div>
 
-      <div className="p-5 flex-1 flex flex-col justify-between">
-        <div>
-          <div className="flex flex-wrap items-center gap-y-1 gap-x-3 text-xs text-slate-500 mb-2">
-            <span className="flex items-center gap-1 font-medium">
-              <Calendar className="w-3.5 h-3.5 text-gold-500" />
+        <div className="md:col-span-6 p-6 sm:p-8 flex flex-col justify-between space-y-4">
+          <div>
+            <div className="flex flex-wrap items-center gap-3 text-xs text-charcoal-light dark:text-[#99A99D] font-mono mb-2">
+              <span className="flex items-center gap-1">
+                <Calendar className="w-3.5 h-3.5 text-terracotta dark:text-[#E19A76]" />
+                <time dateTime={activity.date}>{activity.date}</time>
+              </span>
+              <span>•</span>
+              <span className="flex items-center gap-1 text-forest dark:text-[#8CB99B] font-semibold">
+                <MapPin className="w-3.5 h-3.5 text-forest dark:text-[#8CB99B]" />
+                <span className="truncate">{getLocalized(activity.location)}</span>
+              </span>
+            </div>
+
+            <h3 className="font-display text-2xl text-charcoal dark:text-[#F5F2E9] group-hover:text-forest dark:group-hover:text-[#8CB99B] transition-colors leading-tight">
+              <Link href={`/activities/${activity.slug}`}>
+                {getLocalized(activity.title)}
+              </Link>
+            </h3>
+
+            <p className="mt-3 text-sm text-charcoal-muted dark:text-[#C3CDC4] leading-relaxed line-clamp-3">
+              {getLocalized(activity.description)}
+            </p>
+          </div>
+
+          <div className="pt-4 border-t border-sage-border dark:border-[#35463C] flex items-center justify-between">
+            <Link
+              href={`/activities/${activity.slug}`}
+              className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-forest dark:text-[#8CB99B] group-hover:text-forest-dark dark:group-hover:text-[#9dc4ab] transition-colors"
+            >
+              <span>{t("readMore")}</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <span className="text-[11px] text-charcoal-light dark:text-[#99A99D] font-mono">
+              {language === "ml" ? "രേഖകൾ" : "Diary Log"}
+            </span>
+          </div>
+        </div>
+      </article>
+    );
+  }
+
+  return (
+    <article className="group bg-white dark:bg-[#182720] rounded-sm border border-sage-border dark:border-[#35463C] overflow-hidden flex flex-col justify-between hover:border-forest/40 dark:hover:border-[#8CB99B]/40 transition-all duration-300">
+      <div>
+        <div className="relative aspect-[16/10] bg-sage/30 dark:bg-[#111C18] overflow-hidden">
+          {activity.imageUrl && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={activity.imageUrl}
+              alt={getLocalized(activity.title)}
+              className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+              loading="lazy"
+            />
+          )}
+          <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap">
+            <Badge variant="forest">{activity.category}</Badge>
+            {activity.isSample && <Badge variant="sample">Sample</Badge>}
+          </div>
+        </div>
+
+        <div className="p-5 sm:p-6 space-y-2.5">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-charcoal-light dark:text-[#99A99D] font-mono">
+            <span className="flex items-center gap-1">
+              <Calendar className="w-3 h-3 text-terracotta dark:text-[#E19A76]" />
               <time dateTime={activity.date}>{activity.date}</time>
             </span>
-            <span className="flex items-center gap-1 font-medium text-slate-600">
-              <MapPin className="w-3.5 h-3.5 text-forest-600" />
-              <span className="truncate">{getLocalized(activity.location)}</span>
+            <span>•</span>
+            <span className="flex items-center gap-1 text-forest dark:text-[#8CB99B] truncate max-w-[150px]">
+              <MapPin className="w-3 h-3 text-forest dark:text-[#8CB99B]" />
+              <span>{getLocalized(activity.location)}</span>
             </span>
           </div>
 
-          <h3 className="font-serif font-bold text-base text-navy-950 group-hover:text-navy-700 transition-colors line-clamp-2">
+          <h3 className="font-display text-xl text-charcoal dark:text-[#F5F2E9] group-hover:text-forest dark:group-hover:text-[#8CB99B] transition-colors leading-snug line-clamp-2">
             <Link href={`/activities/${activity.slug}`}>
               {getLocalized(activity.title)}
             </Link>
           </h3>
 
-          <p className="mt-2 text-xs sm:text-sm text-slate-600 line-clamp-3 leading-relaxed">
+          <p className="text-xs sm:text-sm text-charcoal-muted dark:text-[#C3CDC4] leading-relaxed line-clamp-3">
             {getLocalized(activity.description)}
           </p>
         </div>
+      </div>
 
-        <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-          <Link
-            href={`/activities/${activity.slug}`}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-navy-900 group-hover:text-gold-600 transition-colors"
-          >
-            <span>{t("readMore")}</span>
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-          </Link>
-          <span className="text-[10px] text-slate-400">
-            {language === "ml" ? "വിശദാംശങ്ങൾ" : "Details"}
-          </span>
-        </div>
+      <div className="p-5 sm:p-6 pt-0 flex items-center justify-between border-t border-sage-border/50 dark:border-[#35463C]/50 mt-4">
+        <Link
+          href={`/activities/${activity.slug}`}
+          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-forest dark:text-[#8CB99B] group-hover:text-forest-dark dark:group-hover:text-[#9dc4ab] transition-colors"
+        >
+          <span>{t("readMore")}</span>
+          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+        </Link>
+        <span className="text-[10px] text-charcoal-light dark:text-[#99A99D] font-mono">Constituency Tour</span>
       </div>
     </article>
   );
