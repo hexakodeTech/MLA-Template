@@ -1,0 +1,197 @@
+"use client";
+
+import React from "react";
+import { Info } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { Badge } from "@/components/ui/Badge";
+import { ProjectTracker } from "@/components/constituency/ProjectTracker";
+import { ResourceDirectory } from "@/components/constituency/ResourceDirectory";
+import {
+  mockProjects,
+  publicResources,
+  palakkadTaluks,
+} from "@/data/mockData";
+
+export default function ConstituencyPage() {
+  const { language, getLocalized, t } = useLanguage();
+
+  return (
+    <div className="py-8 sm:py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      {/* Breadcrumbs */}
+      <Breadcrumbs items={[{ label: t("navConstituency") }]} />
+
+      {/* Page Header */}
+      <div className="border-b border-slate-200 pb-8">
+        <div className="flex items-center gap-2 mb-3">
+          <Badge variant="green">
+            {language === "ml" ? "മണ്ഡല വിവരങ്ങൾ" : "Constituency Information Hub"}
+          </Badge>
+          <Badge variant="navy">Palakkad, Kerala</Badge>
+        </div>
+        <h1 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-navy-950 tracking-tight">
+          {language === "ml"
+            ? "പാലക്കാട് മണ്ഡലം വിവരങ്ങൾ"
+            : "Palakkad Constituency Information Hub"}
+        </h1>
+        <p className="mt-3 text-slate-600 text-base sm:text-lg max-w-3xl leading-relaxed">
+          {language === "ml"
+            ? "മണ്ഡലത്തിന്റെ ഭൂമിശാസ്ത്രം, ഭരണപരമായ താലൂക്കുകൾ, അംഗീകൃത വികസന പദ്ധതികൾ, അവശ്യ പൊതുജന സേവന നമ്പറുകൾ എന്നിവ ഇവിടെ ലഭ്യമാണ്."
+            : "Verified regional profile, administrative divisions, documented development initiatives, and official citizen service directories for Palakkad."}
+        </p>
+      </div>
+
+      {/* SECTION 1: CONSTITUENCY REGIONAL OVERVIEW */}
+      <section aria-labelledby="constituency-geography" className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="lg:col-span-7 space-y-4">
+            <span className="text-xs font-semibold text-forest-800 uppercase tracking-wider block">
+              {language === "ml" ? "ഭൂമിശാസ്ത്രവും പൈതൃകവും" : "Geography & Heritage"}
+            </span>
+            <h2
+              id="constituency-geography"
+              className="font-serif font-bold text-2xl sm:text-3xl text-navy-950"
+            >
+              {language === "ml"
+                ? "കേരളത്തിന്റെ കവാടവും നെല്ലറയും"
+                : "The Gateway & Granary of Kerala"}
+            </h2>
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+              {language === "ml"
+                ? "പശ്ചിമഘട്ടത്തിലെ പ്രകൃതിദത്ത വിടവായ പാലക്കാട് ചുരം (Palakkad Gap) വഴിയാണ് ജില്ല സ്ഥിതി ചെയ്യുന്നത്. വിശാലമായ നെൽപ്പാടങ്ങളും ഭാരതപ്പുഴയും കൽപ്പാത്തിയും ചേർന്നതാണ് ഈ നാടിന്റെ പച്ചപ്പ്."
+                : "Framed by the prominent 30-kilometer Palakkad Gap in the Western Ghats, Palakkad stands as Kerala's historical gateway to the Deccan plateau and its largest agrarian contributor. It is celebrated for its lush paddy fields, palm-fringed village horizons, and the cultural basin of the Bharatapuzha (Nila)."}
+            </p>
+            <p className="text-slate-600 text-sm leading-relaxed">
+              {language === "ml"
+                ? "ചരിത്രപ്രസിദ്ധമായ പാലക്കാട് കോട്ട, മലമ്പുഴ അണക്കെട്ട്, വിക്ടോറിയ കോളേജ്, കൊല്ലങ്കോട് പൈതൃകം എന്നിവ മണ്ഡലത്തിന്റെ അഭിമാനമാണ്."
+                : "From the granite ramparts of Palakkad Fort and the vital reservoir waters of Malampuzha to historic educational institutions like Government Victoria College, the region blends rich cultural legacy with modern civic aspirations."}
+            </p>
+
+            <div className="p-4 rounded-xl bg-sand-100 border border-sand-300 text-xs text-slate-700 flex items-start gap-3">
+              <Info className="w-4 h-4 text-forest-700 shrink-0 mt-0.5" />
+              <p>
+                <strong>Data Accuracy Note:</strong> All demographic, geographic, and administrative references adhere to verified public domain records. Official demographic census sheets will be formally attached upon office confirmation.
+              </p>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5">
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md border border-slate-200">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80"
+                alt="Palakkad green landscape"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent"></div>
+              <div className="absolute bottom-4 left-4 right-4 text-white text-xs">
+                <span className="font-semibold block text-sm">
+                  {language === "ml" ? "പാലക്കാടൻ ഭൂപ്രകൃതി" : "Scenic Palakkad Plains"}
+                </span>
+                <span className="text-slate-300 text-[11px]">
+                  Paddy fields stretching toward Western Ghats foothills
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 2: ADMINISTRATIVE TALUKS DIRECTORY */}
+      <section aria-labelledby="taluks-heading" className="space-y-6">
+        <div className="max-w-2xl">
+          <Badge variant="navy" className="mb-2">
+            {language === "ml" ? "ഭരണ സംവിധാനം" : "Administrative Divisions"}
+          </Badge>
+          <h2
+            id="taluks-heading"
+            className="font-serif font-bold text-2xl sm:text-3xl text-navy-950"
+          >
+            {language === "ml" ? "പ്രധാന താലൂക്കുകൾ" : "Key Regional Taluks"}
+          </h2>
+          <p className="text-slate-600 text-sm mt-1">
+            {language === "ml"
+              ? "പാലക്കാട് ജില്ലയിലെ പ്രധാന ഭരണ-റവന്യൂ താലൂക്കുകളും അവയുടെ സവിശേഷതകളും."
+              : "Administrative taluks and civic centers serving residents across the constituency."}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {palakkadTaluks.map((taluk) => (
+            <div
+              key={taluk.headquarters}
+              className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm hover:border-navy-300 transition-all"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-serif font-bold text-lg text-navy-950">
+                  {getLocalized(taluk.name)}
+                </h3>
+                <span className="text-[11px] font-mono bg-slate-100 text-slate-600 px-2 py-0.5 rounded">
+                  Taluk HQ
+                </span>
+              </div>
+              <div className="text-xs text-slate-500 mb-2">
+                Headquarters: <strong className="text-slate-700">{taluk.headquarters}</strong>
+              </div>
+              <p className="text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-2">
+                {taluk.features}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* SECTION 3: DOCUMENTED DEVELOPMENT PROJECTS */}
+      <section id="projects" aria-labelledby="projects-heading" className="space-y-6 pt-6 border-t border-slate-200">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <Badge variant="gold">
+              {language === "ml" ? "പദ്ധതി നിരീക്ഷണം" : "Project Transparency"}
+            </Badge>
+            <span className="text-xs text-slate-500 font-medium">Public Works Accountability</span>
+          </div>
+          <h2
+            id="projects-heading"
+            className="font-serif font-bold text-2xl sm:text-3xl text-navy-950"
+          >
+            {language === "ml"
+              ? "അംഗീകൃത വികസന പദ്ധതികൾ"
+              : "Documented Development Projects"}
+          </h2>
+          <p className="text-slate-600 text-sm mt-1 max-w-3xl">
+            {language === "ml"
+              ? "മണ്ഡലത്തിൽ നടപ്പാക്കപ്പെടുന്ന അടിസ്ഥാന സൗകര്യ പദ്ധതികളുടെ പുരോഗതി, അനുമതി തീയതി, ഉത്തരവാദിത്തപ്പെട്ട വകുപ്പുകൾ എന്നിവയുടെ ഔദ്യോഗിക വിവരങ്ങൾ."
+              : "Track documented development works including water networks, transportation infrastructure, and healthcare modernization with verified source attributions."}
+          </p>
+        </div>
+
+        <ProjectTracker projects={mockProjects} />
+      </section>
+
+      {/* SECTION 4: PUBLIC SERVICE RESOURCES & HELPLINE DIRECTORY */}
+      <section id="resources" aria-labelledby="resources-heading" className="space-y-6 pt-6 border-t border-slate-200">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <Badge variant="green">
+              {language === "ml" ? "സേവന ഡയറക്ടറി" : "Citizen Helpline & Services"}
+            </Badge>
+            <span className="text-xs text-slate-500 font-medium">Verified Civic Helplines</span>
+          </div>
+          <h2
+            id="resources-heading"
+            className="font-serif font-bold text-2xl sm:text-3xl text-navy-950"
+          >
+            {language === "ml" ? "അവശ്യ പൊതുജന സേവനങ്ങൾ" : "Public Service Directory"}
+          </h2>
+          <p className="text-slate-600 text-sm mt-1 max-w-3xl">
+            {language === "ml"
+              ? "ജില്ലാ കളക്ടറേറ്റ്, പോലീസ്, അഗ്നിരക്ഷാ സേന, വാട്ടർ അതോറിറ്റി, കെ.എസ്.ഇ.ബി എന്നിവയുടെ പരിശോധിച്ച ഫോൺ നമ്പറുകളും വിലാസങ്ങളും."
+              : "Direct access numbers and official locations for essential administrative, utility, healthcare, and emergency services in Palakkad."}
+          </p>
+        </div>
+
+        <ResourceDirectory resources={publicResources} />
+      </section>
+    </div>
+  );
+}
