@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -32,6 +32,162 @@ export default function HomePage() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [constituencyTab, setConstituencyTab] = useState<"projects" | "directory">("projects");
+
+  // ── Dynamic shadow refs ──────────────────────────────────────────────────
+  const heroCardRef = useRef<HTMLDivElement>(null);
+  const shadowRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * applyShadow — writes the box-shadow directly onto the shadow div.
+   *
+   * @param nx  Normalised cursor X relative to card centre. -1 = left, +1 = right.
+   * @param ny  Normalised cursor Y relative to card centre. -1 = top,  +1 = bottom.
+   *
+   * Shadow direction is the INVERSE of cursor direction so that it appears
+   * on the opposite side (as if light comes from the cursor).
+   *
+   * All shadow properties (opacity, blur, spread, displacement) are driven
+   * by the Euclidean distance from the card centre so that diagonal
+   * cursor positions — which are farther from the centre — produce stronger
+   * intensity than purely horizontal or vertical positions at the same magnitude.
+   */
+  const applyShadow = useCallback((nx: number, ny: number) => {
+    const el = shadowRef.current;
+    if (!el) return;
+
+    // ── 1. Euclidean distance from card centre (0 = centre, ~1.41 = corner) ──
+    //    Normalise to [0, 1] using sqrt(2) as the maximum possible distance.
+    const rawDist = Math.sqrt(nx * nx + ny * ny);
+    const dist = Math.min(rawDist / Math.SQRT2, 1); // clamped to [0, 1]
+
+    // ── 2. Interpolation helper ──────────────────────────────────────────────
+    const lerp = (min: number, max: number, t: number) => min + (max - min) * t;
+
+    // ── 3. Shadow properties scaled by distance ──────────────────────────────
+    //    Near centre: subtle.  Near corner: prominent but still soft.
+    const opacity  = lerp(0.04, 0.20, dist);
+    const blur     = lerp(25,   55,   dist);   // px
+    const spread   = lerp(0,    5,    dist);   // px
+    const maxH     = 25;  // px — maximum horizontal displacement
+    const maxV     = 35;  // px — maximum vertical displacement
+
+    // ── 4. Displacement — inverted so shadow is OPPOSITE the cursor ──────────
+    const shadowX = -nx * maxH * dist;
+    const shadowY = -ny * maxV * dist;
+
+    // ── 5. Apply: translate the shadow div and set its box-shadow ────────────
+    el.style.transform = `translate(calc(-50% + ${shadowX.toFixed(2)}px), calc(-50% + ${shadowY.toFixed(2)}px))`;
+    el.style.boxShadow = `0 0 ${blur.toFixed(1)}px ${spread.toFixed(1)}px rgba(30,28,24,${opacity.toFixed(3)})`;
+  }, []);
+
+  useEffect(() => {
+    // Respect prefers-reduced-motion — keep a static resting shadow, no animation.
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches) return;
+
+    const isMobile = () => window.innerWidth < 1024;
+
+    // ── Lerp factor — how quickly current tracks target ──────────────────────
+    const LERP_FACTOR = 0.08;
+    // ── Settle threshold — stop the RAF loop once close enough to target ─────
+    const SETTLE_EPS  = 0.001;
+
+    let rafId = 0;
+    let targetNX = 0;
+    let targetNY = 0;
+    let currentNX = 0;
+    let currentNY = 0;
+    let running = false;
+
+    const lerpScalar = (a: number, b: number, t: number) => a + (b - a) * t;
+
+    const tick = () => {
+      currentNX = lerpScalar(currentNX, targetNX, LERP_FACTOR);
+      currentNY = lerpScalar(currentNY, targetNY, LERP_FACTOR);
+      applyShadow(currentNX, currentNY);
+
+      const driftX = Math.abs(currentNX - targetNX);
+      const driftY = Math.abs(currentNY - targetNY);
+
+      if (driftX > SETTLE_EPS || driftY > SETTLE_EPS) {
+        // Still interpolating — request the next frame.
+        rafId = requestAnimationFrame(tick);
+      } else {
+        // Settled — snap to target and stop the RAF loop to save CPU.
+        currentNX = targetNX;
+        currentNY = targetNY;
+        applyShadow(currentNX, currentNY);
+        running = false;
+        rafId = 0;
+      }
+    };
+
+    /** Kick off the RAF loop only if it is not already running. */
+    const ensureRunning = () => {
+      if (!running) {
+        running = true;
+        rafId = requestAnimationFrame(tick);
+      }
+    };
+
+    // ── Desktop: cursor-based shadow ─────────────────────────────────────────
+    const onMouseMove = (e: MouseEvent) => {
+      if (isMobile()) return;
+      const card = heroCardRef.current;
+      if (!card) return;
+      const rect = card.getBoundingClientRect();
+      const cx = rect.left + rect.width  / 2;
+      const cy = rect.top  + rect.height / 2;
+      // Clamp to ±1 — large off-card distances are capped at maximum intensity.
+      targetNX = Math.max(-1, Math.min(1, (e.clientX - cx) / (rect.width  / 2)));
+      targetNY = Math.max(-1, Math.min(1, (e.clientY - cy) / (rect.height / 2)));
+      ensureRunning();
+    };
+
+    /** When the cursor leaves the window, smoothly return to the resting state. */
+    const onMouseLeave = () => {
+      if (isMobile()) return;
+      targetNX = 0;
+      targetNY = 0;
+      ensureRunning();
+    };
+
+    // ── Mobile: scroll-based shadow ──────────────────────────────────────────
+    //    Distance from viewport centre drives intensity; position above/below
+    //    centre drives direction (shadow on the opposite side).
+    const onScroll = () => {
+      if (!isMobile()) return;
+      const card = heroCardRef.current;
+      if (!card) return;
+      const rect = card.getBoundingClientRect();
+
+      // Skip calculation if card is entirely outside the viewport.
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
+      const cardCY = rect.top + rect.height / 2;
+      const viewCY = window.innerHeight / 2;
+      // Normalise: +1 when card centre is at the top of viewport, -1 at bottom.
+      const normY = Math.max(-1, Math.min(1, (viewCY - cardCY) / (window.innerHeight / 2)));
+      targetNX = 0;
+      // Shadow moves opposite to card position: card near top → shadow upward.
+      targetNY = -normY;
+      ensureRunning();
+    };
+
+    window.addEventListener("mousemove",  onMouseMove,  { passive: true });
+    document.addEventListener("mouseleave", onMouseLeave, { passive: true });
+    window.addEventListener("scroll",     onScroll,     { passive: true });
+
+    // Start with one draw pass so the resting shadow appears immediately.
+    applyShadow(0, 0);
+
+    return () => {
+      window.removeEventListener("mousemove",  onMouseMove);
+      document.removeEventListener("mouseleave", onMouseLeave);
+      window.removeEventListener("scroll",     onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [applyShadow]);
 
   const openLightbox = (index: number) => {
     setLightboxIndex(index);
@@ -150,11 +306,33 @@ export default function HomePage() {
 
             {/* Right Column: Dominant Editorial Photograph & Neutral Frame */}
             <div className="lg:col-span-5 flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-md sm:max-w-lg">
+              <div ref={heroCardRef} className="relative w-full max-w-md sm:max-w-lg">
                 {/* Background Architectural Neutral Block */}
                 <div
                   aria-hidden="true"
                   className="absolute -top-4 -right-4 w-full h-full bg-stone/80 dark:bg-[#222320] rounded-sm -z-10"
+                />
+
+                {/* Dynamic cursor-driven shadow — only this element moves, never the card */}
+                <div
+                  ref={shadowRef}
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    // Resting transform; JS overrides this during animation.
+                    transform: "translate(-50%, -50%)",
+                    width: "90%",
+                    height: "85%",
+                    borderRadius: "4px",
+                    background: "transparent",
+                    // Resting box-shadow; JS overrides this during animation.
+                    boxShadow: `0 0 25px 0px rgba(30,28,24,0.04)`,
+                    pointerEvents: "none",
+                    zIndex: -2,
+                    willChange: "transform, box-shadow",
+                  }}
                 />
 
                 <div className="relative bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-3.5 shadow-sm overflow-hidden">

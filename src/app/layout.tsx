@@ -5,6 +5,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeProvider, THEME_STORAGE_KEY } from "@/context/ThemeContext";
 import { AccessibilityProvider, A11Y_STORAGE_KEY } from "@/context/AccessibilityContext";
 import { PrototypeBanner } from "@/components/ui/PrototypeBanner";
+import { MouseFollowDot } from "@/components/ui/MouseFollowDot";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
@@ -130,6 +131,7 @@ export default function RootLayout({
                 {children}
               </main>
               <Footer />
+              <MouseFollowDot />
             </LanguageProvider>
           </AccessibilityProvider>
         </ThemeProvider>
