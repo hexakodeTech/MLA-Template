@@ -6,7 +6,7 @@ interface CardProps {
   className?: string;
   hoverEffect?: boolean;
   padded?: boolean;
-  surface?: "white" | "ivory" | "sage" | "dark";
+  surface?: "white" | "ivory" | "stone" | "sage" | "dark";
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -17,10 +17,11 @@ export const Card: React.FC<CardProps> = ({
   surface = "white",
 }) => {
   const surfaceStyles = {
-    white: "bg-white dark:bg-[#21342A] border-sage-border dark:border-[#35463C] text-charcoal dark:text-[#F5F2E9]",
-    ivory: "bg-ivory dark:bg-[#182720] border-sage-border dark:border-[#35463C] text-charcoal dark:text-[#F5F2E9]",
-    sage: "bg-sage/50 dark:bg-[#182720]/80 border-sage-border dark:border-[#35463C] text-charcoal dark:text-[#F5F2E9]",
-    dark: "bg-forest-dark dark:bg-[#111C18] border-forest/30 dark:border-[#35463C] text-ivory dark:text-[#F5F2E9]",
+    white: "bg-white dark:bg-[#2C2D29] border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9]",
+    ivory: "bg-ivory dark:bg-[#222320] border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9]",
+    stone: "bg-stone/60 dark:bg-[#222320] border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9]",
+    sage: "bg-stone/60 dark:bg-[#222320] border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9]",
+    dark: "bg-charcoal dark:bg-[#191A18] border-warm-grey/30 dark:border-[#41413B] text-[#F4F1E9]",
   };
 
   return (
@@ -28,7 +29,7 @@ export const Card: React.FC<CardProps> = ({
       className={clsx(
         "rounded-sm border transition-all duration-300 overflow-hidden",
         surfaceStyles[surface],
-        hoverEffect && "hover:border-forest/40 hover:-translate-y-0.5",
+        hoverEffect && "hover:border-copper/40 dark:hover:border-[#D29A78]/50 hover:-translate-y-0.5",
         padded && "p-6 sm:p-8",
         className
       )}

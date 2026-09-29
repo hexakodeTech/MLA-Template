@@ -35,11 +35,11 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
       aria-label={label}
       title={label}
       className={clsx(
-        "relative inline-flex items-center justify-center min-w-[44px] min-h-[44px] rounded-lg transition-all duration-200 cursor-pointer select-none",
-        "border border-sage-border/80 dark:border-[#35463C]",
-        "bg-ivory/80 hover:bg-white dark:bg-[#182720]/80 dark:hover:bg-[#21342A]",
-        "text-charcoal hover:text-forest dark:text-[#F5F2E9] dark:hover:text-[#8CB99B]",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest dark:focus-visible:ring-[#8CB99B]",
+        "relative inline-flex items-center justify-center min-w-[44px] min-h-[44px] rounded-sm transition-all duration-200 cursor-pointer select-none",
+        "border border-warm-grey dark:border-[#41413B]",
+        "bg-white/80 hover:bg-stone/60 dark:bg-[#2C2D29] dark:hover:bg-[#343530]",
+        "text-charcoal hover:text-copper dark:text-[#F4F1E9] dark:hover:text-[#D29A78]",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
         className
       )}
     >
@@ -49,12 +49,12 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
       <div className="relative w-4 h-4 flex items-center justify-center">
         {mounted ? (
           isDark ? (
-            <Sun className="w-4 h-4 text-[#8CB99B] transition-transform duration-300 rotate-0 scale-100" />
+            <Sun className="w-4 h-4 text-[#D29A78] transition-transform duration-300 rotate-0 scale-100" />
           ) : (
-            <Moon className="w-4 h-4 text-forest transition-transform duration-300 rotate-0 scale-100" />
+            <Moon className="w-4 h-4 text-charcoal transition-transform duration-300 rotate-0 scale-100" />
           )
         ) : (
-          <div className="w-4 h-4 rounded-full border-2 border-sage-dark/30 animate-pulse" />
+          <div className="w-4 h-4 rounded-full border-2 border-warm-grey animate-pulse" />
         )}
       </div>
 

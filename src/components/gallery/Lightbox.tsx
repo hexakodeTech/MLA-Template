@@ -57,34 +57,34 @@ export const Lightbox: React.FC<LightboxProps> = ({
       role="dialog"
       aria-modal="true"
       aria-label="Image gallery lightbox viewer"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-forest-dark/95 backdrop-blur-md p-4 sm:p-6"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#191A18]/95 backdrop-blur-md p-4 sm:p-6"
       onClick={onClose}
     >
       {/* Lightbox Container */}
       <div
-        className="relative max-w-5xl w-full max-h-[90vh] flex flex-col bg-forest-dark rounded-sm overflow-hidden shadow-2xl border border-forest/50"
+        className="relative max-w-5xl w-full max-h-[90vh] flex flex-col bg-[#242522] rounded-sm overflow-hidden shadow-2xl border border-[#41413B]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header bar */}
-        <div className="flex items-center justify-between px-5 py-3.5 bg-forest-surface border-b border-forest/40 text-ivory text-xs">
+        <div className="flex items-center justify-between px-5 py-3.5 bg-[#1C1D1A] border-b border-[#41413B] text-[#F4F1E9] text-xs">
           <div className="flex items-center gap-3">
-            <span className="font-mono font-bold text-terracotta">
+            <span className="font-mono font-bold text-[#D29A78]">
               {currentIndex + 1} / {items.length}
             </span>
-            <span className="text-forest/60">•</span>
-            <span className="font-display text-sm tracking-wide text-ivory truncate max-w-md">
+            <span className="text-[#41413B]">•</span>
+            <span className="font-display text-sm tracking-wide text-[#F4F1E9] truncate max-w-md">
               {getLocalized(currentItem.title)}
             </span>
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="hidden sm:inline-flex items-center gap-1 text-[10px] text-terracotta uppercase tracking-wider font-semibold bg-terracotta-soft/20 px-2 py-0.5 rounded-xs border border-terracotta/40">
+            <span className="hidden sm:inline-flex items-center gap-1 text-[10px] text-[#D29A78] uppercase tracking-wider font-semibold bg-[#D29A78]/10 px-2 py-0.5 rounded-xs border border-[#D29A78]/30">
               <Info className="w-3 h-3" />
               {language === "ml" ? "മാതൃകാ ചിത്രം" : "Sample Asset"}
             </span>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-xs hover:bg-forest text-ivory/80 hover:text-ivory transition-colors focus:outline-none focus:ring-1 focus:ring-ivory"
+              className="p-1.5 rounded-xs hover:bg-[#2C2D29] text-[#C6C5BD] hover:text-[#F4F1E9] transition-colors focus:outline-none focus:ring-1 focus:ring-[#D29A78]"
               aria-label="Close image viewer"
             >
               <X className="w-5 h-5" />
@@ -97,7 +97,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
           <button
             onClick={handlePrev}
             aria-label="Previous photograph"
-            className="absolute left-4 z-10 p-3 rounded-full bg-forest-dark/80 hover:bg-forest text-ivory border border-forest/60 transition-all hover:scale-105 focus:outline-none focus:ring-1 focus:ring-ivory"
+            className="absolute left-4 z-10 p-3 rounded-full bg-[#191A18]/80 hover:bg-[#2C2D29] text-[#F4F1E9] border border-[#41413B] transition-all hover:scale-105 focus:outline-none focus:ring-1 focus:ring-[#D29A78]"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
@@ -114,34 +114,34 @@ export const Lightbox: React.FC<LightboxProps> = ({
           <button
             onClick={handleNext}
             aria-label="Next photograph"
-            className="absolute right-4 z-10 p-3 rounded-full bg-forest-dark/80 hover:bg-forest text-ivory border border-forest/60 transition-all hover:scale-105 focus:outline-none focus:ring-1 focus:ring-ivory"
+            className="absolute right-4 z-10 p-3 rounded-full bg-[#191A18]/80 hover:bg-[#2C2D29] text-[#F4F1E9] border border-[#41413B] transition-all hover:scale-105 focus:outline-none focus:ring-1 focus:ring-[#D29A78]"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>
 
         {/* Footer info bar */}
-        <div className="p-5 bg-forest-surface border-t border-forest/40 text-ivory flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+        <div className="p-5 bg-[#1C1D1A] border-t border-[#41413B] text-[#F4F1E9] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
           <div>
-            <p className="font-display text-base text-ivory">
+            <p className="font-display text-base text-[#F4F1E9]">
               {currentItem.caption
                 ? getLocalized(currentItem.caption)
                 : getLocalized(currentItem.title)}
             </p>
-            <p className="text-[11px] text-ivory/70 mt-0.5">
+            <p className="text-[11px] text-[#C6C5BD] mt-0.5">
               {getLocalized(currentItem.altText)}
             </p>
           </div>
 
-          <div className="flex items-center gap-4 text-ivory/70 shrink-0 text-[11px] font-mono">
+          <div className="flex items-center gap-4 text-[#C6C5BD] shrink-0 text-[11px] font-mono">
             {currentItem.location && (
-              <span className="flex items-center gap-1 text-sage">
-                <MapPin className="w-3.5 h-3.5 text-terracotta" />
+              <span className="flex items-center gap-1 text-[#F4F1E9]">
+                <MapPin className="w-3.5 h-3.5 text-[#D29A78]" />
                 {getLocalized(currentItem.location)}
               </span>
             )}
             <span className="flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5 text-terracotta" />
+              <Calendar className="w-3.5 h-3.5 text-[#D29A78]" />
               {currentItem.date}
             </span>
           </div>

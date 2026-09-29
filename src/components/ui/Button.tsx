@@ -7,11 +7,12 @@ import { twMerge } from "tailwind-merge";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?:
-    | "primary"       // Forest Green with Ivory text
-    | "secondary"     // Muted Sage with Charcoal text
-    | "terracotta"    // Terracotta accent button
-    | "outline"       // Clean outline on Ivory background
-    | "outline-light" // Clean outline on Dark background
+    | "primary"       // Deep Charcoal with White text (Dark: Ivory with Charcoal text)
+    | "secondary"     // Transparent with Charcoal text & Warm Grey border
+    | "terracotta"    // Muted Copper accent button
+    | "copper"        // Muted Copper accent button
+    | "outline"       // Clean outline on neutral background
+    | "outline-light" // Clean outline on dark surface
     | "ghost";        // Minimal text button
   size?: "sm" | "md" | "lg";
   href?: string;
@@ -37,17 +38,19 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantStyles = {
     primary:
-      "bg-forest text-ivory hover:bg-forest-dark dark:bg-[#8CB99B] dark:text-[#10231A] dark:hover:bg-[#9dc4ab] dark:border-[#8CB99B]/30 focus-visible:ring-forest dark:focus-visible:ring-[#8CB99B] border border-forest-dark/20 shadow-xs",
+      "bg-charcoal text-white hover:bg-[#383935] dark:bg-[#F4F1E9] dark:text-[#191A18] dark:hover:bg-[#E5E2DA] focus-visible:ring-charcoal dark:focus-visible:ring-[#F4F1E9] border border-transparent shadow-xs",
     secondary:
-      "bg-sage text-charcoal hover:bg-sage-dark/30 dark:bg-[#21342A] dark:text-[#F5F2E9] dark:hover:bg-[#2c4437] dark:border-[#53675A] focus-visible:ring-forest dark:focus-visible:ring-[#8CB99B] border border-sage-border",
+      "bg-transparent text-charcoal border border-warm-grey hover:bg-stone/50 hover:border-slate/40 dark:bg-transparent dark:text-[#F4F1E9] dark:border-[#41413B] dark:hover:bg-[#2C2D29] dark:hover:border-[#C6C5BD]/40 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
     terracotta:
-      "bg-terracotta text-white hover:bg-terracotta-dark dark:bg-[#E19A76] dark:text-[#10231A] dark:hover:bg-[#e8aa8c] focus-visible:ring-terracotta shadow-xs",
+      "bg-copper text-white hover:bg-copper-dark dark:bg-[#D29A78] dark:text-[#191A18] dark:hover:bg-[#dfa989] focus-visible:ring-copper shadow-xs",
+    copper:
+      "bg-copper text-white hover:bg-copper-dark dark:bg-[#D29A78] dark:text-[#191A18] dark:hover:bg-[#dfa989] focus-visible:ring-copper shadow-xs",
     outline:
-      "bg-transparent text-charcoal border border-charcoal/30 hover:border-forest hover:text-forest hover:bg-forest/5 dark:text-[#F5F2E9] dark:border-[#53675A] dark:hover:bg-[#21342A] dark:hover:border-[#8CB99B] dark:hover:text-[#8CB99B] focus-visible:ring-forest dark:focus-visible:ring-[#8CB99B]",
+      "bg-transparent text-charcoal border border-warm-grey hover:border-charcoal hover:bg-stone/40 dark:text-[#F4F1E9] dark:border-[#41413B] dark:hover:bg-[#2C2D29] dark:hover:border-[#C6C5BD] focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
     "outline-light":
-      "bg-transparent text-ivory border border-ivory/40 hover:bg-ivory/10 hover:border-ivory dark:border-[#53675A] dark:text-[#F5F2E9] dark:hover:bg-[#21342A] focus-visible:ring-ivory dark:focus-visible:ring-[#8CB99B]",
+      "bg-transparent text-[#F4F1E9] border border-[#F4F1E9]/30 hover:bg-[#F4F1E9]/10 hover:border-[#F4F1E9] dark:border-[#41413B] dark:text-[#F4F1E9] dark:hover:bg-[#2C2D29] focus-visible:ring-[#F4F1E9] dark:focus-visible:ring-[#D29A78]",
     ghost:
-      "bg-transparent text-charcoal hover:text-forest hover:bg-forest/5 dark:text-[#F5F2E9] dark:hover:text-[#8CB99B] dark:hover:bg-[#21342A] focus-visible:ring-forest dark:focus-visible:ring-[#8CB99B]",
+      "bg-transparent text-charcoal hover:text-copper hover:bg-stone/40 dark:text-[#F4F1E9] dark:hover:text-[#D29A78] dark:hover:bg-[#2C2D29] focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
   };
 
   const sizeStyles = {

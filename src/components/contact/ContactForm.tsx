@@ -153,25 +153,25 @@ export const ContactForm: React.FC = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-[#182720] rounded-sm border border-sage-border dark:border-[#35463C] p-6 sm:p-10 shadow-xs font-sans">
-      <div className="mb-8 pb-5 border-b border-sage-border dark:border-[#35463C] flex items-start justify-between gap-4">
+    <div className="bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-6 sm:p-10 shadow-xs font-sans">
+      <div className="mb-8 pb-5 border-b border-warm-grey dark:border-[#41413B] flex items-start justify-between gap-4">
         <div>
-          <span className="text-[10px] font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76] block mb-1">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-copper dark:text-[#D29A78] block mb-1">
             {language === "ml" ? "പൗരസമ്പർക്കം" : "Citizen Liaison"}
           </span>
-          <h3 className="font-display text-2xl text-charcoal dark:text-[#F5F2E9]">
+          <h3 className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
             {language === "ml"
               ? "ഔദ്യോഗിക അന്വേഷണ ഫോം"
               : "Official Enquiry Form"}
           </h3>
-          <p className="text-xs text-charcoal-muted dark:text-[#C3CDC4] mt-1">
+          <p className="text-xs text-slate dark:text-[#C6C5BD] mt-1">
             {language === "ml"
               ? "നിവേദനങ്ങളും പരാതികളും ഓഫീസിലേക്ക് നേരിട്ട് സമർപ്പിക്കാം"
               : "Direct communication channel for public queries, petitions, and constituency matters"}
           </p>
         </div>
-        <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] bg-sage/40 dark:bg-[#21342A] text-forest dark:text-[#8CB99B] border border-sage-border dark:border-[#35463C] px-3 py-1 rounded-xs font-mono font-semibold">
-          <ShieldCheck className="w-3.5 h-3.5 text-forest dark:text-[#8CB99B]" />
+        <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] bg-stone dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] border border-warm-grey dark:border-[#41413B] px-3 py-1 rounded-xs font-mono font-semibold">
+          <ShieldCheck className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
           Prototype Form
         </span>
       </div>
@@ -179,13 +179,13 @@ export const ContactForm: React.FC = () => {
       {submissionFeedback && (
         <div
           role="alert"
-          className="mb-8 p-5 rounded-xs bg-sage/30 dark:bg-[#21342A] border border-forest/30 dark:border-[#8CB99B]/30 text-charcoal dark:text-[#F5F2E9] animate-in fade-in duration-200"
+          className="mb-8 p-5 rounded-xs bg-stone/50 dark:bg-[#222320] border border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9] animate-in fade-in duration-200"
         >
           <div className="flex items-start gap-3">
-            <Info className="w-5 h-5 text-forest dark:text-[#8CB99B] shrink-0 mt-0.5" />
+            <Info className="w-5 h-5 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
             <div>
-              <h4 className="text-sm font-bold text-forest dark:text-[#8CB99B]">{submissionFeedback.message}</h4>
-              <p className="text-xs text-charcoal-muted dark:text-[#C3CDC4] mt-1 leading-relaxed">
+              <h4 className="text-sm font-bold text-charcoal dark:text-[#F4F1E9]">{submissionFeedback.message}</h4>
+              <p className="text-xs text-slate dark:text-[#C6C5BD] mt-1 leading-relaxed">
                 {submissionFeedback.details}
               </p>
             </div>
@@ -214,10 +214,10 @@ export const ContactForm: React.FC = () => {
           <div>
             <label
               htmlFor="fullName"
-              className="block text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F5F2E9] mb-2"
+              className="block text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] mb-2"
             >
               {language === "ml" ? "പൂർണ്ണ പേര്" : "Full Name"}{" "}
-              <span className="text-terracotta dark:text-[#E19A76]">*</span>
+              <span className="text-copper dark:text-[#D29A78]">*</span>
             </label>
             <input
               type="text"
@@ -231,10 +231,10 @@ export const ContactForm: React.FC = () => {
               aria-invalid={!!errors.fullName}
               aria-describedby={errors.fullName ? "fullName-error" : undefined}
               placeholder={language === "ml" ? "നിങ്ങളുടെ പേര്" : "e.g., K. Radhakrishnan"}
-              className="w-full text-sm px-4 py-3 rounded-xs border border-sage-border dark:border-[#35463C] bg-ivory/40 dark:bg-[#21342A] text-charcoal dark:text-[#F5F2E9] placeholder-charcoal-light/60 dark:placeholder-[#99A99D]/60 focus:bg-white dark:focus:bg-[#21342A] focus:outline-none focus:ring-1 focus:ring-forest dark:focus:ring-[#8CB99B] focus:border-forest dark:focus:border-[#8CB99B] transition-colors"
+              className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-1 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
             />
             {errors.fullName && (
-              <p id="fullName-error" className="mt-1.5 text-xs text-terracotta-dark dark:text-[#E19A76] flex items-center gap-1 font-medium">
+              <p id="fullName-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
                 <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                 <span>{errors.fullName}</span>
               </p>
@@ -245,10 +245,10 @@ export const ContactForm: React.FC = () => {
           <div>
             <label
               htmlFor="phone"
-              className="block text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F5F2E9] mb-2"
+              className="block text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] mb-2"
             >
               {language === "ml" ? "ഫോൺ നമ്പർ" : "Phone Number"}{" "}
-              <span className="text-terracotta dark:text-[#E19A76]">*</span>
+              <span className="text-copper dark:text-[#D29A78]">*</span>
             </label>
             <input
               type="tel"
@@ -262,10 +262,10 @@ export const ContactForm: React.FC = () => {
               aria-invalid={!!errors.phone}
               aria-describedby={errors.phone ? "phone-error" : undefined}
               placeholder={language === "ml" ? "+91 98XXXXXXXX" : "+91 98765 43210"}
-              className="w-full text-sm px-4 py-3 rounded-xs border border-sage-border dark:border-[#35463C] bg-ivory/40 dark:bg-[#21342A] text-charcoal dark:text-[#F5F2E9] placeholder-charcoal-light/60 dark:placeholder-[#99A99D]/60 focus:bg-white dark:focus:bg-[#21342A] focus:outline-none focus:ring-1 focus:ring-forest dark:focus:ring-[#8CB99B] focus:border-forest dark:focus:border-[#8CB99B] transition-colors"
+              className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-1 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
             />
             {errors.phone && (
-              <p id="phone-error" className="mt-1.5 text-xs text-terracotta-dark dark:text-[#E19A76] flex items-center gap-1 font-medium">
+              <p id="phone-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
                 <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                 <span>{errors.phone}</span>
               </p>
@@ -278,10 +278,10 @@ export const ContactForm: React.FC = () => {
           <div>
             <label
               htmlFor="email"
-              className="block text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F5F2E9] mb-2"
+              className="block text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] mb-2"
             >
               {language === "ml" ? "ഇമെയിൽ വിലാസം" : "Email Address"}{" "}
-              <span className="text-terracotta dark:text-[#E19A76]">*</span>
+              <span className="text-copper dark:text-[#D29A78]">*</span>
             </label>
             <input
               type="email"
@@ -295,10 +295,10 @@ export const ContactForm: React.FC = () => {
               aria-invalid={!!errors.email}
               aria-describedby={errors.email ? "email-error" : undefined}
               placeholder="citizen@example.com"
-              className="w-full text-sm px-4 py-3 rounded-xs border border-sage-border dark:border-[#35463C] bg-ivory/40 dark:bg-[#21342A] text-charcoal dark:text-[#F5F2E9] placeholder-charcoal-light/60 dark:placeholder-[#99A99D]/60 focus:bg-white dark:focus:bg-[#21342A] focus:outline-none focus:ring-1 focus:ring-forest dark:focus:ring-[#8CB99B] focus:border-forest dark:focus:border-[#8CB99B] transition-colors"
+              className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-1 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
             />
             {errors.email && (
-              <p id="email-error" className="mt-1.5 text-xs text-terracotta-dark dark:text-[#E19A76] flex items-center gap-1 font-medium">
+              <p id="email-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
                 <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                 <span>{errors.email}</span>
               </p>
@@ -309,10 +309,10 @@ export const ContactForm: React.FC = () => {
           <div>
             <label
               htmlFor="subject"
-              className="block text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F5F2E9] mb-2"
+              className="block text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] mb-2"
             >
               {language === "ml" ? "വിഷയം" : "Subject"}{" "}
-              <span className="text-terracotta dark:text-[#E19A76]">*</span>
+              <span className="text-copper dark:text-[#D29A78]">*</span>
             </label>
             <input
               type="text"
@@ -330,10 +330,10 @@ export const ContactForm: React.FC = () => {
                   ? "ഉദാ: റോഡ് അറ്റകുറ്റപ്പണി സംബന്ധിച്ച്"
                   : "e.g., Drinking water supply maintenance enquiry"
               }
-              className="w-full text-sm px-4 py-3 rounded-xs border border-sage-border dark:border-[#35463C] bg-ivory/40 dark:bg-[#21342A] text-charcoal dark:text-[#F5F2E9] placeholder-charcoal-light/60 dark:placeholder-[#99A99D]/60 focus:bg-white dark:focus:bg-[#21342A] focus:outline-none focus:ring-1 focus:ring-forest dark:focus:ring-[#8CB99B] focus:border-forest dark:focus:border-[#8CB99B] transition-colors"
+              className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-1 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
             />
             {errors.subject && (
-              <p id="subject-error" className="mt-1.5 text-xs text-terracotta-dark dark:text-[#E19A76] flex items-center gap-1 font-medium">
+              <p id="subject-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
                 <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                 <span>{errors.subject}</span>
               </p>
@@ -345,10 +345,10 @@ export const ContactForm: React.FC = () => {
         <div>
           <label
             htmlFor="message"
-            className="block text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F5F2E9] mb-2"
+            className="block text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] mb-2"
           >
             {language === "ml" ? "സന്ദേശം / പരാതി വിവരങ്ങൾ" : "Enquiry & Petition Details"}{" "}
-            <span className="text-terracotta dark:text-[#E19A76]">*</span>
+            <span className="text-copper dark:text-[#D29A78]">*</span>
           </label>
           <textarea
             id="message"
@@ -366,10 +366,10 @@ export const ContactForm: React.FC = () => {
                 ? "ദയവായി നിങ്ങളുടെ പരാതിയുടെയോ അന്വേഷണത്തിന്റെയോ വിശദാംശങ്ങൾ രേഖപ്പെടുത്തുക..."
                 : "Please describe your query, location, or petition specifics in detail..."
             }
-            className="w-full text-sm p-4 rounded-xs border border-sage-border dark:border-[#35463C] bg-ivory/40 dark:bg-[#21342A] text-charcoal dark:text-[#F5F2E9] placeholder-charcoal-light/60 dark:placeholder-[#99A99D]/60 focus:bg-white dark:focus:bg-[#21342A] focus:outline-none focus:ring-1 focus:ring-forest dark:focus:ring-[#8CB99B] focus:border-forest dark:focus:border-[#8CB99B] transition-colors resize-y"
+            className="w-full text-sm p-4 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-1 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors resize-y"
           />
           {errors.message && (
-            <p id="message-error" className="mt-1.5 text-xs text-terracotta-dark dark:text-[#E19A76] flex items-center gap-1 font-medium">
+            <p id="message-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
               <AlertCircle className="w-3.5 h-3.5 shrink-0" />
               <span>{errors.message}</span>
             </p>
@@ -388,9 +388,9 @@ export const ContactForm: React.FC = () => {
                 setFormData({ ...formData, consent: e.target.checked });
                 if (errors.consent) setErrors({ ...errors, consent: undefined });
               }}
-              className="mt-1 w-4 h-4 rounded-xs text-forest border-sage-border dark:border-[#35463C] focus:ring-forest dark:focus:ring-[#8CB99B]"
+              className="mt-1 w-4 h-4 rounded-xs text-charcoal border-warm-grey dark:border-[#41413B] focus:ring-charcoal dark:focus:ring-[#D29A78]"
             />
-            <span className="text-xs text-charcoal-muted dark:text-[#C3CDC4] leading-relaxed">
+            <span className="text-xs text-slate dark:text-[#C6C5BD] leading-relaxed">
               {language === "ml" ? (
                 <span>
                   ഞാൻ സമർപ്പിച്ച വിവരങ്ങൾ കൃത്യമാണ്. ഈ വിവരങ്ങൾ അന്വേഷണ പരിഹാരത്തിനായി ഓഫീസിന് ഉപയോഗിക്കാമെന്ന സ്വകാര്യതാ നയം ഞാൻ അംഗീകരിക്കുന്നു.
@@ -398,7 +398,7 @@ export const ContactForm: React.FC = () => {
               ) : (
                 <span>
                   I confirm that the submitted information is accurate and consent to its use by the representative office for communication and redressal purposes in accordance with the{" "}
-                  <a href="/privacy-policy" className="text-forest dark:text-[#8CB99B] font-semibold underline underline-offset-2 hover:text-forest-dark dark:hover:text-[#9dc4ab]">
+                  <a href="/privacy-policy" className="text-charcoal dark:text-[#F4F1E9] font-semibold underline underline-offset-2 hover:text-copper dark:hover:text-[#D29A78]">
                     Privacy Policy
                   </a>
                   .
@@ -407,7 +407,7 @@ export const ContactForm: React.FC = () => {
             </span>
           </label>
           {errors.consent && (
-            <p className="mt-1.5 text-xs text-terracotta-dark dark:text-[#E19A76] flex items-center gap-1 font-medium">
+            <p className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
               <AlertCircle className="w-3.5 h-3.5 shrink-0" />
               <span>{errors.consent}</span>
             </p>
@@ -421,13 +421,13 @@ export const ContactForm: React.FC = () => {
             variant="primary"
             size="lg"
             isLoading={isSubmitting}
-            icon={<ArrowRight className="w-4 h-4 text-ivory dark:text-[#10231A]" />}
+            icon={<ArrowRight className="w-4 h-4 text-white dark:text-[#191A18]" />}
             iconPosition="right"
           >
             {language === "ml" ? "സന്ദേശം അയക്കുക →" : "SUBMIT ENQUIRY →"}
           </Button>
 
-          <p className="text-[11px] text-charcoal-light dark:text-[#99A99D] font-mono">
+          <p className="text-[11px] text-slate dark:text-[#A09F97] font-mono">
             * Direct Helplines: Emergency 112 · Fire 101 · Water 1916
           </p>
         </div>

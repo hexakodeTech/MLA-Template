@@ -45,26 +45,26 @@ export default function HomePage() {
   const supportingActivities = mockActivities.slice(1, 3);
 
   return (
-    <div className="flex flex-col font-sans bg-ivory text-charcoal">
+    <div className="flex flex-col font-sans bg-ivory text-charcoal dark:bg-[#191A18] dark:text-[#F4F1E9]">
       {/* =========================================================================
-          1. HERO SECTION — COMPLETE REIMAGINATION ("The Modern Public Office")
+          1. HERO SECTION — MODERN INDIAN EDITORIAL
           ========================================================================= */}
       <section
         aria-labelledby="hero-heading"
-        className="relative bg-ivory dark:bg-[#111C18] pt-10 pb-20 lg:pt-16 lg:pb-32 overflow-hidden border-b border-sage-border/60 dark:border-[#35463C]/60"
+        className="relative bg-ivory dark:bg-[#191A18] pt-10 pb-20 lg:pt-16 lg:pb-32 overflow-hidden border-b border-warm-grey dark:border-[#41413B]"
       >
-        {/* Soft, atmospheric ambient background animation */}
+        {/* Soft, neutral ambient background animation */}
         <div
           aria-hidden="true"
-          className="absolute -top-32 -left-32 w-[550px] h-[550px] rounded-full bg-sage/50 dark:bg-[#21342A]/40 blur-3xl pointer-events-none animate-ambient-1"
+          className="absolute -top-32 -left-32 w-[550px] h-[550px] rounded-full bg-stone/60 dark:bg-[#222320]/60 blur-3xl pointer-events-none animate-ambient-1"
         />
         <div
           aria-hidden="true"
-          className="absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full bg-sage/35 dark:bg-[#21342A]/30 blur-3xl pointer-events-none animate-ambient-2"
+          className="absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full bg-stone/40 dark:bg-[#2C2D29]/40 blur-3xl pointer-events-none animate-ambient-2"
         />
         <div
           aria-hidden="true"
-          className="absolute -bottom-20 left-1/3 w-[450px] h-[450px] rounded-full bg-terracotta/5 dark:bg-[#E19A76]/10 blur-3xl pointer-events-none"
+          className="absolute -bottom-20 left-1/3 w-[450px] h-[450px] rounded-full bg-copper/5 dark:bg-[#D29A78]/5 blur-3xl pointer-events-none"
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -72,13 +72,13 @@ export default function HomePage() {
             {/* Left Column: Large Editorial Typography & Clear Paths */}
             <div className="lg:col-span-7 space-y-6 sm:space-y-8">
               <div className="inline-flex items-center gap-2">
-                <span className="text-[11px] font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76]">
+                <span className="text-[11px] font-bold uppercase tracking-widest text-copper dark:text-[#D29A78]">
                   {language === "ml"
                     ? "പാലക്കാട് മണ്ഡലം · കേരളം"
                     : "Palakkad Constituency · Kerala"}
                 </span>
-                <span className="text-sage-dark dark:text-[#53675A]">•</span>
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-charcoal-light dark:text-[#99A99D]">
+                <span className="text-warm-grey dark:text-[#41413B]">•</span>
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate dark:text-[#A09F97]">
                   {language === "ml" ? "ഔദ്യോഗിക പോർട്ടൽ" : "Public Information"}
                 </span>
               </div>
@@ -86,14 +86,14 @@ export default function HomePage() {
               {/* Large, Confident Headline with Editorial Rhythm */}
               <h1
                 id="hero-heading"
-                className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[68px] text-charcoal dark:text-[#F5F2E9] leading-[1.08] tracking-tight"
+                className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[68px] text-charcoal dark:text-[#F4F1E9] leading-[1.08] tracking-tight"
               >
                 A Connected Constituency <br />
-                <span className="text-forest dark:text-[#8CB99B] italic font-normal">Starts with Information.</span>
+                <span className="text-charcoal/80 dark:text-[#F4F1E9]/80 italic font-normal">Starts with Information.</span>
               </h1>
 
               {/* Supporting Paragraph */}
-              <p className="text-charcoal-muted dark:text-[#C3CDC4] text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl font-light">
+              <p className="text-slate dark:text-[#C6C5BD] text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl font-light">
                 {t("heroDescription")}
               </p>
 
@@ -103,16 +103,16 @@ export default function HomePage() {
                   href="/about"
                   variant="primary"
                   size="lg"
-                  icon={<ArrowRight className="w-4 h-4 text-ivory dark:text-[#10231A] group-hover:translate-x-1 transition-transform" />}
+                  icon={<ArrowRight className="w-4 h-4 text-white dark:text-[#191A18] group-hover:translate-x-1 transition-transform" />}
                   iconPosition="right"
                 >
                   {language === "ml" ? "പ്രതിനിധിയെക്കുറിച്ച് വായിക്കുക →" : "ABOUT THE REPRESENTATIVE →"}
                 </Button>
                 <Button
                   href="/contact"
-                  variant="outline"
+                  variant="secondary"
                   size="lg"
-                  icon={<PhoneCall className="w-4 h-4 text-forest dark:text-[#8CB99B]" />}
+                  icon={<PhoneCall className="w-4 h-4 text-charcoal dark:text-[#F4F1E9]" />}
                   iconPosition="left"
                 >
                   {language === "ml" ? "ഓഫീസുമായി ബന്ധപ്പെടുക" : "CONTACT THE OFFICE"}
@@ -120,45 +120,45 @@ export default function HomePage() {
               </div>
 
               {/* Quick Regional Facts Bar */}
-              <div className="pt-8 border-t border-sage-border dark:border-[#35463C] grid grid-cols-3 gap-6">
+              <div className="pt-8 border-t border-warm-grey dark:border-[#41413B] grid grid-cols-3 gap-6">
                 <div>
-                  <span className="block font-display text-xl sm:text-2xl text-charcoal dark:text-[#F5F2E9]">
+                  <span className="block font-display text-xl sm:text-2xl text-charcoal dark:text-[#F4F1E9]">
                     Palakkad
                   </span>
-                  <span className="text-[11px] text-charcoal-light dark:text-[#99A99D] font-semibold uppercase tracking-wider">
+                  <span className="text-[11px] text-slate dark:text-[#A09F97] font-semibold uppercase tracking-wider">
                     {language === "ml" ? "മണ്ഡല പ്രദേശം" : "Agrarian Heartland"}
                   </span>
                 </div>
                 <div>
-                  <span className="block font-display text-xl sm:text-2xl text-forest dark:text-[#8CB99B]">
+                  <span className="block font-display text-xl sm:text-2xl text-charcoal dark:text-[#F4F1E9]">
                     Direct Desk
                   </span>
-                  <span className="text-[11px] text-charcoal-light dark:text-[#99A99D] font-semibold uppercase tracking-wider">
+                  <span className="text-[11px] text-slate dark:text-[#A09F97] font-semibold uppercase tracking-wider">
                     {language === "ml" ? "പരാതി പരിഹാരം" : "Citizen Service"}
                   </span>
                 </div>
                 <div>
-                  <span className="block font-display text-xl sm:text-2xl text-terracotta dark:text-[#E19A76]">
+                  <span className="block font-display text-xl sm:text-2xl text-copper dark:text-[#D29A78]">
                     Verified
                   </span>
-                  <span className="text-[11px] text-charcoal-light dark:text-[#99A99D] font-semibold uppercase tracking-wider">
+                  <span className="text-[11px] text-slate dark:text-[#A09F97] font-semibold uppercase tracking-wider">
                     {language === "ml" ? "അറിയിപ്പുകൾ" : "Public Notices"}
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Right Column: Dominant Editorial Photograph & Architectural Frame */}
+            {/* Right Column: Dominant Editorial Photograph & Neutral Frame */}
             <div className="lg:col-span-5 flex justify-center lg:justify-end">
               <div className="relative w-full max-w-md sm:max-w-lg">
-                {/* Background Sage Architectural Block */}
+                {/* Background Architectural Neutral Block */}
                 <div
                   aria-hidden="true"
-                  className="absolute -top-4 -right-4 w-full h-full bg-sage/60 dark:bg-[#21342A]/60 rounded-sm -z-10"
+                  className="absolute -top-4 -right-4 w-full h-full bg-stone/80 dark:bg-[#222320] rounded-sm -z-10"
                 />
 
-                <div className="relative bg-white dark:bg-[#182720] rounded-sm border border-sage-border dark:border-[#35463C] p-3.5 shadow-sm overflow-hidden">
-                  <div className="relative aspect-[3/4] rounded-xs overflow-hidden bg-sage/30 dark:bg-[#21342A]/40 flex flex-col justify-end">
+                <div className="relative bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-3.5 shadow-sm overflow-hidden">
+                  <div className="relative aspect-[3/4] rounded-xs overflow-hidden bg-stone dark:bg-[#222320] flex flex-col justify-end">
                     {/* Placeholder Photographic Portrait */}
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
@@ -167,28 +167,28 @@ export default function HomePage() {
                       className="w-full h-full object-cover filter contrast-105 opacity-90"
                     />
 
-                    {/* Gradient Overlay for Text Legibility */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-forest-dark/95 via-forest-dark/30 to-transparent" />
+                    {/* Neutral Gradient Overlay for Text Legibility */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
 
                     {/* Floating Editorial Notice */}
                     <div className="absolute top-4 left-4 right-4">
-                      <div className="bg-ivory/95 dark:bg-[#21342A]/95 backdrop-blur-sm border border-sage-border dark:border-[#35463C] rounded-xs px-3 py-2 text-xs flex items-center gap-2 shadow-xs">
-                        <Info className="w-3.5 h-3.5 text-terracotta dark:text-[#E19A76] shrink-0" />
-                        <span className="text-[11px] font-semibold text-charcoal dark:text-[#F5F2E9]">
+                      <div className="bg-white/95 dark:bg-[#2C2D29]/95 backdrop-blur-sm border border-warm-grey dark:border-[#41413B] rounded-xs px-3 py-2 text-xs flex items-center gap-2 shadow-xs">
+                        <Info className="w-3.5 h-3.5 text-copper dark:text-[#D29A78] shrink-0" />
+                        <span className="text-[11px] font-semibold text-charcoal dark:text-[#F4F1E9]">
                           Temporary portrait placeholder · Awaiting approved asset
                         </span>
                       </div>
                     </div>
 
                     {/* Editorial Subject Card at Bottom */}
-                    <div className="relative z-10 p-6 text-ivory dark:text-[#F5F2E9]">
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-terracotta dark:text-[#10231A] bg-ivory dark:bg-[#8CB99B] px-2 py-0.5 rounded-xs inline-block mb-1.5 font-sans font-semibold">
+                    <div className="relative z-10 p-6 text-white">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-charcoal bg-white px-2 py-0.5 rounded-xs inline-block mb-1.5 font-sans font-semibold">
                         {language === "ml" ? "ജനപ്രതിനിധി" : "Public Representative"}
                       </span>
-                      <h2 className="font-display text-2xl sm:text-3xl text-ivory dark:text-[#F5F2E9] leading-tight">
+                      <h2 className="font-display text-2xl sm:text-3xl text-white leading-tight">
                         {getLocalized(representativeProfile.name)}
                       </h2>
-                      <p className="text-xs text-ivory/80 dark:text-[#C3CDC4] font-mono mt-1">
+                      <p className="text-xs text-white/80 font-mono mt-1">
                         {getLocalized(representativeProfile.constituencyName)}
                       </p>
                     </div>
@@ -201,20 +201,20 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-          2. INTRODUCTION SECTION — BREAK THE ACADEMIC PATTERN
+          2. INTRODUCTION SECTION — REFINED EDITORIAL
           ========================================================================= */}
       <section
         aria-labelledby="welcome-heading"
-        className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full border-b border-sage-border/60 dark:border-[#35463C]/60"
+        className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full border-b border-warm-grey dark:border-[#41413B]"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
           {/* Left: Uppercase Editorial Label */}
           <div className="lg:col-span-4 space-y-2">
-            <span className="text-xs font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76] block">
+            <span className="text-xs font-bold uppercase tracking-widest text-copper dark:text-[#D29A78] block">
               A Public Information Portal
             </span>
-            <div className="w-12 h-0.5 bg-forest dark:bg-[#8CB99B] mt-2"></div>
-            <p className="text-xs text-charcoal-light dark:text-[#99A99D] font-mono pt-3">
+            <div className="w-12 h-0.5 bg-copper dark:bg-[#D29A78] mt-2"></div>
+            <p className="text-xs text-slate dark:text-[#A09F97] font-mono pt-3">
               Office of Shri Ramesh Pisharady · Palakkad
             </p>
           </div>
@@ -223,22 +223,22 @@ export default function HomePage() {
           <div className="lg:col-span-8 space-y-6">
             <h2
               id="welcome-heading"
-              className="font-display text-3xl sm:text-4xl lg:text-5xl text-charcoal dark:text-[#F5F2E9] leading-tight tracking-tight"
+              className="font-display text-3xl sm:text-4xl lg:text-5xl text-charcoal dark:text-[#F4F1E9] leading-tight tracking-tight"
             >
               {t("welcomeHeading")}
             </h2>
 
-            <p className="text-charcoal-muted dark:text-[#C3CDC4] text-base sm:text-lg leading-relaxed font-light">
+            <p className="text-slate dark:text-[#C6C5BD] text-base sm:text-lg leading-relaxed font-light">
               {t("welcomeDescription")}
             </p>
 
             <div className="pt-2">
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-forest dark:text-[#8CB99B] hover:text-forest-dark dark:hover:text-[#9dc4ab] transition-colors group"
+                className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors group"
               >
                 <span>EXPLORE THE WEBSITE</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform text-copper dark:text-[#D29A78]" />
               </Link>
             </div>
           </div>
@@ -250,71 +250,71 @@ export default function HomePage() {
           ========================================================================= */}
       <section
         aria-labelledby="about-preview-heading"
-        className="py-16 sm:py-24 bg-sage/20 dark:bg-[#182720]/40 border-b border-sage-border/60 dark:border-[#35463C]/60"
+        className="py-16 sm:py-24 bg-stone/40 dark:bg-[#222320]/60 border-b border-warm-grey dark:border-[#41413B]"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left: Large Editorial Portrait & Vertical Line */}
             <div className="lg:col-span-5 relative">
-              <div className="relative bg-white dark:bg-[#21342A] p-3 rounded-sm border border-sage-border dark:border-[#35463C] shadow-xs">
-                <div className="aspect-[4/5] rounded-xs bg-sage/30 dark:bg-[#182720]/50 overflow-hidden relative">
+              <div className="relative bg-white dark:bg-[#2C2D29] p-3 rounded-sm border border-warm-grey dark:border-[#41413B] shadow-xs">
+                <div className="aspect-[4/5] rounded-xs bg-stone dark:bg-[#222320] overflow-hidden relative">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80"
                     alt="Representative Portrait"
                     className="w-full h-full object-cover filter contrast-105 opacity-90"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-forest-dark/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4 text-ivory dark:text-[#F5F2E9]">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4 text-white">
                     <p className="font-display text-xl">{getLocalized(representativeProfile.name)}</p>
-                    <p className="text-xs text-ivory/80 dark:text-[#C3CDC4] font-mono">Palakkad Constituency, Kerala</p>
+                    <p className="text-xs text-white/80 font-mono">Palakkad Constituency, Kerala</p>
                   </div>
                 </div>
               </div>
-              <p className="text-[11px] text-charcoal-light dark:text-[#99A99D] font-mono mt-2.5 text-center">
+              <p className="text-[11px] text-slate dark:text-[#A09F97] font-mono mt-2.5 text-center">
                 Official approved portrait will be updated upon secretarial confirmation.
               </p>
             </div>
 
             {/* Right: Editorial Narrative */}
             <div className="lg:col-span-7 space-y-6">
-              <span className="text-xs font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76] block">
+              <span className="text-xs font-bold uppercase tracking-widest text-copper dark:text-[#D29A78] block">
                 About the Representative
               </span>
 
               <h2
                 id="about-preview-heading"
-                className="font-display text-3xl sm:text-4xl lg:text-5xl text-charcoal dark:text-[#F5F2E9] leading-tight"
+                className="font-display text-3xl sm:text-4xl lg:text-5xl text-charcoal dark:text-[#F4F1E9] leading-tight"
               >
                 A Closer Look at <br />
-                <span className="text-forest dark:text-[#8CB99B]">Shri Ramesh Pisharady</span>
+                <span className="text-charcoal/80 dark:text-[#F4F1E9]/80 font-normal italic">Shri Ramesh Pisharady</span>
               </h2>
 
-              <p className="text-charcoal-muted dark:text-[#C3CDC4] text-base sm:text-lg leading-relaxed font-light">
+              <p className="text-slate dark:text-[#C6C5BD] text-base sm:text-lg leading-relaxed font-light">
                 {getLocalized(representativeProfile.officialBioNotice)}
               </p>
 
               {/* Confirmed Concise Facts */}
-              <div className="bg-white dark:bg-[#21342A] p-6 rounded-sm border border-sage-border dark:border-[#35463C] space-y-3 text-xs sm:text-sm">
+              <div className="bg-white dark:bg-[#2C2D29] p-6 rounded-sm border border-warm-grey dark:border-[#41413B] space-y-3 text-xs sm:text-sm shadow-xs">
                 <div className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-forest dark:bg-[#8CB99B] mt-2 shrink-0"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-copper dark:bg-[#D29A78] mt-2 shrink-0"></span>
                   <div>
-                    <strong className="text-charcoal dark:text-[#F5F2E9] block">Constituency:</strong>
-                    <span className="text-charcoal-muted dark:text-[#C3CDC4]">Palakkad, Kerala, India (Gateway to the Western Ghats)</span>
+                    <strong className="text-charcoal dark:text-[#F4F1E9] block">Constituency:</strong>
+                    <span className="text-slate dark:text-[#C6C5BD]">Palakkad, Kerala, India (Gateway to the Western Ghats)</span>
                   </div>
                 </div>
-                <div className="flex items-start gap-3 pt-2 border-t border-sage-border/50 dark:border-[#35463C]/50">
-                  <span className="w-1.5 h-1.5 rounded-full bg-forest dark:bg-[#8CB99B] mt-2 shrink-0"></span>
+                <div className="flex items-start gap-3 pt-2 border-t border-warm-grey/60 dark:border-[#41413B]/60">
+                  <span className="w-1.5 h-1.5 rounded-full bg-copper dark:bg-[#D29A78] mt-2 shrink-0"></span>
                   <div>
-                    <strong className="text-charcoal dark:text-[#F5F2E9] block">Public Liaison:</strong>
-                    <span className="text-charcoal-muted dark:text-[#C3CDC4]">Active Citizen Redressal &amp; Infrastructure Oversight Desk</span>
+                    <strong className="text-charcoal dark:text-[#F4F1E9] block">Public Liaison:</strong>
+                    <span className="text-slate dark:text-[#C6C5BD]">Active Citizen Redressal &amp; Infrastructure Oversight Desk</span>
                   </div>
                 </div>
-                <div className="flex items-start gap-3 pt-2 border-t border-sage-border/50 dark:border-[#35463C]/50">
-                  <span className="w-1.5 h-1.5 rounded-full bg-forest dark:bg-[#8CB99B] mt-2 shrink-0"></span>
+                <div className="flex items-start gap-3 pt-2 border-t border-warm-grey/60 dark:border-[#41413B]/60">
+                  <span className="w-1.5 h-1.5 rounded-full bg-copper dark:bg-[#D29A78] mt-2 shrink-0"></span>
                   <div>
-                    <strong className="text-charcoal dark:text-[#F5F2E9] block">Official Verification:</strong>
-                    <span className="text-charcoal-muted dark:text-[#C3CDC4]">All policy and biographical data cleared by representative secretariat.</span>
+                    <strong className="text-charcoal dark:text-[#F4F1E9] block">Official Verification:</strong>
+                    <span className="text-slate dark:text-[#C6C5BD]">All policy and biographical data cleared by representative secretariat.</span>
                   </div>
                 </div>
               </div>
@@ -322,10 +322,10 @@ export default function HomePage() {
               <div className="pt-2">
                 <Link
                   href="/about"
-                  className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-forest dark:text-[#8CB99B] hover:text-forest-dark dark:hover:text-[#9dc4ab] transition-colors group"
+                  className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors group"
                 >
                   <span>READ COMPLETE OVERVIEW</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform text-copper dark:text-[#D29A78]" />
                 </Link>
               </div>
             </div>
@@ -338,30 +338,30 @@ export default function HomePage() {
           ========================================================================= */}
       <section
         aria-labelledby="news-heading"
-        className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full border-b border-sage-border/60 dark:border-[#35463C]/60"
+        className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full border-b border-warm-grey dark:border-[#41413B]"
       >
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-sage-border dark:border-[#35463C]">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-warm-grey dark:border-[#41413B]">
           <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76] block mb-1">
+            <span className="text-xs font-bold uppercase tracking-widest text-copper dark:text-[#D29A78] block mb-1">
               Latest Updates
             </span>
             <h2
               id="news-heading"
-              className="font-display text-3xl sm:text-4xl text-charcoal dark:text-[#F5F2E9]"
+              className="font-display text-3xl sm:text-4xl text-charcoal dark:text-[#F4F1E9]"
             >
               News &amp; Announcements
             </h2>
-            <p className="text-xs sm:text-sm text-charcoal-muted dark:text-[#C3CDC4] mt-1">
+            <p className="text-xs sm:text-sm text-slate dark:text-[#C6C5BD] mt-1">
               Official notices, public meetings, constituency updates and information published by the office.
             </p>
           </div>
 
           <Link
             href="/news"
-            className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-forest dark:text-[#8CB99B] hover:text-forest-dark dark:hover:text-[#9dc4ab] shrink-0 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] shrink-0 transition-colors"
           >
             <span>View All Updates</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
           </Link>
         </div>
 
@@ -373,8 +373,8 @@ export default function HomePage() {
           </div>
 
           {/* Compact Vertical Stack of Supporting Articles on Right */}
-          <div className="lg:col-span-5 bg-white dark:bg-[#182720] p-6 sm:p-7 rounded-sm border border-sage-border dark:border-[#35463C] space-y-1">
-            <span className="text-xs font-bold uppercase tracking-widest text-charcoal-light dark:text-[#99A99D] block pb-3 border-b border-sage-border dark:border-[#35463C]">
+          <div className="lg:col-span-5 bg-white dark:bg-[#2C2D29] p-6 sm:p-7 rounded-sm border border-warm-grey dark:border-[#41413B] space-y-1 shadow-xs">
+            <span className="text-xs font-bold uppercase tracking-widest text-slate dark:text-[#A09F97] block pb-3 border-b border-warm-grey dark:border-[#41413B]">
               Recent Notices &amp; Bulletins
             </span>
             {sideNews.map((item) => (
@@ -385,37 +385,37 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-          5. CONSTITUENCY SECTION — INFORMATION HUB (Deep Forest High-Contrast)
+          5. CONSTITUENCY SECTION — INFORMATION HUB (Neutral Warm Surface)
           ========================================================================= */}
       <section
         aria-labelledby="constituency-heading"
-        className="py-16 sm:py-24 bg-forest-dark dark:bg-[#111C18] text-ivory dark:text-[#F5F2E9] border-b border-forest/50 dark:border-[#35463C]"
+        className="py-16 sm:py-24 bg-stone/50 dark:bg-[#191A18] text-charcoal dark:text-[#F4F1E9] border-b border-warm-grey dark:border-[#41413B]"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 pb-6 border-b border-forest/40 dark:border-[#35463C]/60">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 pb-6 border-b border-warm-grey dark:border-[#41413B]">
             <div className="max-w-2xl">
-              <span className="text-xs font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76] block mb-1">
+              <span className="text-xs font-bold uppercase tracking-widest text-copper dark:text-[#D29A78] block mb-1">
                 Constituency Hub
               </span>
               <h2
                 id="constituency-heading"
-                className="font-display text-3xl sm:text-4xl lg:text-5xl text-ivory dark:text-[#F5F2E9]"
+                className="font-display text-3xl sm:text-4xl lg:text-5xl text-charcoal dark:text-[#F4F1E9]"
               >
                 Your Constituency at a Glance
               </h2>
-              <p className="text-sm text-ivory/80 dark:text-[#C3CDC4] mt-2 font-light leading-relaxed">
+              <p className="text-sm text-slate dark:text-[#C6C5BD] mt-2 font-light leading-relaxed">
                 Explore constituency information, public resources and documented updates on local projects. Find relevant links and information to help you access public services.
               </p>
             </div>
 
             {/* Interactive Switcher between Projects and Public Directory */}
-            <div className="flex items-center gap-2 bg-forest-surface dark:bg-[#182720] p-1 rounded-xs border border-forest/50 dark:border-[#35463C] shrink-0">
+            <div className="flex items-center gap-1.5 bg-white dark:bg-[#2C2D29] p-1.5 rounded-sm border border-warm-grey dark:border-[#41413B] shrink-0">
               <button
                 onClick={() => setConstituencyTab("projects")}
                 className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xs transition-all ${
                   constituencyTab === "projects"
-                    ? "bg-sage dark:bg-[#8CB99B] text-charcoal dark:text-[#10231A] shadow-xs"
-                    : "text-ivory/70 dark:text-[#C3CDC4] hover:text-ivory dark:hover:text-[#F5F2E9]"
+                    ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] shadow-xs"
+                    : "text-slate hover:text-charcoal dark:text-[#C6C5BD] dark:hover:text-[#F4F1E9]"
                 }`}
               >
                 Development Projects
@@ -424,8 +424,8 @@ export default function HomePage() {
                 onClick={() => setConstituencyTab("directory")}
                 className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xs transition-all ${
                   constituencyTab === "directory"
-                    ? "bg-sage dark:bg-[#8CB99B] text-charcoal dark:text-[#10231A] shadow-xs"
-                    : "text-ivory/70 dark:text-[#C3CDC4] hover:text-ivory dark:hover:text-[#F5F2E9]"
+                    ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] shadow-xs"
+                    : "text-slate hover:text-charcoal dark:text-[#C6C5BD] dark:hover:text-[#F4F1E9]"
                 }`}
               >
                 Public Resources
@@ -436,16 +436,16 @@ export default function HomePage() {
           {/* Active Tab Panel */}
           <div>
             {constituencyTab === "projects" ? (
-              <ProjectTracker projects={mockProjects} darkTheme />
+              <ProjectTracker projects={mockProjects} />
             ) : (
-              <ResourceDirectory resources={publicResources} darkTheme />
+              <ResourceDirectory resources={publicResources} />
             )}
           </div>
 
-          <div className="mt-10 pt-6 border-t border-forest/40 dark:border-[#35463C]/60 flex justify-end">
+          <div className="mt-10 pt-6 border-t border-warm-grey dark:border-[#41413B] flex justify-end">
             <Link
               href="/constituency"
-              className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-sage dark:text-[#8CB99B] hover:text-ivory dark:hover:text-[#F5F2E9] transition-colors group"
+              className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-muted-blue dark:text-[#91A7B8] hover:underline transition-colors group"
             >
               <span>Explore Complete Constituency Guide</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -459,30 +459,30 @@ export default function HomePage() {
           ========================================================================= */}
       <section
         aria-labelledby="activities-heading"
-        className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full border-b border-sage-border/60 dark:border-[#35463C]/60"
+        className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full border-b border-warm-grey dark:border-[#41413B]"
       >
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-sage-border dark:border-[#35463C]">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-warm-grey dark:border-[#41413B]">
           <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76] block mb-1">
+            <span className="text-xs font-bold uppercase tracking-widest text-copper dark:text-[#D29A78] block mb-1">
               Public Engagements
             </span>
             <h2
               id="activities-heading"
-              className="font-display text-3xl sm:text-4xl text-charcoal dark:text-[#F5F2E9]"
+              className="font-display text-3xl sm:text-4xl text-charcoal dark:text-[#F4F1E9]"
             >
               Public Activities &amp; Engagements
             </h2>
-            <p className="text-xs sm:text-sm text-charcoal-muted dark:text-[#C3CDC4] mt-1">
+            <p className="text-xs sm:text-sm text-slate dark:text-[#C6C5BD] mt-1">
               Find updates about public meetings, official visits, community events and other activities published by the office.
             </p>
           </div>
 
           <Link
             href="/activities"
-            className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-forest dark:text-[#8CB99B] hover:text-forest-dark dark:hover:text-[#9dc4ab] shrink-0 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] shrink-0 transition-colors"
           >
             <span>View All Activities</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
           </Link>
         </div>
 
@@ -500,35 +500,35 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-          7. PHOTO GALLERY — FULL-BLEED EDITORIAL GRID
+          7. PHOTO GALLERY — EDITORIAL GRID
           ========================================================================= */}
       <section
         aria-labelledby="gallery-heading"
-        className="py-16 sm:py-24 bg-sage/20 dark:bg-[#182720]/40 border-b border-sage-border/60 dark:border-[#35463C]/60"
+        className="py-16 sm:py-24 bg-stone/40 dark:bg-[#222320]/60 border-b border-warm-grey dark:border-[#41413B]"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-sage-border dark:border-[#35463C]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-warm-grey dark:border-[#41413B]">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76] block mb-1">
+              <span className="text-xs font-bold uppercase tracking-widest text-copper dark:text-[#D29A78] block mb-1">
                 Visual Documentation
               </span>
               <h2
                 id="gallery-heading"
-                className="font-display text-3xl sm:text-4xl text-charcoal dark:text-[#F5F2E9]"
+                className="font-display text-3xl sm:text-4xl text-charcoal dark:text-[#F4F1E9]"
               >
                 Moments from the Constituency
               </h2>
-              <p className="text-xs sm:text-sm text-charcoal-muted dark:text-[#C3CDC4] mt-1">
+              <p className="text-xs sm:text-sm text-slate dark:text-[#C6C5BD] mt-1">
                 Curated photographic impressions documenting public meetings, visits, civic infrastructure and Palakkad landscapes.
               </p>
             </div>
 
             <Link
               href="/gallery"
-              className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-forest dark:text-[#8CB99B] hover:text-forest-dark dark:hover:text-[#9dc4ab] shrink-0 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] shrink-0 transition-colors"
             >
               <span>Explore Full Gallery</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
             </Link>
           </div>
 
@@ -546,7 +546,7 @@ export default function HomePage() {
               tabIndex={0}
               role="button"
               aria-label={`View photo: ${getLocalized(mockGallery[0].title)}`}
-              className="sm:col-span-2 lg:col-span-7 group relative aspect-[16/11] rounded-sm overflow-hidden bg-white dark:bg-[#182720] border border-sage-border dark:border-[#35463C] cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest dark:focus-visible:ring-[#8CB99B]"
+              className="sm:col-span-2 lg:col-span-7 group relative aspect-[16/11] rounded-sm overflow-hidden bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -555,19 +555,19 @@ export default function HomePage() {
                 className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-forest-dark/85 via-forest-dark/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
               <div className="absolute top-4 left-4">
-                <span className="text-[10px] font-bold uppercase tracking-wider bg-ivory dark:bg-[#21342A] text-charcoal dark:text-[#F5F2E9] px-2.5 py-0.5 rounded-xs">
+                <span className="text-[10px] font-bold uppercase tracking-wider bg-white dark:bg-[#2C2D29] text-charcoal dark:text-[#F4F1E9] px-2.5 py-0.5 rounded-xs border border-warm-grey dark:border-[#41413B]">
                   {mockGallery[0].category}
                 </span>
               </div>
-              <div className="absolute bottom-4 left-4 right-4 text-ivory dark:text-[#F5F2E9]">
+              <div className="absolute bottom-4 left-4 right-4 text-white">
                 <p className="font-display text-xl sm:text-2xl leading-snug">
                   {getLocalized(mockGallery[0].title)}
                 </p>
-                <div className="flex items-center justify-between text-xs text-ivory/80 dark:text-[#C3CDC4] mt-1 font-mono">
+                <div className="flex items-center justify-between text-xs text-white/80 mt-1 font-mono">
                   <span>{mockGallery[0].date}</span>
-                  <span className="text-terracotta-soft dark:text-[#E19A76] group-hover:underline">Click to expand</span>
+                  <span className="text-[#D29A78] group-hover:underline">Click to expand</span>
                 </div>
               </div>
             </div>
@@ -587,7 +587,7 @@ export default function HomePage() {
                   tabIndex={0}
                   role="button"
                   aria-label={`View photo: ${getLocalized(item.title)}`}
-                  className="group relative aspect-[16/10] rounded-sm overflow-hidden bg-white dark:bg-[#182720] border border-sage-border dark:border-[#35463C] cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest dark:focus-visible:ring-[#8CB99B]"
+                  className="group relative aspect-[16/10] rounded-sm overflow-hidden bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -596,12 +596,12 @@ export default function HomePage() {
                     className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-forest-dark/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3 text-ivory dark:text-[#F5F2E9]">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+                  <div className="absolute bottom-3 left-3 right-3 text-white">
                     <p className="font-display text-base leading-snug line-clamp-1">
                       {getLocalized(item.title)}
                     </p>
-                    <span className="text-[10px] text-ivory/70 dark:text-[#C3CDC4] font-mono">{item.date}</span>
+                    <span className="text-[10px] text-white/70 font-mono">{item.date}</span>
                   </div>
                 </div>
               ))}
@@ -620,71 +620,71 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-          8. CONTACT SECTION — WARM AND APPROACHABLE (Deep Forest Background)
+          8. CONTACT SECTION — WARM IVORY AND OPEN
           ========================================================================= */}
       <section
         aria-labelledby="contact-heading"
-        className="py-16 sm:py-24 bg-forest-dark dark:bg-[#111C18] text-ivory dark:text-[#F5F2E9]"
+        className="py-16 sm:py-24 bg-ivory dark:bg-[#191A18] text-charcoal dark:text-[#F4F1E9]"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             {/* Left: Heading & Office Particulars */}
             <div className="lg:col-span-5 space-y-6">
               <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-terracotta dark:text-[#E19A76] block mb-1">
+                <span className="text-xs font-bold uppercase tracking-widest text-copper dark:text-[#D29A78] block mb-1">
                   Connect Directly
                 </span>
                 <h2
                   id="contact-heading"
-                  className="font-display text-3xl sm:text-4xl lg:text-5xl text-ivory dark:text-[#F5F2E9] leading-tight"
+                  className="font-display text-3xl sm:text-4xl lg:text-5xl text-charcoal dark:text-[#F4F1E9] leading-tight"
                 >
                   Get in Touch <br />
-                  <span className="text-sage dark:text-[#8CB99B] font-normal italic">with the Office</span>
+                  <span className="text-slate dark:text-[#C6C5BD] font-normal italic">with the Office</span>
                 </h2>
-                <p className="text-sm text-ivory/80 dark:text-[#C3CDC4] mt-3 font-light leading-relaxed">
+                <p className="text-sm text-slate dark:text-[#C6C5BD] mt-3 font-light leading-relaxed">
                   For official enquiries, use the verified contact details below or submit an enquiry through the office&apos;s contact form.
                 </p>
               </div>
 
               {/* Verified Contact Details Box */}
-              <div className="bg-forest-surface dark:bg-[#182720] p-6 rounded-sm border border-forest/50 dark:border-[#35463C] space-y-5 text-xs text-ivory/90 dark:text-[#F5F2E9]">
+              <div className="bg-white dark:bg-[#2C2D29] p-6 rounded-sm border border-warm-grey dark:border-[#41413B] space-y-5 text-xs text-charcoal dark:text-[#F4F1E9] shadow-xs">
                 <div className="flex items-start gap-3.5">
-                  <MapPin className="w-4 h-4 text-terracotta dark:text-[#E19A76] shrink-0 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-bold uppercase tracking-wider block text-ivory dark:text-[#F5F2E9]">Office Address</span>
-                    <span className="text-ivory/70 dark:text-[#C3CDC4] leading-relaxed block mt-0.5">
+                    <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">Office Address</span>
+                    <span className="text-slate dark:text-[#C6C5BD] leading-relaxed block mt-0.5">
                       [To be confirmed] · Constituency Office of Shri Ramesh Pisharady, Palakkad District, Kerala – PIN: 678001
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3.5 pt-3 border-t border-forest/40 dark:border-[#35463C]/60">
-                  <PhoneCall className="w-4 h-4 text-terracotta dark:text-[#E19A76] shrink-0 mt-0.5" />
+                <div className="flex items-start gap-3.5 pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60">
+                  <PhoneCall className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-bold uppercase tracking-wider block text-ivory dark:text-[#F5F2E9]">Phone</span>
-                    <span className="text-ivory/70 dark:text-[#C3CDC4] block mt-0.5">[Verified office number to be added] · Demo: +91 491 2500000</span>
+                    <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">Phone</span>
+                    <span className="text-slate dark:text-[#C6C5BD] block mt-0.5">[Verified office number to be added] · Demo: +91 491 2500000</span>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3.5 pt-3 border-t border-forest/40 dark:border-[#35463C]/60">
-                  <Compass className="w-4 h-4 text-terracotta dark:text-[#E19A76] shrink-0 mt-0.5" />
+                <div className="flex items-start gap-3.5 pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60">
+                  <Compass className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-bold uppercase tracking-wider block text-ivory dark:text-[#F5F2E9]">Email</span>
-                    <span className="text-ivory/70 dark:text-[#C3CDC4] block mt-0.5">office.pisharady@demo.gov.in (Official email placeholder)</span>
+                    <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">Email</span>
+                    <span className="text-slate dark:text-[#C6C5BD] block mt-0.5">office.pisharady@demo.gov.in (Official email placeholder)</span>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3.5 pt-3 border-t border-forest/40 dark:border-[#35463C]/60">
-                  <Clock className="w-4 h-4 text-terracotta dark:text-[#E19A76] shrink-0 mt-0.5" />
+                <div className="flex items-start gap-3.5 pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60">
+                  <Clock className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-bold uppercase tracking-wider block text-ivory dark:text-[#F5F2E9]">Office Hours</span>
-                    <span className="text-ivory/70 dark:text-[#C3CDC4] block mt-0.5">Mon – Fri: 09:30 AM – 05:00 PM [To be confirmed]</span>
+                    <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">Office Hours</span>
+                    <span className="text-slate dark:text-[#C6C5BD] block mt-0.5">Mon – Fri: 09:30 AM – 05:00 PM [To be confirmed]</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Right: Clean Warm Ivory Contact Form */}
+            {/* Right: Clean Warm Ivory / White Contact Form */}
             <div className="lg:col-span-7">
               <ContactForm />
             </div>
