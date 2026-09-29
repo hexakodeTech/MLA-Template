@@ -197,8 +197,7 @@ export default function HomePage() {
   const leadNews = mockNews[0];
   const sideNews = mockNews.slice(1, 4);
 
-  const featuredActivity = mockActivities[0];
-  const supportingActivities = mockActivities.slice(1, 3);
+  const homeActivities = mockActivities.slice(0, 3);
 
   return (
     <div className="flex flex-col font-sans bg-ivory text-charcoal dark:bg-[#191A18] dark:text-[#F4F1E9]">
@@ -633,47 +632,46 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-          6. PUBLIC ACTIVITIES — VISUAL STORYTELLING
+          6. PUBLIC ACTIVITIES — BALANCED EDITORIAL GRID
           ========================================================================= */}
       <section
         aria-labelledby="activities-heading"
         className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full border-b border-warm-grey dark:border-[#41413B]"
       >
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-warm-grey dark:border-[#41413B]">
-          <div>
+          <div className="max-w-2xl">
             <span className="text-xs font-bold uppercase tracking-widest text-copper dark:text-[#D29A78] block mb-1">
-              Public Engagements
+              {language === "ml" ? "പൊതു ഇടപെടലുകൾ" : "Public Engagements"}
             </span>
             <h2
               id="activities-heading"
-              className="font-display text-3xl sm:text-4xl text-charcoal dark:text-[#F4F1E9]"
+              className="font-display text-3xl sm:text-4xl text-charcoal dark:text-[#F4F1E9] leading-tight"
             >
-              Public Activities &amp; Engagements
+              {language === "ml" ? "പൊതുപരിപാടികളും ഇടപെടലുകളും" : "Public Activities & Engagements"}
             </h2>
-            <p className="text-xs sm:text-sm text-slate dark:text-[#C6C5BD] mt-1">
-              Find updates about public meetings, official visits, community events and other activities published by the office.
+            <p className="text-xs sm:text-sm text-slate dark:text-[#C6C5BD] mt-1.5 leading-relaxed font-light">
+              {language === "ml"
+                ? "ഓഫീസ് പ്രസിദ്ധീകരിച്ച പൊതുയോഗങ്ങൾ, ഔദ്യോഗിക സന്ദർശനങ്ങൾ, മറ്റ് പ്രവർത്തനങ്ങൾ എന്നിവയെക്കുറിച്ചുള്ള വിവരങ്ങൾ."
+                : "Find updates about public meetings, official visits, community events and other activities published by the office."}
             </p>
           </div>
 
-          <Link
-            href="/activities"
-            className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] shrink-0 transition-colors"
-          >
-            <span>View All Activities</span>
-            <ArrowRight className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
-          </Link>
+          <div className="shrink-0 pt-1 sm:pt-0">
+            <Link
+              href="/activities"
+              className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors group"
+            >
+              <span>{language === "ml" ? "എല്ലാ പ്രവർത്തനങ്ങളും കാണുക" : "View All Activities"}</span>
+              <ArrowRight className="w-3.5 h-3.5 text-copper dark:text-[#D29A78] group-hover:translate-x-1.5 transition-transform" />
+            </Link>
+          </div>
         </div>
 
-        {/* Asymmetrical Grid: 1 Featured Activity + 2 Supporting */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <div className="lg:col-span-7">
-            {featuredActivity && <ActivityCard activity={featuredActivity} featured />}
-          </div>
-          <div className="lg:col-span-5 grid grid-cols-1 gap-6">
-            {supportingActivities.map((act) => (
-              <ActivityCard key={act.id} activity={act} />
-            ))}
-          </div>
+        {/* Clean, Consistent 3-Column Responsive Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+          {homeActivities.map((act) => (
+            <ActivityCard key={act.id} activity={act} />
+          ))}
         </div>
       </section>
 
