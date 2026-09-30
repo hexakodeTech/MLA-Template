@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, Manrope, Noto_Sans_Malayalam } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 import { LanguageProvider } from "@/context/LanguageContext";
-import { ThemeProvider, THEME_STORAGE_KEY } from "@/context/ThemeContext";
-import { AccessibilityProvider, A11Y_STORAGE_KEY } from "@/context/AccessibilityContext";
+import { ThemeProvider } from "@/context/ThemeContext";
+import { AccessibilityProvider } from "@/context/AccessibilityContext";
 import { PrototypeBanner } from "@/components/ui/PrototypeBanner";
+import { InitialLoadingScreen } from "@/components/ui/InitialLoadingScreen";
 import { MouseFollowDot } from "@/components/ui/MouseFollowDot";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -73,13 +75,15 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${dmSerifDisplay.variable} ${manrope.variable} ${notoMalayalam.variable} h-full antialiased`}
     >
-      <head>
-        <script
+      <body className="min-h-full flex flex-col bg-ivory text-charcoal dark:bg-[#191A18] dark:text-[#F4F1E9] font-sans selection:bg-charcoal selection:text-ivory dark:selection:bg-[#D29A78] dark:selection:text-[#191A18]">
+        <Script
+          id="portal-init-script"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `(function(){
               try {
                 // 1. Theme Bootstrap
-                var t = localStorage.getItem("${THEME_STORAGE_KEY}");
+                var t = localStorage.getItem("pisharady_portal_theme");
                 var d = t === "dark" || (!t && window.matchMedia("(prefers-color-scheme: dark)").matches);
                 if (d) {
                   document.documentElement.classList.add("dark");
@@ -90,7 +94,7 @@ export default function RootLayout({
                 }
                 
                 // 2. Accessibility Bootstrap (Zero Flash)
-                var a = localStorage.getItem("${A11Y_STORAGE_KEY}");
+                var a = localStorage.getItem("pisharady_portal_a11y");
                 if (a) {
                   var s = JSON.parse(a);
                   var root = document.documentElement;
@@ -108,12 +112,26 @@ export default function RootLayout({
                   if (s.reduceMotion) root.setAttribute("data-a11y-reduce-motion", "true");
                   if (s.highlightFocus) root.setAttribute("data-a11y-highlight-focus", "true");
                 }
+
+                // 3. Language Bootstrap (Zero Flash)
+                var l = localStorage.getItem("website_language") || localStorage.getItem("site_lang");
+                if (l !== "ml" && l !== "en") l = "en";
+                document.documentElement.lang = l;
+                document.documentElement.setAttribute("data-lang", l);
+
+                // 4. Random Activity Bootstrap (Zero Flash & Anti-Repetition)
+                var actIds = ["act-1", "act-2", "act-3", "act-4"];
+                var lastAct = localStorage.getItem("last_loading_activity_id");
+                var pool = actIds.filter(function(id) { return id !== lastAct; });
+                var chosenAct = (pool.length > 0 ? pool : actIds)[Math.floor(Math.random() * (pool.length > 0 ? pool.length : actIds.length))];
+                if (chosenAct) {
+                  localStorage.setItem("last_loading_activity_id", chosenAct);
+                  document.documentElement.setAttribute("data-loading-activity", chosenAct);
+                }
               } catch(e) {}
             })()`,
           }}
         />
-      </head>
-      <body className="min-h-full flex flex-col bg-ivory text-charcoal dark:bg-[#191A18] dark:text-[#F4F1E9] font-sans selection:bg-charcoal selection:text-ivory dark:selection:bg-[#D29A78] dark:selection:text-[#191A18]">
         {/* Skip to Main Content Link for Keyboard and Screen Reader Accessibility */}
         <a
           href="#main-content"
@@ -125,6 +143,7 @@ export default function RootLayout({
         <ThemeProvider>
           <AccessibilityProvider>
             <LanguageProvider>
+              <InitialLoadingScreen />
               <PrototypeBanner />
               <Header />
               <main id="main-content" className="flex-1 flex flex-col">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useTransition } from "react";
+import React, { createContext, useContext, useEffect, useState, useTransition } from "react";
 import { Language, LocalizedString } from "@/types";
 
 interface LanguageContextType {
@@ -81,6 +81,24 @@ const translations: Record<string, { en: string; ml: string }> = {
   searchPlaceholder: { en: "Search updates and notices...", ml: "അറിയിപ്പുകൾ തിരയുക..." },
   allCategories: { en: "All Categories", ml: "എല്ലാ വിഭാഗങ്ങളും" },
 
+  // Loading Screen
+  loadingTitle: {
+    en: "Activities in the Constituency",
+    ml: "മണ്ഡലത്തിലെ പ്രവർത്തനങ്ങൾ",
+  },
+  loadingDescription: {
+    en: "Loading updates, public activities and constituency information.",
+    ml: "വികസന അറിയിപ്പുകളും പൊതുപ്രവർത്തനങ്ങളും ലഭ്യമാക്കുന്നു.",
+  },
+  loadingBadge: {
+    en: "Official Representative Portal",
+    ml: "ഔദ്യോഗിക പ്രതിനിധി പോർട്ടൽ",
+  },
+  loadingProgress: {
+    en: "Loading progress",
+    ml: "ലോഡിംഗ് പുരോഗതി",
+  },
+
   // Footer
   copyright: {
     en: "© 2026 Office of Shri Ramesh Pisharady. All rights reserved.",
@@ -94,27 +112,62 @@ const translations: Record<string, { en: string; ml: string }> = {
   accessibilityStatement: { en: "Accessibility Statement", ml: "പ്രവേശനക്ഷമത പ്രസ്താവന" },
 };
 
+export const LANGUAGE_STORAGE_KEY = "website_language";
+export const LEGACY_LANGUAGE_STORAGE_KEY = "site_lang";
+
+export const getSavedLanguage = (): Language => {
+  if (typeof window !== "undefined") {
+    try {
+      const saved =
+        localStorage.getItem(LANGUAGE_STORAGE_KEY) ||
+        localStorage.getItem(LEGACY_LANGUAGE_STORAGE_KEY);
+      if (saved === "en" || saved === "ml") return saved;
+      const domLang = document.documentElement.getAttribute("data-lang");
+      if (domLang === "en" || domLang === "ml") return domLang;
+    } catch {
+      // fallback
+    }
+  }
+  return "en";
+};
+
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [language, setLanguageState] = useState<Language>(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("site_lang");
-      if (saved === "en" || saved === "ml") return saved;
-    }
-    return "en";
-  });
+  const [language, setLanguageState] = useState<Language>("en");
   const [, startTransition] = useTransition();
+
+  // Restore saved language preference after client hydration
+  useEffect(() => {
+    try {
+      const saved =
+        localStorage.getItem(LANGUAGE_STORAGE_KEY) ||
+        localStorage.getItem(LEGACY_LANGUAGE_STORAGE_KEY);
+      if (saved === "en" || saved === "ml") {
+        setLanguageState(saved);
+        document.documentElement.lang = saved;
+        document.documentElement.setAttribute("data-lang", saved);
+      }
+    } catch {
+      // ignore storage errors
+    }
+  }, []);
 
   const handleSetLanguage = (lang: Language) => {
     startTransition(() => {
       setLanguageState(lang);
     });
     if (typeof window !== "undefined") {
-      localStorage.setItem("site_lang", lang);
-      document.documentElement.lang = lang;
+      try {
+        localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+        localStorage.setItem(LEGACY_LANGUAGE_STORAGE_KEY, lang);
+        document.documentElement.lang = lang;
+        document.documentElement.setAttribute("data-lang", lang);
+      } catch {
+        // ignore storage errors
+      }
     }
   };
 
