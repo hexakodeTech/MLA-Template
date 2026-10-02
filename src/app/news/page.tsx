@@ -4,7 +4,7 @@ import NewsClient from "./NewsClient";
 export const metadata: Metadata = {
   title: "News & Announcements",
   description:
-    "Official announcements, press releases, public meeting notices, and constituency updates from the office of Shri Ramesh Pisharady.",
+    "Read the latest news, public notices and announcements from the official representative portal of Shri Ramesh Pisharady.",
 };
 
 export default function NewsPage() {

@@ -19,6 +19,7 @@ export async function generateMetadata({
   if (!activity) {
     return {
       title: "Activity Record Not Found",
+      description: "The requested public activity entry could not be found.",
     };
   }
 

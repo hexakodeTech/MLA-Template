@@ -4,7 +4,7 @@ import ConstituencyClient from "./ConstituencyClient";
 export const metadata: Metadata = {
   title: "Palakkad Constituency",
   description:
-    "Regional profile, administrative taluks, documented development initiatives, and public service directories for Palakkad Constituency.",
+    "Explore information about the constituency, public resources, local information and constituency-related updates through the official representative portal.",
 };
 
 export default function ConstituencyPage() {

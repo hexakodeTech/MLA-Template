@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     absolute: "About Shri Ramesh Pisharady | Official Representative Portal",
   },
   description:
-    "Official profile, public role, institutional commitments, and verified background for Shri Ramesh Pisharady, representative of Palakkad Constituency.",
+    "Learn more about Shri Ramesh Pisharady, his public profile, role and work, and explore information available through the official representative portal.",
 };
 
 export default function AboutPage() {

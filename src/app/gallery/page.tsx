@@ -4,7 +4,7 @@ import GalleryClient from "./GalleryClient";
 export const metadata: Metadata = {
   title: "Gallery",
   description:
-    "Photographic record documenting public meetings, official walkthroughs, infrastructure inspections, and the cultural landscape of Palakkad.",
+    "Browse photographs and visual highlights from public activities, constituency engagements and events featured on the official representative portal of Shri Ramesh Pisharady.",
 };
 
 export default function GalleryPage() {

@@ -4,7 +4,7 @@ import ContactClient from "./ContactClient";
 export const metadata: Metadata = {
   title: "Contact the Office",
   description:
-    "Official contact directory, visiting schedules, secretariat address, and online enquiry submission channels for the office of Shri Ramesh Pisharady in Palakkad.",
+    "Find official office contact information and submit enquiries through the official representative portal of Shri Ramesh Pisharady.",
 };
 
 export default function ContactPage() {

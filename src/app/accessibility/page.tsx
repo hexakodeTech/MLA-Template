@@ -4,7 +4,7 @@ import AccessibilityClient from "./AccessibilityClient";
 export const metadata: Metadata = {
   title: "Accessibility",
   description:
-    "Accessibility statement, conformance standards, keyboard shortcuts, and assistive tooling details for the official representative portal.",
+    "Learn about the accessibility features and support available on the official representative portal of Shri Ramesh Pisharady.",
 };
 
 export default function AccessibilityPage() {

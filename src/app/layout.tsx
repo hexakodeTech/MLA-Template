@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     template: "%s | Shri Ramesh Pisharady",
   },
   description:
-    "Official public representative portal for Shri Ramesh Pisharady, Palakkad Constituency. An editorial public information platform commissioned by HexaKode.",
+    "Official representative portal of Shri Ramesh Pisharady. Explore public activities, constituency information, news, announcements, gallery and citizen services.",
   keywords: [
     "Ramesh Pisharady",
     "Palakkad Constituency",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Shri Ramesh Pisharady | Official Representative Portal",
     description:
-      "Find official announcements, public meeting notices, constituency information and verified contacts for Shri Ramesh Pisharady.",
+      "Official representative portal of Shri Ramesh Pisharady. Explore public activities, constituency information, news, announcements, gallery and citizen services.",
     type: "website",
     locale: "en_IN",
     alternateLocale: "ml_IN",

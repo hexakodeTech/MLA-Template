@@ -19,6 +19,7 @@ export async function generateMetadata({
   if (!article) {
     return {
       title: "Announcement Not Found",
+      description: "The requested news announcement could not be found.",
     };
   }
 
