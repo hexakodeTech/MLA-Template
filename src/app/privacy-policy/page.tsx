@@ -13,10 +13,13 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
+    siteName: "Shri Ramesh Pisharady",
     title: "Privacy Policy | Shri Ramesh Pisharady",
     description:
       "Read the privacy policy explaining how information is handled when using the official representative portal of Shri Ramesh Pisharady.",
-    url: "/privacy-policy",
+    url: `${siteConfig.url}/privacy-policy`,
+    locale: "en_IN",
+    alternateLocale: "ml_IN",
     images: [
       {
         url: "/images/og-preview.png",
@@ -41,6 +44,7 @@ export default function PrivacyPolicyPage() {
       <JsonLd
         data={getWebPageSchema({
           title: "Privacy Policy",
+          alternateName: "സ്വകാര്യതാ നയം | ശ്രീ രമേഷ് പിഷാരടി",
           description:
             "Read the privacy policy explaining how information is handled when using the official representative portal of Shri Ramesh Pisharady.",
           path: "/privacy-policy",

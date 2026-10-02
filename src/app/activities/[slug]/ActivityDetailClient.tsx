@@ -23,6 +23,16 @@ export default function ActivityDetailPage() {
 
   const activity = mockActivities.find((item) => item.slug === slug);
 
+  React.useEffect(() => {
+    if (activity) {
+      if (language === "ml" && activity.title.ml) {
+        document.title = `${activity.title.ml} | ശ്രീ രമേഷ് പിഷാരടി`;
+      } else {
+        document.title = `${activity.title.en} | Shri Ramesh Pisharady`;
+      }
+    }
+  }, [language, activity]);
+
   if (!activity) {
     return (
       <div className="py-24 text-center max-w-xl mx-auto px-4 bg-ivory dark:bg-[#191A18] text-charcoal dark:text-[#F4F1E9]">

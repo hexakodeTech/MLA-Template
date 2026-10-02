@@ -22,6 +22,16 @@ export default function NewsDetailPage() {
 
   const article = mockNews.find((item) => item.slug === slug);
 
+  React.useEffect(() => {
+    if (article) {
+      if (language === "ml" && article.title.ml) {
+        document.title = `${article.title.ml} | ശ്രീ രമേഷ് പിഷാരടി`;
+      } else {
+        document.title = `${article.title.en} | Shri Ramesh Pisharady`;
+      }
+    }
+  }, [language, article]);
+
   if (!article) {
     return (
       <div className="py-24 text-center max-w-xl mx-auto px-4 bg-ivory dark:bg-[#191A18] text-charcoal dark:text-[#F4F1E9]">

@@ -13,10 +13,13 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
+    siteName: "Shri Ramesh Pisharady",
     title: "Palakkad Constituency | Shri Ramesh Pisharady",
     description:
       "Explore information about the constituency, public resources, local information and constituency-related updates through the official representative portal.",
-    url: "/constituency",
+    url: `${siteConfig.url}/constituency`,
+    locale: "en_IN",
+    alternateLocale: "ml_IN",
     images: [
       {
         url: "/images/og-preview.png",

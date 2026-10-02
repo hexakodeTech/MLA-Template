@@ -13,10 +13,13 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
+    siteName: "Shri Ramesh Pisharady",
     title: "Accessibility | Shri Ramesh Pisharady",
     description:
       "Learn about the accessibility features and support available on the official representative portal of Shri Ramesh Pisharady.",
-    url: "/accessibility",
+    url: `${siteConfig.url}/accessibility`,
+    locale: "en_IN",
+    alternateLocale: "ml_IN",
     images: [
       {
         url: "/images/og-preview.png",
@@ -41,6 +44,7 @@ export default function AccessibilityPage() {
       <JsonLd
         data={getWebPageSchema({
           title: "Accessibility",
+          alternateName: "പ്രവേശനക്ഷമത പ്രസ്താവന | ശ്രീ രമേഷ് പിഷാരടി",
           description:
             "Learn about the accessibility features and support available on the official representative portal of Shri Ramesh Pisharady.",
           path: "/accessibility",

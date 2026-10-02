@@ -13,10 +13,13 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
+    siteName: "Shri Ramesh Pisharady",
     title: "Contact the Office | Shri Ramesh Pisharady",
     description:
       "Find official office contact information and submit enquiries through the official representative portal of Shri Ramesh Pisharady.",
-    url: "/contact",
+    url: `${siteConfig.url}/contact`,
+    locale: "en_IN",
+    alternateLocale: "ml_IN",
     images: [
       {
         url: "/images/og-preview.png",
