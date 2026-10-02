@@ -149,24 +149,44 @@ export function getNewsListingSchema(items: NewsItem[]) {
 }
 
 /**
- * Individual News Article JSON-LD (@graph: WebPage, NewsArticle, BreadcrumbList)
- * Seamlessly connects NewsArticle -> mainEntityOfPage (WebPage) -> isPartOf (WebSite)
- * and publisher/author -> Person.
+ * Individual News Article JSON-LD (@graph: Person, WebSite, WebPage, NewsArticle, BreadcrumbList)
+ * Strict entity graph:
+ * WebSite (publisher -> Person)
+ * WebPage (isPartOf -> WebSite, about -> Person)
+ * NewsArticle (mainEntityOfPage -> WebPage, isPartOf -> WebSite, author -> Person, publisher -> Person)
+ * BreadcrumbList (Home -> News -> Article)
+ * Note: dateModified is omitted because modification dates are not tracked in the dataset.
  */
-export function getNewsArticleSchema(article: NewsItem) {
+export function getNewsArticleSchema(article: NewsItem, lang: "en" | "ml" = "en") {
   const articleUrl = `${SITE_URL}/news/${article.slug}`;
-  const imageUrl = article.imageUrl || siteConfig.ogImage;
+  const headline = lang === "ml" && article.title.ml ? article.title.ml : article.title.en;
+  const description = lang === "ml" && article.summary.ml ? article.summary.ml : article.summary.en;
+  const langCode = lang === "ml" ? siteConfig.languages.ml : siteConfig.languages.en;
+
+  const rawImageUrl = article.imageUrl?.trim() || siteConfig.ogImage;
+  const absoluteImageUrl = rawImageUrl.startsWith("http")
+    ? rawImageUrl
+    : `${SITE_URL}${rawImageUrl.startsWith("/") ? "" : "/"}${rawImageUrl}`;
+
+  const imageObject = {
+    "@type": "ImageObject",
+    url: absoluteImageUrl,
+    width: 1200,
+    height: 630,
+  };
 
   return {
     "@context": "https://schema.org",
     "@graph": [
+      PERSON_SCHEMA,
+      WEBSITE_SCHEMA,
       {
         "@type": "WebPage",
         "@id": `${articleUrl}#webpage`,
         url: articleUrl,
-        name: `${article.title.en} | Shri Ramesh Pisharady`,
-        description: article.summary.en,
-        inLanguage: siteConfig.languages.en,
+        name: `${headline} | Shri Ramesh Pisharady`,
+        description: description,
+        inLanguage: langCode,
         isPartOf: { "@id": WEBSITE_ID },
         about: { "@id": PERSON_ID },
       },
@@ -174,11 +194,11 @@ export function getNewsArticleSchema(article: NewsItem) {
         "@type": "NewsArticle",
         "@id": `${articleUrl}#article`,
         url: articleUrl,
-        headline: article.title.en,
-        description: article.summary.en,
+        headline: headline,
+        description: description,
         datePublished: article.date,
-        image: imageUrl,
-        inLanguage: siteConfig.languages.en,
+        image: imageObject,
+        inLanguage: langCode,
         mainEntityOfPage: { "@id": `${articleUrl}#webpage` },
         isPartOf: { "@id": WEBSITE_ID },
         author: { "@id": PERSON_ID },
@@ -196,13 +216,13 @@ export function getNewsArticleSchema(article: NewsItem) {
           {
             "@type": "ListItem",
             position: 2,
-            name: "News & Announcements",
+            name: "News",
             item: `${SITE_URL}/news`,
           },
           {
             "@type": "ListItem",
             position: 3,
-            name: article.title.en,
+            name: headline,
             item: articleUrl,
           },
         ],
