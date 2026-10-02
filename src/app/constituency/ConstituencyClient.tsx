@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Info } from "lucide-react";
+import Link from "next/link";
+import { Info, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Badge } from "@/components/ui/Badge";
@@ -193,6 +194,95 @@ export default function ConstituencyPage() {
         </div>
 
         <ResourceDirectory resources={publicResources} />
+      </section>
+
+      {/* SECTION 5: RELATED CONSTITUENCY PORTALS & ENGAGEMENTS */}
+      <section aria-labelledby="related-portals-heading" className="pt-8 border-t border-warm-grey dark:border-[#41413B] space-y-6">
+        <div>
+          <span className="text-xs font-bold uppercase tracking-widest text-copper dark:text-[#D29A78] block">
+            {language === "ml" ? "മണ്ഡലവുമായി ബന്ധപ്പെട്ടവ" : "Connected Portals"}
+          </span>
+          <h2
+            id="related-portals-heading"
+            className="font-display text-2xl sm:text-3xl text-charcoal dark:text-[#F4F1E9]"
+          >
+            {language === "ml" ? "കൂടുതൽ വിവരങ്ങളും സേവനങ്ങളും" : "Explore More Civic Resources"}
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Link
+            href="/activities"
+            className="group p-5 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] hover:border-slate/40 dark:hover:border-[#C6C5BD]/40 transition-all flex flex-col justify-between shadow-xs"
+          >
+            <div>
+              <div className="flex items-center justify-between text-xs text-copper dark:text-[#D29A78] font-bold uppercase tracking-wider mb-2">
+                <span>{language === "ml" ? "പ്രവർത്തനങ്ങൾ" : "Activities"}</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+              <h3 className="font-display text-lg text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors">
+                {language === "ml" ? "പൊതു പ്രവർത്തനങ്ങൾ" : "Public Engagements"}
+              </h3>
+              <p className="text-xs text-slate dark:text-[#C6C5BD] mt-2 leading-relaxed">
+                {language === "ml" ? "മണ്ഡലത്തിലെ അവലോകന യോഗങ്ങളും സന്ദർശനങ്ങളും." : "On-site inspections, grama sabhas, and official delegations."}
+              </p>
+            </div>
+          </Link>
+
+          <Link
+            href="/news"
+            className="group p-5 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] hover:border-slate/40 dark:hover:border-[#C6C5BD]/40 transition-all flex flex-col justify-between shadow-xs"
+          >
+            <div>
+              <div className="flex items-center justify-between text-xs text-copper dark:text-[#D29A78] font-bold uppercase tracking-wider mb-2">
+                <span>{language === "ml" ? "അറിയിപ്പുകൾ" : "Announcements"}</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+              <h3 className="font-display text-lg text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors">
+                {language === "ml" ? "വാർത്തകളും അറിയിപ്പുകളും" : "News & Advisories"}
+              </h3>
+              <p className="text-xs text-slate dark:text-[#C6C5BD] mt-2 leading-relaxed">
+                {language === "ml" ? "ഔദ്യോഗിക പത്രക്കുറിപ്പുകളും പ്രധാന അറിയിപ്പുകളും." : "Latest public statements, visiting hours, and advisories."}
+              </p>
+            </div>
+          </Link>
+
+          <Link
+            href="/gallery"
+            className="group p-5 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] hover:border-slate/40 dark:hover:border-[#C6C5BD]/40 transition-all flex flex-col justify-between shadow-xs"
+          >
+            <div>
+              <div className="flex items-center justify-between text-xs text-copper dark:text-[#D29A78] font-bold uppercase tracking-wider mb-2">
+                <span>{language === "ml" ? "ചിത്രശാല" : "Photo Gallery"}</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+              <h3 className="font-display text-lg text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors">
+                {language === "ml" ? "പാലക്കാടിന്റെ ചിത്രശാല" : "Visual Highlights"}
+              </h3>
+              <p className="text-xs text-slate dark:text-[#C6C5BD] mt-2 leading-relaxed">
+                {language === "ml" ? "മണ്ഡലത്തിലെ വികസന കാഴ്ചകളും പൊതു നിമിഷങ്ങളും." : "Photographic records from community events and visits."}
+              </p>
+            </div>
+          </Link>
+
+          <Link
+            href="/contact"
+            className="group p-5 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] hover:border-slate/40 dark:hover:border-[#C6C5BD]/40 transition-all flex flex-col justify-between shadow-xs"
+          >
+            <div>
+              <div className="flex items-center justify-between text-xs text-copper dark:text-[#D29A78] font-bold uppercase tracking-wider mb-2">
+                <span>{language === "ml" ? "സമ്പർക്കം" : "Secretariat"}</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+              <h3 className="font-display text-lg text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors">
+                {language === "ml" ? "ഓഫീസുമായി ബന്ധപ്പെടുക" : "Contact the Office"}
+              </h3>
+              <p className="text-xs text-slate dark:text-[#C6C5BD] mt-2 leading-relaxed">
+                {language === "ml" ? "പരാതികളും നിവേദനങ്ങളും നേരിട്ട് സമർപ്പിക്കുക." : "Submit civic representations and request visiting appointments."}
+              </p>
+            </div>
+          </Link>
+        </div>
       </section>
     </div>
   );

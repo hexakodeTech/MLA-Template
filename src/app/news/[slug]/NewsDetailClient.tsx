@@ -182,6 +182,29 @@ export default function NewsDetailPage() {
               Contact Secretariat Desk
             </Button>
           </div>
+
+          {/* Contextual Links to Constituency & Activities */}
+          <div className="bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-5 space-y-3 text-xs shadow-xs">
+            <h4 className="font-bold text-xs text-charcoal dark:text-[#F4F1E9] uppercase tracking-widest border-b border-warm-grey dark:border-[#41413B] pb-2">
+              {language === "ml" ? "മണ്ഡല വിവരങ്ങൾ" : "Constituency Links"}
+            </h4>
+            <div className="space-y-2">
+              <Link
+                href="/constituency"
+                className="group flex items-center justify-between text-xs text-slate dark:text-[#C6C5BD] hover:text-copper dark:hover:text-[#D29A78] transition-colors py-1"
+              >
+                <span>{language === "ml" ? "പാലക്കാട് വികസന പദ്ധതികൾ" : "Track Constituency Projects"}</span>
+                <span className="text-copper dark:text-[#D29A78] font-bold">→</span>
+              </Link>
+              <Link
+                href="/activities"
+                className="group flex items-center justify-between text-xs text-slate dark:text-[#C6C5BD] hover:text-copper dark:hover:text-[#D29A78] transition-colors py-1 border-t border-warm-grey/40 dark:border-[#41413B]/40"
+              >
+                <span>{language === "ml" ? "പൊതു സന്ദർശനങ്ങളും അവലോകനങ്ങളും" : "Public Engagements Diary"}</span>
+                <span className="text-copper dark:text-[#D29A78] font-bold">→</span>
+              </Link>
+            </div>
+          </div>
         </aside>
       </div>
 

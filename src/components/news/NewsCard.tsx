@@ -97,6 +97,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({
           <div className="pt-4 border-t border-warm-grey dark:border-[#41413B] flex items-center justify-between">
             <Link
               href={`/news/${item.slug}`}
+              aria-label={`${t("readMore")}: ${getLocalized(item.title)}`}
               className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors"
             >
               <span>{t("readMore")}</span>
@@ -155,6 +156,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({
       <div className="p-5 sm:p-6 pt-0 flex items-center justify-between border-t border-warm-grey/50 dark:border-[#41413B]/50 mt-4">
         <Link
           href={`/news/${item.slug}`}
+          aria-label={`${t("readMore")}: ${getLocalized(item.title)}`}
           className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors"
         >
           <span>{t("readMore")}</span>

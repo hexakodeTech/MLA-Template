@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { AlertCircle, ShieldCheck, Info, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useLanguage } from "@/context/LanguageContext";
@@ -393,14 +394,24 @@ export const ContactForm: React.FC = () => {
             <span className="text-xs text-slate dark:text-[#C6C5BD] leading-relaxed">
               {language === "ml" ? (
                 <span>
-                  ഞാൻ സമർപ്പിച്ച വിവരങ്ങൾ കൃത്യമാണ്. ഈ വിവരങ്ങൾ അന്വേഷണ പരിഹാരത്തിനായി ഓഫീസിന് ഉപയോഗിക്കാമെന്ന സ്വകാര്യതാ നയം ഞാൻ അംഗീകരിക്കുന്നു.
+                  ഞാൻ സമർപ്പിച്ച വിവരങ്ങൾ കൃത്യമാണ്. ഈ വിവരങ്ങൾ അന്വേഷണ പരിഹാരത്തിനായി ഓഫീസിന് ഉപയോഗിക്കാമെന്ന{" "}
+                  <Link
+                    href="/privacy-policy"
+                    className="text-charcoal dark:text-[#F4F1E9] font-semibold underline underline-offset-2 hover:text-copper dark:hover:text-[#D29A78]"
+                  >
+                    സ്വകാര്യതാ നയം
+                  </Link>{" "}
+                  ഞാൻ അംഗീകരിക്കുന്നു.
                 </span>
               ) : (
                 <span>
                   I confirm that the submitted information is accurate and consent to its use by the representative office for communication and redressal purposes in accordance with the{" "}
-                  <a href="/privacy-policy" className="text-charcoal dark:text-[#F4F1E9] font-semibold underline underline-offset-2 hover:text-copper dark:hover:text-[#D29A78]">
+                  <Link
+                    href="/privacy-policy"
+                    className="text-charcoal dark:text-[#F4F1E9] font-semibold underline underline-offset-2 hover:text-copper dark:hover:text-[#D29A78]"
+                  >
                     Privacy Policy
-                  </a>
+                  </Link>
                   .
                 </span>
               )}

@@ -258,7 +258,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="pt-2">
+            <div className="pt-2 flex flex-wrap items-center gap-3">
               <Button
                 href="/contact"
                 variant="primary"
@@ -266,6 +266,20 @@ export default function AboutPage() {
                 icon={<ArrowRight className="w-4 h-4 text-white dark:text-[#191A18]" />}
               >
                 {language === "ml" ? "ഓഫീസുമായി ബന്ധപ്പെടുക" : "Contact the Secretariat"}
+              </Button>
+              <Button
+                href="/constituency"
+                variant="outline"
+                size="md"
+              >
+                {language === "ml" ? "മണ്ഡല വിവരങ്ങൾ കാണുക" : "View Constituency Profile"}
+              </Button>
+              <Button
+                href="/activities"
+                variant="outline"
+                size="md"
+              >
+                {language === "ml" ? "പൊതു പ്രവർത്തനങ്ങൾ" : "Public Engagements"}
               </Button>
             </div>
           </section>

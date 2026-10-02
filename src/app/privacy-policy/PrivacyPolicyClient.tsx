@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Info } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
@@ -99,7 +100,29 @@ export default function PrivacyPolicyPage() {
             5. Contact and Grievance Officer
           </h2>
           <p>
-            Questions regarding data privacy practices or requests to review submitted enquiry records may be directed to the designated Secretariat liaison upon formal confirmation of office contact particulars.
+            {language === "ml" ? (
+              <span>
+                വിവര സ്വകാര്യത സംബന്ധിച്ച സംശയങ്ങൾക്കോ അന്വേഷണ രേഖകൾ അവലോകനം ചെയ്യുന്നതിനായോ ഉള്ള അഭ്യർത്ഥനകൾ{" "}
+                <Link
+                  href="/contact"
+                  className="text-copper dark:text-[#D29A78] font-semibold underline hover:text-charcoal dark:hover:text-[#F4F1E9] transition-colors"
+                >
+                  ബന്ധപ്പെടാനുള്ള ഫോം
+                </Link>{" "}
+                വഴി സെക്രട്ടേറിയറ്റിലേക്ക് നേരിട്ട് അയക്കാവുന്നതാണ്.
+              </span>
+            ) : (
+              <span>
+                Questions regarding data privacy practices or requests to review submitted enquiry records may be directed to the designated Secretariat liaison via our{" "}
+                <Link
+                  href="/contact"
+                  className="text-copper dark:text-[#D29A78] font-semibold underline hover:text-charcoal dark:hover:text-[#F4F1E9] transition-colors"
+                >
+                  contact desk
+                </Link>{" "}
+                upon formal confirmation of office contact particulars.
+              </span>
+            )}
           </p>
         </section>
       </div>

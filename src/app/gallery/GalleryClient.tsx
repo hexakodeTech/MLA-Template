@@ -5,6 +5,7 @@ import { MapPin, Calendar, Info, Filter } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
 import { Lightbox } from "@/components/gallery/Lightbox";
 import { mockGallery } from "@/data/mockData";
 import { GalleryCategory } from "@/types";
@@ -156,6 +157,31 @@ export default function GalleryPage() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Contextual links to Activities and News */}
+      <div className="pt-8 border-t border-warm-grey dark:border-[#41413B] bg-white dark:bg-[#2C2D29] rounded-sm p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xs">
+        <div className="space-y-1.5 max-w-xl">
+          <span className="text-xs font-bold uppercase tracking-widest text-copper dark:text-[#D29A78] block">
+            {language === "ml" ? "കൂടുതൽ വിവരങ്ങൾ" : "Documented Records"}
+          </span>
+          <h3 className="font-display text-xl sm:text-2xl text-charcoal dark:text-[#F4F1E9]">
+            {language === "ml" ? "പരിപാടികളുടെ പൂർണ്ണ വിവരങ്ങൾ വായിക്കുക" : "Read Full Event Records & Official Releases"}
+          </h3>
+          <p className="text-xs sm:text-sm text-slate dark:text-[#C6C5BD] leading-relaxed">
+            {language === "ml"
+              ? "ചിത്രശാലയിലെ ഓരോ പരിപാടിയുടെയും വിശദമായ റിപ്പോർട്ടുകളും പ്രസ്താവനകളും പ്രവർത്തന ഡയറിയിലും വാർത്താ വിഭാഗത്തിലും ലഭ്യമാണ്."
+              : "Detailed diary entries, background briefings, and administrative statements corresponding to these engagements are documented across the activities log and news releases."}
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center gap-3 shrink-0">
+          <Button href="/activities" variant="primary" size="md">
+            {language === "ml" ? "പ്രവർത്തനങ്ങൾ കാണുക" : "View Activities Diary"}
+          </Button>
+          <Button href="/news" variant="outline" size="md">
+            {language === "ml" ? "വാർത്തകൾ വായിക്കുക" : "Read Announcements"}
+          </Button>
+        </div>
       </div>
 
       {/* Lightbox Viewer */}

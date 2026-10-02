@@ -166,6 +166,44 @@ export default function ActivityDetailPage() {
               </div>
             </div>
           </div>
+
+          {/* Enquiry Card */}
+          <div className="p-6 rounded-sm border border-warm-grey dark:border-[#41413B] bg-white dark:bg-[#2C2D29] space-y-3 shadow-xs">
+            <h4 className="font-display text-lg text-charcoal dark:text-[#F4F1E9]">
+              {language === "ml" ? "ഈ പരിപാടിയെക്കുറിച്ച് അന്വേഷണമുണ്ടോ?" : "Queries on this Engagement?"}
+            </h4>
+            <p className="text-xs text-slate dark:text-[#C6C5BD] leading-relaxed">
+              {language === "ml"
+                ? "കൂടുതൽ വിവരങ്ങൾക്കോ നിവേദനങ്ങൾക്കോ സെക്രട്ടേറിയറ്റുമായി നേരിട്ട് ബന്ധപ്പെടാം."
+                : "Submit enquiries or constituent feedback regarding this public initiative to the secretariat desk."}
+            </p>
+            <Button href="/contact" variant="primary" size="sm" className="w-full">
+              {language === "ml" ? "ഓഫീസുമായി ബന്ധപ്പെടുക" : "Contact Secretariat Desk"}
+            </Button>
+          </div>
+
+          {/* Contextual Links to Constituency & News */}
+          <div className="bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-5 space-y-3 text-xs shadow-xs">
+            <h4 className="font-bold text-xs text-charcoal dark:text-[#F4F1E9] uppercase tracking-widest border-b border-warm-grey dark:border-[#41413B] pb-2">
+              {language === "ml" ? "അനുബന്ധ വിവരങ്ങൾ" : "Related Portals"}
+            </h4>
+            <div className="space-y-2">
+              <Link
+                href="/constituency"
+                className="group flex items-center justify-between text-xs text-slate dark:text-[#C6C5BD] hover:text-copper dark:hover:text-[#D29A78] transition-colors py-1"
+              >
+                <span>{language === "ml" ? "പാലക്കാട് മണ്ഡലം വിവരങ്ങൾ" : "Palakkad Constituency Profile"}</span>
+                <span className="text-copper dark:text-[#D29A78] font-bold">→</span>
+              </Link>
+              <Link
+                href="/news"
+                className="group flex items-center justify-between text-xs text-slate dark:text-[#C6C5BD] hover:text-copper dark:hover:text-[#D29A78] transition-colors py-1 border-t border-warm-grey/40 dark:border-[#41413B]/40"
+              >
+                <span>{language === "ml" ? "ഔദ്യോഗിക അറിയിപ്പുകളും വാർത്തകളും" : "Official News & Releases"}</span>
+                <span className="text-copper dark:text-[#D29A78] font-bold">→</span>
+              </Link>
+            </div>
+          </div>
         </aside>
       </div>
 

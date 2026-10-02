@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import {
   Eye,
   Keyboard,
@@ -228,9 +229,9 @@ export default function AccessibilityPage() {
           </h2>
           <p>
             If you encounter any difficulty accessing information or utilizing any feature on this website, please report the issue to our technical team via the{" "}
-            <a href="/contact" className="text-copper dark:text-[#D29A78] font-semibold underline hover:text-charcoal dark:hover:text-[#F4F1E9] transition-colors">
+            <Link href="/contact" className="text-copper dark:text-[#D29A78] font-semibold underline hover:text-charcoal dark:hover:text-[#F4F1E9] transition-colors">
               contact form
-            </a>{" "}
+            </Link>{" "}
             or email us with details of the assistive technology used and the page URL.
           </p>
         </section>

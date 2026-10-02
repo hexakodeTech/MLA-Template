@@ -1,11 +1,13 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import {
   MapPin,
   Phone,
   Mail,
   Clock,
+  ArrowRight,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
@@ -145,6 +147,29 @@ export default function ContactPage() {
               <div className="bg-stone/50 dark:bg-[#222320] p-2.5 rounded-xs border border-warm-grey dark:border-[#41413B]">
                 KSEB Outage: <span className="text-copper dark:text-[#D29A78] font-bold">1912</span>
               </div>
+            </div>
+          </div>
+
+          {/* Contextual Links to Constituency & About */}
+          <div className="bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-5 space-y-3 shadow-xs">
+            <h3 className="font-bold text-charcoal dark:text-[#F4F1E9] uppercase tracking-wider text-xs">
+              {language === "ml" ? "കൂടുതൽ വിവരങ്ങൾ" : "Related Information"}
+            </h3>
+            <div className="space-y-2">
+              <Link
+                href="/constituency"
+                className="group flex items-center justify-between text-xs text-slate dark:text-[#C6C5BD] hover:text-copper dark:hover:text-[#D29A78] transition-colors p-2 rounded-xs hover:bg-stone/40 dark:hover:bg-[#222320]"
+              >
+                <span>{language === "ml" ? "പൂർണ്ണ സേവന ഡയറക്ടറിയും മണ്ഡലം വിവരങ്ങളും" : "Complete Civic Directory & Helpline Contacts"}</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform shrink-0 ml-2 text-copper dark:text-[#D29A78]" />
+              </Link>
+              <Link
+                href="/about"
+                className="group flex items-center justify-between text-xs text-slate dark:text-[#C6C5BD] hover:text-copper dark:hover:text-[#D29A78] transition-colors p-2 rounded-xs hover:bg-stone/40 dark:hover:bg-[#222320]"
+              >
+                <span>{language === "ml" ? "പ്രതിനിധിയുടെ ചുമതലകളും വിവരങ്ങളും" : "Representative Profile & Responsibilities"}</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform shrink-0 ml-2 text-copper dark:text-[#D29A78]" />
+              </Link>
             </div>
           </div>
         </div>

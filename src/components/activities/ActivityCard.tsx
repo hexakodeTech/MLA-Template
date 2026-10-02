@@ -77,6 +77,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
         <div className="pt-4 border-t border-warm-grey/60 dark:border-[#41413B]/60 flex items-center justify-between">
           <Link
             href={`/activities/${activity.slug}`}
+            aria-label={`${t("readMore")}: ${getLocalized(activity.title)}`}
             className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors"
           >
             <span>{t("readMore")}</span>
