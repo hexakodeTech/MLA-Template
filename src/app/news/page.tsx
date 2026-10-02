@@ -20,6 +20,13 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "News & Announcements | Shri Ramesh Pisharady",
+    description:
+      "Read the latest news, public notices and announcements from the official representative portal of Shri Ramesh Pisharady.",
+    images: ["/images/og-preview.png"],
+  },
 };
 
 export default function NewsPage() {

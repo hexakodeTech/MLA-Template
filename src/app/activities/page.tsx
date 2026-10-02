@@ -20,6 +20,13 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Public Activities & Engagements | Shri Ramesh Pisharady",
+    description:
+      "Explore public activities, constituency engagements, meetings and community interactions featured on the official representative portal of Shri Ramesh Pisharady.",
+    images: ["/images/og-preview.png"],
+  },
 };
 
 export default function ActivitiesPage() {

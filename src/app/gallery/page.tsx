@@ -20,6 +20,13 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Gallery | Shri Ramesh Pisharady",
+    description:
+      "Browse photographs and visual highlights from public activities, constituency engagements and events featured on the official representative portal of Shri Ramesh Pisharady.",
+    images: ["/images/og-preview.png"],
+  },
 };
 
 export default function GalleryPage() {

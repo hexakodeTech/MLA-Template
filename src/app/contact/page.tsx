@@ -20,6 +20,13 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact the Office | Shri Ramesh Pisharady",
+    description:
+      "Find official office contact information and submit enquiries through the official representative portal of Shri Ramesh Pisharady.",
+    images: ["/images/og-preview.png"],
+  },
 };
 
 export default function ContactPage() {

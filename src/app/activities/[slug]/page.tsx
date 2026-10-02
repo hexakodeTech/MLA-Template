@@ -51,6 +51,12 @@ export async function generateMetadata({
       url: `/activities/${activity.slug}`,
       images: ogImages,
     },
+    twitter: {
+      card: "summary_large_image",
+      title: `${activity.title.en} | Shri Ramesh Pisharady`,
+      description: activity.description.en,
+      images: activity.imageUrl ? [activity.imageUrl] : ["/images/og-preview.png"],
+    },
   };
 }
 

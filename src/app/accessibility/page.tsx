@@ -20,6 +20,13 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Accessibility | Shri Ramesh Pisharady",
+    description:
+      "Learn about the accessibility features and support available on the official representative portal of Shri Ramesh Pisharady.",
+    images: ["/images/og-preview.png"],
+  },
 };
 
 export default function AccessibilityPage() {

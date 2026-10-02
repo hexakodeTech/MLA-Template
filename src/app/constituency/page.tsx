@@ -20,6 +20,13 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Palakkad Constituency | Shri Ramesh Pisharady",
+    description:
+      "Explore information about the constituency, public resources, local information and constituency-related updates through the official representative portal.",
+    images: ["/images/og-preview.png"],
+  },
 };
 
 export default function ConstituencyPage() {

@@ -20,6 +20,13 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | Shri Ramesh Pisharady",
+    description:
+      "Read the privacy policy explaining how information is handled when using the official representative portal of Shri Ramesh Pisharady.",
+    images: ["/images/og-preview.png"],
+  },
 };
 
 export default function PrivacyPolicyPage() {

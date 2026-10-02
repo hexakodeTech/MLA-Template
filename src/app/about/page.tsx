@@ -22,6 +22,13 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Shri Ramesh Pisharady | Official Representative Portal",
+    description:
+      "Learn more about Shri Ramesh Pisharady, his public profile, role and work, and explore information available through the official representative portal.",
+    images: ["/images/og-preview.png"],
+  },
 };
 
 export default function AboutPage() {
