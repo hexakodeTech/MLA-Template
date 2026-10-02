@@ -1,33 +1,36 @@
+import { siteConfig } from "@/config/site";
 import { NewsItem, ActivityItem, GalleryItem } from "@/types";
 
-export const SITE_URL = "https://rameshpisharady.hexakode.com";
-export const PERSON_ID = `${SITE_URL}/#person`;
-export const WEBSITE_ID = `${SITE_URL}/#website`;
+export const SITE_URL = siteConfig.url;
+export const PERSON_ID = siteConfig.personId;
+export const WEBSITE_ID = siteConfig.websiteId;
 
 /**
  * Verified Person Schema for Shri Ramesh Pisharady.
- * Strict adherence: Only verified factual data present in the project is used.
+ * Strictly adheres to verified factual data present in the project.
+ * Speculative titles, social profiles, and claims are intentionally omitted.
  */
 export const PERSON_SCHEMA = {
   "@type": "Person",
   "@id": PERSON_ID,
-  name: "Shri Ramesh Pisharady",
-  url: SITE_URL,
-  image: `${SITE_URL}/images/ramesh-pisharady-portrait.png`,
+  name: siteConfig.representativeName,
+  url: siteConfig.url,
+  image: siteConfig.portraitImage,
   description: "Official representative portal of Shri Ramesh Pisharady.",
 };
 
 /**
  * WebSite Schema representing the official public portal.
+ * Connected to Person as publisher via @id.
+ * SearchAction is intentionally omitted as no backend site-search query route exists.
  */
 export const WEBSITE_SCHEMA = {
   "@type": "WebSite",
   "@id": WEBSITE_ID,
-  name: "Shri Ramesh Pisharady | Official Representative Portal",
-  url: SITE_URL,
-  description:
-    "Official representative portal of Shri Ramesh Pisharady, featuring public activities, constituency information, news, announcements, gallery and citizen services.",
-  inLanguage: ["en", "ml"],
+  name: siteConfig.name,
+  url: siteConfig.url,
+  description: siteConfig.description,
+  inLanguage: siteConfig.supportedLanguages,
   publisher: {
     "@id": PERSON_ID,
   },
@@ -45,10 +48,10 @@ export function getHomeSchema() {
       {
         "@type": "WebPage",
         "@id": `${SITE_URL}/#webpage`,
-        url: SITE_URL,
-        name: "Shri Ramesh Pisharady | Official Representative Portal",
-        description:
-          "Official representative portal of Shri Ramesh Pisharady, featuring public activities, constituency information, news, announcements, gallery and citizen services.",
+        url: `${SITE_URL}/`,
+        name: siteConfig.name,
+        description: siteConfig.description,
+        inLanguage: siteConfig.languages.en,
         isPartOf: { "@id": WEBSITE_ID },
         about: { "@id": PERSON_ID },
       },
@@ -71,6 +74,7 @@ export function getAboutSchema() {
         name: "About Shri Ramesh Pisharady | Official Representative Portal",
         description:
           "Learn more about Shri Ramesh Pisharady, his public profile, role and work, and explore information available through the official representative portal.",
+        inLanguage: siteConfig.languages.en,
         isPartOf: { "@id": WEBSITE_ID },
         about: { "@id": PERSON_ID },
         mainEntity: { "@id": PERSON_ID },
@@ -97,7 +101,7 @@ export function getAboutSchema() {
 }
 
 /**
- * News Listing JSON-LD (@graph: CollectionPage, BreadcrumbList)
+ * News Listing JSON-LD (@graph: CollectionPage, ItemList, BreadcrumbList)
  */
 export function getNewsListingSchema(items: NewsItem[]) {
   return {
@@ -110,7 +114,9 @@ export function getNewsListingSchema(items: NewsItem[]) {
         name: "News & Announcements | Shri Ramesh Pisharady",
         description:
           "Read the latest news, public notices and announcements from the official representative portal of Shri Ramesh Pisharady.",
+        inLanguage: siteConfig.languages.en,
         isPartOf: { "@id": WEBSITE_ID },
+        about: { "@id": PERSON_ID },
         mainEntity: {
           "@type": "ItemList",
           itemListElement: items.map((item, index) => ({
@@ -143,15 +149,27 @@ export function getNewsListingSchema(items: NewsItem[]) {
 }
 
 /**
- * Individual News Article JSON-LD (@graph: NewsArticle, BreadcrumbList)
+ * Individual News Article JSON-LD (@graph: WebPage, NewsArticle, BreadcrumbList)
+ * Seamlessly connects NewsArticle -> mainEntityOfPage (WebPage) -> isPartOf (WebSite)
+ * and publisher/author -> Person.
  */
 export function getNewsArticleSchema(article: NewsItem) {
   const articleUrl = `${SITE_URL}/news/${article.slug}`;
-  const imageUrl = article.imageUrl || `${SITE_URL}/images/og-preview.png`;
+  const imageUrl = article.imageUrl || siteConfig.ogImage;
 
   return {
     "@context": "https://schema.org",
     "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${articleUrl}#webpage`,
+        url: articleUrl,
+        name: `${article.title.en} | Shri Ramesh Pisharady`,
+        description: article.summary.en,
+        inLanguage: siteConfig.languages.en,
+        isPartOf: { "@id": WEBSITE_ID },
+        about: { "@id": PERSON_ID },
+      },
       {
         "@type": "NewsArticle",
         "@id": `${articleUrl}#article`,
@@ -160,7 +178,10 @@ export function getNewsArticleSchema(article: NewsItem) {
         description: article.summary.en,
         datePublished: article.date,
         image: imageUrl,
+        inLanguage: siteConfig.languages.en,
+        mainEntityOfPage: { "@id": `${articleUrl}#webpage` },
         isPartOf: { "@id": WEBSITE_ID },
+        author: { "@id": PERSON_ID },
         publisher: { "@id": PERSON_ID },
       },
       {
@@ -191,7 +212,7 @@ export function getNewsArticleSchema(article: NewsItem) {
 }
 
 /**
- * Activities Listing JSON-LD (@graph: CollectionPage, BreadcrumbList)
+ * Activities Listing JSON-LD (@graph: CollectionPage, ItemList, BreadcrumbList)
  */
 export function getActivitiesListingSchema(items: ActivityItem[]) {
   return {
@@ -204,7 +225,9 @@ export function getActivitiesListingSchema(items: ActivityItem[]) {
         name: "Public Activities & Engagements | Shri Ramesh Pisharady",
         description:
           "Explore public activities, constituency engagements, meetings and community interactions featured on the official representative portal of Shri Ramesh Pisharady.",
+        inLanguage: siteConfig.languages.en,
         isPartOf: { "@id": WEBSITE_ID },
+        about: { "@id": PERSON_ID },
         mainEntity: {
           "@type": "ItemList",
           itemListElement: items.map((item, index) => ({
@@ -237,14 +260,24 @@ export function getActivitiesListingSchema(items: ActivityItem[]) {
 }
 
 /**
- * Individual Activity Detail JSON-LD (@graph: Event | Article, BreadcrumbList)
- * Uses Event only for genuine cultural/educational seminars or meets;
- * uses Article for inspections, consultations, and briefings.
+ * Individual Activity Detail JSON-LD (@graph: WebPage, Event | Article, BreadcrumbList)
+ * Connects mainEntityOfPage -> WebPage, isPartOf -> WebSite, and about -> Person.
  */
 export function getActivityDetailSchema(activity: ActivityItem) {
   const activityUrl = `${SITE_URL}/activities/${activity.slug}`;
-  const imageUrl = activity.imageUrl || `${SITE_URL}/images/og-preview.png`;
+  const imageUrl = activity.imageUrl || siteConfig.ogImage;
   const isSeminarOrEvent = activity.category === "Cultural & Educational";
+
+  const webpageEntity = {
+    "@type": "WebPage",
+    "@id": `${activityUrl}#webpage`,
+    url: activityUrl,
+    name: `${activity.title.en} | Shri Ramesh Pisharady`,
+    description: activity.description.en,
+    inLanguage: siteConfig.languages.en,
+    isPartOf: { "@id": WEBSITE_ID },
+    about: { "@id": PERSON_ID },
+  };
 
   const mainEntity = isSeminarOrEvent
     ? {
@@ -259,6 +292,9 @@ export function getActivityDetailSchema(activity: ActivityItem) {
         },
         url: activityUrl,
         image: imageUrl,
+        inLanguage: siteConfig.languages.en,
+        about: { "@id": PERSON_ID },
+        mainEntityOfPage: { "@id": `${activityUrl}#webpage` },
         isPartOf: { "@id": WEBSITE_ID },
       }
     : {
@@ -269,6 +305,9 @@ export function getActivityDetailSchema(activity: ActivityItem) {
         datePublished: activity.date,
         url: activityUrl,
         image: imageUrl,
+        inLanguage: siteConfig.languages.en,
+        about: { "@id": PERSON_ID },
+        mainEntityOfPage: { "@id": `${activityUrl}#webpage` },
         contentLocation: {
           "@type": "Place",
           name: activity.location.en,
@@ -279,6 +318,7 @@ export function getActivityDetailSchema(activity: ActivityItem) {
   return {
     "@context": "https://schema.org",
     "@graph": [
+      webpageEntity,
       mainEntity,
       {
         "@type": "BreadcrumbList",
@@ -321,6 +361,7 @@ export function getConstituencySchema() {
         name: "Palakkad Constituency | Shri Ramesh Pisharady",
         description:
           "Explore information about the constituency, public resources, local information and constituency-related updates through the official representative portal.",
+        inLanguage: siteConfig.languages.en,
         isPartOf: { "@id": WEBSITE_ID },
         about: { "@id": PERSON_ID },
       },
@@ -359,7 +400,9 @@ export function getGallerySchema(galleryItems: GalleryItem[]) {
         name: "Gallery | Shri Ramesh Pisharady",
         description:
           "Browse photographs and visual highlights from public activities, constituency engagements and events featured on the official representative portal of Shri Ramesh Pisharady.",
+        inLanguage: siteConfig.languages.en,
         isPartOf: { "@id": WEBSITE_ID },
+        about: { "@id": PERSON_ID },
         mainEntity: {
           "@type": "ImageGallery",
           name: "Public Activities & Engagements Gallery",
@@ -401,6 +444,7 @@ export function getContactSchema() {
         name: "Contact the Office | Shri Ramesh Pisharady",
         description:
           "Find official office contact information and submit enquiries through the official representative portal of Shri Ramesh Pisharady.",
+        inLanguage: siteConfig.languages.en,
         isPartOf: { "@id": WEBSITE_ID },
         about: { "@id": PERSON_ID },
       },
@@ -448,6 +492,7 @@ export function getWebPageSchema({
         url: `${SITE_URL}${path}`,
         name: `${title} | Shri Ramesh Pisharady`,
         description,
+        inLanguage: siteConfig.languages.en,
         isPartOf: { "@id": WEBSITE_ID },
       },
       {

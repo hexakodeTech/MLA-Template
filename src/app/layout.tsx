@@ -10,6 +10,7 @@ import { InitialLoadingScreen } from "@/components/ui/InitialLoadingScreen";
 import { MouseFollowDot } from "@/components/ui/MouseFollowDot";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { siteConfig } from "@/config/site";
 
 const dmSerifDisplay = DM_Serif_Display({
   variable: "--font-dm-serif",
@@ -49,7 +50,7 @@ export const metadata: Metadata = {
     "Constituency Grievance",
   ],
   authors: [{ name: "HexaKode", url: "https://hexakode.com" }],
-  metadataBase: new URL("https://rameshpisharady.hexakode.com"),
+  metadataBase: new URL(siteConfig.url),
   openGraph: {
     type: "website",
     siteName: "Shri Ramesh Pisharady",
