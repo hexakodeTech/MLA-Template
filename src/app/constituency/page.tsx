@@ -2,11 +2,15 @@ import type { Metadata } from "next";
 import ConstituencyClient from "./ConstituencyClient";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getConstituencySchema } from "@/components/seo/schema";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Palakkad Constituency",
   description:
     "Explore information about the constituency, public resources, local information and constituency-related updates through the official representative portal.",
+  alternates: {
+    canonical: `${siteConfig.url}/constituency`,
+  },
   openGraph: {
     type: "website",
     title: "Palakkad Constituency | Shri Ramesh Pisharady",

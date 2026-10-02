@@ -3,11 +3,15 @@ import ActivitiesClient from "./ActivitiesClient";
 import { mockActivities } from "@/data/mockData";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getActivitiesListingSchema } from "@/components/seo/schema";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Public Activities & Engagements",
   description:
     "Explore public activities, constituency engagements, meetings and community interactions featured on the official representative portal of Shri Ramesh Pisharady.",
+  alternates: {
+    canonical: `${siteConfig.url}/activities`,
+  },
   openGraph: {
     type: "website",
     title: "Public Activities & Engagements | Shri Ramesh Pisharady",

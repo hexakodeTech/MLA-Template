@@ -3,11 +3,15 @@ import NewsClient from "./NewsClient";
 import { mockNews } from "@/data/mockData";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getNewsListingSchema } from "@/components/seo/schema";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "News & Announcements",
   description:
     "Read the latest news, public notices and announcements from the official representative portal of Shri Ramesh Pisharady.",
+  alternates: {
+    canonical: `${siteConfig.url}/news`,
+  },
   openGraph: {
     type: "website",
     title: "News & Announcements | Shri Ramesh Pisharady",

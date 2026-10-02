@@ -2,11 +2,15 @@ import type { Metadata } from "next";
 import ContactClient from "./ContactClient";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getContactSchema } from "@/components/seo/schema";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Contact the Office",
   description:
     "Find official office contact information and submit enquiries through the official representative portal of Shri Ramesh Pisharady.",
+  alternates: {
+    canonical: `${siteConfig.url}/contact`,
+  },
   openGraph: {
     type: "website",
     title: "Contact the Office | Shri Ramesh Pisharady",

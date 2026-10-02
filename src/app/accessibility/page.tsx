@@ -2,11 +2,15 @@ import type { Metadata } from "next";
 import AccessibilityClient from "./AccessibilityClient";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getWebPageSchema } from "@/components/seo/schema";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Accessibility",
   description:
     "Learn about the accessibility features and support available on the official representative portal of Shri Ramesh Pisharady.",
+  alternates: {
+    canonical: `${siteConfig.url}/accessibility`,
+  },
   openGraph: {
     type: "website",
     title: "Accessibility | Shri Ramesh Pisharady",

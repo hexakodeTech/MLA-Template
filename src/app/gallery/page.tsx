@@ -3,11 +3,15 @@ import GalleryClient from "./GalleryClient";
 import { mockGallery } from "@/data/mockData";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getGallerySchema } from "@/components/seo/schema";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Gallery",
   description:
     "Browse photographs and visual highlights from public activities, constituency engagements and events featured on the official representative portal of Shri Ramesh Pisharady.",
+  alternates: {
+    canonical: `${siteConfig.url}/gallery`,
+  },
   openGraph: {
     type: "website",
     title: "Gallery | Shri Ramesh Pisharady",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import AboutClient from "./AboutClient";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getAboutSchema } from "@/components/seo/schema";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: {
@@ -9,6 +10,9 @@ export const metadata: Metadata = {
   },
   description:
     "Learn more about Shri Ramesh Pisharady, his public profile, role and work, and explore information available through the official representative portal.",
+  alternates: {
+    canonical: `${siteConfig.url}/about`,
+  },
   openGraph: {
     type: "website",
     title: "About Shri Ramesh Pisharady | Official Representative Portal",
