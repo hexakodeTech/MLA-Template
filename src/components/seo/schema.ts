@@ -38,6 +38,7 @@ export const WEBSITE_SCHEMA = {
 
 /**
  * Homepage JSON-LD (@graph: WebSite, Person, WebPage)
+ * Note: Homepage has no parent hierarchy, so BreadcrumbList is intentionally omitted.
  */
 export function getHomeSchema() {
   return {
@@ -60,17 +61,22 @@ export function getHomeSchema() {
 }
 
 /**
- * About Page JSON-LD (@graph: Person, AboutPage, BreadcrumbList)
+ * About Page JSON-LD (@graph: Person, WebSite, AboutPage, BreadcrumbList)
+ * Hierarchy: Home -> About
  */
 export function getAboutSchema() {
+  const pageUrl = `${SITE_URL}/about`;
+  const breadcrumbId = `${pageUrl}#breadcrumb`;
+
   return {
     "@context": "https://schema.org",
     "@graph": [
       PERSON_SCHEMA,
+      WEBSITE_SCHEMA,
       {
         "@type": "AboutPage",
-        "@id": `${SITE_URL}/about#webpage`,
-        url: `${SITE_URL}/about`,
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
         name: "About Shri Ramesh Pisharady | Official Representative Portal",
         description:
           "Learn more about Shri Ramesh Pisharady, his public profile, role and work, and explore information available through the official representative portal.",
@@ -78,9 +84,11 @@ export function getAboutSchema() {
         isPartOf: { "@id": WEBSITE_ID },
         about: { "@id": PERSON_ID },
         mainEntity: { "@id": PERSON_ID },
+        breadcrumb: { "@id": breadcrumbId },
       },
       {
         "@type": "BreadcrumbList",
+        "@id": breadcrumbId,
         itemListElement: [
           {
             "@type": "ListItem",
@@ -92,7 +100,7 @@ export function getAboutSchema() {
             "@type": "ListItem",
             position: 2,
             name: "About",
-            item: `${SITE_URL}/about`,
+            item: pageUrl,
           },
         ],
       },
@@ -101,22 +109,29 @@ export function getAboutSchema() {
 }
 
 /**
- * News Listing JSON-LD (@graph: CollectionPage, ItemList, BreadcrumbList)
+ * News Listing JSON-LD (@graph: Person, WebSite, CollectionPage, ItemList, BreadcrumbList)
+ * Hierarchy: Home -> News
  */
 export function getNewsListingSchema(items: NewsItem[]) {
+  const pageUrl = `${SITE_URL}/news`;
+  const breadcrumbId = `${pageUrl}#breadcrumb`;
+
   return {
     "@context": "https://schema.org",
     "@graph": [
+      PERSON_SCHEMA,
+      WEBSITE_SCHEMA,
       {
         "@type": "CollectionPage",
-        "@id": `${SITE_URL}/news#webpage`,
-        url: `${SITE_URL}/news`,
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
         name: "News & Announcements | Shri Ramesh Pisharady",
         description:
           "Read the latest news, public notices and announcements from the official representative portal of Shri Ramesh Pisharady.",
         inLanguage: siteConfig.languages.en,
         isPartOf: { "@id": WEBSITE_ID },
         about: { "@id": PERSON_ID },
+        breadcrumb: { "@id": breadcrumbId },
         mainEntity: {
           "@type": "ItemList",
           itemListElement: items.map((item, index) => ({
@@ -129,6 +144,7 @@ export function getNewsListingSchema(items: NewsItem[]) {
       },
       {
         "@type": "BreadcrumbList",
+        "@id": breadcrumbId,
         itemListElement: [
           {
             "@type": "ListItem",
@@ -139,8 +155,8 @@ export function getNewsListingSchema(items: NewsItem[]) {
           {
             "@type": "ListItem",
             position: 2,
-            name: "News & Announcements",
-            item: `${SITE_URL}/news`,
+            name: "News",
+            item: pageUrl,
           },
         ],
       },
@@ -150,15 +166,17 @@ export function getNewsListingSchema(items: NewsItem[]) {
 
 /**
  * Individual News Article JSON-LD (@graph: Person, WebSite, WebPage, NewsArticle, BreadcrumbList)
+ * Hierarchy: Home -> News -> Article Title
  * Strict entity graph:
  * WebSite (publisher -> Person)
- * WebPage (isPartOf -> WebSite, about -> Person)
+ * WebPage (isPartOf -> WebSite, about -> Person, breadcrumb -> BreadcrumbList)
  * NewsArticle (mainEntityOfPage -> WebPage, isPartOf -> WebSite, author -> Person, publisher -> Person)
  * BreadcrumbList (Home -> News -> Article)
  * Note: dateModified is omitted because modification dates are not tracked in the dataset.
  */
 export function getNewsArticleSchema(article: NewsItem, lang: "en" | "ml" = "en") {
   const articleUrl = `${SITE_URL}/news/${article.slug}`;
+  const breadcrumbId = `${articleUrl}#breadcrumb`;
   const headline = lang === "ml" && article.title.ml ? article.title.ml : article.title.en;
   const description = lang === "ml" && article.summary.ml ? article.summary.ml : article.summary.en;
   const langCode = lang === "ml" ? siteConfig.languages.ml : siteConfig.languages.en;
@@ -189,6 +207,7 @@ export function getNewsArticleSchema(article: NewsItem, lang: "en" | "ml" = "en"
         inLanguage: langCode,
         isPartOf: { "@id": WEBSITE_ID },
         about: { "@id": PERSON_ID },
+        breadcrumb: { "@id": breadcrumbId },
       },
       {
         "@type": "NewsArticle",
@@ -206,6 +225,7 @@ export function getNewsArticleSchema(article: NewsItem, lang: "en" | "ml" = "en"
       },
       {
         "@type": "BreadcrumbList",
+        "@id": breadcrumbId,
         itemListElement: [
           {
             "@type": "ListItem",
@@ -232,22 +252,29 @@ export function getNewsArticleSchema(article: NewsItem, lang: "en" | "ml" = "en"
 }
 
 /**
- * Activities Listing JSON-LD (@graph: CollectionPage, ItemList, BreadcrumbList)
+ * Activities Listing JSON-LD (@graph: Person, WebSite, CollectionPage, ItemList, BreadcrumbList)
+ * Hierarchy: Home -> Activities
  */
 export function getActivitiesListingSchema(items: ActivityItem[]) {
+  const pageUrl = `${SITE_URL}/activities`;
+  const breadcrumbId = `${pageUrl}#breadcrumb`;
+
   return {
     "@context": "https://schema.org",
     "@graph": [
+      PERSON_SCHEMA,
+      WEBSITE_SCHEMA,
       {
         "@type": "CollectionPage",
-        "@id": `${SITE_URL}/activities#webpage`,
-        url: `${SITE_URL}/activities`,
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
         name: "Public Activities & Engagements | Shri Ramesh Pisharady",
         description:
           "Explore public activities, constituency engagements, meetings and community interactions featured on the official representative portal of Shri Ramesh Pisharady.",
         inLanguage: siteConfig.languages.en,
         isPartOf: { "@id": WEBSITE_ID },
         about: { "@id": PERSON_ID },
+        breadcrumb: { "@id": breadcrumbId },
         mainEntity: {
           "@type": "ItemList",
           itemListElement: items.map((item, index) => ({
@@ -260,6 +287,7 @@ export function getActivitiesListingSchema(items: ActivityItem[]) {
       },
       {
         "@type": "BreadcrumbList",
+        "@id": breadcrumbId,
         itemListElement: [
           {
             "@type": "ListItem",
@@ -270,8 +298,8 @@ export function getActivitiesListingSchema(items: ActivityItem[]) {
           {
             "@type": "ListItem",
             position: 2,
-            name: "Public Activities & Engagements",
-            item: `${SITE_URL}/activities`,
+            name: "Activities",
+            item: pageUrl,
           },
         ],
       },
@@ -280,13 +308,26 @@ export function getActivitiesListingSchema(items: ActivityItem[]) {
 }
 
 /**
- * Individual Activity Detail JSON-LD (@graph: WebPage, Event | Article, BreadcrumbList)
- * Connects mainEntityOfPage -> WebPage, isPartOf -> WebSite, and about -> Person.
+ * Individual Activity Detail JSON-LD (@graph: Person, WebSite, WebPage, Event | Article, BreadcrumbList)
+ * Hierarchy: Home -> Activities -> Activity Title
+ * Connects mainEntityOfPage -> WebPage, isPartOf -> WebSite, about -> Person, and breadcrumb -> BreadcrumbList.
  */
 export function getActivityDetailSchema(activity: ActivityItem) {
   const activityUrl = `${SITE_URL}/activities/${activity.slug}`;
-  const imageUrl = activity.imageUrl || siteConfig.ogImage;
+  const breadcrumbId = `${activityUrl}#breadcrumb`;
   const isSeminarOrEvent = activity.category === "Cultural & Educational";
+
+  const rawImageUrl = activity.imageUrl?.trim() || siteConfig.ogImage;
+  const absoluteImageUrl = rawImageUrl.startsWith("http")
+    ? rawImageUrl
+    : `${SITE_URL}${rawImageUrl.startsWith("/") ? "" : "/"}${rawImageUrl}`;
+
+  const imageObject = {
+    "@type": "ImageObject",
+    url: absoluteImageUrl,
+    width: 1200,
+    height: 630,
+  };
 
   const webpageEntity = {
     "@type": "WebPage",
@@ -297,6 +338,7 @@ export function getActivityDetailSchema(activity: ActivityItem) {
     inLanguage: siteConfig.languages.en,
     isPartOf: { "@id": WEBSITE_ID },
     about: { "@id": PERSON_ID },
+    breadcrumb: { "@id": breadcrumbId },
   };
 
   const mainEntity = isSeminarOrEvent
@@ -311,9 +353,10 @@ export function getActivityDetailSchema(activity: ActivityItem) {
           name: activity.location.en,
         },
         url: activityUrl,
-        image: imageUrl,
+        image: imageObject,
         inLanguage: siteConfig.languages.en,
         about: { "@id": PERSON_ID },
+        organizer: { "@id": PERSON_ID },
         mainEntityOfPage: { "@id": `${activityUrl}#webpage` },
         isPartOf: { "@id": WEBSITE_ID },
       }
@@ -324,9 +367,11 @@ export function getActivityDetailSchema(activity: ActivityItem) {
         description: activity.description.en,
         datePublished: activity.date,
         url: activityUrl,
-        image: imageUrl,
+        image: imageObject,
         inLanguage: siteConfig.languages.en,
         about: { "@id": PERSON_ID },
+        author: { "@id": PERSON_ID },
+        publisher: { "@id": PERSON_ID },
         mainEntityOfPage: { "@id": `${activityUrl}#webpage` },
         contentLocation: {
           "@type": "Place",
@@ -338,10 +383,13 @@ export function getActivityDetailSchema(activity: ActivityItem) {
   return {
     "@context": "https://schema.org",
     "@graph": [
+      PERSON_SCHEMA,
+      WEBSITE_SCHEMA,
       webpageEntity,
       mainEntity,
       {
         "@type": "BreadcrumbList",
+        "@id": breadcrumbId,
         itemListElement: [
           {
             "@type": "ListItem",
@@ -352,7 +400,7 @@ export function getActivityDetailSchema(activity: ActivityItem) {
           {
             "@type": "ListItem",
             position: 2,
-            name: "Public Activities & Engagements",
+            name: "Activities",
             item: `${SITE_URL}/activities`,
           },
           {
@@ -368,25 +416,33 @@ export function getActivityDetailSchema(activity: ActivityItem) {
 }
 
 /**
- * Palakkad Constituency Page JSON-LD (@graph: WebPage, BreadcrumbList)
+ * Palakkad Constituency Page JSON-LD (@graph: Person, WebSite, WebPage, BreadcrumbList)
+ * Hierarchy: Home -> Constituency
  */
 export function getConstituencySchema() {
+  const pageUrl = `${SITE_URL}/constituency`;
+  const breadcrumbId = `${pageUrl}#breadcrumb`;
+
   return {
     "@context": "https://schema.org",
     "@graph": [
+      PERSON_SCHEMA,
+      WEBSITE_SCHEMA,
       {
         "@type": "WebPage",
-        "@id": `${SITE_URL}/constituency#webpage`,
-        url: `${SITE_URL}/constituency`,
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
         name: "Palakkad Constituency | Shri Ramesh Pisharady",
         description:
           "Explore information about the constituency, public resources, local information and constituency-related updates through the official representative portal.",
         inLanguage: siteConfig.languages.en,
         isPartOf: { "@id": WEBSITE_ID },
         about: { "@id": PERSON_ID },
+        breadcrumb: { "@id": breadcrumbId },
       },
       {
         "@type": "BreadcrumbList",
+        "@id": breadcrumbId,
         itemListElement: [
           {
             "@type": "ListItem",
@@ -397,8 +453,8 @@ export function getConstituencySchema() {
           {
             "@type": "ListItem",
             position: 2,
-            name: "Palakkad Constituency",
-            item: `${SITE_URL}/constituency`,
+            name: "Constituency",
+            item: pageUrl,
           },
         ],
       },
@@ -407,22 +463,29 @@ export function getConstituencySchema() {
 }
 
 /**
- * Gallery Page JSON-LD (@graph: CollectionPage, ImageGallery, BreadcrumbList)
+ * Gallery Page JSON-LD (@graph: Person, WebSite, CollectionPage, ImageGallery, BreadcrumbList)
+ * Hierarchy: Home -> Gallery
  */
 export function getGallerySchema(galleryItems: GalleryItem[]) {
+  const pageUrl = `${SITE_URL}/gallery`;
+  const breadcrumbId = `${pageUrl}#breadcrumb`;
+
   return {
     "@context": "https://schema.org",
     "@graph": [
+      PERSON_SCHEMA,
+      WEBSITE_SCHEMA,
       {
         "@type": "CollectionPage",
-        "@id": `${SITE_URL}/gallery#webpage`,
-        url: `${SITE_URL}/gallery`,
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
         name: "Gallery | Shri Ramesh Pisharady",
         description:
           "Browse photographs and visual highlights from public activities, constituency engagements and events featured on the official representative portal of Shri Ramesh Pisharady.",
         inLanguage: siteConfig.languages.en,
         isPartOf: { "@id": WEBSITE_ID },
         about: { "@id": PERSON_ID },
+        breadcrumb: { "@id": breadcrumbId },
         mainEntity: {
           "@type": "ImageGallery",
           name: "Public Activities & Engagements Gallery",
@@ -431,6 +494,7 @@ export function getGallerySchema(galleryItems: GalleryItem[]) {
       },
       {
         "@type": "BreadcrumbList",
+        "@id": breadcrumbId,
         itemListElement: [
           {
             "@type": "ListItem",
@@ -442,7 +506,7 @@ export function getGallerySchema(galleryItems: GalleryItem[]) {
             "@type": "ListItem",
             position: 2,
             name: "Gallery",
-            item: `${SITE_URL}/gallery`,
+            item: pageUrl,
           },
         ],
       },
@@ -451,25 +515,33 @@ export function getGallerySchema(galleryItems: GalleryItem[]) {
 }
 
 /**
- * Contact Page JSON-LD (@graph: ContactPage, BreadcrumbList)
+ * Contact Page JSON-LD (@graph: Person, WebSite, ContactPage, BreadcrumbList)
+ * Hierarchy: Home -> Contact
  */
 export function getContactSchema() {
+  const pageUrl = `${SITE_URL}/contact`;
+  const breadcrumbId = `${pageUrl}#breadcrumb`;
+
   return {
     "@context": "https://schema.org",
     "@graph": [
+      PERSON_SCHEMA,
+      WEBSITE_SCHEMA,
       {
         "@type": "ContactPage",
-        "@id": `${SITE_URL}/contact#webpage`,
-        url: `${SITE_URL}/contact`,
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
         name: "Contact the Office | Shri Ramesh Pisharady",
         description:
           "Find official office contact information and submit enquiries through the official representative portal of Shri Ramesh Pisharady.",
         inLanguage: siteConfig.languages.en,
         isPartOf: { "@id": WEBSITE_ID },
         about: { "@id": PERSON_ID },
+        breadcrumb: { "@id": breadcrumbId },
       },
       {
         "@type": "BreadcrumbList",
+        "@id": breadcrumbId,
         itemListElement: [
           {
             "@type": "ListItem",
@@ -480,8 +552,8 @@ export function getContactSchema() {
           {
             "@type": "ListItem",
             position: 2,
-            name: "Contact the Office",
-            item: `${SITE_URL}/contact`,
+            name: "Contact",
+            item: pageUrl,
           },
         ],
       },
@@ -503,20 +575,26 @@ export function getWebPageSchema({
   path: string;
   breadcrumbName: string;
 }) {
+  const pageUrl = `${SITE_URL}${path}`;
+  const breadcrumbId = `${pageUrl}#breadcrumb`;
+
   return {
     "@context": "https://schema.org",
     "@graph": [
+      WEBSITE_SCHEMA,
       {
         "@type": "WebPage",
-        "@id": `${SITE_URL}${path}#webpage`,
-        url: `${SITE_URL}${path}`,
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
         name: `${title} | Shri Ramesh Pisharady`,
         description,
         inLanguage: siteConfig.languages.en,
         isPartOf: { "@id": WEBSITE_ID },
+        breadcrumb: { "@id": breadcrumbId },
       },
       {
         "@type": "BreadcrumbList",
+        "@id": breadcrumbId,
         itemListElement: [
           {
             "@type": "ListItem",
@@ -528,7 +606,7 @@ export function getWebPageSchema({
             "@type": "ListItem",
             position: 2,
             name: breadcrumbName,
-            item: `${SITE_URL}${path}`,
+            item: pageUrl,
           },
         ],
       },
