@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import ActivitiesClient from "./ActivitiesClient";
+import { mockActivities } from "@/data/mockData";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getActivitiesListingSchema } from "@/components/seo/schema";
 
 export const metadata: Metadata = {
   title: "Public Activities & Engagements",
@@ -30,5 +33,10 @@ export const metadata: Metadata = {
 };
 
 export default function ActivitiesPage() {
-  return <ActivitiesClient />;
+  return (
+    <>
+      <JsonLd data={getActivitiesListingSchema(mockActivities)} />
+      <ActivitiesClient />
+    </>
+  );
 }

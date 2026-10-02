@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { mockActivities } from "@/data/mockData";
 import ActivityDetailClient from "./ActivityDetailClient";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getActivityDetailSchema } from "@/components/seo/schema";
 
 export async function generateStaticParams() {
   return mockActivities.map((item) => ({
@@ -60,6 +62,18 @@ export async function generateMetadata({
   };
 }
 
-export default function ActivityDetailPage() {
-  return <ActivityDetailClient />;
+export default async function ActivityDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const activity = mockActivities.find((item) => item.slug === slug);
+
+  return (
+    <>
+      {activity && <JsonLd data={getActivityDetailSchema(activity)} />}
+      <ActivityDetailClient />
+    </>
+  );
 }

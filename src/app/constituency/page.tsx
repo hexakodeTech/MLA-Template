@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import ConstituencyClient from "./ConstituencyClient";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getConstituencySchema } from "@/components/seo/schema";
 
 export const metadata: Metadata = {
   title: "Palakkad Constituency",
@@ -30,5 +32,10 @@ export const metadata: Metadata = {
 };
 
 export default function ConstituencyPage() {
-  return <ConstituencyClient />;
+  return (
+    <>
+      <JsonLd data={getConstituencySchema()} />
+      <ConstituencyClient />
+    </>
+  );
 }

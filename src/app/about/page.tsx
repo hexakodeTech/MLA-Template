@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import AboutClient from "./AboutClient";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getAboutSchema } from "@/components/seo/schema";
 
 export const metadata: Metadata = {
   title: {
@@ -32,5 +34,10 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  return <AboutClient />;
+  return (
+    <>
+      <JsonLd data={getAboutSchema()} />
+      <AboutClient />
+    </>
+  );
 }

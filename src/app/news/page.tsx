@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import NewsClient from "./NewsClient";
+import { mockNews } from "@/data/mockData";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getNewsListingSchema } from "@/components/seo/schema";
 
 export const metadata: Metadata = {
   title: "News & Announcements",
@@ -30,5 +33,10 @@ export const metadata: Metadata = {
 };
 
 export default function NewsPage() {
-  return <NewsClient />;
+  return (
+    <>
+      <JsonLd data={getNewsListingSchema(mockNews)} />
+      <NewsClient />
+    </>
+  );
 }

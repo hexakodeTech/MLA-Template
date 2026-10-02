@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import ContactClient from "./ContactClient";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getContactSchema } from "@/components/seo/schema";
 
 export const metadata: Metadata = {
   title: "Contact the Office",
@@ -30,5 +32,10 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return <ContactClient />;
+  return (
+    <>
+      <JsonLd data={getContactSchema()} />
+      <ContactClient />
+    </>
+  );
 }

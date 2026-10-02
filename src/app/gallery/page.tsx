@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import GalleryClient from "./GalleryClient";
+import { mockGallery } from "@/data/mockData";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getGallerySchema } from "@/components/seo/schema";
 
 export const metadata: Metadata = {
   title: "Gallery",
@@ -30,5 +33,10 @@ export const metadata: Metadata = {
 };
 
 export default function GalleryPage() {
-  return <GalleryClient />;
+  return (
+    <>
+      <JsonLd data={getGallerySchema(mockGallery)} />
+      <GalleryClient />
+    </>
+  );
 }

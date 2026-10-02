@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import PrivacyPolicyClient from "./PrivacyPolicyClient";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getWebPageSchema } from "@/components/seo/schema";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -30,5 +32,18 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacyPolicyPage() {
-  return <PrivacyPolicyClient />;
+  return (
+    <>
+      <JsonLd
+        data={getWebPageSchema({
+          title: "Privacy Policy",
+          description:
+            "Read the privacy policy explaining how information is handled when using the official representative portal of Shri Ramesh Pisharady.",
+          path: "/privacy-policy",
+          breadcrumbName: "Privacy Policy",
+        })}
+      />
+      <PrivacyPolicyClient />
+    </>
+  );
 }

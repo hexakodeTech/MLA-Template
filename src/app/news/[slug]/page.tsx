@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { mockNews } from "@/data/mockData";
 import NewsDetailClient from "./NewsDetailClient";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getNewsArticleSchema } from "@/components/seo/schema";
 
 export async function generateStaticParams() {
   return mockNews.map((item) => ({
@@ -61,6 +63,18 @@ export async function generateMetadata({
   };
 }
 
-export default function NewsDetailPage() {
-  return <NewsDetailClient />;
+export default async function NewsDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const article = mockNews.find((item) => item.slug === slug);
+
+  return (
+    <>
+      {article && <JsonLd data={getNewsArticleSchema(article)} />}
+      <NewsDetailClient />
+    </>
+  );
 }
