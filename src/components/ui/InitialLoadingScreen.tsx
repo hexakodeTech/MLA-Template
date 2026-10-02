@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useMemo } from "react";
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { useAccessibility } from "@/context/AccessibilityContext";
 import { mockActivities } from "@/data/mockData";
@@ -218,13 +219,18 @@ export function InitialLoadingScreen() {
       <div className="flex flex-col items-center text-center max-w-sm sm:max-w-xl w-full">
         {/* 1. Representative's Approved Photograph (Preserved and stationary) */}
         <div className="relative p-1 sm:p-1.5 bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] rounded-sm shadow-md mb-4 sm:mb-5">
-          <div className="w-20 h-20 sm:w-24 sm:h-24 aspect-square rounded-xs overflow-hidden bg-stone dark:bg-[#222320]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80"
-              alt="Shri Ramesh Pisharady — Official Portrait"
-              className="w-full h-full object-cover filter contrast-105"
-              fetchPriority="high"
+          <div className="relative w-20 h-20 sm:w-24 sm:h-24 aspect-square rounded-xs overflow-hidden bg-stone dark:bg-[#222320]">
+            <Image
+              src="/images/ramesh-pisharady-portrait.png"
+              alt={
+                language === "ml"
+                  ? "പാലക്കാട് നിയോജകമണ്ഡലത്തിന്റെ ജനപ്രതിനിധി ശ്രീ രമേഷ് പിഷാരടി"
+                  : "Shri Ramesh Pisharady, Public Representative of Palakkad Constituency"
+              }
+              fill
+              priority
+              sizes="(max-width: 640px) 80px, 96px"
+              className="object-cover object-top filter contrast-105"
             />
           </div>
           {/* Subtle architectural accent indicator */}

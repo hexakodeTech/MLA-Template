@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   Compass,
@@ -336,12 +337,18 @@ export default function HomePage() {
 
                 <div className="relative bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-3.5 shadow-sm overflow-hidden">
                   <div className="relative aspect-[3/4] rounded-xs overflow-hidden bg-stone dark:bg-[#222320] flex flex-col justify-end">
-                    {/* Placeholder Photographic Portrait */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1000&q=80"
-                      alt="Representative Official Portrait Placeholder"
-                      className="w-full h-full object-cover filter contrast-105 opacity-90"
+                    {/* Official Photographic Portrait */}
+                    <Image
+                      src="/images/ramesh-pisharady-portrait.png"
+                      alt={
+                        language === "ml"
+                          ? "പാലക്കാട് നിയോജകമണ്ഡലത്തിന്റെ ജനപ്രതിനിധി ശ്രീ രമേഷ് പിഷാരടി"
+                          : "Shri Ramesh Pisharady, Public Representative of Palakkad Constituency"
+                      }
+                      fill
+                      priority
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
+                      className="object-cover object-top filter contrast-105"
                     />
 
                     {/* Neutral Gradient Overlay for Text Legibility */}
@@ -352,7 +359,7 @@ export default function HomePage() {
                       <div className="bg-white/95 dark:bg-[#2C2D29]/95 backdrop-blur-sm border border-warm-grey dark:border-[#41413B] rounded-xs px-3 py-2 text-xs flex items-center gap-2 shadow-xs">
                         <Info className="w-3.5 h-3.5 text-copper dark:text-[#D29A78] shrink-0" />
                         <span className="text-[11px] font-semibold text-charcoal dark:text-[#F4F1E9]">
-                          Temporary portrait placeholder · Awaiting approved asset
+                          {language === "ml" ? "ഔദ്യോഗിക ഛായാചിത്രം" : "Official Portrait"}
                         </span>
                       </div>
                     </div>
@@ -435,11 +442,16 @@ export default function HomePage() {
             <div className="lg:col-span-5 relative">
               <div className="relative bg-white dark:bg-[#2C2D29] p-3 rounded-sm border border-warm-grey dark:border-[#41413B] shadow-xs">
                 <div className="aspect-[4/5] rounded-xs bg-stone dark:bg-[#222320] overflow-hidden relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80"
-                    alt="Representative Portrait"
-                    className="w-full h-full object-cover filter contrast-105 opacity-90"
+                  <Image
+                    src="/images/ramesh-pisharady-portrait.png"
+                    alt={
+                      language === "ml"
+                        ? "പാലക്കാട് നിയോജകമണ്ഡലത്തിന്റെ ജനപ്രതിനിധി ശ്രീ രമേഷ് പിഷാരടി"
+                        : "Shri Ramesh Pisharady, Public Representative of Palakkad Constituency"
+                    }
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 450px"
+                    className="object-cover object-top filter contrast-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4 text-white">
@@ -449,7 +461,9 @@ export default function HomePage() {
                 </div>
               </div>
               <p className="text-[11px] text-slate dark:text-[#A09F97] font-mono mt-2.5 text-center">
-                Official approved portrait will be updated upon secretarial confirmation.
+                {language === "ml"
+                  ? "ഔദ്യോഗിക ഛായാചിത്രം · ശ്രീ രമേഷ് പിഷാരടി"
+                  : "Official Portrait · Shri Ramesh Pisharady"}
               </p>
             </div>
 

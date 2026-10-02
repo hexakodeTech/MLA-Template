@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import {
   Landmark,
   ShieldCheck,
@@ -54,21 +55,27 @@ export default function AboutPage() {
         <div className="lg:col-span-5 space-y-6">
           <div className="bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-3.5 shadow-xs">
             <div className="aspect-[3/4] rounded-xs overflow-hidden bg-stone dark:bg-[#222320] relative flex items-center justify-center">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1000&q=80"
-                alt="Representative Portrait Placeholder"
-                className="w-full h-full object-cover filter contrast-105 opacity-90"
+              <Image
+                src="/images/ramesh-pisharady-portrait.png"
+                alt={
+                  language === "ml"
+                    ? "പാലക്കാട് നിയോജകമണ്ഡലത്തിന്റെ ജനപ്രതിനിധി ശ്രീ രമേഷ് പിഷാരടി"
+                    : "Shri Ramesh Pisharady, Public Representative of Palakkad Constituency"
+                }
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 450px"
+                className="object-cover object-top filter contrast-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
               <div className="absolute top-3 left-3 right-3 bg-white/95 dark:bg-[#2C2D29]/95 backdrop-blur-xs border border-warm-grey dark:border-[#41413B] rounded-xs p-3 text-xs text-charcoal dark:text-[#F4F1E9]">
                 <span className="font-bold text-copper dark:text-[#D29A78] block mb-0.5 uppercase tracking-wider text-[10px]">
-                  {language === "ml" ? "മാതൃകാ ഛായാചിത്രം" : "Approved Portrait Notice"}
+                  {language === "ml" ? "ഔദ്യോഗിക ഛായാചിത്രം" : "Official Portrait"}
                 </span>
                 <span className="text-[11px] text-slate dark:text-[#C6C5BD]">
                   {language === "ml"
-                    ? "ഓഫീസ് സ്ഥിരീകരിച്ച ഔദ്യോഗിക ചിത്രം ഇവിടെ നൽകുന്നതാണ്."
-                    : "High-resolution approved office portrait will replace this placeholder asset."}
+                    ? "പാലക്കാട് നിയോജകമണ്ഡലത്തിന്റെ ഔദ്യോഗിക ഛായാചിത്രം."
+                    : "Official portrait of Shri Ramesh Pisharady, Palakkad Constituency."}
                 </span>
               </div>
               <div className="absolute bottom-4 left-4 right-4 text-white">
