@@ -51,12 +51,29 @@ export const metadata: Metadata = {
   authors: [{ name: "HexaKode", url: "https://hexakode.com" }],
   metadataBase: new URL("https://rameshpisharady.hexakode.com"),
   openGraph: {
+    type: "website",
+    siteName: "Shri Ramesh Pisharady",
     title: "Shri Ramesh Pisharady | Official Representative Portal",
     description:
-      "Official representative portal of Shri Ramesh Pisharady. Explore public activities, constituency information, news, announcements, gallery and citizen services.",
-    type: "website",
+      "Official representative portal of Shri Ramesh Pisharady, featuring public activities, constituency information, news, announcements, gallery and citizen services.",
+    url: "/",
     locale: "en_IN",
     alternateLocale: "ml_IN",
+    images: [
+      {
+        url: "/images/og-preview.png",
+        width: 1200,
+        height: 630,
+        alt: "Shri Ramesh Pisharady | Official Representative Portal",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shri Ramesh Pisharady | Official Representative Portal",
+    description:
+      "Official representative portal of Shri Ramesh Pisharady, featuring public activities, constituency information, news, announcements, gallery and citizen services.",
+    images: ["/images/og-preview.png"],
   },
   robots: {
     index: true,

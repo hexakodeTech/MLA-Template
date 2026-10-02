@@ -7,6 +7,21 @@ export const metadata: Metadata = {
   },
   description:
     "Learn more about Shri Ramesh Pisharady, his public profile, role and work, and explore information available through the official representative portal.",
+  openGraph: {
+    type: "website",
+    title: "About Shri Ramesh Pisharady | Official Representative Portal",
+    description:
+      "Learn more about Shri Ramesh Pisharady, his public profile, role and work, and explore information available through the official representative portal.",
+    url: "/about",
+    images: [
+      {
+        url: "/images/og-preview.png",
+        width: 1200,
+        height: 630,
+        alt: "About Shri Ramesh Pisharady | Official Representative Portal",
+      },
+    ],
+  },
 };
 
 export default function AboutPage() {

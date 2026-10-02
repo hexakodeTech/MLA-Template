@@ -5,6 +5,21 @@ export const metadata: Metadata = {
   title: "Accessibility",
   description:
     "Learn about the accessibility features and support available on the official representative portal of Shri Ramesh Pisharady.",
+  openGraph: {
+    type: "website",
+    title: "Accessibility | Shri Ramesh Pisharady",
+    description:
+      "Learn about the accessibility features and support available on the official representative portal of Shri Ramesh Pisharady.",
+    url: "/accessibility",
+    images: [
+      {
+        url: "/images/og-preview.png",
+        width: 1200,
+        height: 630,
+        alt: "Accessibility | Shri Ramesh Pisharady",
+      },
+    ],
+  },
 };
 
 export default function AccessibilityPage() {

@@ -23,9 +23,34 @@ export async function generateMetadata({
     };
   }
 
+  const ogImages = activity.imageUrl
+    ? [
+        {
+          url: activity.imageUrl,
+          width: 1200,
+          height: 630,
+          alt: activity.title.en,
+        },
+      ]
+    : [
+        {
+          url: "/images/og-preview.png",
+          width: 1200,
+          height: 630,
+          alt: activity.title.en,
+        },
+      ];
+
   return {
     title: activity.title.en,
     description: activity.description.en,
+    openGraph: {
+      type: "article",
+      title: `${activity.title.en} | Shri Ramesh Pisharady`,
+      description: activity.description.en,
+      url: `/activities/${activity.slug}`,
+      images: ogImages,
+    },
   };
 }
 
