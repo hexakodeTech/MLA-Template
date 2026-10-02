@@ -35,7 +35,7 @@ const notoMalayalam = Noto_Sans_Malayalam({
 export const metadata: Metadata = {
   title: {
     default: "Shri Ramesh Pisharady | Official Representative Portal",
-    template: "%s | Office of Shri Ramesh Pisharady",
+    template: "%s | Shri Ramesh Pisharady",
   },
   description:
     "Official public representative portal for Shri Ramesh Pisharady, Palakkad Constituency. An editorial public information platform commissioned by HexaKode.",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     alternateLocale: "ml_IN",
   },
   robots: {
-    index: false,
+    index: true,
     follow: true,
   },
 };
