@@ -76,11 +76,62 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
   const panelRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
+  const [panelPosition, setPanelPosition] = useState<React.CSSProperties>({});
+
+  // Dynamically position the panel relative to trigger while strictly bounding to viewport
+  const updatePosition = useCallback(() => {
+    if (!triggerRef.current) return;
+    const isDesktop = placement === "desktop" && window.innerWidth >= 1024;
+    if (isDesktop) {
+      setPanelPosition({});
+      return;
+    }
+
+    const rect = triggerRef.current.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+    const safeMargin = 12;
+    const panelWidth = Math.min(400, viewportWidth - safeMargin * 2);
+
+    // Calculate vertical position (below trigger + 8px, clamped within viewport)
+    const top = Math.min(rect.bottom + 8, Math.max(safeMargin, viewportHeight - 240));
+    const maxHeight = Math.max(200, viewportHeight - top - safeMargin);
+
+    // Calculate horizontal right position
+    // If aligning to the trigger right edge would push left edge past safeMargin, clamp right to safeMargin
+    let right = viewportWidth - rect.right;
+    if (rect.right - panelWidth < safeMargin || right < safeMargin) {
+      right = safeMargin;
+    }
+
+    setPanelPosition({
+      top: `${Math.round(top)}px`,
+      right: `${Math.round(right)}px`,
+      maxHeight: `${Math.round(maxHeight)}px`,
+    });
+  }, [placement]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    updatePosition();
+    window.addEventListener("resize", updatePosition, { passive: true });
+    window.addEventListener("scroll", updatePosition, { passive: true });
+    return () => {
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePosition);
+    };
+  }, [isOpen, updatePosition]);
 
   // Close menu and restore focus to trigger or the element that opened it
   const closeMenu = useCallback(() => {
     setIsOpen(false);
-    const returnTarget = previouslyFocusedElementRef.current || triggerRef.current;
+    const returnTarget =
+      previouslyFocusedElementRef.current &&
+      previouslyFocusedElementRef.current !== document.body &&
+      document.body.contains(previouslyFocusedElementRef.current)
+        ? previouslyFocusedElementRef.current
+        : triggerRef.current;
     requestAnimationFrame(() => {
       if (returnTarget && typeof returnTarget.focus === "function") {
         returnTarget.focus();
@@ -120,7 +171,10 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
     if (!isOpen) return;
 
     // Track active element before opening so focus can be accurately restored
-    if (document.activeElement instanceof HTMLElement) {
+    if (
+      document.activeElement instanceof HTMLElement &&
+      document.activeElement !== document.body
+    ) {
       previouslyFocusedElementRef.current = document.activeElement;
     } else {
       previouslyFocusedElementRef.current = triggerRef.current;
@@ -239,13 +293,21 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
     setIsOpen((prev) => {
       const next = !prev;
       if (next) {
-        if (document.activeElement instanceof HTMLElement) {
+        if (
+          document.activeElement instanceof HTMLElement &&
+          document.activeElement !== document.body
+        ) {
           previouslyFocusedElementRef.current = document.activeElement;
         } else {
           previouslyFocusedElementRef.current = triggerRef.current;
         }
       } else {
-        const returnTarget = previouslyFocusedElementRef.current || triggerRef.current;
+        const returnTarget =
+          previouslyFocusedElementRef.current &&
+          previouslyFocusedElementRef.current !== document.body &&
+          document.body.contains(previouslyFocusedElementRef.current)
+            ? previouslyFocusedElementRef.current
+            : triggerRef.current;
         requestAnimationFrame(() => returnTarget?.focus());
       }
       return next;
@@ -316,12 +378,15 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
               : "Accessibility Settings Panel"
           }
           className={clsx(
-            "z-50 bg-ivory dark:bg-[#222320] border border-warm-grey dark:border-[#41413B] shadow-2xl rounded-sm text-charcoal dark:text-[#F4F1E9] font-sans animate-in fade-in zoom-in-95 duration-150 max-h-[82vh] overflow-y-auto",
-            "fixed inset-x-3.5 top-18 sm:top-auto sm:inset-x-auto sm:absolute sm:right-0 sm:mt-2 sm:w-[400px]"
+            "z-50 bg-ivory dark:bg-[#222320] border border-warm-grey dark:border-[#41413B] shadow-2xl rounded-sm text-charcoal dark:text-[#F4F1E9] font-sans animate-in fade-in zoom-in-95 duration-150 overflow-y-auto",
+            "fixed right-3 top-16 w-[min(400px,calc(100vw-24px))] max-w-[calc(100vw-24px)] max-h-[82vh]",
+            placement === "desktop" &&
+              "lg:absolute lg:right-0 lg:left-auto lg:top-full lg:mt-2 lg:w-[400px] lg:max-w-none lg:max-h-[82vh]"
           )}
+          style={panelPosition}
         >
           {/* Panel Header */}
-          <div className="sticky top-0 z-10 bg-ivory/95 dark:bg-[#222320]/95 backdrop-blur-md px-4 py-3.5 border-b border-warm-grey dark:border-[#41413B] flex items-center justify-between">
+          <div className="sticky top-0 z-10 bg-ivory/95 dark:bg-[#222320]/95 backdrop-blur-md px-3.5 sm:px-4 py-3 sm:py-3.5 border-b border-warm-grey dark:border-[#41413B] flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <div className="p-1.5 rounded-xs bg-copper/10 dark:bg-[#D29A78]/15 text-copper dark:text-[#D29A78]">
                 <Accessibility className="w-4 h-4" />
@@ -363,7 +428,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
             </div>
           )}
 
-          <div className="p-4 space-y-5 text-xs">
+          <div className="p-3 sm:p-4 space-y-4 sm:space-y-5 text-xs">
             {/* 1. TEXT SIZE CONTROLS */}
             <section
               aria-labelledby="a11y-text-heading"
@@ -392,13 +457,13 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
                 <button
                   onClick={decreaseTextSize}
                   type="button"
                   disabled={settings.fontScale <= 0.8}
                   aria-label="Decrease text size by 10%"
-                  className="py-2.5 px-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-white dark:bg-[#2C2D29] hover:bg-stone/50 dark:hover:bg-[#353631] font-semibold text-charcoal dark:text-[#F4F1E9] disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
+                  className="py-2.5 px-1.5 sm:px-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-white dark:bg-[#2C2D29] hover:bg-stone/50 dark:hover:bg-[#353631] font-semibold text-charcoal dark:text-[#F4F1E9] disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
                 >
                   <span className="text-sm font-bold">A -</span>
                   <span className="block text-[10px] font-normal text-slate dark:text-[#A09F97]">
@@ -410,7 +475,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                   onClick={resetTextSize}
                   type="button"
                   aria-label="Reset text size to default 100%"
-                  className="py-2.5 px-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-white dark:bg-[#2C2D29] hover:bg-stone/50 dark:hover:bg-[#353631] font-semibold text-charcoal dark:text-[#F4F1E9] transition-colors text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
+                  className="py-2.5 px-1.5 sm:px-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-white dark:bg-[#2C2D29] hover:bg-stone/50 dark:hover:bg-[#353631] font-semibold text-charcoal dark:text-[#F4F1E9] transition-colors text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
                 >
                   <span className="text-sm font-bold">100%</span>
                   <span className="block text-[10px] font-normal text-slate dark:text-[#A09F97]">
@@ -423,7 +488,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                   type="button"
                   disabled={settings.fontScale >= 1.5}
                   aria-label="Increase text size by 10%"
-                  className="py-2.5 px-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-white dark:bg-[#2C2D29] hover:bg-stone/50 dark:hover:bg-[#353631] font-semibold text-charcoal dark:text-[#F4F1E9] disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
+                  className="py-2.5 px-1.5 sm:px-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-white dark:bg-[#2C2D29] hover:bg-stone/50 dark:hover:bg-[#353631] font-semibold text-charcoal dark:text-[#F4F1E9] disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
                 >
                   <span className="text-sm font-bold">A +</span>
                   <span className="block text-[10px] font-normal text-slate dark:text-[#A09F97]">
@@ -461,12 +526,12 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
 
               <div className="space-y-2">
                 {/* High Contrast Toggle */}
-                <div className="flex items-center justify-between p-2.5 rounded-xs bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
-                  <div>
-                    <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block">
+                <div className="flex items-center justify-between gap-2.5 p-2.5 rounded-xs bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
+                  <div className="min-w-0 flex-1 pr-1">
+                    <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block leading-tight">
                       {language === "ml" ? "ഉയർന്ന കോൺട്രാസ്റ്റ്" : "High Contrast"}
                     </span>
-                    <span className="text-[11px] text-slate dark:text-[#A09F97]">
+                    <span className="text-[11px] text-slate dark:text-[#A09F97] block leading-normal mt-0.5">
                       {language === "ml"
                         ? "ടെക്സ്റ്റും അതിരുകളും വ്യക്തമാക്കുക"
                         : "Enhance borders & text distinction"}
@@ -479,7 +544,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                     onClick={toggleHighContrast}
                     aria-label="Toggle high contrast mode"
                     className={clsx(
-                      "w-11 h-6 rounded-full transition-colors relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
+                      "w-11 h-6 rounded-full transition-colors relative shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
                       settings.highContrast
                         ? "bg-charcoal dark:bg-[#F4F1E9]"
                         : "bg-warm-grey dark:bg-[#41413B]"
@@ -495,12 +560,12 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                 </div>
 
                 {/* Grayscale Toggle */}
-                <div className="flex items-center justify-between p-2.5 rounded-xs bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
-                  <div>
-                    <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block">
+                <div className="flex items-center justify-between gap-2.5 p-2.5 rounded-xs bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
+                  <div className="min-w-0 flex-1 pr-1">
+                    <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block leading-tight">
                       {language === "ml" ? "ഗ്രേസ്‌കെയിൽ" : "Grayscale"}
                     </span>
-                    <span className="text-[11px] text-slate dark:text-[#A09F97]">
+                    <span className="text-[11px] text-slate dark:text-[#A09F97] block leading-normal mt-0.5">
                       {language === "ml"
                         ? "നിറങ്ങൾ ഒഴിവാക്കി മോണോക്രോം ആക്കുക"
                         : "Monochrome view without decorative color"}
@@ -513,7 +578,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                     onClick={toggleGrayscale}
                     aria-label="Toggle grayscale display"
                     className={clsx(
-                      "w-11 h-6 rounded-full transition-colors relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
+                      "w-11 h-6 rounded-full transition-colors relative shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
                       settings.grayscale
                         ? "bg-charcoal dark:bg-[#F4F1E9]"
                         : "bg-warm-grey dark:bg-[#41413B]"
@@ -529,12 +594,12 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                 </div>
 
                 {/* Highlight Links Toggle */}
-                <div className="flex items-center justify-between p-2.5 rounded-xs bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
-                  <div>
-                    <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block">
+                <div className="flex items-center justify-between gap-2.5 p-2.5 rounded-xs bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
+                  <div className="min-w-0 flex-1 pr-1">
+                    <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block leading-tight">
                       {language === "ml" ? "ലിങ്കുകൾ ഹൈലൈറ്റ് ചെയ്യുക" : "Highlight Links"}
                     </span>
-                    <span className="text-[11px] text-slate dark:text-[#A09F97]">
+                    <span className="text-[11px] text-slate dark:text-[#A09F97] block leading-normal mt-0.5">
                       {language === "ml"
                         ? "ലിങ്കുകൾ എളുപ്പം തിരിച്ചറിയുക"
                         : "Add prominent background to links"}
@@ -547,7 +612,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                     onClick={toggleHighlightLinks}
                     aria-label="Toggle highlight links"
                     className={clsx(
-                      "w-11 h-6 rounded-full transition-colors relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
+                      "w-11 h-6 rounded-full transition-colors relative shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
                       settings.highlightLinks
                         ? "bg-charcoal dark:bg-[#F4F1E9]"
                         : "bg-warm-grey dark:bg-[#41413B]"
@@ -563,12 +628,12 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                 </div>
 
                 {/* Reduce Transparency Toggle */}
-                <div className="flex items-center justify-between p-2.5 rounded-xs bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
-                  <div>
-                    <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block">
+                <div className="flex items-center justify-between gap-2.5 p-2.5 rounded-xs bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
+                  <div className="min-w-0 flex-1 pr-1">
+                    <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block leading-tight">
                       {language === "ml" ? "സുതാര്യത കുറയ്ക്കുക" : "Reduce Transparency"}
                     </span>
-                    <span className="text-[11px] text-slate dark:text-[#A09F97]">
+                    <span className="text-[11px] text-slate dark:text-[#A09F97] block leading-normal mt-0.5">
                       {language === "ml"
                         ? "ഗ്ലാസ്സ് പ്രതലങ്ങൾക്ക് പകരം സോളിഡ് പ്രതലം"
                         : "Opaque surfaces instead of blur"}
@@ -581,7 +646,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                     onClick={toggleReduceTransparency}
                     aria-label="Toggle reduce transparency"
                     className={clsx(
-                      "w-11 h-6 rounded-full transition-colors relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
+                      "w-11 h-6 rounded-full transition-colors relative shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
                       settings.reduceTransparency
                         ? "bg-charcoal dark:bg-[#F4F1E9]"
                         : "bg-warm-grey dark:bg-[#41413B]"
@@ -623,95 +688,95 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                 )}
               </div>
 
-              {/* Line Spacing */}
-              <div className="space-y-1.5">
-                <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block">
-                  {language === "ml" ? "വരികൾ തമ്മിലുള്ള അകലം" : "Line Spacing"}
-                </span>
-                <div className="grid grid-cols-3 gap-1.5 p-1 rounded-xs bg-stone/70 dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
-                  {(["default", "increased", "extra"] as const).map((opt) => (
-                    <button
-                      key={opt}
-                      onClick={() => setLineHeight(opt)}
-                      type="button"
-                      aria-pressed={settings.lineHeight === opt}
-                      aria-label={`Line spacing ${opt === "default" ? "1.5x Normal" : opt === "increased" ? "1.75x" : "2.0x Wide"}`}
-                      className={clsx(
-                        "py-1.5 px-2 rounded-xs text-[11px] font-semibold transition-all text-center",
-                        settings.lineHeight === opt
-                          ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] shadow-xs"
-                          : "text-slate dark:text-[#C6C5BD] hover:text-charcoal dark:hover:text-[#F4F1E9]"
-                      )}
-                    >
-                      {opt === "default" && "1.5x (Normal)"}
-                      {opt === "increased" && "1.75x"}
-                      {opt === "extra" && "2.0x (Wide)"}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Letter Spacing */}
-              <div className="space-y-1.5">
-                <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block">
-                  {language === "ml" ? "അക്ഷരങ്ങൾ തമ്മിലുള്ള അകലം" : "Letter Spacing"}
-                </span>
-                <div className="grid grid-cols-3 gap-1.5 p-1 rounded-xs bg-stone/70 dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
-                  {(["default", "slight", "moderate"] as const).map((opt) => (
-                    <button
-                      key={opt}
-                      onClick={() => setLetterSpacing(opt)}
-                      type="button"
-                      aria-pressed={settings.letterSpacing === opt}
-                      aria-label={`Letter spacing ${opt === "default" ? "Normal" : opt === "slight" ? "Slight +0.05em" : "Moderate +0.1em"}`}
-                      className={clsx(
-                        "py-1.5 px-2 rounded-xs text-[11px] font-semibold transition-all text-center",
-                        settings.letterSpacing === opt
-                          ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] shadow-xs"
-                          : "text-slate dark:text-[#C6C5BD] hover:text-charcoal dark:hover:text-[#F4F1E9]"
-                      )}
-                    >
-                      {opt === "default" && "Normal"}
-                      {opt === "slight" && "+0.05em"}
-                      {opt === "moderate" && "+0.1em"}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Underline Links Toggle */}
-              <div className="flex items-center justify-between p-2.5 rounded-xs bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
-                <div>
+                {/* Line Spacing */}
+                <div className="space-y-1.5">
                   <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block">
-                    {language === "ml" ? "ലിങ്കുകൾക്ക് അടിവരയിടുക" : "Underline Links"}
+                    {language === "ml" ? "വരികൾ തമ്മിലുള്ള അകലം" : "Line Spacing"}
                   </span>
-                  <span className="text-[11px] text-slate dark:text-[#A09F97]">
-                    {language === "ml"
-                      ? "എല്ലാ ഹൈപ്പർലിങ്കുകൾക്കും സ്ഥിരമായ അടിവര"
-                      : "Add underline to all text links"}
-                  </span>
+                  <div className="grid grid-cols-3 gap-1.5 p-1 rounded-xs bg-stone/70 dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
+                    {(["default", "increased", "extra"] as const).map((opt) => (
+                      <button
+                        key={opt}
+                        onClick={() => setLineHeight(opt)}
+                        type="button"
+                        aria-pressed={settings.lineHeight === opt}
+                        aria-label={`Line spacing ${opt === "default" ? "1.5x Normal" : opt === "increased" ? "1.75x" : "2.0x Wide"}`}
+                        className={clsx(
+                          "py-1.5 px-1 sm:px-2 rounded-xs text-[10px] sm:text-[11px] font-semibold transition-all text-center",
+                          settings.lineHeight === opt
+                            ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] shadow-xs"
+                            : "text-slate dark:text-[#C6C5BD] hover:text-charcoal dark:hover:text-[#F4F1E9]"
+                        )}
+                      >
+                        {opt === "default" && "1.5x (Normal)"}
+                        {opt === "increased" && "1.75x"}
+                        {opt === "extra" && "2.0x (Wide)"}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <button
-                  type="button"
-                  role="switch"
-                  aria-checked={settings.underlineLinks}
-                  onClick={toggleUnderlineLinks}
-                  aria-label="Toggle underline links"
-                  className={clsx(
-                    "w-11 h-6 rounded-full transition-colors relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
-                    settings.underlineLinks
-                      ? "bg-charcoal dark:bg-[#F4F1E9]"
-                      : "bg-warm-grey dark:bg-[#41413B]"
-                  )}
-                >
-                  <span
+
+                {/* Letter Spacing */}
+                <div className="space-y-1.5">
+                  <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block">
+                    {language === "ml" ? "അക്ഷരങ്ങൾ തമ്മിലുള്ള അകലം" : "Letter Spacing"}
+                  </span>
+                  <div className="grid grid-cols-3 gap-1.5 p-1 rounded-xs bg-stone/70 dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
+                    {(["default", "slight", "moderate"] as const).map((opt) => (
+                      <button
+                        key={opt}
+                        onClick={() => setLetterSpacing(opt)}
+                        type="button"
+                        aria-pressed={settings.letterSpacing === opt}
+                        aria-label={`Letter spacing ${opt === "default" ? "Normal" : opt === "slight" ? "Slight +0.05em" : "Moderate +0.1em"}`}
+                        className={clsx(
+                          "py-1.5 px-1 sm:px-2 rounded-xs text-[10px] sm:text-[11px] font-semibold transition-all text-center",
+                          settings.letterSpacing === opt
+                            ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] shadow-xs"
+                            : "text-slate dark:text-[#C6C5BD] hover:text-charcoal dark:hover:text-[#F4F1E9]"
+                        )}
+                      >
+                        {opt === "default" && "Normal"}
+                        {opt === "slight" && "+0.05em"}
+                        {opt === "moderate" && "+0.1em"}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Underline Links Toggle */}
+                <div className="flex items-center justify-between gap-2.5 p-2.5 rounded-xs bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
+                  <div className="min-w-0 flex-1 pr-1">
+                    <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block leading-tight">
+                      {language === "ml" ? "ലിങ്കുകൾക്ക് അടിവരയിടുക" : "Underline Links"}
+                    </span>
+                    <span className="text-[11px] text-slate dark:text-[#A09F97] block leading-normal mt-0.5">
+                      {language === "ml"
+                        ? "എല്ലാ ഹൈപ്പർലിങ്കുകൾക്കും സ്ഥിരമായ അടിവര"
+                        : "Add underline to all text links"}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    role="switch"
+                    aria-checked={settings.underlineLinks}
+                    onClick={toggleUnderlineLinks}
+                    aria-label="Toggle underline links"
                     className={clsx(
-                      "w-5 h-5 rounded-full bg-white dark:bg-[#191A18] block absolute top-0.5 transition-transform",
-                      settings.underlineLinks ? "translate-x-5.5" : "translate-x-0.5"
+                      "w-11 h-6 rounded-full transition-colors relative shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
+                      settings.underlineLinks
+                        ? "bg-charcoal dark:bg-[#F4F1E9]"
+                        : "bg-warm-grey dark:bg-[#41413B]"
                     )}
-                  />
-                </button>
-              </div>
+                  >
+                    <span
+                      className={clsx(
+                        "w-5 h-5 rounded-full bg-white dark:bg-[#191A18] block absolute top-0.5 transition-transform",
+                        settings.underlineLinks ? "translate-x-5.5" : "translate-x-0.5"
+                      )}
+                    />
+                  </button>
+                </div>
             </section>
 
             {/* 4. MOTION CONTROLS */}
@@ -737,12 +802,13 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                 )}
               </div>
 
-              <div className="flex items-center justify-between p-2.5 rounded-xs bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
-                <div>
-                  <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block">
+              {/* Reduce Animations Toggle */}
+              <div className="flex items-center justify-between gap-2.5 p-2.5 rounded-xs bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
+                <div className="min-w-0 flex-1 pr-1">
+                  <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block leading-tight">
                     {language === "ml" ? "ആനിമേഷനുകൾ കുറയ്ക്കുക" : "Reduce Animations"}
                   </span>
-                  <span className="text-[11px] text-slate dark:text-[#A09F97]">
+                  <span className="text-[11px] text-slate dark:text-[#A09F97] block leading-normal mt-0.5">
                     {language === "ml"
                       ? "പശ്ചാത്തല ചലനങ്ങളും ട്രാൻസിഷനുകളും നിർത്തുക"
                       : "Disable background motion & transitions"}
@@ -755,7 +821,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                   onClick={toggleReduceMotion}
                   aria-label="Toggle reduce animations"
                   className={clsx(
-                    "w-11 h-6 rounded-full transition-colors relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
+                    "w-11 h-6 rounded-full transition-colors relative shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
                     settings.reduceMotion
                       ? "bg-charcoal dark:bg-[#F4F1E9]"
                       : "bg-warm-grey dark:bg-[#41413B]"
@@ -795,12 +861,12 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
               </div>
 
               {/* Highlight Focus Ring */}
-              <div className="flex items-center justify-between p-2.5 rounded-xs bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
-                <div>
-                  <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block">
+              <div className="flex items-center justify-between gap-2.5 p-2.5 rounded-xs bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B]">
+                <div className="min-w-0 flex-1 pr-1">
+                  <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block leading-tight">
                     {language === "ml" ? "കീബോർഡ് ഫോക്കസ് വ്യക്തമാക്കുക" : "Highlight Keyboard Focus"}
                   </span>
-                  <span className="text-[11px] text-slate dark:text-[#A09F97]">
+                  <span className="text-[11px] text-slate dark:text-[#A09F97] block leading-normal mt-0.5">
                     {language === "ml"
                       ? "ഫോക്കസ് ഉള്ള ഘടകങ്ങൾക്ക് കട്ടിയുള്ള ബോർഡർ"
                       : "Prominent focus rings around active controls"}
@@ -813,7 +879,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                   onClick={toggleHighlightFocus}
                   aria-label="Toggle highlight keyboard focus"
                   className={clsx(
-                    "w-11 h-6 rounded-full transition-colors relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
+                    "w-11 h-6 rounded-full transition-colors relative shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
                     settings.highlightFocus
                       ? "bg-charcoal dark:bg-[#F4F1E9]"
                       : "bg-warm-grey dark:bg-[#41413B]"
@@ -889,7 +955,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
           </div>
 
           {/* Panel Footer: Reset All & Statement Link */}
-          <div className="p-4 bg-stone/60 dark:bg-[#191A18] border-t border-warm-grey dark:border-[#41413B] space-y-2.5">
+          <div className="p-3.5 sm:p-4 bg-stone/60 dark:bg-[#191A18] border-t border-warm-grey dark:border-[#41413B] space-y-2.5">
             <button
               onClick={resetAllSettings}
               type="button"
