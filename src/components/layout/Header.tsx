@@ -8,6 +8,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { Button } from "@/components/ui/Button";
 import { ThemeSwitcher } from "@/components/layout/ThemeSwitcher";
 import { AccessibilityMenu } from "@/components/layout/AccessibilityMenu";
+import { getFocusableElements } from "@/utils/focusTrap";
 import clsx from "clsx";
 
 export const Header: React.FC = () => {
@@ -16,6 +17,7 @@ export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const mobileMenuTriggerRef = useRef<HTMLButtonElement>(null);
+  const mobileNavRef = useRef<HTMLDivElement>(null);
   const firstNavLinkRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
@@ -36,10 +38,46 @@ export const Header: React.FC = () => {
     });
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      // If a nested dialog/modal (e.g. AccessibilityMenu) is currently open, yield to it
+      if (document.querySelector('[role="dialog"][aria-modal="true"]')) {
+        return;
+      }
+
       if (e.key === "Escape") {
         e.preventDefault();
         setMobileMenuOpen(false);
         mobileMenuTriggerRef.current?.focus();
+        return;
+      }
+
+      if (e.key === "Tab") {
+        if (!mobileNavRef.current) return;
+        const drawerFocusables = getFocusableElements(mobileNavRef.current);
+        const trigger = mobileMenuTriggerRef.current;
+        const allFocusables = trigger
+          ? [...drawerFocusables, trigger]
+          : drawerFocusables;
+
+        if (allFocusables.length === 0) {
+          e.preventDefault();
+          return;
+        }
+
+        const first = allFocusables[0];
+        const last = allFocusables[allFocusables.length - 1];
+        const active = document.activeElement as HTMLElement | null;
+
+        if (e.shiftKey) {
+          if (!active || active === first || !allFocusables.includes(active)) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (!active || active === last || !allFocusables.includes(active)) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       }
     };
 
@@ -104,8 +142,9 @@ export const Header: React.FC = () => {
               <Link
                 key={link.href}
                 href={link.href}
+                aria-current={isActive(link.href) ? "page" : undefined}
                 className={clsx(
-                  "text-xs xl:text-[13px] uppercase tracking-wider font-semibold transition-all relative py-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
+                  "text-xs xl:text-[13px] uppercase tracking-wider font-semibold transition-all relative py-1 px-1 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
                   isActive(link.href)
                     ? "text-charcoal dark:text-[#F4F1E9]"
                     : "text-slate dark:text-[#C6C5BD] hover:text-charcoal dark:hover:text-[#F4F1E9]"
@@ -131,7 +170,7 @@ export const Header: React.FC = () => {
             <button
               onClick={toggleLanguage}
               type="button"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-2 rounded-sm border border-warm-grey dark:border-[#41413B] hover:border-charcoal/40 dark:hover:border-[#C6C5BD]/40 text-charcoal dark:text-[#F4F1E9] bg-white/60 dark:bg-[#2C2D29]/60 transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] min-h-[44px]"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-2 rounded-sm border border-warm-grey dark:border-[#41413B] hover:border-charcoal/40 dark:hover:border-[#C6C5BD]/40 text-charcoal dark:text-[#F4F1E9] bg-white/60 dark:bg-[#2C2D29]/60 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] min-h-[44px]"
               title="Switch language between English and Malayalam"
               aria-label={`Switch to ${language === "en" ? "Malayalam" : "English"}`}
             >
@@ -166,7 +205,7 @@ export const Header: React.FC = () => {
             <button
               onClick={toggleLanguage}
               type="button"
-              className="inline-flex items-center gap-1 text-[11px] font-bold px-2 sm:px-2.5 py-1.5 sm:py-2 rounded-sm border border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9] min-h-[40px] min-w-[40px] sm:min-h-[44px] sm:min-w-[44px] justify-center hover:bg-stone/50 dark:hover:bg-[#2C2D29] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
+              className="inline-flex items-center gap-1 text-[11px] font-bold px-2 sm:px-2.5 py-1.5 sm:py-2 rounded-sm border border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9] min-h-[40px] min-w-[40px] sm:min-h-[44px] sm:min-w-[44px] justify-center hover:bg-stone/50 dark:hover:bg-[#2C2D29] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
               title="Switch language between English and Malayalam"
               aria-label={`Switch to ${language === "en" ? "Malayalam" : "English"}`}
             >
@@ -188,7 +227,7 @@ export const Header: React.FC = () => {
               aria-label={mobileMenuOpen ? "Close menu" : "Open navigation menu"}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-navigation"
-              className="p-2 sm:p-2.5 rounded-sm border border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9] hover:bg-stone/50 dark:hover:bg-[#2C2D29] transition-colors focus:outline-none focus:ring-1 focus:ring-charcoal dark:focus:ring-[#D29A78] min-h-[40px] min-w-[40px] sm:min-h-[44px] sm:min-w-[44px] flex items-center justify-center shrink-0"
+              className="p-2 sm:p-2.5 rounded-sm border border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9] hover:bg-stone/50 dark:hover:bg-[#2C2D29] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] min-h-[40px] min-w-[40px] sm:min-h-[44px] sm:min-w-[44px] flex items-center justify-center shrink-0"
             >
               {mobileMenuOpen ? (
                 <X className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -203,7 +242,10 @@ export const Header: React.FC = () => {
       {/* Refined Mobile Navigation Panel */}
       {mobileMenuOpen && (
         <div
+          ref={mobileNavRef}
           id="mobile-navigation"
+          role="region"
+          aria-label={language === "ml" ? "മൊബൈൽ നാവിഗേഷൻ" : "Mobile Navigation"}
           className="lg:hidden border-t border-warm-grey dark:border-[#41413B] bg-ivory dark:bg-[#222320] px-5 pt-4 pb-8 shadow-xl animate-in slide-in-from-top-2 duration-200"
         >
           <div className="mb-4 pb-3 border-b border-warm-grey dark:border-[#41413B] flex items-center justify-between">
@@ -215,15 +257,16 @@ export const Header: React.FC = () => {
             </span>
           </div>
 
-          <nav className="flex flex-col space-y-1.5">
+          <nav aria-label="Mobile Menu Navigation" className="flex flex-col space-y-1.5">
             {navLinks.map((link, idx) => (
               <Link
                 key={link.href}
                 ref={idx === 0 ? firstNavLinkRef : undefined}
                 href={link.href}
+                aria-current={isActive(link.href) ? "page" : undefined}
                 onClick={() => setMobileMenuOpen(false)}
                 className={clsx(
-                  "px-3 py-2.5 rounded-sm text-sm uppercase tracking-wider font-semibold transition-colors flex items-center justify-between min-h-[44px]",
+                  "px-3 py-2.5 rounded-sm text-sm uppercase tracking-wider font-semibold transition-colors flex items-center justify-between min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
                   isActive(link.href)
                     ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] font-bold"
                     : "text-charcoal dark:text-[#F4F1E9] hover:bg-stone dark:hover:bg-[#2C2D29]"

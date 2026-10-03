@@ -19,29 +19,13 @@ import {
 } from "lucide-react";
 import { useAccessibility } from "@/context/AccessibilityContext";
 import { useLanguage } from "@/context/LanguageContext";
+import { getFocusableElements } from "@/utils/focusTrap";
 import clsx from "clsx";
 
 interface AccessibilityMenuProps {
   placement?: "desktop" | "mobile";
   className?: string;
 }
-
-// Query focusable interactive elements within a container
-const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
-  const elements = Array.from(
-    container.querySelectorAll<HTMLElement>(
-      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    )
-  );
-
-  return elements.filter((el) => {
-    return (
-      (el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0) &&
-      window.getComputedStyle(el).visibility !== "hidden" &&
-      el.getAttribute("aria-hidden") !== "true"
-    );
-  });
-};
 
 export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
   placement = "desktop",
@@ -171,12 +155,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
     if (!isOpen) return;
 
     // Track active element before opening so focus can be accurately restored
-    if (
-      document.activeElement instanceof HTMLElement &&
-      document.activeElement !== document.body
-    ) {
-      previouslyFocusedElementRef.current = document.activeElement;
-    } else {
+    if (!previouslyFocusedElementRef.current) {
       previouslyFocusedElementRef.current = triggerRef.current;
     }
 
@@ -293,14 +272,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
     setIsOpen((prev) => {
       const next = !prev;
       if (next) {
-        if (
-          document.activeElement instanceof HTMLElement &&
-          document.activeElement !== document.body
-        ) {
-          previouslyFocusedElementRef.current = document.activeElement;
-        } else {
-          previouslyFocusedElementRef.current = triggerRef.current;
-        }
+        previouslyFocusedElementRef.current = triggerRef.current;
       } else {
         const returnTarget =
           previouslyFocusedElementRef.current &&

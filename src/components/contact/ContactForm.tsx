@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AlertCircle, Info, ArrowRight, ArrowLeft, HelpCircle, FileText, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useLanguage } from "@/context/LanguageContext";
+import { getFocusableElements } from "@/utils/focusTrap";
 
 type WorkflowType = "general-enquiry" | "grievance-request";
 type SubmissionStatus = "idle" | "submitting" | "success" | "error";
@@ -38,6 +39,10 @@ export const ContactForm: React.FC = () => {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>("idle");
   const errorRef = useRef<HTMLDivElement>(null);
+  const successRef = useRef<HTMLDivElement>(null);
+  const confirmTriggerRef = useRef<HTMLElement | null>(null);
+  const confirmDialogRef = useRef<HTMLDivElement>(null);
+  const confirmCancelBtnRef = useRef<HTMLButtonElement>(null);
 
   const [formData, setFormData] = useState<FormState>({
     fullName: "",
@@ -91,8 +96,9 @@ export const ContactForm: React.FC = () => {
     setSelectedWorkflow(null);
   };
 
-  const handleRequestChangeWorkflow = () => {
+  const handleRequestChangeWorkflow = (e?: React.MouseEvent) => {
     if (hasEnteredData && submissionStatus !== "success") {
+      confirmTriggerRef.current = (e?.currentTarget as HTMLElement) || (document.activeElement as HTMLElement);
       setShowConfirmDialog(true);
     } else {
       handleReturnToSelector();
@@ -104,25 +110,75 @@ export const ContactForm: React.FC = () => {
     handleReturnToSelector();
   };
 
-  // Keyboard navigation for dialog (Escape key)
+  const handleCloseConfirmDialog = () => {
+    setShowConfirmDialog(false);
+    requestAnimationFrame(() => {
+      confirmTriggerRef.current?.focus();
+    });
+  };
+
+  // Keyboard navigation & focus trap for dialog
   useEffect(() => {
+    if (!showConfirmDialog) return;
+
+    requestAnimationFrame(() => {
+      confirmCancelBtnRef.current?.focus();
+    });
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && showConfirmDialog) {
-        setShowConfirmDialog(false);
+      if (e.key === "Escape") {
+        e.preventDefault();
+        e.stopPropagation();
+        handleCloseConfirmDialog();
+        return;
+      }
+
+      if (e.key === "Tab") {
+        if (!confirmDialogRef.current) return;
+        const focusables = getFocusableElements(confirmDialogRef.current);
+        if (focusables.length === 0) {
+          e.preventDefault();
+          return;
+        }
+
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        const active = document.activeElement as HTMLElement | null;
+
+        if (e.shiftKey) {
+          if (!active || active === first || !focusables.includes(active)) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (!active || active === last || !focusables.includes(active)) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       }
     };
+
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [showConfirmDialog]);
 
-  // Focus error container if submission error occurs
+  // Focus success or error container upon status update
   useEffect(() => {
-    if (submissionStatus === "error" && errorRef.current) {
-      errorRef.current.focus();
+    if (submissionStatus === "success" && successRef.current) {
+      requestAnimationFrame(() => {
+        successRef.current?.focus();
+        successRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    } else if (submissionStatus === "error" && errorRef.current) {
+      requestAnimationFrame(() => {
+        errorRef.current?.focus();
+        errorRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
     }
   }, [submissionStatus]);
 
-  const validate = (): boolean => {
+  const validate = (): { isValid: boolean; firstInvalidField: string | null } => {
     const newErrors: FormErrors = {};
 
     if (!formData.fullName.trim()) {
@@ -201,7 +257,22 @@ export const ContactForm: React.FC = () => {
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+
+    const fieldOrder: (keyof FormErrors)[] = [
+      "fullName",
+      "phone",
+      "email",
+      "subject",
+      "location",
+      "message",
+      "consent",
+    ];
+    const firstInvalid = fieldOrder.find((k) => newErrors[k]) || null;
+
+    return {
+      isValid: Object.keys(newErrors).length === 0,
+      firstInvalidField: firstInvalid,
+    };
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -212,11 +283,17 @@ export const ContactForm: React.FC = () => {
     if (formData.honeypot) return;
 
     // Field-level validation check
-    if (!validate()) {
-      // Do NOT set global submission error when field validation fails
-      // Focus on the first invalid field
-      const firstInvalidField = document.querySelector<HTMLElement>('[aria-invalid="true"]');
-      firstInvalidField?.focus();
+    const { isValid, firstInvalidField } = validate();
+    if (!isValid) {
+      if (firstInvalidField) {
+        requestAnimationFrame(() => {
+          const el = document.getElementById(firstInvalidField);
+          if (el) {
+            el.focus();
+            el.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        });
+      }
       return;
     }
 
@@ -261,6 +338,7 @@ export const ContactForm: React.FC = () => {
       {/* Confirmation Dialog for Changing Workflow */}
       {showConfirmDialog && (
         <div
+          ref={confirmDialogRef}
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal/60 backdrop-blur-xs animate-in fade-in duration-150"
           role="alertdialog"
           aria-modal="true"
@@ -284,16 +362,17 @@ export const ContactForm: React.FC = () => {
             </p>
             <div className="flex items-center justify-end gap-3 pt-2">
               <button
+                ref={confirmCancelBtnRef}
                 type="button"
-                onClick={() => setShowConfirmDialog(false)}
-                className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] bg-stone/60 hover:bg-stone dark:bg-[#222320] dark:hover:bg-[#191A18] rounded-xs border border-warm-grey dark:border-[#41413B] transition-colors focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78]"
+                onClick={handleCloseConfirmDialog}
+                className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] bg-stone/60 hover:bg-stone dark:bg-[#222320] dark:hover:bg-[#191A18] rounded-xs border border-warm-grey dark:border-[#41413B] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
               >
                 {language === "ml" ? "ഫോമിൽ തുടരുക" : "Stay on Form"}
               </button>
               <button
                 type="button"
                 onClick={handleConfirmChangeWorkflow}
-                className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-charcoal dark:text-[#191A18] dark:bg-[#F4F1E9] hover:bg-[#383935] dark:hover:bg-[#E5E2DA] rounded-xs transition-colors focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78]"
+                className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-charcoal dark:text-[#191A18] dark:bg-[#F4F1E9] hover:bg-[#383935] dark:hover:bg-[#E5E2DA] rounded-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
               >
                 {language === "ml" ? "വിഭാഗം മാറ്റുക" : "Change Enquiry Type"}
               </button>
@@ -326,7 +405,7 @@ export const ContactForm: React.FC = () => {
             </span>
           </div>
 
-          {/* Differentiated Cards - Both Entire Cards Clickable */}
+          {/* Differentiated Cards - Both Entire Cards Single-Tab Keyboard Accessible */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             {/* Option 1: General Enquiry Entire Clickable Card */}
             <div
@@ -344,7 +423,7 @@ export const ContactForm: React.FC = () => {
                   ? "പൊതുവായ അന്വേഷണം: ചോദ്യങ്ങൾ, വിവരങ്ങൾ അറിയാനുള്ള അപേക്ഷകൾ. പൊതുവായ അന്വേഷണവുമായി തുടരുക."
                   : "General Enquiry: For questions, information requests, or general communication. Continue with General Enquiry."
               }
-              className="group text-left bg-ivory/40 dark:bg-[#222320]/60 rounded-sm border border-warm-grey dark:border-[#41413B] p-6 flex flex-col justify-between hover:border-charcoal/70 dark:hover:border-[#D29A78] hover:bg-stone/20 dark:hover:bg-[#2C2D29]/90 hover:shadow-xs transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:ring-offset-2 select-none"
+              className="group text-left bg-ivory/40 dark:bg-[#222320]/60 rounded-sm border border-warm-grey dark:border-[#41413B] p-6 flex flex-col justify-between hover:border-charcoal/70 dark:hover:border-[#D29A78] hover:bg-stone/20 dark:hover:bg-[#2C2D29]/90 hover:shadow-xs transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-2 select-none"
             >
               <div>
                 <div className="w-10 h-10 rounded-xs bg-stone dark:bg-[#2C2D29] border border-warm-grey/60 dark:border-[#41413B] flex items-center justify-center mb-4 text-copper dark:text-[#D29A78] transition-colors group-hover:border-charcoal/40 dark:group-hover:border-[#D29A78]/40">
@@ -372,18 +451,14 @@ export const ContactForm: React.FC = () => {
                 </div>
               </div>
 
-              {/* Preserved CTA Button */}
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleSelectWorkflow("general-enquiry");
-                }}
-                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 text-xs font-semibold uppercase tracking-wider bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] group-hover:bg-[#383935] dark:group-hover:bg-[#E5E2DA] rounded-sm transition-all focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:ring-offset-1 shadow-2xs"
+              {/* Preserved Visual CTA (No nested interactive button, preventing duplicate tab stops) */}
+              <div
+                aria-hidden="true"
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 text-xs font-semibold uppercase tracking-wider bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] group-hover:bg-[#383935] dark:group-hover:bg-[#E5E2DA] rounded-sm transition-all shadow-2xs pointer-events-none"
               >
                 <span>{language === "ml" ? "പൊതുവായ അന്വേഷണവുമായി തുടരുക" : "Continue with General Enquiry"}</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
-              </button>
+              </div>
             </div>
 
             {/* Option 2: Grievance / Request Entire Clickable Card */}
@@ -402,7 +477,7 @@ export const ContactForm: React.FC = () => {
                   ? "പരാതി / നിവേദനം: പ്രാദേശിക പ്രശ്നങ്ങൾ അറിയിക്കാൻ. പരാതി / നിവേദനവുമായി തുടരുക."
                   : "Grievance / Request: For reporting local issues or public concerns. Continue with Grievance / Request."
               }
-              className="group text-left bg-ivory/40 dark:bg-[#222320]/60 rounded-sm border border-warm-grey dark:border-[#41413B] p-6 flex flex-col justify-between hover:border-charcoal/70 dark:hover:border-[#D29A78] hover:bg-stone/20 dark:hover:bg-[#2C2D29]/90 hover:shadow-xs transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:ring-offset-2 select-none"
+              className="group text-left bg-ivory/40 dark:bg-[#222320]/60 rounded-sm border border-warm-grey dark:border-[#41413B] p-6 flex flex-col justify-between hover:border-charcoal/70 dark:hover:border-[#D29A78] hover:bg-stone/20 dark:hover:bg-[#2C2D29]/90 hover:shadow-xs transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-2 select-none"
             >
               <div>
                 <div className="w-10 h-10 rounded-xs bg-stone dark:bg-[#2C2D29] border border-warm-grey/60 dark:border-[#41413B] flex items-center justify-center mb-4 text-copper dark:text-[#D29A78] transition-colors group-hover:border-charcoal/40 dark:group-hover:border-[#D29A78]/40">
@@ -430,18 +505,14 @@ export const ContactForm: React.FC = () => {
                 </div>
               </div>
 
-              {/* Preserved CTA Button */}
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleSelectWorkflow("grievance-request");
-                }}
-                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 text-xs font-semibold uppercase tracking-wider bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] group-hover:bg-[#383935] dark:group-hover:bg-[#E5E2DA] rounded-sm transition-all focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:ring-offset-1 shadow-2xs"
+              {/* Preserved Visual CTA (No nested interactive button, preventing duplicate tab stops) */}
+              <div
+                aria-hidden="true"
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 text-xs font-semibold uppercase tracking-wider bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] group-hover:bg-[#383935] dark:group-hover:bg-[#E5E2DA] rounded-sm transition-all shadow-2xs pointer-events-none"
               >
                 <span>{language === "ml" ? "പരാതി / നിവേദനവുമായി തുടരുക" : "Continue with Grievance / Request"}</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
-              </button>
+              </div>
             </div>
           </div>
 
@@ -496,7 +567,7 @@ export const ContactForm: React.FC = () => {
             <button
               type="button"
               onClick={handleRequestChangeWorkflow}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate dark:text-[#C6C5BD] hover:text-charcoal dark:hover:text-[#F4F1E9] transition-colors focus:outline-none focus:underline"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate dark:text-[#C6C5BD] hover:text-charcoal dark:hover:text-[#F4F1E9] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] rounded-xs px-1"
             >
               <ArrowLeft className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
               <span>{language === "ml" ? "← മറ്റൊരു വിഭാഗം തിരഞ്ഞെടുക്കുക" : "← Choose a different enquiry type"}</span>
@@ -512,9 +583,11 @@ export const ContactForm: React.FC = () => {
           {/* SUCCESS STATE FEEDBACK PANEL */}
           {submissionStatus === "success" ? (
             <div
+              ref={successRef}
+              tabIndex={-1}
               role="status"
               aria-live="polite"
-              className="bg-stone/30 dark:bg-[#222320]/80 rounded-sm border border-warm-grey dark:border-[#41413B] p-6 sm:p-8 space-y-6 text-charcoal dark:text-[#F4F1E9] animate-in fade-in duration-200"
+              className="outline-none focus:outline-none bg-stone/30 dark:bg-[#222320]/80 rounded-sm border border-warm-grey dark:border-[#41413B] p-6 sm:p-8 space-y-6 text-charcoal dark:text-[#F4F1E9] animate-in fade-in duration-200"
             >
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/50 flex items-center justify-center shrink-0 text-emerald-600 dark:text-emerald-400">
@@ -1073,7 +1146,7 @@ export const ContactForm: React.FC = () => {
                     type="submit"
                     variant="primary"
                     size="lg"
-                    disabled={!formData.consent || submissionStatus === "submitting"}
+                    disabled={submissionStatus === "submitting"}
                     isLoading={submissionStatus === "submitting"}
                     aria-busy={submissionStatus === "submitting"}
                     icon={submissionStatus !== "submitting" ? <ArrowRight className="w-4 h-4 text-white dark:text-[#191A18]" /> : undefined}

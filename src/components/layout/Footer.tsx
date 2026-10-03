@@ -78,37 +78,37 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/" className="hover:text-[#D29A78] text-[#C6C5BD] transition-colors flex items-center justify-between py-0.5">
+                <Link href="/" className="hover:text-[#D29A78] text-[#C6C5BD] transition-colors flex items-center justify-between py-0.5 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D29A78]">
                   <span>{t("navHome")}</span>
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-[#D29A78] text-[#C6C5BD] transition-colors flex items-center justify-between py-0.5">
+                <Link href="/about" className="hover:text-[#D29A78] text-[#C6C5BD] transition-colors flex items-center justify-between py-0.5 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D29A78]">
                   <span>{t("navAbout")}</span>
                 </Link>
               </li>
               <li>
-                <Link href="/news" className="hover:text-[#D29A78] text-[#C6C5BD] transition-colors flex items-center justify-between py-0.5">
+                <Link href="/news" className="hover:text-[#D29A78] text-[#C6C5BD] transition-colors flex items-center justify-between py-0.5 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D29A78]">
                   <span>{t("navNews")}</span>
                 </Link>
               </li>
               <li>
-                <Link href="/constituency" className="hover:text-[#D29A78] text-[#C6C5BD] transition-colors flex items-center justify-between py-0.5">
+                <Link href="/constituency" className="hover:text-[#D29A78] text-[#C6C5BD] transition-colors flex items-center justify-between py-0.5 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D29A78]">
                   <span>{t("navConstituency")}</span>
                 </Link>
               </li>
               <li>
-                <Link href="/activities" className="hover:text-[#D29A78] text-[#C6C5BD] transition-colors flex items-center justify-between py-0.5">
+                <Link href="/activities" className="hover:text-[#D29A78] text-[#C6C5BD] transition-colors flex items-center justify-between py-0.5 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D29A78]">
                   <span>{t("navActivities")}</span>
                 </Link>
               </li>
               <li>
-                <Link href="/gallery" className="hover:text-[#D29A78] text-[#C6C5BD] transition-colors flex items-center justify-between py-0.5">
+                <Link href="/gallery" className="hover:text-[#D29A78] text-[#C6C5BD] transition-colors flex items-center justify-between py-0.5 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D29A78]">
                   <span>{t("navGallery")}</span>
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-[#D29A78] text-[#C6C5BD] transition-colors flex items-center justify-between py-0.5">
+                <Link href="/contact" className="hover:text-[#D29A78] text-[#C6C5BD] transition-colors flex items-center justify-between py-0.5 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D29A78]">
                   <span>{t("navContact")}</span>
                 </Link>
               </li>
@@ -165,11 +165,11 @@ export const Footer: React.FC = () => {
           <div className="flex flex-wrap items-center gap-4 text-center sm:text-left">
             <span>{t("copyright")}</span>
             <span className="hidden sm:inline text-[#41413B]">•</span>
-            <Link href="/privacy-policy" className="hover:text-[#F4F1E9] underline underline-offset-2">
+            <Link href="/privacy-policy" className="hover:text-[#F4F1E9] underline underline-offset-2 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D29A78]">
               {t("privacyPolicy")}
             </Link>
             <span className="hidden sm:inline text-[#41413B]">•</span>
-            <Link href="/accessibility" className="hover:text-[#F4F1E9] underline underline-offset-2">
+            <Link href="/accessibility" className="hover:text-[#F4F1E9] underline underline-offset-2 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D29A78]">
               {t("accessibilityStatement")}
             </Link>
           </div>
