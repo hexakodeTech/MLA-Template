@@ -35,7 +35,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
       aria-label={label}
       title={label}
       className={clsx(
-        "relative inline-flex items-center justify-center min-w-[44px] min-h-[44px] rounded-sm transition-all duration-200 cursor-pointer select-none",
+        "relative inline-flex items-center justify-center min-w-[40px] min-h-[40px] sm:min-w-[44px] sm:min-h-[44px] p-2 sm:p-2.5 rounded-sm transition-all duration-200 cursor-pointer select-none",
         "border border-warm-grey dark:border-[#41413B]",
         "bg-white/80 hover:bg-stone/60 dark:bg-[#2C2D29] dark:hover:bg-[#343530]",
         "text-charcoal hover:text-copper dark:text-[#F4F1E9] dark:hover:text-[#D29A78]",

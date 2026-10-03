@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Globe, ArrowRight } from "lucide-react";
@@ -15,6 +15,8 @@ export const Header: React.FC = () => {
   const { language, toggleLanguage, t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const mobileMenuTriggerRef = useRef<HTMLButtonElement>(null);
+  const firstNavLinkRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +25,30 @@ export const Header: React.FC = () => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Handle mobile menu keyboard accessibility & focus management
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    // Focus first navigation link when mobile menu opens
+    const frameId = requestAnimationFrame(() => {
+      firstNavLinkRef.current?.focus();
+    });
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setMobileMenuOpen(false);
+        mobileMenuTriggerRef.current?.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [mobileMenuOpen]);
 
   const navLinks = [
     { href: "/", label: t("navHome") },
@@ -48,23 +74,23 @@ export const Header: React.FC = () => {
           : "bg-ivory/90 dark:bg-[#191A18]/90 backdrop-blur-xs border-b border-transparent py-4 sm:py-5"
       )}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4 xl:gap-6">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between gap-2 sm:gap-4 xl:gap-6">
           {/* Editorial Wordmark */}
           <Link
             href="/"
             onClick={() => setMobileMenuOpen(false)}
-            className="flex flex-col group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] py-0.5 shrink-0"
+            className="flex flex-col group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] py-0.5 shrink min-w-0"
           >
             <div className="flex flex-col leading-none">
-              <span className="font-display text-xl sm:text-2xl text-charcoal dark:text-[#F4F1E9] tracking-tight group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors">
+              <span className="font-display text-lg sm:text-2xl text-charcoal dark:text-[#F4F1E9] tracking-tight group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors truncate">
                 RAMESH
               </span>
-              <span className="font-display text-xl sm:text-2xl text-charcoal dark:text-[#F4F1E9] tracking-tight -mt-0.5 group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors">
+              <span className="font-display text-lg sm:text-2xl text-charcoal dark:text-[#F4F1E9] tracking-tight -mt-0.5 group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors truncate">
                 PISHARADY
               </span>
             </div>
-            <span className="text-[10px] sm:text-[11px] font-semibold tracking-widest text-slate dark:text-[#A09F97] uppercase mt-1">
+            <span className="text-[9px] sm:text-[11px] font-semibold tracking-wider sm:tracking-widest text-slate dark:text-[#A09F97] uppercase mt-0.5 sm:mt-1 truncate">
               {language === "ml" ? "ജനപ്രതിനിധി" : "Public Representative"}
             </span>
           </Link>
@@ -94,7 +120,7 @@ export const Header: React.FC = () => {
           </nav>
 
           {/* Right Actions: Accessibility Menu, Theme Switcher, Language Switcher & Contact Office CTA */}
-          <div className="hidden sm:flex items-center gap-2.5">
+          <div className="hidden lg:flex items-center gap-2.5">
             {/* Accessibility Settings Menu */}
             <AccessibilityMenu placement="desktop" />
 
@@ -133,31 +159,41 @@ export const Header: React.FC = () => {
           </div>
 
           {/* Mobile Navigation Trigger & Controls */}
-          <div className="flex items-center gap-1.5 lg:hidden">
+          <div className="flex items-center gap-1 sm:gap-1.5 lg:hidden shrink-0">
             <AccessibilityMenu placement="mobile" />
             <ThemeSwitcher />
 
             <button
               onClick={toggleLanguage}
               type="button"
-              className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-2 rounded-sm border border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9] min-h-[44px] min-w-[44px] justify-center"
-              aria-label="Toggle language"
+              className="inline-flex items-center gap-1 text-[11px] font-bold px-2 sm:px-2.5 py-1.5 sm:py-2 rounded-sm border border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9] min-h-[40px] min-w-[40px] sm:min-h-[44px] sm:min-w-[44px] justify-center hover:bg-stone/50 dark:hover:bg-[#2C2D29] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
+              title="Switch language between English and Malayalam"
+              aria-label={`Switch to ${language === "en" ? "Malayalam" : "English"}`}
             >
-              <Globe className="w-3.5 h-3.5 text-slate dark:text-[#C6C5BD]" />
-              {language === "en" ? "മലയാളം" : "EN"}
+              <Globe className="w-3.5 h-3.5 text-slate dark:text-[#C6C5BD] shrink-0" />
+              <span className="hidden min-[420px]:inline">{language === "en" ? "മലയാളം" : "EN"}</span>
+              <span className="min-[420px]:hidden">{language === "en" ? "മല" : "EN"}</span>
             </button>
 
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              ref={mobileMenuTriggerRef}
+              onClick={() => {
+                const next = !mobileMenuOpen;
+                setMobileMenuOpen(next);
+                if (!next) {
+                  mobileMenuTriggerRef.current?.focus();
+                }
+              }}
               type="button"
               aria-label={mobileMenuOpen ? "Close menu" : "Open navigation menu"}
               aria-expanded={mobileMenuOpen}
-              className="p-2.5 rounded-sm border border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9] hover:bg-stone/50 dark:hover:bg-[#2C2D29] transition-colors focus:outline-none focus:ring-1 focus:ring-charcoal dark:focus:ring-[#D29A78] min-h-[44px] min-w-[44px] flex items-center justify-center"
+              aria-controls="mobile-navigation"
+              className="p-2 sm:p-2.5 rounded-sm border border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9] hover:bg-stone/50 dark:hover:bg-[#2C2D29] transition-colors focus:outline-none focus:ring-1 focus:ring-charcoal dark:focus:ring-[#D29A78] min-h-[40px] min-w-[40px] sm:min-h-[44px] sm:min-w-[44px] flex items-center justify-center shrink-0"
             >
               {mobileMenuOpen ? (
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
               ) : (
-                <Menu className="w-5 h-5" />
+                <Menu className="w-4 h-4 sm:w-5 sm:h-5" />
               )}
             </button>
           </div>
@@ -180,9 +216,10 @@ export const Header: React.FC = () => {
           </div>
 
           <nav className="flex flex-col space-y-1.5">
-            {navLinks.map((link) => (
+            {navLinks.map((link, idx) => (
               <Link
                 key={link.href}
+                ref={idx === 0 ? firstNavLinkRef : undefined}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={clsx(

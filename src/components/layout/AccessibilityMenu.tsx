@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback, useId } from "react";
 import Link from "next/link";
 import {
   Accessibility,
@@ -25,6 +25,23 @@ interface AccessibilityMenuProps {
   placement?: "desktop" | "mobile";
   className?: string;
 }
+
+// Query focusable interactive elements within a container
+const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
+  const elements = Array.from(
+    container.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    )
+  );
+
+  return elements.filter((el) => {
+    return (
+      (el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0) &&
+      window.getComputedStyle(el).visibility !== "hidden" &&
+      el.getAttribute("aria-hidden") !== "true"
+    );
+  });
+};
 
 export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
   placement = "desktop",
@@ -51,29 +68,41 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
     resetAllSettings,
   } = useAccessibility();
 
+  const rawId = useId();
+  const panelId = `accessibility-panel-${placement}-${rawId.replace(/:/g, "")}`;
   const [isOpen, setIsOpen] = useState(false);
   const [showKeyboardGuide, setShowKeyboardGuide] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
 
-  // Close menu and restore focus to trigger
+  // Close menu and restore focus to trigger or the element that opened it
   const closeMenu = useCallback(() => {
     setIsOpen(false);
-    triggerRef.current?.focus();
+    const returnTarget = previouslyFocusedElementRef.current || triggerRef.current;
+    requestAnimationFrame(() => {
+      if (returnTarget && typeof returnTarget.focus === "function") {
+        returnTarget.focus();
+      }
+    });
   }, []);
 
-  // Handle click outside
+  // Handle click outside to close dropdown without false triggers on internal unmounts
   useEffect(() => {
     if (!isOpen) return;
 
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      if (
-        panelRef.current &&
-        !panelRef.current.contains(event.target as Node) &&
-        triggerRef.current &&
-        !triggerRef.current.contains(event.target as Node)
-      ) {
+      const target = event.target as Node | null;
+      if (!target) return;
+
+      const path = typeof event.composedPath === "function" ? event.composedPath() : [];
+      const isInsidePanel =
+        Boolean(panelRef.current && (panelRef.current.contains(target) || path.includes(panelRef.current)));
+      const isInsideTrigger =
+        Boolean(triggerRef.current && (triggerRef.current.contains(target) || path.includes(triggerRef.current)));
+
+      if (!isInsidePanel && !isInsideTrigger) {
         closeMenu();
       }
     };
@@ -86,45 +115,138 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
     };
   }, [isOpen, closeMenu]);
 
-  // Handle Escape key inside panel & global Alt+A shortcut
+  // Manage focus when dropdown opens
   useEffect(() => {
+    if (!isOpen) return;
+
+    // Track active element before opening so focus can be accurately restored
+    if (document.activeElement instanceof HTMLElement) {
+      previouslyFocusedElementRef.current = document.activeElement;
+    } else {
+      previouslyFocusedElementRef.current = triggerRef.current;
+    }
+
+    // Move keyboard focus into the first focusable element inside the dropdown
+    const focusFrame = requestAnimationFrame(() => {
+      if (closeButtonRef.current) {
+        closeButtonRef.current.focus();
+      } else if (panelRef.current) {
+        const focusables = getFocusableElements(panelRef.current);
+        if (focusables.length > 0) {
+          focusables[0].focus();
+        }
+      }
+    });
+
+    return () => {
+      cancelAnimationFrame(focusFrame);
+    };
+  }, [isOpen]);
+
+  // Keyboard focus trap & Escape handling while dropdown is open
+  useEffect(() => {
+    if (!isOpen) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Global shortcut Alt+A to toggle accessibility menu
+      // Escape key closes the dropdown and returns focus
+      if (e.key === "Escape") {
+        e.preventDefault();
+        e.stopPropagation();
+        closeMenu();
+        return;
+      }
+
+      // Tab & Shift+Tab focus trap
+      if (e.key === "Tab") {
+        if (!panelRef.current) return;
+
+        const focusables = getFocusableElements(panelRef.current);
+        if (focusables.length === 0) {
+          e.preventDefault();
+          return;
+        }
+
+        const firstElement = focusables[0];
+        const lastElement = focusables[focusables.length - 1];
+        const activeElement = document.activeElement as HTMLElement | null;
+
+        if (e.shiftKey) {
+          // Backward navigation (Shift + Tab)
+          if (
+            !activeElement ||
+            activeElement === firstElement ||
+            !panelRef.current.contains(activeElement)
+          ) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          // Forward navigation (Tab)
+          if (
+            !activeElement ||
+            activeElement === lastElement ||
+            !panelRef.current.contains(activeElement)
+          ) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, closeMenu]);
+
+  // Global Alt+A shortcut to toggle accessibility settings
+  useEffect(() => {
+    const handleGlobalShortcut = (e: KeyboardEvent) => {
       if (e.altKey && (e.key === "a" || e.key === "A")) {
+        // Prevent action if this instance's trigger is currently invisible
+        if (triggerRef.current) {
+          const isVisible =
+            triggerRef.current.offsetWidth > 0 ||
+            triggerRef.current.offsetHeight > 0 ||
+            triggerRef.current.getClientRects().length > 0;
+          if (!isVisible) return;
+        }
+
         e.preventDefault();
         setIsOpen((prev) => {
           if (!prev) {
-            setTimeout(() => {
-              closeButtonRef.current?.focus();
-            }, 100);
+            if (document.activeElement instanceof HTMLElement) {
+              previouslyFocusedElementRef.current = document.activeElement;
+            } else {
+              previouslyFocusedElementRef.current = triggerRef.current;
+            }
             return true;
           } else {
             closeMenu();
             return false;
           }
         });
-        return;
-      }
-
-      // Close on Escape if open
-      if (isOpen && e.key === "Escape") {
-        e.preventDefault();
-        closeMenu();
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, closeMenu]);
+    window.addEventListener("keydown", handleGlobalShortcut);
+    return () => window.removeEventListener("keydown", handleGlobalShortcut);
+  }, [closeMenu]);
 
-  // Toggle handler
+  // Toggle handler for mouse/keyboard trigger clicks
   const handleToggle = () => {
     setIsOpen((prev) => {
       const next = !prev;
       if (next) {
-        setTimeout(() => {
-          closeButtonRef.current?.focus();
-        }, 80);
+        if (document.activeElement instanceof HTMLElement) {
+          previouslyFocusedElementRef.current = document.activeElement;
+        } else {
+          previouslyFocusedElementRef.current = triggerRef.current;
+        }
+      } else {
+        const returnTarget = previouslyFocusedElementRef.current || triggerRef.current;
+        requestAnimationFrame(() => returnTarget?.focus());
       }
       return next;
     });
@@ -138,7 +260,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
         onClick={handleToggle}
         type="button"
         aria-expanded={isOpen}
-        aria-controls="accessibility-panel"
+        aria-controls={panelId}
         aria-haspopup="dialog"
         title={
           language === "ml"
@@ -151,7 +273,10 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
             : "Accessibility settings"
         }
         className={clsx(
-          "relative inline-flex items-center justify-center rounded-sm border transition-all min-h-[44px] min-w-[44px] p-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
+          "relative inline-flex items-center justify-center rounded-sm border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
+          placement === "mobile"
+            ? "min-h-[40px] min-w-[40px] sm:min-h-[44px] sm:min-w-[44px] p-2 sm:p-2.5"
+            : "min-h-[44px] min-w-[44px] p-2.5",
           isOpen
             ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] border-charcoal dark:border-[#F4F1E9]"
             : "bg-white/70 dark:bg-[#2C2D29]/70 text-charcoal dark:text-[#F4F1E9] border-warm-grey dark:border-[#41413B] hover:border-charcoal/40 dark:hover:border-[#C6C5BD]/40 hover:bg-stone/50 dark:hover:bg-[#2C2D29]"
@@ -178,12 +303,13 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
         {statusMessage}
       </div>
 
-      {/* Accessibility Nonmodal Dropdown Panel */}
+      {/* Accessibility Dropdown Dialog Panel with Focus Trap */}
       {isOpen && (
         <div
           ref={panelRef}
-          id="accessibility-panel"
+          id={panelId}
           role="dialog"
+          aria-modal="true"
           aria-label={
             language === "ml"
               ? "പ്രവേശനക്ഷമതാ ക്രമീകരണ പാനൽ"
@@ -508,6 +634,8 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                       key={opt}
                       onClick={() => setLineHeight(opt)}
                       type="button"
+                      aria-pressed={settings.lineHeight === opt}
+                      aria-label={`Line spacing ${opt === "default" ? "1.5x Normal" : opt === "increased" ? "1.75x" : "2.0x Wide"}`}
                       className={clsx(
                         "py-1.5 px-2 rounded-xs text-[11px] font-semibold transition-all text-center",
                         settings.lineHeight === opt
@@ -534,6 +662,8 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                       key={opt}
                       onClick={() => setLetterSpacing(opt)}
                       type="button"
+                      aria-pressed={settings.letterSpacing === opt}
+                      aria-label={`Letter spacing ${opt === "default" ? "Normal" : opt === "slight" ? "Slight +0.05em" : "Moderate +0.1em"}`}
                       className={clsx(
                         "py-1.5 px-2 rounded-xs text-[11px] font-semibold transition-all text-center",
                         settings.letterSpacing === opt
