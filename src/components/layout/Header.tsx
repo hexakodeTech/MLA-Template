@@ -223,6 +223,16 @@ export const Header: React.FC = () => {
                   mobileMenuTriggerRef.current?.focus();
                 }
               }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  const next = !mobileMenuOpen;
+                  setMobileMenuOpen(next);
+                  if (!next) {
+                    mobileMenuTriggerRef.current?.focus();
+                  }
+                }
+              }}
               type="button"
               aria-label={
                 mobileMenuOpen

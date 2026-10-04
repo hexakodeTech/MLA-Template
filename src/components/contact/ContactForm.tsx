@@ -116,7 +116,7 @@ export const ContactForm: React.FC = () => {
     setSelectedWorkflow(null);
   };
 
-  const handleRequestChangeWorkflow = (e?: React.MouseEvent) => {
+  const handleRequestChangeWorkflow = (e?: React.SyntheticEvent) => {
     if (hasEnteredData && submissionStatus !== "success") {
       confirmTriggerRef.current = (e?.currentTarget as HTMLElement) || (document.activeElement as HTMLElement);
       setShowConfirmDialog(true);
@@ -628,6 +628,12 @@ export const ContactForm: React.FC = () => {
             <button
               type="button"
               onClick={handleRequestChangeWorkflow}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleRequestChangeWorkflow(e);
+                }
+              }}
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate dark:text-[#C6C5BD] hover:text-charcoal dark:hover:text-[#F4F1E9] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] rounded-xs px-1"
             >
               <ArrowLeft className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />

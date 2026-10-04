@@ -611,7 +611,23 @@ export default function HomeClient() {
                 id="tab-projects"
                 aria-selected={constituencyTab === "projects"}
                 aria-controls="tabpanel-constituency"
+                tabIndex={constituencyTab === "projects" ? 0 : -1}
                 onClick={() => setConstituencyTab("projects")}
+                onKeyDown={(e) => {
+                  if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+                    e.preventDefault();
+                    setConstituencyTab("directory");
+                    document.getElementById("tab-directory")?.focus();
+                  } else if (e.key === "Home") {
+                    e.preventDefault();
+                    setConstituencyTab("projects");
+                    document.getElementById("tab-projects")?.focus();
+                  } else if (e.key === "End") {
+                    e.preventDefault();
+                    setConstituencyTab("directory");
+                    document.getElementById("tab-directory")?.focus();
+                  }
+                }}
                 className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xs transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-1 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29] ${
                   constituencyTab === "projects"
                     ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] shadow-xs"
@@ -626,7 +642,23 @@ export default function HomeClient() {
                 id="tab-directory"
                 aria-selected={constituencyTab === "directory"}
                 aria-controls="tabpanel-constituency"
+                tabIndex={constituencyTab === "directory" ? 0 : -1}
                 onClick={() => setConstituencyTab("directory")}
+                onKeyDown={(e) => {
+                  if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+                    e.preventDefault();
+                    setConstituencyTab("projects");
+                    document.getElementById("tab-projects")?.focus();
+                  } else if (e.key === "Home") {
+                    e.preventDefault();
+                    setConstituencyTab("projects");
+                    document.getElementById("tab-projects")?.focus();
+                  } else if (e.key === "End") {
+                    e.preventDefault();
+                    setConstituencyTab("directory");
+                    document.getElementById("tab-directory")?.focus();
+                  }
+                }}
                 className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xs transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-1 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29] ${
                   constituencyTab === "directory"
                     ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] shadow-xs"

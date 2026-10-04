@@ -292,6 +292,12 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
       <button
         ref={triggerRef}
         onClick={handleToggle}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleToggle();
+          }
+        }}
         type="button"
         aria-expanded={isOpen}
         aria-controls={panelId}

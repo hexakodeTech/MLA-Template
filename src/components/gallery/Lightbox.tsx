@@ -26,18 +26,29 @@ export const Lightbox: React.FC<LightboxProps> = ({
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
 
+  const onNavigateRef = useRef(onNavigate);
+  const currentIndexRef = useRef(currentIndex);
+  const itemsLengthRef = useRef(items.length);
+
+  useEffect(() => {
+    onNavigateRef.current = onNavigate;
+    currentIndexRef.current = currentIndex;
+    itemsLengthRef.current = items.length;
+  }, [onNavigate, currentIndex, items.length]);
+
   const handlePrev = useCallback(() => {
-    onNavigate((currentIndex - 1 + items.length) % items.length);
-  }, [currentIndex, items.length, onNavigate]);
+    onNavigateRef.current((currentIndexRef.current - 1 + itemsLengthRef.current) % itemsLengthRef.current);
+  }, []);
 
   const handleNext = useCallback(() => {
-    onNavigate((currentIndex + 1) % items.length);
-  }, [currentIndex, items.length, onNavigate]);
+    onNavigateRef.current((currentIndexRef.current + 1) % itemsLengthRef.current);
+  }, []);
 
   const handleClose = useCallback(() => {
     onClose();
     requestAnimationFrame(() => {
       previouslyFocusedElementRef.current?.focus();
+      previouslyFocusedElementRef.current = null;
     });
   }, [onClose]);
 
@@ -45,6 +56,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
     if (!isOpen) return;
 
     if (
+      !previouslyFocusedElementRef.current &&
       document.activeElement instanceof HTMLElement &&
       document.activeElement !== document.body
     ) {
