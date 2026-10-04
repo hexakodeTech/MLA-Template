@@ -87,13 +87,20 @@ export default function NewsPage() {
           <div className="relative flex-1">
             <Search className="w-4 h-4 text-slate dark:text-[#A09F97] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true" />
             <input
+              id="news-search-input"
               type="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t("searchPlaceholder")}
               aria-label={t("searchPlaceholder")}
+              aria-describedby="news-search-help"
               className="w-full pl-10 pr-4 py-2.5 rounded-xs border border-warm-grey dark:border-[#41413B] text-sm bg-ivory/50 dark:bg-[#222320] focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50"
             />
+            <p id="news-search-help" className="sr-only">
+              {language === "ml"
+                ? "തലക്കെട്ട്, വിവരണം അല്ലെങ്കിൽ വിഭാഗം എന്നിവ പ്രകാരം വാർത്തകൾ തിരയുക"
+                : "Search news by headline, summary, or category keywords"}
+            </p>
           </div>
 
           {/* Category Chips */}

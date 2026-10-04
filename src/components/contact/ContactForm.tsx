@@ -28,9 +28,22 @@ interface FormErrors {
   email?: string;
   subject?: string;
   location?: string;
+  additionalDetails?: string;
   message?: string;
   consent?: string;
 }
+
+/**
+ * Safely combines existing accessible description IDs with validation error IDs
+ * maintaining the standard logical order:
+ * 1. Help/instruction text
+ * 2. Validation error
+ */
+const combineDescribedBy = (...ids: (string | undefined | null | false)[]): string | undefined => {
+  const validIds = ids.filter((id): id is string => Boolean(id && typeof id === "string" && id.trim()));
+  const uniqueIds = Array.from(new Set(validIds.map((id) => id.trim())));
+  return uniqueIds.length > 0 ? uniqueIds.join(" ") : undefined;
+};
 
 export const ContactForm: React.FC = () => {
   const { language } = useLanguage();
@@ -291,6 +304,10 @@ export const ContactForm: React.FC = () => {
         ? language === "ml" ? "വിഷയം / പ്രശ്നത്തിന്റെ തലക്കെട്ട്" : "Subject / Issue Title"
         : language === "ml" ? "വിഷയം" : "Subject",
     location: language === "ml" ? "സ്ഥലം / പ്രദേശം" : "Location / Area",
+    additionalDetails:
+      language === "ml"
+        ? "കൂടുതൽ വിവരങ്ങൾ (ഓപ്ഷണൽ)"
+        : "Additional Details (Optional)",
     message:
       selectedWorkflow === "grievance-request"
         ? language === "ml" ? "പരാതി / നിവേദനത്തിന്റെ പൂർണ്ണ വിവരങ്ങൾ" : "Grievance or Request Details"
@@ -952,12 +969,15 @@ export const ContactForm: React.FC = () => {
                         if (errors.fullName) setErrors({ ...errors, fullName: undefined });
                       }}
                       aria-invalid={errors.fullName ? "true" : undefined}
-                      aria-describedby={errors.fullName ? "fullName-error" : undefined}
+                      aria-describedby={combineDescribedBy("fullName-help", errors.fullName ? "fullName-error" : undefined)}
                       placeholder={language === "ml" ? "നിങ്ങളുടെ പേര്" : "e.g., K. Radhakrishnan"}
                       className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                     />
+                    <p id="fullName-help" className="mt-1 text-[11px] text-slate/80 dark:text-[#A09F97]">
+                      {language === "ml" ? "പൂർണ്ണമായ പേര് നൽകുക (കുറഞ്ഞത് 3 അക്ഷരങ്ങൾ)" : "Enter your full name (minimum 3 characters)"}
+                    </p>
                     {errors.fullName && (
-                      <p id="fullName-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
+                      <p id="fullName-error" className="mt-1 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
                         <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                         <span>{errors.fullName}</span>
                       </p>
@@ -985,12 +1005,15 @@ export const ContactForm: React.FC = () => {
                         if (errors.phone) setErrors({ ...errors, phone: undefined });
                       }}
                       aria-invalid={errors.phone ? "true" : undefined}
-                      aria-describedby={errors.phone ? "phone-error" : undefined}
+                      aria-describedby={combineDescribedBy("phone-help", errors.phone ? "phone-error" : undefined)}
                       placeholder={language === "ml" ? "+91 98XXXXXXXX" : "+91 98765 43210"}
                       className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                     />
+                    <p id="phone-help" className="mt-1 text-[11px] text-slate/80 dark:text-[#A09F97]">
+                      {language === "ml" ? "രാജ്യ കോഡ് ഉൾപ്പെടെ 8 മുതൽ 15 അക്കങ്ങൾ" : "8 to 15 digits, including country code if applicable"}
+                    </p>
                     {errors.phone && (
-                      <p id="phone-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
+                      <p id="phone-error" className="mt-1 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
                         <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                         <span>{errors.phone}</span>
                       </p>
@@ -1020,12 +1043,15 @@ export const ContactForm: React.FC = () => {
                         if (errors.email) setErrors({ ...errors, email: undefined });
                       }}
                       aria-invalid={errors.email ? "true" : undefined}
-                      aria-describedby={errors.email ? "email-error" : undefined}
+                      aria-describedby={combineDescribedBy("email-help", errors.email ? "email-error" : undefined)}
                       placeholder="citizen@example.com"
                       className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                     />
+                    <p id="email-help" className="mt-1 text-[11px] text-slate/80 dark:text-[#A09F97]">
+                      {language === "ml" ? "ഔദ്യോഗിക മറുപടികൾ ലഭിക്കുന്നതിനുള്ള സാധുവായ ഇമെയിൽ" : "Valid email address to receive official updates"}
+                    </p>
                     {errors.email && (
-                      <p id="email-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
+                      <p id="email-error" className="mt-1 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
                         <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                         <span>{errors.email}</span>
                       </p>
@@ -1055,7 +1081,7 @@ export const ContactForm: React.FC = () => {
                         if (errors.subject) setErrors({ ...errors, subject: undefined });
                       }}
                       aria-invalid={errors.subject ? "true" : undefined}
-                      aria-describedby={errors.subject ? "subject-error" : undefined}
+                      aria-describedby={combineDescribedBy("subject-help", errors.subject ? "subject-error" : undefined)}
                       placeholder={
                         selectedWorkflow === "grievance-request"
                           ? language === "ml"
@@ -1067,8 +1093,13 @@ export const ContactForm: React.FC = () => {
                       }
                       className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                     />
+                    <p id="subject-help" className="mt-1 text-[11px] text-slate/80 dark:text-[#A09F97]">
+                      {selectedWorkflow === "grievance-request"
+                        ? (language === "ml" ? "പ്രശ്നത്തിന്റെ ചുരുങ്ങിയ തലക്കെട്ട്" : "A concise title summarizing your grievance or request")
+                        : (language === "ml" ? "അന്വേഷണ വിഷയം ചുരുക്കത്തിൽ" : "A brief title for your enquiry")}
+                    </p>
                     {errors.subject && (
-                      <p id="subject-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
+                      <p id="subject-error" className="mt-1 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
                         <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                         <span>{errors.subject}</span>
                       </p>
@@ -1100,7 +1131,7 @@ export const ContactForm: React.FC = () => {
                           if (errors.location) setErrors({ ...errors, location: undefined });
                         }}
                         aria-invalid={errors.location ? "true" : undefined}
-                        aria-describedby={errors.location ? "location-error" : undefined}
+                        aria-describedby={combineDescribedBy("location-help", errors.location ? "location-error" : undefined)}
                         placeholder={
                           language === "ml"
                             ? "ഉദാ: വാർഡ്, പ്രദേശം, തെരുവ് അല്ലെങ്കിൽ പ്രധാന ലാൻഡ്‌മാർക്ക്"
@@ -1108,8 +1139,11 @@ export const ContactForm: React.FC = () => {
                         }
                         className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                       />
+                      <p id="location-help" className="mt-1 text-[11px] text-slate/80 dark:text-[#A09F97]">
+                        {language === "ml" ? "വാർഡ്, പ്രദേശം, അല്ലെങ്കിൽ തദ്ദേശ സ്ഥാപന പരിധി" : "Specify grama panchayat, municipality, ward, or locality"}
+                      </p>
                       {errors.location && (
-                        <p id="location-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
+                        <p id="location-error" className="mt-1 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
                           <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                           <span>{errors.location}</span>
                         </p>
@@ -1129,9 +1163,12 @@ export const ContactForm: React.FC = () => {
                         id="additionalDetails"
                         name="additionalDetails"
                         value={formData.additionalDetails}
-                        onChange={(e) =>
-                          setFormData({ ...formData, additionalDetails: e.target.value })
-                        }
+                        onChange={(e) => {
+                          setFormData({ ...formData, additionalDetails: e.target.value });
+                          if (errors.additionalDetails) setErrors({ ...errors, additionalDetails: undefined });
+                        }}
+                        aria-invalid={errors.additionalDetails ? "true" : undefined}
+                        aria-describedby={combineDescribedBy("additionalDetails-help", errors.additionalDetails ? "additionalDetails-error" : undefined)}
                         placeholder={
                           language === "ml"
                             ? "ഉദാ: റഫറൻസ് നമ്പറുകൾ, മുൻ നിവേദനങ്ങൾ, അല്ലെങ്കിൽ മറ്റ് വിവരങ്ങൾ"
@@ -1139,6 +1176,15 @@ export const ContactForm: React.FC = () => {
                         }
                         className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                       />
+                      <p id="additionalDetails-help" className="mt-1 text-[11px] text-slate/80 dark:text-[#A09F97]">
+                        {language === "ml" ? "റഫറൻസ് നമ്പറോ പ്രസക്തമായ തീയതികളോ ഉണ്ടെങ്കിൽ നൽകുക" : "Reference numbers, past petitions, or relevant dates if available"}
+                      </p>
+                      {errors.additionalDetails && (
+                        <p id="additionalDetails-error" className="mt-1 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
+                          <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                          <span>{errors.additionalDetails}</span>
+                        </p>
+                      )}
                     </div>
                   </div>
                 )}
@@ -1166,7 +1212,7 @@ export const ContactForm: React.FC = () => {
                       if (errors.message) setErrors({ ...errors, message: undefined });
                     }}
                     aria-invalid={errors.message ? "true" : undefined}
-                    aria-describedby={errors.message ? "message-error" : undefined}
+                    aria-describedby={combineDescribedBy("message-help", errors.message ? "message-error" : undefined)}
                     placeholder={
                       selectedWorkflow === "grievance-request"
                         ? language === "ml"
@@ -1178,8 +1224,11 @@ export const ContactForm: React.FC = () => {
                     }
                     className="w-full text-sm p-4 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors resize-y"
                   />
+                  <p id="message-help" className="mt-1 text-[11px] text-slate/80 dark:text-[#A09F97]">
+                    {language === "ml" ? "കുറഞ്ഞത് 15 അക്ഷരങ്ങൾ ഉൾപ്പെടുത്തുക" : "Please provide at least 15 characters describing your communication"}
+                  </p>
                   {errors.message && (
-                    <p id="message-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
+                    <p id="message-error" className="mt-1 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
                       <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                       <span>{errors.message}</span>
                     </p>
@@ -1199,7 +1248,7 @@ export const ContactForm: React.FC = () => {
                         if (errors.consent) setErrors({ ...errors, consent: undefined });
                       }}
                       aria-invalid={errors.consent ? "true" : undefined}
-                      aria-describedby={errors.consent ? "consent-error" : undefined}
+                      aria-describedby={combineDescribedBy("consent-help", errors.consent ? "consent-error" : undefined)}
                       className="mt-0.5 h-4 w-4 rounded-xs border-warm-grey dark:border-[#41413B] text-charcoal focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#222320] cursor-pointer transition-colors"
                     />
                     <label
@@ -1218,7 +1267,12 @@ export const ContactForm: React.FC = () => {
                     </label>
                   </div>
 
-                  <div className="pl-7">
+                  <div className="pl-7 space-y-1">
+                    <p id="consent-help" className="text-[11px] text-slate/80 dark:text-[#A09F97]">
+                      {language === "ml"
+                        ? "ജനപ്രതിനിധിയുടെ ഓഫീസിന്റെ വിവര കൈകാര്യ നയത്തിന് വിധേയം"
+                        : "Subject to the representative office information handling practices"}
+                    </p>
                     <Link
                       href="/privacy-policy"
                       className="inline-flex items-center gap-1 text-xs text-charcoal dark:text-[#F4F1E9] underline underline-offset-2 hover:text-copper dark:hover:text-[#D29A78] font-medium transition-colors"
