@@ -91,9 +91,9 @@ export default function AboutPage() {
 
           {/* Institutional Credentials Card */}
           <div className="bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-6 space-y-3.5 text-xs shadow-xs">
-            <h3 className="font-bold text-xs text-charcoal dark:text-[#F4F1E9] uppercase tracking-widest border-b border-warm-grey dark:border-[#41413B] pb-2">
+            <h2 className="font-bold text-xs text-charcoal dark:text-[#F4F1E9] uppercase tracking-widest border-b border-warm-grey dark:border-[#41413B] pb-2">
               {language === "ml" ? "സ്ഥിരീകരണ പദവി" : "Verification & Office Status"}
-            </h3>
+            </h2>
             <ul className="space-y-2 text-slate dark:text-[#C6C5BD] font-sans">
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-copper dark:bg-[#D29A78] mt-1.5 shrink-0" />
@@ -161,9 +161,9 @@ export default function AboutPage() {
                 <div className="w-8 h-8 rounded-xs bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] flex items-center justify-center font-bold">
                   <UserCheck className="w-4 h-4" aria-hidden="true" />
                 </div>
-                <h4 className="font-display text-lg text-charcoal dark:text-[#F4F1E9]">
+                <h3 className="font-display text-lg text-charcoal dark:text-[#F4F1E9]">
                   {language === "ml" ? "ജനസമ്പർക്കവും പരാതി പരിഹാരവും" : "Constituency Grievance Redressal"}
-                </h4>
+                </h3>
                 <p className="text-xs text-slate dark:text-[#C6C5BD] leading-relaxed">
                   {language === "ml"
                     ? "പൊതുജനങ്ങളിൽ നിന്നും നിവേദനങ്ങൾ സ്വീകരിച്ച് ബന്ധപ്പെട്ട വകുപ്പുകളിലേക്ക് ശുപാർശ ചെയ്യുകയും പരിഹാരം ഉറപ്പാക്കുകയും ചെയ്യുന്നു."
@@ -175,9 +175,9 @@ export default function AboutPage() {
                 <div className="w-8 h-8 rounded-xs bg-stone text-charcoal dark:bg-[#222320] dark:text-[#F4F1E9] border border-warm-grey dark:border-[#41413B] flex items-center justify-center font-bold">
                   <Building2 className="w-4 h-4" aria-hidden="true" />
                 </div>
-                <h4 className="font-display text-lg text-charcoal dark:text-[#F4F1E9]">
+                <h3 className="font-display text-lg text-charcoal dark:text-[#F4F1E9]">
                   {language === "ml" ? "വികസന പദ്ധതി മേൽനോട്ടം" : "Infrastructure Review & Liaison"}
-                </h4>
+                </h3>
                 <p className="text-xs text-slate dark:text-[#C6C5BD] leading-relaxed">
                   {language === "ml"
                     ? "ജലസേചനം, റോഡുകൾ, ആശുപത്രികൾ തുടങ്ങിയ പ്രധാന പൊതു നിർമ്മാണ പദ്ധതികളുടെ പുരോഗതി വിലയിരുത്തുന്നു."
@@ -189,9 +189,9 @@ export default function AboutPage() {
                 <div className="w-8 h-8 rounded-xs bg-copper text-white dark:bg-[#D29A78] dark:text-[#191A18] flex items-center justify-center font-bold">
                   <ShieldCheck className="w-4 h-4" aria-hidden="true" />
                 </div>
-                <h4 className="font-display text-lg text-charcoal dark:text-[#F4F1E9]">
+                <h3 className="font-display text-lg text-charcoal dark:text-[#F4F1E9]">
                   {language === "ml" ? "കാർഷിക-ഗ്രാമീണ ക്ഷേമം" : "Agrarian Support Services"}
-                </h4>
+                </h3>
                 <p className="text-xs text-slate dark:text-[#C6C5BD] leading-relaxed">
                   {language === "ml"
                     ? "നെൽകൃഷി സംഭരണം, ജലവിതരണം, സബ്‌സിഡികൾ എന്നിവ കർഷകരിലേക്ക് എത്തിക്കാൻ കൃഷി വകുപ്പുമായി ചേർന്ന് പ്രവർത്തിക്കുന്നു."
@@ -203,9 +203,9 @@ export default function AboutPage() {
                 <div className="w-8 h-8 rounded-xs bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] flex items-center justify-center font-bold">
                   <Landmark className="w-4 h-4" aria-hidden="true" />
                 </div>
-                <h4 className="font-display text-lg text-charcoal dark:text-[#F4F1E9]">
+                <h3 className="font-display text-lg text-charcoal dark:text-[#F4F1E9]">
                   {language === "ml" ? "സാംസ്കാരിക പൈതൃക സംരക്ഷണം" : "Heritage & Youth Engagement"}
-                </h4>
+                </h3>
                 <p className="text-xs text-slate dark:text-[#C6C5BD] leading-relaxed">
                   {language === "ml"
                     ? "പാലക്കാടിന്റെ പരമ്പരാഗത കലാരൂപങ്ങളെയും ചരിത്ര സ്മാരകങ്ങളെയും പുതിയ തലമുറയ്ക്ക് പരിചയപ്പെടുത്തുന്ന പരിപാടികൾ."

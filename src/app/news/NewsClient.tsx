@@ -73,9 +73,9 @@ export default function NewsPage() {
       {/* Featured Lead Announcement */}
       {featuredNews && selectedCategory === "All" && !searchQuery && (
         <div className="space-y-3">
-          <span className="text-xs font-bold uppercase tracking-widest text-copper dark:text-[#D29A78] block">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-copper dark:text-[#D29A78] block">
             {language === "ml" ? "പ്രധാന അറിയിപ്പ്" : "Featured Lead Story"}
-          </span>
+          </h2>
           <NewsCard item={featuredNews} featured />
         </div>
       )}
@@ -142,6 +142,9 @@ export default function NewsPage() {
       </div>
 
       {/* News Grid */}
+      <h2 className="sr-only">
+        {language === "ml" ? "വാർത്താ ലേഖനങ്ങളുടെ പട്ടിക" : "News Articles Directory"}
+      </h2>
       {filteredNews.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredNews.map((item) => (
@@ -151,9 +154,9 @@ export default function NewsPage() {
       ) : (
         <div className="text-center py-20 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-8 shadow-xs">
           <Bell className="w-8 h-8 text-copper dark:text-[#D29A78] mx-auto mb-3" aria-hidden="true" />
-          <h3 className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
+          <h2 className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
             {language === "ml" ? "അറിയിപ്പുകൾ ലഭ്യമല്ല" : "No Announcements Found"}
-          </h3>
+          </h2>
           <p className="text-xs text-slate dark:text-[#C6C5BD] mt-1">
             {language === "ml"
               ? "നിങ്ങൾ നൽകിയ വാക്കുകളുമായി പൊരുത്തപ്പെടുന്ന അറിയിപ്പുകൾ കണ്ടെത്താനായില്ല."

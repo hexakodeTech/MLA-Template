@@ -95,9 +95,9 @@ export const ProjectTracker: React.FC<ProjectTrackerProps> = ({
                 {getStatusBadge(project.status)}
               </div>
 
-              <h4 className="font-display text-xl leading-snug">
+              <h3 className="font-display text-xl leading-snug">
                 {getLocalized(project.title)}
-              </h4>
+              </h3>
 
               <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate dark:text-[#C6C5BD]">
                 {getLocalized(project.description)}

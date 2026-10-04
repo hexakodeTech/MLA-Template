@@ -139,6 +139,9 @@ export default function ActivitiesPage() {
       </div>
 
       {/* Activities Grid */}
+      <h2 className="sr-only">
+        {language === "ml" ? "പൊതു പ്രവർത്തനങ്ങളുടെ പട്ടിക" : "Activities Directory"}
+      </h2>
       {filteredActivities.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredActivities.map((act) => (
@@ -148,9 +151,9 @@ export default function ActivitiesPage() {
       ) : (
         <div className="text-center py-20 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-8 shadow-xs">
           <Calendar className="w-8 h-8 text-copper dark:text-[#D29A78] mx-auto mb-3" aria-hidden="true" />
-          <h3 className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
+          <h2 className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
             {language === "ml" ? "പ്രവർത്തനങ്ങൾ കണ്ടെത്താനായില്ല" : "No Activities Found"}
-          </h3>
+          </h2>
           <p className="text-xs text-slate dark:text-[#C6C5BD] mt-1">
             Try adjusting your search query or reset the category filter.
           </p>

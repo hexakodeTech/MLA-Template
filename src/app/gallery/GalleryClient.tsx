@@ -97,6 +97,9 @@ export default function GalleryPage() {
       </div>
 
       {/* Responsive Gallery Grid */}
+      <h2 className="sr-only">
+        {language === "ml" ? "ചിത്ര ശേഖരം" : "Photo Gallery Directory"}
+      </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredGallery.map((item, index) => (
           <div
@@ -171,9 +174,9 @@ export default function GalleryPage() {
           <span className="text-xs font-bold uppercase tracking-widest text-copper dark:text-[#D29A78] block">
             {language === "ml" ? "കൂടുതൽ വിവരങ്ങൾ" : "Documented Records"}
           </span>
-          <h3 className="font-display text-xl sm:text-2xl text-charcoal dark:text-[#F4F1E9]">
+          <h2 className="font-display text-xl sm:text-2xl text-charcoal dark:text-[#F4F1E9]">
             {language === "ml" ? "പരിപാടികളുടെ പൂർണ്ണ വിവരങ്ങൾ വായിക്കുക" : "Read Full Event Records & Official Releases"}
-          </h3>
+          </h2>
           <p className="text-xs sm:text-sm text-slate dark:text-[#C6C5BD] leading-relaxed">
             {language === "ml"
               ? "ചിത്രശാലയിലെ ഓരോ പരിപാടിയുടെയും വിശദമായ റിപ്പോർട്ടുകളും പ്രസ്താവനകളും പ്രവർത്തന ഡയറിയിലും വാർത്താ വിഭാഗത്തിലും ലഭ്യമാണ്."

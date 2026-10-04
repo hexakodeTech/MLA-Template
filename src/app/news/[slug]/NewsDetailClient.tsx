@@ -148,9 +148,9 @@ export default function NewsDetailPage() {
         {/* Sidebar Info */}
         <aside className="lg:col-span-4 space-y-6">
           <div className="bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-6 space-y-3.5 text-xs shadow-xs">
-            <h4 className="font-bold text-xs text-charcoal dark:text-[#F4F1E9] uppercase tracking-widest border-b border-warm-grey dark:border-[#41413B] pb-2">
+            <h2 className="font-bold text-xs text-charcoal dark:text-[#F4F1E9] uppercase tracking-widest border-b border-warm-grey dark:border-[#41413B] pb-2">
               Publication Metadata
-            </h4>
+            </h2>
             <div className="space-y-2 text-slate dark:text-[#C6C5BD]">
               <div className="flex justify-between py-1 border-b border-warm-grey/60 dark:border-[#41413B]/60">
                 <span>Release Type:</span>
@@ -172,9 +172,9 @@ export default function NewsDetailPage() {
           </div>
 
           <div className="p-6 rounded-sm border border-warm-grey dark:border-[#41413B] bg-white dark:bg-[#2C2D29] space-y-3 shadow-xs">
-            <h4 className="font-display text-lg text-charcoal dark:text-[#F4F1E9]">
-              Have questions about this release?
-            </h4>
+            <h2 className="font-display text-lg text-charcoal dark:text-[#F4F1E9]">
+              {language === "ml" ? "ഈ വാർത്തയെക്കുറിച്ച് അന്വേഷണമുണ്ടോ?" : "Have questions about this release?"}
+            </h2>
             <p className="text-xs text-slate dark:text-[#C6C5BD] leading-relaxed">
               Submit your enquiry directly to the constituency desk for official clarification.
             </p>
@@ -185,9 +185,9 @@ export default function NewsDetailPage() {
 
           {/* Contextual Links to Constituency & Activities */}
           <div className="bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-5 space-y-3 text-xs shadow-xs">
-            <h4 className="font-bold text-xs text-charcoal dark:text-[#F4F1E9] uppercase tracking-widest border-b border-warm-grey dark:border-[#41413B] pb-2">
+            <h2 className="font-bold text-xs text-charcoal dark:text-[#F4F1E9] uppercase tracking-widest border-b border-warm-grey dark:border-[#41413B] pb-2">
               {language === "ml" ? "മണ്ഡല വിവരങ്ങൾ" : "Constituency Links"}
-            </h4>
+            </h2>
             <div className="space-y-2">
               <Link
                 href="/constituency"
@@ -211,9 +211,9 @@ export default function NewsDetailPage() {
       {/* Related Announcements */}
       {relatedArticles.length > 0 && (
         <div className="pt-12 border-t border-warm-grey dark:border-[#41413B] space-y-6">
-          <h3 className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
+          <h2 className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
             {language === "ml" ? "ബന്ധപ്പെട്ട മറ്റ് അറിയിപ്പുകൾ" : "Related Announcements"}
-          </h3>
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {relatedArticles.map((rel) => (
               <NewsCard key={rel.id} item={rel} />

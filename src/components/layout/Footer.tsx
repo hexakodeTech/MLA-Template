@@ -55,9 +55,9 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
           {/* Col 1: Purpose & Prototype Note */}
           <div className="lg:col-span-4 space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-[#D29A78] border-b border-[#41413B] pb-2">
+            <h2 className="text-xs font-bold uppercase tracking-widest text-[#D29A78] border-b border-[#41413B] pb-2">
               {language === "ml" ? "പോർട്ടൽ ദൗത്യം" : "Portal Standards"}
-            </h4>
+            </h2>
             <p className="text-xs leading-relaxed text-[#C6C5BD]">
               {language === "ml"
                 ? "പൊതുജനങ്ങളിലേക്ക് കൃത്യമായ വിവരങ്ങൾ എത്തിക്കുന്നതിനും മണ്ഡലത്തിലെ വികസന പുരോഗതി സുതാര്യമായി പങ്കുവെക്കുന്നതിനും വേണ്ടി സജ്ജമാക്കിയത്."
@@ -73,9 +73,9 @@ export const Footer: React.FC = () => {
 
           {/* Col 2: Navigation Links */}
           <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-[#D29A78] border-b border-[#41413B] pb-2">
+            <h2 className="text-xs font-bold uppercase tracking-widest text-[#D29A78] border-b border-[#41413B] pb-2">
               {language === "ml" ? "പ്രധാന ലിങ്കുകൾ" : "Navigation"}
-            </h4>
+            </h2>
             <ul className="space-y-2 text-xs">
               <li>
                 <Link href="/" className="hover:text-[#D29A78] text-[#C6C5BD] transition-colors flex items-center justify-between py-0.5 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D29A78]">
@@ -117,9 +117,9 @@ export const Footer: React.FC = () => {
 
           {/* Col 3: Verified Office Contact */}
           <div className="lg:col-span-5 space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-[#D29A78] border-b border-[#41413B] pb-2">
+            <h2 className="text-xs font-bold uppercase tracking-widest text-[#D29A78] border-b border-[#41413B] pb-2">
               {language === "ml" ? "ഓഫീസ് വിലാസം" : "Office Particulars"}
-            </h4>
+            </h2>
             <div className="space-y-3 text-xs text-[#F4F1E9]">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />

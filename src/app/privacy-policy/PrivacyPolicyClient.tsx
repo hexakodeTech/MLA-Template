@@ -33,7 +33,7 @@ export default function PrivacyPolicyPage() {
       <div className="p-4 rounded-sm bg-stone/60 dark:bg-[#222320] border border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9] text-xs sm:text-sm flex items-start gap-3">
         <Info className="w-5 h-5 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
         <div>
-          <h4 className="font-semibold text-charcoal dark:text-[#F4F1E9]">Draft Policy Notice</h4>
+          <strong className="font-semibold block text-charcoal dark:text-[#F4F1E9]">Draft Policy Notice</strong>
           <p className="mt-1 text-xs text-slate dark:text-[#C6C5BD] leading-relaxed">
             This document is an architectural draft prepared by HexaKode for client evaluation. Actual statutory data retention timelines, server hosting jurisdictions, and data processing workflows will be formally finalized by the office legal advisors prior to public launch.
           </p>

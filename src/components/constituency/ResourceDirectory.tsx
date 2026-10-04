@@ -71,9 +71,9 @@ export const ResourceDirectory: React.FC<ResourceDirectoryProps> = ({
                 </span>
               </div>
 
-              <h4 className="font-display text-xl leading-snug">
+              <h3 className="font-display text-xl leading-snug">
                 {getLocalized(item.serviceName)}
-              </h4>
+              </h3>
 
               <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate dark:text-[#C6C5BD]">
                 {getLocalized(item.description)}
