@@ -42,7 +42,10 @@ export const NewsCard: React.FC<NewsCardProps> = ({
             <span className="text-[10px] text-slate dark:text-[#A09F97] font-mono">• {item.date}</span>
           </div>
           <h4 className="font-display text-base sm:text-lg text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors line-clamp-2 leading-snug">
-            <Link href={`/news/${item.slug}`} className="focus:outline-none focus:underline">
+            <Link
+              href={`/news/${item.slug}`}
+              className="rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29]"
+            >
               {getLocalized(item.title)}
             </Link>
           </h4>
@@ -84,7 +87,10 @@ export const NewsCard: React.FC<NewsCardProps> = ({
             </div>
 
             <h3 className="font-display text-2xl sm:text-3xl text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors leading-tight">
-              <Link href={`/news/${item.slug}`} className="focus:outline-none focus:underline">
+              <Link
+                href={`/news/${item.slug}`}
+                className="rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29]"
+              >
                 {getLocalized(item.title)}
               </Link>
             </h3>
@@ -98,7 +104,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({
             <Link
               href={`/news/${item.slug}`}
               aria-label={`${t("readMore")}: ${getLocalized(item.title)}`}
-              className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors"
+              className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
             >
               <span>{t("readMore")}</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-copper dark:text-[#D29A78]" />
@@ -142,7 +148,10 @@ export const NewsCard: React.FC<NewsCardProps> = ({
           </div>
 
           <h3 className="font-display text-xl text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors leading-snug line-clamp-2">
-            <Link href={`/news/${item.slug}`} className="focus:outline-none focus:underline">
+            <Link
+              href={`/news/${item.slug}`}
+              className="rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29]"
+            >
               {getLocalized(item.title)}
             </Link>
           </h3>
@@ -157,7 +166,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({
         <Link
           href={`/news/${item.slug}`}
           aria-label={`${t("readMore")}: ${getLocalized(item.title)}`}
-          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
         >
           <span>{t("readMore")}</span>
           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-copper dark:text-[#D29A78]" />

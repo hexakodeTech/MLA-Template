@@ -105,7 +105,7 @@ export default function PrivacyPolicyPage() {
                 വിവര സ്വകാര്യത സംബന്ധിച്ച സംശയങ്ങൾക്കോ അന്വേഷണ രേഖകൾ അവലോകനം ചെയ്യുന്നതിനായോ ഉള്ള അഭ്യർത്ഥനകൾ{" "}
                 <Link
                   href="/contact"
-                  className="text-copper dark:text-[#D29A78] font-semibold underline hover:text-charcoal dark:hover:text-[#F4F1E9] transition-colors"
+                  className="text-copper dark:text-[#D29A78] font-semibold underline hover:text-charcoal dark:hover:text-[#F4F1E9] transition-colors rounded-xs px-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
                 >
                   ബന്ധപ്പെടാനുള്ള ഫോം
                 </Link>{" "}
@@ -116,7 +116,7 @@ export default function PrivacyPolicyPage() {
                 Questions regarding data privacy practices or requests to review submitted enquiry records may be directed to the designated Secretariat liaison via our{" "}
                 <Link
                   href="/contact"
-                  className="text-copper dark:text-[#D29A78] font-semibold underline hover:text-charcoal dark:hover:text-[#F4F1E9] transition-colors"
+                  className="text-copper dark:text-[#D29A78] font-semibold underline hover:text-charcoal dark:hover:text-[#F4F1E9] transition-colors rounded-xs px-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
                 >
                   contact desk
                 </Link>{" "}

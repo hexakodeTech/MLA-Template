@@ -86,7 +86,12 @@ export default function ActivitiesPage() {
                   ? "പ്രവർത്തനങ്ങളും സ്ഥലങ്ങളും തിരയുക..."
                   : "Search activities, locations, or topics..."
               }
-              className="w-full pl-10 pr-4 py-2.5 rounded-xs border border-warm-grey dark:border-[#41413B] text-sm bg-ivory/50 dark:bg-[#222320] focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-1 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50"
+              aria-label={
+                language === "ml"
+                  ? "പ്രവർത്തനങ്ങളും സ്ഥലങ്ങളും തിരയുക"
+                  : "Search activities, locations, or topics"
+              }
+              className="w-full pl-10 pr-4 py-2.5 rounded-xs border border-warm-grey dark:border-[#41413B] text-sm bg-ivory/50 dark:bg-[#222320] focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50"
             />
           </div>
 
@@ -95,7 +100,7 @@ export default function ActivitiesPage() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`text-xs uppercase tracking-wider px-3.5 py-2 rounded-xs font-semibold transition-all ${
+                className={`text-xs uppercase tracking-wider px-3.5 py-2 rounded-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-1 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29] ${
                   selectedCategory === cat
                     ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] shadow-xs"
                     : "bg-white dark:bg-[#222320] text-charcoal dark:text-[#C6C5BD] hover:bg-stone dark:hover:bg-[#343530] border border-warm-grey dark:border-[#41413B]"
@@ -140,7 +145,7 @@ export default function ActivitiesPage() {
               setSearchQuery("");
               setSelectedCategory("All");
             }}
-            className="mt-4 text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] underline transition-colors"
+            className="mt-4 text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] underline transition-colors rounded-xs p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
           >
             {language === "ml" ? "ഫിൽട്ടർ മാറ്റുക" : "Reset Filter"}
           </button>

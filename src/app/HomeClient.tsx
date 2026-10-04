@@ -419,7 +419,7 @@ export default function HomeClient() {
             <div className="pt-2">
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors group"
+                className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors group rounded-xs px-1 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
               >
                 <span>EXPLORE THE WEBSITE</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform text-copper dark:text-[#D29A78]" />
@@ -513,7 +513,7 @@ export default function HomeClient() {
               <div className="pt-2">
                 <Link
                   href="/about"
-                  className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors group"
+                  className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors group rounded-xs px-1 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
                 >
                   <span>READ COMPLETE OVERVIEW</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform text-copper dark:text-[#D29A78]" />
@@ -549,7 +549,7 @@ export default function HomeClient() {
 
           <Link
             href="/news"
-            className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] shrink-0 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] shrink-0 transition-colors rounded-xs px-1.5 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
           >
             <span>View All Updates</span>
             <ArrowRight className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
@@ -600,10 +600,12 @@ export default function HomeClient() {
             </div>
 
             {/* Interactive Switcher between Projects and Public Directory */}
-            <div className="flex items-center gap-1.5 bg-white dark:bg-[#2C2D29] p-1.5 rounded-sm border border-warm-grey dark:border-[#41413B] shrink-0">
+            <div role="tablist" aria-label="Constituency Section Switcher" className="flex items-center gap-1.5 bg-white dark:bg-[#2C2D29] p-1.5 rounded-sm border border-warm-grey dark:border-[#41413B] shrink-0">
               <button
+                role="tab"
+                aria-selected={constituencyTab === "projects"}
                 onClick={() => setConstituencyTab("projects")}
-                className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xs transition-all ${
+                className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xs transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-1 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29] ${
                   constituencyTab === "projects"
                     ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] shadow-xs"
                     : "text-slate hover:text-charcoal dark:text-[#C6C5BD] dark:hover:text-[#F4F1E9]"
@@ -612,8 +614,10 @@ export default function HomeClient() {
                 Development Projects
               </button>
               <button
+                role="tab"
+                aria-selected={constituencyTab === "directory"}
                 onClick={() => setConstituencyTab("directory")}
-                className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xs transition-all ${
+                className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xs transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-1 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29] ${
                   constituencyTab === "directory"
                     ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] shadow-xs"
                     : "text-slate hover:text-charcoal dark:text-[#C6C5BD] dark:hover:text-[#F4F1E9]"
@@ -636,7 +640,7 @@ export default function HomeClient() {
           <div className="mt-10 pt-6 border-t border-warm-grey dark:border-[#41413B] flex justify-end">
             <Link
               href="/constituency"
-              className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-muted-blue dark:text-[#91A7B8] hover:underline transition-colors group"
+              className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-muted-blue dark:text-[#91A7B8] hover:underline transition-colors group rounded-xs px-1.5 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
             >
               <span>Explore Complete Constituency Guide</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -673,7 +677,7 @@ export default function HomeClient() {
           <div className="shrink-0 pt-1 sm:pt-0">
             <Link
               href="/activities"
-              className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors group"
+              className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors group rounded-xs px-1.5 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
             >
               <span>{language === "ml" ? "എല്ലാ പ്രവർത്തനങ്ങളും കാണുക" : "View All Activities"}</span>
               <ArrowRight className="w-3.5 h-3.5 text-copper dark:text-[#D29A78] group-hover:translate-x-1.5 transition-transform" />
@@ -715,7 +719,7 @@ export default function HomeClient() {
 
             <Link
               href="/gallery"
-              className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] shrink-0 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] shrink-0 transition-colors rounded-xs px-1.5 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
             >
               <span>Explore Full Gallery</span>
               <ArrowRight className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />

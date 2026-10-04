@@ -36,7 +36,7 @@ export const ResourceDirectory: React.FC<ResourceDirectoryProps> = ({
             <button
               key={cat}
               onClick={() => setSelectedCat(cat)}
-              className={`text-xs uppercase tracking-wider px-3 py-1.5 rounded-xs font-semibold transition-all ${
+              className={`text-xs uppercase tracking-wider px-3 py-1.5 rounded-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-1 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29] ${
                 selectedCat === cat
                   ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] shadow-xs"
                   : "bg-white dark:bg-[#2C2D29] text-charcoal dark:text-[#C6C5BD] hover:bg-stone dark:hover:bg-[#343530] border border-warm-grey dark:border-[#41413B]"
@@ -81,7 +81,7 @@ export const ResourceDirectory: React.FC<ResourceDirectoryProps> = ({
             <div className="mt-5 pt-4 border-t space-y-2 text-xs border-warm-grey dark:border-[#41413B]">
               <div className="flex items-center gap-2 font-mono font-bold p-2.5 rounded-xs bg-stone/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] border border-warm-grey dark:border-[#41413B]">
                 <Phone className="w-3.5 h-3.5 text-copper dark:text-[#D29A78] shrink-0" />
-                <a href={`tel:${item.phone.split("/")[0].trim()}`} className="hover:underline">
+                <a href={`tel:${item.phone.split("/")[0].trim()}`} className="hover:underline rounded-xs px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]">
                   {item.phone}
                 </a>
               </div>
@@ -99,7 +99,7 @@ export const ResourceDirectory: React.FC<ResourceDirectoryProps> = ({
                     href={item.portalUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-blue dark:text-[#91A7B8] hover:underline"
+                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-blue dark:text-[#91A7B8] hover:underline rounded-xs px-1 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
                   >
                     <span>{language === "ml" ? "ഔദ്യോഗിക പോർട്ടൽ" : "Official Portal"}</span>
                     <ExternalLink className="w-3 h-3" />

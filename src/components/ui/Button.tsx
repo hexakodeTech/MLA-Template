@@ -34,21 +34,21 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseStyles =
-    "inline-flex items-center justify-center font-medium rounded-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed select-none active:scale-[0.98]";
+    "inline-flex items-center justify-center font-medium rounded-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#191A18] disabled:opacity-60 disabled:cursor-not-allowed select-none active:scale-[0.98]";
 
   const variantStyles = {
     primary:
-      "bg-charcoal text-white hover:bg-[#383935] dark:bg-[#F4F1E9] dark:text-[#191A18] dark:hover:bg-[#E5E2DA] focus-visible:ring-charcoal dark:focus-visible:ring-[#F4F1E9] border border-transparent shadow-xs",
+      "bg-charcoal text-white hover:bg-[#383935] dark:bg-[#F4F1E9] dark:text-[#191A18] dark:hover:bg-[#E5E2DA] focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] border border-transparent shadow-xs",
     secondary:
       "bg-transparent text-charcoal border border-warm-grey hover:bg-stone/50 hover:border-slate/40 dark:bg-transparent dark:text-[#F4F1E9] dark:border-[#41413B] dark:hover:bg-[#2C2D29] dark:hover:border-[#C6C5BD]/40 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
     terracotta:
-      "bg-copper text-white hover:bg-copper-dark dark:bg-[#D29A78] dark:text-[#191A18] dark:hover:bg-[#dfa989] focus-visible:ring-copper shadow-xs",
+      "bg-copper text-white hover:bg-copper-dark dark:bg-[#D29A78] dark:text-[#191A18] dark:hover:bg-[#dfa989] focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] shadow-xs",
     copper:
-      "bg-copper text-white hover:bg-copper-dark dark:bg-[#D29A78] dark:text-[#191A18] dark:hover:bg-[#dfa989] focus-visible:ring-copper shadow-xs",
+      "bg-copper text-white hover:bg-copper-dark dark:bg-[#D29A78] dark:text-[#191A18] dark:hover:bg-[#dfa989] focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] shadow-xs",
     outline:
       "bg-transparent text-charcoal border border-warm-grey hover:border-charcoal hover:bg-stone/40 dark:text-[#F4F1E9] dark:border-[#41413B] dark:hover:bg-[#2C2D29] dark:hover:border-[#C6C5BD] focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
     "outline-light":
-      "bg-transparent text-[#F4F1E9] border border-[#F4F1E9]/30 hover:bg-[#F4F1E9]/10 hover:border-[#F4F1E9] dark:border-[#41413B] dark:text-[#F4F1E9] dark:hover:bg-[#2C2D29] focus-visible:ring-[#F4F1E9] dark:focus-visible:ring-[#D29A78]",
+      "bg-transparent text-[#F4F1E9] border border-[#F4F1E9]/30 hover:bg-[#F4F1E9]/10 hover:border-[#F4F1E9] dark:border-[#41413B] dark:text-[#F4F1E9] dark:hover:bg-[#2C2D29] focus-visible:ring-[#D29A78] focus-visible:ring-offset-[#242522] dark:focus-visible:ring-offset-[#161715]",
     ghost:
       "bg-transparent text-charcoal hover:text-copper hover:bg-stone/40 dark:text-[#F4F1E9] dark:hover:text-[#D29A78] dark:hover:bg-[#2C2D29] focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]",
   };

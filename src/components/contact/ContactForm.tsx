@@ -644,7 +644,7 @@ export const ContactForm: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleReturnToSelector}
-                  className="px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:bg-stone/50 dark:hover:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] transition-colors focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78]"
+                  className="px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:bg-stone/50 dark:hover:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-1 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29]"
                 >
                   {language === "ml" ? "← മറ്റൊരു വിഭാഗം തിരഞ്ഞെടുക്കുക" : "← Choose a different enquiry type"}
                 </button>
@@ -858,7 +858,7 @@ export const ContactForm: React.FC = () => {
                       aria-invalid={!!errors.fullName}
                       aria-describedby={errors.fullName ? "fullName-error" : undefined}
                       placeholder={language === "ml" ? "നിങ്ങളുടെ പേര്" : "e.g., K. Radhakrishnan"}
-                      className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-1 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
+                      className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                     />
                     {errors.fullName && (
                       <p id="fullName-error" role="alert" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
@@ -891,7 +891,7 @@ export const ContactForm: React.FC = () => {
                       aria-invalid={!!errors.phone}
                       aria-describedby={errors.phone ? "phone-error" : undefined}
                       placeholder={language === "ml" ? "+91 98XXXXXXXX" : "+91 98765 43210"}
-                      className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-1 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
+                      className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                     />
                     {errors.phone && (
                       <p id="phone-error" role="alert" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
@@ -926,7 +926,7 @@ export const ContactForm: React.FC = () => {
                       aria-invalid={!!errors.email}
                       aria-describedby={errors.email ? "email-error" : undefined}
                       placeholder="citizen@example.com"
-                      className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-1 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
+                      className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                     />
                     {errors.email && (
                       <p id="email-error" role="alert" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
@@ -969,7 +969,7 @@ export const ContactForm: React.FC = () => {
                             ? "ഉദാ: ഓഫീസ് സന്ദർശന സമയങ്ങൾ സംബന്ധിച്ച്"
                             : "e.g., Office visiting hours enquiry"
                       }
-                      className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-1 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
+                      className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                     />
                     {errors.subject && (
                       <p id="subject-error" role="alert" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
@@ -1010,7 +1010,7 @@ export const ContactForm: React.FC = () => {
                             ? "ഉദാ: വാർഡ്, പ്രദേശം, തെരുവ് അല്ലെങ്കിൽ പ്രധാന ലാൻഡ്‌മാർക്ക്"
                             : "e.g. Ward, locality, street, or landmark"
                         }
-                        className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-1 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
+                        className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                       />
                       {errors.location && (
                         <p id="location-error" role="alert" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
@@ -1041,7 +1041,7 @@ export const ContactForm: React.FC = () => {
                             ? "ഉദാ: റഫറൻസ് നമ്പറുകൾ, മുൻ നിവേദനങ്ങൾ, അല്ലെങ്കിൽ മറ്റ് വിവരങ്ങൾ"
                             : "e.g. Previous reference numbers, relevant dates, or specific landmarks"
                         }
-                        className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-1 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
+                        className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                       />
                     </div>
                   </div>
@@ -1080,7 +1080,7 @@ export const ContactForm: React.FC = () => {
                           ? "നിങ്ങളുടെ അന്വേഷണത്തിന്റെ വിശദാംശങ്ങൾ രേഖപ്പെടുത്തുക..."
                           : "Please describe your question or information request in detail..."
                     }
-                    className="w-full text-sm p-4 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-1 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors resize-y"
+                    className="w-full text-sm p-4 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors resize-y"
                   />
                   {errors.message && (
                     <p id="message-error" role="alert" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
@@ -1104,7 +1104,7 @@ export const ContactForm: React.FC = () => {
                       }}
                       aria-invalid={!!errors.consent}
                       aria-describedby={errors.consent ? "consent-error" : undefined}
-                      className="mt-0.5 h-4 w-4 rounded-xs border-warm-grey dark:border-[#41413B] text-charcoal focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:ring-offset-2 cursor-pointer transition-colors"
+                      className="mt-0.5 h-4 w-4 rounded-xs border-warm-grey dark:border-[#41413B] text-charcoal focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#222320] cursor-pointer transition-colors"
                     />
                     <label
                       htmlFor="consent"

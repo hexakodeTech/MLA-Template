@@ -66,7 +66,7 @@ export const ProjectTracker: React.FC<ProjectTrackerProps> = ({
             <button
               key={status}
               onClick={() => setSelectedStatus(status)}
-              className={`text-xs uppercase tracking-wider px-3 py-1.5 rounded-xs font-semibold transition-all ${
+              className={`text-xs uppercase tracking-wider px-3 py-1.5 rounded-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-1 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29] ${
                 selectedStatus === status
                   ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] shadow-xs"
                   : "bg-white dark:bg-[#2C2D29] text-charcoal dark:text-[#C6C5BD] hover:bg-stone dark:hover:bg-[#343530] border border-warm-grey dark:border-[#41413B]"

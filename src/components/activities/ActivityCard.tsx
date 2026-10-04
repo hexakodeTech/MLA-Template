@@ -60,7 +60,10 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
 
           {/* Title */}
           <h3 className="font-display text-xl text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors leading-snug line-clamp-2">
-            <Link href={`/activities/${activity.slug}`}>
+            <Link
+              href={`/activities/${activity.slug}`}
+              className="rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29]"
+            >
               {getLocalized(activity.title)}
             </Link>
           </h3>
@@ -78,7 +81,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
           <Link
             href={`/activities/${activity.slug}`}
             aria-label={`${t("readMore")}: ${getLocalized(activity.title)}`}
-            className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
           >
             <span>{t("readMore")}</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-copper dark:text-[#D29A78]" />

@@ -23,7 +23,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
         <li>
           <Link
             href="/"
-            className="flex items-center gap-1 hover:text-copper dark:hover:text-[#D29A78] transition-colors"
+            className="flex items-center gap-1 hover:text-copper dark:hover:text-[#D29A78] transition-colors rounded-xs px-1 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
           >
             <Home className="w-3.5 h-3.5" />
             <span>{t("navHome")}</span>
@@ -38,7 +38,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
                 {item.href && !isLast ? (
                   <Link
                     href={item.href}
-                    className="hover:text-copper dark:hover:text-[#D29A78] transition-colors"
+                    className="hover:text-copper dark:hover:text-[#D29A78] transition-colors rounded-xs px-1 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
                   >
                     {item.label}
                   </Link>

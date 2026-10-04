@@ -120,13 +120,46 @@ html {
   font-size: calc(16px * var(--a11y-font-scale, 1));
 }
 
-/* Accessible focus outline */
+/* Accessible focus outline across all interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible,
+[role="tab"]:focus-visible,
+[role="link"]:focus-visible,
+[role="checkbox"]:focus-visible,
+[tabindex="0"]:focus-visible,
 *:focus-visible {
   outline: 2px solid #242522;
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
-.dark *:focus-visible {
+.dark a:focus-visible,
+.dark button:focus-visible,
+.dark input:focus-visible,
+.dark textarea:focus-visible,
+.dark select:focus-visible,
+.dark [role="button"]:focus-visible,
+.dark [role="tab"]:focus-visible,
+.dark [role="link"]:focus-visible,
+.dark [role="checkbox"]:focus-visible,
+.dark [tabindex="0"]:focus-visible,
+.dark *:focus-visible,
+[data-theme="dark"] *:focus-visible {
+  outline: 2px solid #D29A78;
+}
+
+/* Ensure focus outline remains high-contrast on dark containers in light mode */
+footer a:focus-visible,
+footer button:focus-visible,
+footer *:focus-visible,
+aside[aria-label*="Prototype"] button:focus-visible,
+aside[aria-label*="Prototype"] *:focus-visible,
+[class*="bg-charcoal"] *:focus-visible,
+[class*="bg-[#242522]"] *:focus-visible,
+[class*="bg-[#191A18]"] *:focus-visible {
   outline: 2px solid #D29A78;
 }
 

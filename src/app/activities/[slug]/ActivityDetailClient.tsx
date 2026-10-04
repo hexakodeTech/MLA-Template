@@ -69,7 +69,7 @@ export default function ActivityDetailPage() {
       <div>
         <Link
           href="/activities"
-          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors rounded-xs px-1.5 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
         >
           <ArrowLeft className="w-4 h-4 text-copper dark:text-[#D29A78]" />
           <span>{language === "ml" ? "എല്ലാ പ്രവർത്തനങ്ങളിലേക്കും" : "Back to All Activities"}</span>
@@ -190,14 +190,14 @@ export default function ActivityDetailPage() {
             <div className="space-y-2">
               <Link
                 href="/constituency"
-                className="group flex items-center justify-between text-xs text-slate dark:text-[#C6C5BD] hover:text-copper dark:hover:text-[#D29A78] transition-colors py-1"
+                className="group flex items-center justify-between text-xs text-slate dark:text-[#C6C5BD] hover:text-copper dark:hover:text-[#D29A78] transition-colors py-1 rounded-xs px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
               >
                 <span>{language === "ml" ? "പാലക്കാട് മണ്ഡലം വിവരങ്ങൾ" : "Palakkad Constituency Profile"}</span>
                 <span className="text-copper dark:text-[#D29A78] font-bold">→</span>
               </Link>
               <Link
                 href="/news"
-                className="group flex items-center justify-between text-xs text-slate dark:text-[#C6C5BD] hover:text-copper dark:hover:text-[#D29A78] transition-colors py-1 border-t border-warm-grey/40 dark:border-[#41413B]/40"
+                className="group flex items-center justify-between text-xs text-slate dark:text-[#C6C5BD] hover:text-copper dark:hover:text-[#D29A78] transition-colors py-1 border-t border-warm-grey/40 dark:border-[#41413B]/40 rounded-xs px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
               >
                 <span>{language === "ml" ? "ഔദ്യോഗിക അറിയിപ്പുകളും വാർത്തകളും" : "Official News & Releases"}</span>
                 <span className="text-copper dark:text-[#D29A78] font-bold">→</span>

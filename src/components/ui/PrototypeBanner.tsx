@@ -36,7 +36,7 @@ export const PrototypeBanner: React.FC = () => {
         <button
           onClick={() => setDismissed(true)}
           aria-label="Dismiss banner"
-          className="text-ivory/60 hover:text-ivory p-1 rounded-sm transition-colors focus:outline-none focus:ring-1 focus:ring-ivory shrink-0"
+          className="text-ivory/60 hover:text-ivory p-1 rounded-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D29A78] focus-visible:ring-offset-1 focus-visible:ring-offset-charcoal dark:focus-visible:ring-offset-[#191A18] shrink-0"
         >
           <X className="w-3.5 h-3.5" />
         </button>
