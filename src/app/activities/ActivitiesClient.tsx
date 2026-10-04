@@ -76,9 +76,9 @@ export default function ActivitiesPage() {
       <div className="bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-5 sm:p-6 shadow-xs space-y-4">
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-slate dark:text-[#A09F97] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <Search className="w-4 h-4 text-slate dark:text-[#A09F97] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true" />
             <input
-              type="text"
+              type="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={
@@ -99,6 +99,8 @@ export default function ActivitiesPage() {
             {categories.map((cat) => (
               <button
                 key={cat}
+                type="button"
+                aria-pressed={selectedCategory === cat}
                 onClick={() => setSelectedCategory(cat)}
                 className={`text-xs uppercase tracking-wider px-3.5 py-2 rounded-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-1 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29] ${
                   selectedCategory === cat
@@ -112,7 +114,12 @@ export default function ActivitiesPage() {
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-xs text-slate dark:text-[#A09F97] pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60">
+        <div
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          className="flex items-center justify-between text-xs text-slate dark:text-[#A09F97] pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60"
+        >
           <span>
             {language === "ml"
               ? `${filteredActivities.length} പ്രവർത്തനങ്ങൾ കണ്ടെത്തി`

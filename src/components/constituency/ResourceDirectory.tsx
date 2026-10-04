@@ -35,6 +35,8 @@ export const ResourceDirectory: React.FC<ResourceDirectoryProps> = ({
           {categories.map((cat) => (
             <button
               key={cat}
+              type="button"
+              aria-pressed={selectedCat === cat}
               onClick={() => setSelectedCat(cat)}
               className={`text-xs uppercase tracking-wider px-3 py-1.5 rounded-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-1 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29] ${
                 selectedCat === cat

@@ -38,7 +38,10 @@ export const ContactForm: React.FC = () => {
   const [selectedWorkflow, setSelectedWorkflow] = useState<WorkflowType | null>(null);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>("idle");
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
+  const [submitAttemptCount, setSubmitAttemptCount] = useState(0);
   const errorRef = useRef<HTMLDivElement>(null);
+  const errorSummaryRef = useRef<HTMLDivElement>(null);
   const successRef = useRef<HTMLDivElement>(null);
   const confirmTriggerRef = useRef<HTMLElement | null>(null);
   const confirmDialogRef = useRef<HTMLDivElement>(null);
@@ -73,6 +76,8 @@ export const ContactForm: React.FC = () => {
     setSelectedWorkflow(workflow);
     setSubmissionStatus("idle");
     setErrors({});
+    setHasAttemptedSubmit(false);
+    setSubmitAttemptCount(0);
   };
 
   const handleResetForm = () => {
@@ -89,6 +94,8 @@ export const ContactForm: React.FC = () => {
     });
     setErrors({});
     setSubmissionStatus("idle");
+    setHasAttemptedSubmit(false);
+    setSubmitAttemptCount(0);
   };
 
   const handleReturnToSelector = () => {
@@ -263,7 +270,7 @@ export const ContactForm: React.FC = () => {
       "phone",
       "email",
       "subject",
-      "location",
+      ...(selectedWorkflow === "grievance-request" ? (["location"] as (keyof FormErrors)[]) : []),
       "message",
       "consent",
     ];
@@ -275,28 +282,65 @@ export const ContactForm: React.FC = () => {
     };
   };
 
+  const fieldLabels: Record<keyof FormErrors, string> = {
+    fullName: language === "ml" ? "പൂർണ്ണ പേര്" : "Full Name",
+    phone: language === "ml" ? "ഫോൺ നമ്പർ" : "Phone Number",
+    email: language === "ml" ? "ഇമെയിൽ വിലാസം" : "Email Address",
+    subject:
+      selectedWorkflow === "grievance-request"
+        ? language === "ml" ? "വിഷയം / പ്രശ്നത്തിന്റെ തലക്കെട്ട്" : "Subject / Issue Title"
+        : language === "ml" ? "വിഷയം" : "Subject",
+    location: language === "ml" ? "സ്ഥലം / പ്രദേശം" : "Location / Area",
+    message:
+      selectedWorkflow === "grievance-request"
+        ? language === "ml" ? "പരാതി / നിവേദനത്തിന്റെ പൂർണ്ണ വിവരങ്ങൾ" : "Grievance or Request Details"
+        : language === "ml" ? "അന്വേഷണ വിവരങ്ങൾ" : "Enquiry Details",
+    consent: language === "ml" ? "വിവര കൈകാര്യ സമ്മതം" : "Information Handling Consent",
+  };
+
+  const orderedFieldKeys: (keyof FormErrors)[] = [
+    "fullName",
+    "phone",
+    "email",
+    "subject",
+    ...(selectedWorkflow === "grievance-request" ? (["location"] as (keyof FormErrors)[]) : []),
+    "message",
+    "consent",
+  ];
+
+  const errorEntries = orderedFieldKeys
+    .filter((field) => Boolean(errors[field]))
+    .map((field) => ({
+      field,
+      label: fieldLabels[field],
+      message: errors[field] as string,
+    }));
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Prevent duplicate submissions while in progress
     if (submissionStatus === "submitting") return;
-    if (formData.honeypot) return;
 
     // Field-level validation check
     const { isValid, firstInvalidField } = validate();
     if (!isValid) {
+      setHasAttemptedSubmit(true);
+      setSubmitAttemptCount((prev) => prev + 1);
+
       if (firstInvalidField) {
-        requestAnimationFrame(() => {
+        setTimeout(() => {
           const el = document.getElementById(firstInvalidField);
           if (el) {
             el.focus();
             el.scrollIntoView({ behavior: "smooth", block: "center" });
           }
-        });
+        }, 50);
       }
       return;
     }
 
+    setHasAttemptedSubmit(false);
     // Set immediate loading state
     setSubmissionStatus("submitting");
 
@@ -584,9 +628,11 @@ export const ContactForm: React.FC = () => {
           {submissionStatus === "success" ? (
             <div
               ref={successRef}
+              id="submission-success-panel"
               tabIndex={-1}
               role="status"
               aria-live="polite"
+              aria-labelledby="success-feedback-title"
               className="outline-none focus:outline-none bg-stone/30 dark:bg-[#222320]/80 rounded-sm border border-warm-grey dark:border-[#41413B] p-6 sm:p-8 space-y-6 text-charcoal dark:text-[#F4F1E9] animate-in fade-in duration-200"
             >
               <div className="flex items-start gap-4">
@@ -601,7 +647,7 @@ export const ContactForm: React.FC = () => {
                         : (language === "ml" ? "പൊതുവായ അന്വേഷണം" : "General Enquiry")}
                     </span>
                   </div>
-                  <h4 className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
+                  <h4 id="success-feedback-title" className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
                     {selectedWorkflow === "grievance-request"
                       ? (language === "ml" ? "പരാതി / നിവേദനം സമർപ്പിച്ചു" : "Grievance / Request Submitted")
                       : (language === "ml" ? "പൊതുവായ അന്വേഷണം സമർപ്പിച്ചു" : "General Enquiry Submitted")}
@@ -787,25 +833,26 @@ export const ContactForm: React.FC = () => {
                 </div>
               </section>
 
-              {/* SUBMISSION ERROR ALERT (Requirement 4 & 7) */}
+              {/* SUBMISSION SERVER ERROR ALERT (Requirement 7) */}
               {submissionStatus === "error" && (
                 <div
                   ref={errorRef}
                   tabIndex={-1}
                   role="alert"
                   aria-live="assertive"
+                  aria-labelledby="server-error-title"
                   className="mb-8 p-5 rounded-xs bg-red-50/90 dark:bg-red-950/30 border border-red-200 dark:border-red-900/60 text-charcoal dark:text-[#F4F1E9] animate-in fade-in duration-200 focus:outline-none"
                 >
                   <div className="flex items-start gap-3">
                     <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 shrink-0 mt-0.5" aria-hidden="true" />
                     <div className="space-y-1">
-                      <h4 className="text-sm font-bold text-red-900 dark:text-red-300">
-                        {language === "ml" ? "സമർപ്പിക്കാൻ സാധിച്ചില്ല" : "Unable to Submit"}
+                      <h4 id="server-error-title" className="text-sm font-bold text-red-900 dark:text-red-300">
+                        {language === "ml" ? "സെർവർ പിശക്: സമർപ്പിക്കാൻ സാധിച്ചില്ല" : "Server Error: Unable to Submit"}
                       </h4>
                       <p className="text-xs text-red-800 dark:text-red-300/90 leading-relaxed">
                         {language === "ml"
-                          ? "ഈ സമയത്ത് ഫോം സമർപ്പിക്കാൻ സാധിച്ചില്ല. വിവരങ്ങൾ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
-                          : "We couldn't submit your form at this time. Please check your details and try again."}
+                          ? "സെർവർ അല്ലെങ്കിൽ നെറ്റ്‌വർക്ക് തകരാർ കാരണം ഈ സമയത്ത് ഫോം സമർപ്പിക്കാൻ സാധിച്ചില്ല. നിങ്ങളുടെ വിവരങ്ങൾ സുരക്ഷിതമാണ്. ദയവായി അല്പം കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക."
+                          : "We couldn't submit your form due to a server or network error. Your details have been preserved. Please try again."}
                       </p>
                     </div>
                   </div>
@@ -834,6 +881,55 @@ export const ContactForm: React.FC = () => {
                   />
                 </div>
 
+                {/* Form-Level Error Summary (Requirements 1 & 5) */}
+                {hasAttemptedSubmit && errorEntries.length > 0 && (
+                  <div
+                    key={`error-summary-${submitAttemptCount}`}
+                    ref={errorSummaryRef}
+                    id="form-validation-summary"
+                    role="alert"
+                    aria-live="assertive"
+                    tabIndex={-1}
+                    className="p-4 sm:p-5 rounded-xs bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/60 text-charcoal dark:text-[#F4F1E9] space-y-3 animate-in fade-in duration-200 focus:outline-none"
+                  >
+                    <div className="flex items-start gap-2.5">
+                      <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 shrink-0 mt-0.5" aria-hidden="true" />
+                      <div className="space-y-1">
+                        <h4 className="text-sm font-bold text-red-900 dark:text-red-300">
+                          {language === "ml"
+                            ? `ഈ ഫോമിൽ ${errorEntries.length} ${errorEntries.length === 1 ? "പിശക് ഉണ്ട്" : "പിശകുകൾ ഉണ്ട്"}. ദയവായി താഴെ പറയുന്നവ പരിശോധിക്കുക:`
+                            : `There ${errorEntries.length === 1 ? "is 1 error" : `are ${errorEntries.length} errors`} in this form. Please review the highlighted fields:`}
+                        </h4>
+                        <p className="text-xs text-red-800 dark:text-red-300/90 leading-relaxed">
+                          {language === "ml"
+                            ? "ഫോം സമർപ്പിക്കുന്നതിൽ പിശക് സംഭവിച്ചു. ദയവായി താഴെ പറയുന്ന ഫീൽഡുകൾ തിരുത്തുക."
+                            : "Form submission failed. Please review and correct the highlighted fields below."}
+                        </p>
+                      </div>
+                    </div>
+                    <ul className="list-disc pl-9 space-y-1.5 text-xs text-red-800 dark:text-red-300/90 font-medium">
+                      {errorEntries.map(({ field, label, message }) => (
+                        <li key={field}>
+                          <a
+                            href={`#${field}`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              const el = document.getElementById(field);
+                              if (el) {
+                                el.focus();
+                                el.scrollIntoView({ behavior: "smooth", block: "center" });
+                              }
+                            }}
+                            className="underline hover:text-red-950 dark:hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-red-600 rounded-2xs"
+                          >
+                            <span className="font-semibold">{label}:</span> {message}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {/* Full Name */}
                   <div>
@@ -855,14 +951,14 @@ export const ContactForm: React.FC = () => {
                         setFormData({ ...formData, fullName: e.target.value });
                         if (errors.fullName) setErrors({ ...errors, fullName: undefined });
                       }}
-                      aria-invalid={!!errors.fullName}
+                      aria-invalid={errors.fullName ? "true" : undefined}
                       aria-describedby={errors.fullName ? "fullName-error" : undefined}
                       placeholder={language === "ml" ? "നിങ്ങളുടെ പേര്" : "e.g., K. Radhakrishnan"}
                       className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                     />
                     {errors.fullName && (
-                      <p id="fullName-error" role="alert" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
-                        <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <p id="fullName-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
+                        <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                         <span>{errors.fullName}</span>
                       </p>
                     )}
@@ -888,14 +984,14 @@ export const ContactForm: React.FC = () => {
                         setFormData({ ...formData, phone: e.target.value });
                         if (errors.phone) setErrors({ ...errors, phone: undefined });
                       }}
-                      aria-invalid={!!errors.phone}
+                      aria-invalid={errors.phone ? "true" : undefined}
                       aria-describedby={errors.phone ? "phone-error" : undefined}
                       placeholder={language === "ml" ? "+91 98XXXXXXXX" : "+91 98765 43210"}
                       className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                     />
                     {errors.phone && (
-                      <p id="phone-error" role="alert" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
-                        <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <p id="phone-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
+                        <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                         <span>{errors.phone}</span>
                       </p>
                     )}
@@ -923,14 +1019,14 @@ export const ContactForm: React.FC = () => {
                         setFormData({ ...formData, email: e.target.value });
                         if (errors.email) setErrors({ ...errors, email: undefined });
                       }}
-                      aria-invalid={!!errors.email}
+                      aria-invalid={errors.email ? "true" : undefined}
                       aria-describedby={errors.email ? "email-error" : undefined}
                       placeholder="citizen@example.com"
                       className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                     />
                     {errors.email && (
-                      <p id="email-error" role="alert" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
-                        <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <p id="email-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
+                        <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                         <span>{errors.email}</span>
                       </p>
                     )}
@@ -958,7 +1054,7 @@ export const ContactForm: React.FC = () => {
                         setFormData({ ...formData, subject: e.target.value });
                         if (errors.subject) setErrors({ ...errors, subject: undefined });
                       }}
-                      aria-invalid={!!errors.subject}
+                      aria-invalid={errors.subject ? "true" : undefined}
                       aria-describedby={errors.subject ? "subject-error" : undefined}
                       placeholder={
                         selectedWorkflow === "grievance-request"
@@ -972,8 +1068,8 @@ export const ContactForm: React.FC = () => {
                       className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                     />
                     {errors.subject && (
-                      <p id="subject-error" role="alert" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
-                        <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <p id="subject-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
+                        <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                         <span>{errors.subject}</span>
                       </p>
                     )}
@@ -1003,7 +1099,7 @@ export const ContactForm: React.FC = () => {
                           setFormData({ ...formData, location: e.target.value });
                           if (errors.location) setErrors({ ...errors, location: undefined });
                         }}
-                        aria-invalid={!!errors.location}
+                        aria-invalid={errors.location ? "true" : undefined}
                         aria-describedby={errors.location ? "location-error" : undefined}
                         placeholder={
                           language === "ml"
@@ -1013,8 +1109,8 @@ export const ContactForm: React.FC = () => {
                         className="w-full text-sm px-4 py-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors"
                       />
                       {errors.location && (
-                        <p id="location-error" role="alert" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
-                          <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                        <p id="location-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
+                          <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                           <span>{errors.location}</span>
                         </p>
                       )}
@@ -1069,7 +1165,7 @@ export const ContactForm: React.FC = () => {
                       setFormData({ ...formData, message: e.target.value });
                       if (errors.message) setErrors({ ...errors, message: undefined });
                     }}
-                    aria-invalid={!!errors.message}
+                    aria-invalid={errors.message ? "true" : undefined}
                     aria-describedby={errors.message ? "message-error" : undefined}
                     placeholder={
                       selectedWorkflow === "grievance-request"
@@ -1083,8 +1179,8 @@ export const ContactForm: React.FC = () => {
                     className="w-full text-sm p-4 rounded-xs border border-warm-grey dark:border-[#41413B] bg-ivory/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] placeholder-slate/50 dark:placeholder-[#A09F97]/50 focus:bg-white dark:focus:bg-[#191A18] focus:outline-none focus:ring-2 focus:ring-charcoal dark:focus:ring-[#D29A78] focus:border-charcoal dark:focus:border-[#D29A78] transition-colors resize-y"
                   />
                   {errors.message && (
-                    <p id="message-error" role="alert" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
-                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                    <p id="message-error" className="mt-1.5 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                       <span>{errors.message}</span>
                     </p>
                   )}
@@ -1102,7 +1198,7 @@ export const ContactForm: React.FC = () => {
                         setFormData({ ...formData, consent: e.target.checked });
                         if (errors.consent) setErrors({ ...errors, consent: undefined });
                       }}
-                      aria-invalid={!!errors.consent}
+                      aria-invalid={errors.consent ? "true" : undefined}
                       aria-describedby={errors.consent ? "consent-error" : undefined}
                       className="mt-0.5 h-4 w-4 rounded-xs border-warm-grey dark:border-[#41413B] text-charcoal focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#222320] cursor-pointer transition-colors"
                     />
@@ -1133,8 +1229,8 @@ export const ContactForm: React.FC = () => {
                   </div>
 
                   {errors.consent && (
-                    <p id="consent-error" role="alert" className="pl-7 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
-                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                    <p id="consent-error" className="pl-7 text-xs text-copper dark:text-[#D29A78] flex items-center gap-1 font-medium">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                       <span>{errors.consent}</span>
                     </p>
                   )}
