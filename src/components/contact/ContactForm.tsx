@@ -461,7 +461,7 @@ export const ContactForm: React.FC = () => {
               </p>
             </div>
             <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] bg-stone dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] border border-warm-grey dark:border-[#41413B] px-3 py-1 rounded-xs font-mono font-medium">
-              <Info className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
+              <Info className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
               {language === "ml" ? "ഔദ്യോഗിക ഡെസ്ക്" : "Official Desk"}
             </span>
           </div>
@@ -1299,7 +1299,7 @@ export const ContactForm: React.FC = () => {
                     disabled={submissionStatus === "submitting"}
                     isLoading={submissionStatus === "submitting"}
                     aria-busy={submissionStatus === "submitting"}
-                    icon={submissionStatus !== "submitting" ? <ArrowRight className="w-4 h-4 text-white dark:text-[#191A18]" /> : undefined}
+                    icon={submissionStatus !== "submitting" ? <ArrowRight className="w-4 h-4 text-white dark:text-[#191A18]" aria-hidden="true" /> : undefined}
                     iconPosition="right"
                   >
                     {submissionStatus === "submitting"

@@ -29,14 +29,14 @@ export const ProjectTracker: React.FC<ProjectTrackerProps> = ({
       case "Completed":
         return (
           <span className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18]">
-            <CheckCircle2 className="w-3 h-3 text-copper dark:text-[#D29A78]" />
+            <CheckCircle2 className="w-3 h-3 text-copper dark:text-[#D29A78]" aria-hidden="true" />
             {language === "ml" ? "പൂർത്തിയായി" : "Completed"}
           </span>
         );
       case "Ongoing":
         return (
           <span className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs bg-copper text-white dark:bg-[#D29A78] dark:text-[#191A18]">
-            <Clock className="w-3 h-3" />
+            <Clock className="w-3 h-3" aria-hidden="true" />
             {language === "ml" ? "പുരോഗമിക്കുന്നു" : "Ongoing"}
           </span>
         );
@@ -44,7 +44,7 @@ export const ProjectTracker: React.FC<ProjectTrackerProps> = ({
       default:
         return (
           <span className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs bg-stone text-charcoal dark:bg-[#222320] dark:text-[#C6C5BD] border border-warm-grey dark:border-[#41413B]">
-            <AlertTriangle className="w-3 h-3 text-slate dark:text-[#A09F97]" />
+            <AlertTriangle className="w-3 h-3 text-slate dark:text-[#A09F97]" aria-hidden="true" />
             {language === "ml" ? "ആസൂത്രണം" : "In Planning"}
           </span>
         );
@@ -56,7 +56,7 @@ export const ProjectTracker: React.FC<ProjectTrackerProps> = ({
       {/* Filter Tabs */}
       <div className="flex items-center justify-between flex-wrap gap-4 pb-3 border-b border-warm-grey dark:border-[#41413B]">
         <div className="flex items-center gap-2">
-          <Filter className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
+          <Filter className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
           <span className="text-xs font-bold uppercase tracking-widest text-slate dark:text-[#A09F97]">
             {language === "ml" ? "പദവി അനുസരിച്ച്:" : "Filter Status:"}
           </span>
@@ -64,8 +64,10 @@ export const ProjectTracker: React.FC<ProjectTrackerProps> = ({
         <div className="flex items-center gap-1.5 flex-wrap">
           {statusOptions.map((status) => (
             <button
+              type="button"
               key={status}
               onClick={() => setSelectedStatus(status)}
+              aria-pressed={selectedStatus === status}
               className={`text-xs uppercase tracking-wider px-3 py-1.5 rounded-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-1 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29] ${
                 selectedStatus === status
                   ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] shadow-xs"

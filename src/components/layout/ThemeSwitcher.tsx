@@ -46,15 +46,15 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
       <span className="sr-only">{label}</span>
 
       {/* Icon rendering with smooth rotation and scale */}
-      <div className="relative w-4 h-4 flex items-center justify-center">
+      <div className="relative w-4 h-4 flex items-center justify-center" aria-hidden="true">
         {mounted ? (
           isDark ? (
-            <Sun className="w-4 h-4 text-[#D29A78] transition-transform duration-300 rotate-0 scale-100" />
+            <Sun className="w-4 h-4 text-[#D29A78] transition-transform duration-300 rotate-0 scale-100" aria-hidden="true" />
           ) : (
-            <Moon className="w-4 h-4 text-charcoal transition-transform duration-300 rotate-0 scale-100" />
+            <Moon className="w-4 h-4 text-charcoal transition-transform duration-300 rotate-0 scale-100" aria-hidden="true" />
           )
         ) : (
-          <div className="w-4 h-4 rounded-full border-2 border-warm-grey animate-pulse" />
+          <div className="w-4 h-4 rounded-full border-2 border-warm-grey animate-pulse" aria-hidden="true" />
         )}
       </div>
 

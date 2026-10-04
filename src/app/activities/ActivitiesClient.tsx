@@ -147,7 +147,7 @@ export default function ActivitiesPage() {
         </div>
       ) : (
         <div className="text-center py-20 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-8 shadow-xs">
-          <Calendar className="w-8 h-8 text-copper dark:text-[#D29A78] mx-auto mb-3" />
+          <Calendar className="w-8 h-8 text-copper dark:text-[#D29A78] mx-auto mb-3" aria-hidden="true" />
           <h3 className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
             {language === "ml" ? "പ്രവർത്തനങ്ങൾ കണ്ടെത്താനായില്ല" : "No Activities Found"}
           </h3>
@@ -155,6 +155,7 @@ export default function ActivitiesPage() {
             Try adjusting your search query or reset the category filter.
           </p>
           <button
+            type="button"
             onClick={() => {
               setSearchQuery("");
               setSelectedCategory("All");

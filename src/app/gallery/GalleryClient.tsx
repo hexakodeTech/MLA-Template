@@ -62,7 +62,7 @@ export default function GalleryPage() {
 
         {/* Prototype notice */}
         <div className="mt-6 p-4 rounded-sm bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] text-xs text-charcoal dark:text-[#F4F1E9] flex items-start gap-2.5 max-w-3xl shadow-xs">
-          <Info className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
+          <Info className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
           <p className="leading-relaxed text-slate dark:text-[#C6C5BD]">
             <strong className="text-charcoal dark:text-[#F4F1E9]">Sample Asset Notice:</strong> The images currently featured in this prototype are high-quality illustrative placeholders selected to demonstrate the responsive grid and lightbox viewing capabilities. Approved official media will be incorporated prior to launch.
           </p>
@@ -72,7 +72,7 @@ export default function GalleryPage() {
       {/* Category Filter Tabs */}
       <div className="flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-warm-grey dark:border-[#41413B]">
         <div className="flex items-center gap-2">
-          <Filter className="w-4 h-4 text-copper dark:text-[#D29A78]" />
+          <Filter className="w-4 h-4 text-copper dark:text-[#D29A78]" aria-hidden="true" />
           <span className="text-xs font-bold text-slate dark:text-[#A09F97] uppercase tracking-wider">
             {language === "ml" ? "വിഭാഗം തിരഞ്ഞെടുക്കുക:" : "Filter by Album:"}
           </span>
@@ -80,8 +80,10 @@ export default function GalleryPage() {
         <div className="flex items-center gap-1.5 flex-wrap">
           {categories.map((cat) => (
             <button
+              type="button"
               key={cat}
               onClick={() => setSelectedCategory(cat)}
+              aria-pressed={selectedCategory === cat}
               className={`text-xs uppercase tracking-wider px-3.5 py-1.5 rounded-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-1 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29] ${
                 selectedCategory === cat
                   ? "bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] shadow-xs"
@@ -108,7 +110,11 @@ export default function GalleryPage() {
             }}
             tabIndex={0}
             role="button"
-            aria-label={`View photo in lightbox: ${getLocalized(item.title)}`}
+            aria-label={
+              language === "ml"
+                ? `ചിത്രം വലുതാക്കി കാണുക: ${getLocalized(item.title)}`
+                : `View photo in lightbox: ${getLocalized(item.title)}`
+            }
             className="group relative rounded-sm overflow-hidden bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] shadow-xs hover:border-slate/40 dark:hover:border-[#C6C5BD]/40 transition-all duration-300 cursor-pointer flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
           >
             <div className="relative aspect-[4/3] bg-stone dark:bg-[#222320] overflow-hidden">
@@ -144,12 +150,12 @@ export default function GalleryPage() {
 
               <div className="mt-3 pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60 flex items-center justify-between text-xs text-slate dark:text-[#A09F97]">
                 <span className="flex items-center gap-1 font-mono text-[11px]">
-                  <Calendar className="w-3 h-3 text-copper dark:text-[#D29A78]" />
+                  <Calendar className="w-3 h-3 text-copper dark:text-[#D29A78]" aria-hidden="true" />
                   {item.date}
                 </span>
                 {item.location && (
                   <span className="flex items-center gap-1 text-[11px] truncate max-w-[140px] text-muted-blue dark:text-[#91A7B8] font-medium">
-                    <MapPin className="w-3 h-3 shrink-0" />
+                    <MapPin className="w-3 h-3 shrink-0" aria-hidden="true" />
                     <span>{getLocalized(item.location)}</span>
                   </span>
                 )}

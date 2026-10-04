@@ -422,7 +422,7 @@ export default function HomeClient() {
                 className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors group rounded-xs px-1 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
               >
                 <span>EXPLORE THE WEBSITE</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform text-copper dark:text-[#D29A78]" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform text-copper dark:text-[#D29A78]" aria-hidden="true" />
               </Link>
             </div>
           </div>
@@ -516,7 +516,7 @@ export default function HomeClient() {
                   className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors group rounded-xs px-1 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
                 >
                   <span>READ COMPLETE OVERVIEW</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform text-copper dark:text-[#D29A78]" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform text-copper dark:text-[#D29A78]" aria-hidden="true" />
                 </Link>
               </div>
             </div>
@@ -552,7 +552,7 @@ export default function HomeClient() {
             className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] shrink-0 transition-colors rounded-xs px-1.5 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
           >
             <span>View All Updates</span>
-            <ArrowRight className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
+            <ArrowRight className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
           </Link>
         </div>
 
@@ -600,10 +600,17 @@ export default function HomeClient() {
             </div>
 
             {/* Interactive Switcher between Projects and Public Directory */}
-            <div role="tablist" aria-label="Constituency Section Switcher" className="flex items-center gap-1.5 bg-white dark:bg-[#2C2D29] p-1.5 rounded-sm border border-warm-grey dark:border-[#41413B] shrink-0">
+            <div
+              role="tablist"
+              aria-label={language === "ml" ? "മണ്ഡല വിവര വിഭാഗങ്ങൾ" : "Constituency Section Switcher"}
+              className="flex items-center gap-1.5 bg-white dark:bg-[#2C2D29] p-1.5 rounded-sm border border-warm-grey dark:border-[#41413B] shrink-0"
+            >
               <button
+                type="button"
                 role="tab"
+                id="tab-projects"
                 aria-selected={constituencyTab === "projects"}
+                aria-controls="tabpanel-constituency"
                 onClick={() => setConstituencyTab("projects")}
                 className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xs transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-1 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29] ${
                   constituencyTab === "projects"
@@ -611,11 +618,14 @@ export default function HomeClient() {
                     : "text-slate hover:text-charcoal dark:text-[#C6C5BD] dark:hover:text-[#F4F1E9]"
                 }`}
               >
-                Development Projects
+                {language === "ml" ? "വികസന പദ്ധതികൾ" : "Development Projects"}
               </button>
               <button
+                type="button"
                 role="tab"
+                id="tab-directory"
                 aria-selected={constituencyTab === "directory"}
+                aria-controls="tabpanel-constituency"
                 onClick={() => setConstituencyTab("directory")}
                 className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xs transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] focus-visible:ring-offset-1 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#2C2D29] ${
                   constituencyTab === "directory"
@@ -623,13 +633,19 @@ export default function HomeClient() {
                     : "text-slate hover:text-charcoal dark:text-[#C6C5BD] dark:hover:text-[#F4F1E9]"
                 }`}
               >
-                Public Resources
+                {language === "ml" ? "പൊതു സേവനങ്ങൾ" : "Public Resources"}
               </button>
             </div>
           </div>
 
           {/* Active Tab Panel */}
-          <div>
+          <div
+            role="tabpanel"
+            id="tabpanel-constituency"
+            aria-labelledby={constituencyTab === "projects" ? "tab-projects" : "tab-directory"}
+            tabIndex={0}
+            className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] rounded-sm"
+          >
             {constituencyTab === "projects" ? (
               <ProjectTracker projects={mockProjects} />
             ) : (
@@ -643,7 +659,7 @@ export default function HomeClient() {
               className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-muted-blue dark:text-[#91A7B8] hover:underline transition-colors group rounded-xs px-1.5 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
             >
               <span>Explore Complete Constituency Guide</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
             </Link>
           </div>
         </div>
@@ -680,7 +696,7 @@ export default function HomeClient() {
               className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors group rounded-xs px-1.5 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
             >
               <span>{language === "ml" ? "എല്ലാ പ്രവർത്തനങ്ങളും കാണുക" : "View All Activities"}</span>
-              <ArrowRight className="w-3.5 h-3.5 text-copper dark:text-[#D29A78] group-hover:translate-x-1.5 transition-transform" />
+              <ArrowRight className="w-3.5 h-3.5 text-copper dark:text-[#D29A78] group-hover:translate-x-1.5 transition-transform" aria-hidden="true" />
             </Link>
           </div>
         </div>
@@ -722,7 +738,7 @@ export default function HomeClient() {
               className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] shrink-0 transition-colors rounded-xs px-1.5 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
             >
               <span>Explore Full Gallery</span>
-              <ArrowRight className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
+              <ArrowRight className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
             </Link>
           </div>
 
@@ -739,7 +755,11 @@ export default function HomeClient() {
               }}
               tabIndex={0}
               role="button"
-              aria-label={`View photo: ${getLocalized(mockGallery[0].title)}`}
+              aria-label={
+                language === "ml"
+                  ? `ചിത്രം കാണുക: ${getLocalized(mockGallery[0].title)}`
+                  : `View photo: ${getLocalized(mockGallery[0].title)}`
+              }
               className="sm:col-span-2 lg:col-span-7 group relative aspect-[16/11] rounded-sm overflow-hidden bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -780,7 +800,11 @@ export default function HomeClient() {
                   }}
                   tabIndex={0}
                   role="button"
-                  aria-label={`View photo: ${getLocalized(item.title)}`}
+                  aria-label={
+                    language === "ml"
+                      ? `ചിത്രം കാണുക: ${getLocalized(item.title)}`
+                      : `View photo: ${getLocalized(item.title)}`
+                  }
                   className="group relative aspect-[16/10] rounded-sm overflow-hidden bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -843,7 +867,7 @@ export default function HomeClient() {
               {/* Verified Contact Details Box */}
               <div className="bg-white dark:bg-[#2C2D29] p-6 rounded-sm border border-warm-grey dark:border-[#41413B] space-y-5 text-xs text-charcoal dark:text-[#F4F1E9] shadow-xs">
                 <div className="flex items-start gap-3.5">
-                  <MapPin className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
                     <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">Office Address</span>
                     <span className="text-slate dark:text-[#C6C5BD] leading-relaxed block mt-0.5">
@@ -853,7 +877,7 @@ export default function HomeClient() {
                 </div>
 
                 <div className="flex items-start gap-3.5 pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60">
-                  <PhoneCall className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
+                  <PhoneCall className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
                     <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">Phone</span>
                     <span className="text-slate dark:text-[#C6C5BD] block mt-0.5">[Verified office number to be added] · Demo: +91 491 2500000</span>
@@ -861,7 +885,7 @@ export default function HomeClient() {
                 </div>
 
                 <div className="flex items-start gap-3.5 pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60">
-                  <Compass className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
+                  <Compass className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
                     <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">Email</span>
                     <span className="text-slate dark:text-[#C6C5BD] block mt-0.5">office.pisharady@demo.gov.in (Official email placeholder)</span>
@@ -869,7 +893,7 @@ export default function HomeClient() {
                 </div>
 
                 <div className="flex items-start gap-3.5 pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60">
-                  <Clock className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
+                  <Clock className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
                     <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">Office Hours</span>
                     <span className="text-slate dark:text-[#C6C5BD] block mt-0.5">Mon – Fri: 09:30 AM – 05:00 PM [To be confirmed]</span>

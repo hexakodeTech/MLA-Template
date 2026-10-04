@@ -76,7 +76,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({
         <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between space-y-4">
           <div>
             <div className="flex items-center gap-2 text-xs text-slate dark:text-[#A09F97] font-mono mb-2">
-              <Calendar className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
+              <Calendar className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
               <time dateTime={item.date}>{item.date}</time>
               {item.sourceAttribution && (
                 <>
@@ -107,7 +107,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({
               className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
             >
               <span>{t("readMore")}</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-copper dark:text-[#D29A78]" />
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-copper dark:text-[#D29A78]" aria-hidden="true" />
             </Link>
 
             {item.isSample && (
@@ -143,7 +143,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({
 
         <div className="p-5 sm:p-6 space-y-2.5">
           <div className="flex items-center gap-2 text-xs text-slate dark:text-[#A09F97] font-mono">
-            <Calendar className="w-3 h-3 text-copper dark:text-[#D29A78]" />
+            <Calendar className="w-3 h-3 text-copper dark:text-[#D29A78]" aria-hidden="true" />
             <time dateTime={item.date}>{item.date}</time>
           </div>
 
@@ -169,7 +169,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({
           className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
         >
           <span>{t("readMore")}</span>
-          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-copper dark:text-[#D29A78]" />
+          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-copper dark:text-[#D29A78]" aria-hidden="true" />
         </Link>
         <span className="text-[10px] text-slate dark:text-[#A09F97] font-mono">Official Notice</span>
       </div>

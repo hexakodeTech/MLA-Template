@@ -31,7 +31,7 @@ export default function PrivacyPolicyPage() {
 
       {/* Draft Disclaimer Notice */}
       <div className="p-4 rounded-sm bg-stone/60 dark:bg-[#222320] border border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9] text-xs sm:text-sm flex items-start gap-3">
-        <Info className="w-5 h-5 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
+        <Info className="w-5 h-5 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
         <div>
           <h4 className="font-semibold text-charcoal dark:text-[#F4F1E9]">Draft Policy Notice</h4>
           <p className="mt-1 text-xs text-slate dark:text-[#C6C5BD] leading-relaxed">

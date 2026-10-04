@@ -48,12 +48,12 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
           {/* Metadata Row: Date & Location */}
           <div className="flex flex-wrap items-center gap-2 text-xs text-slate dark:text-[#A09F97] font-mono mb-2.5">
             <span className="flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5 text-copper dark:text-[#D29A78] shrink-0" />
+              <Calendar className="w-3.5 h-3.5 text-copper dark:text-[#D29A78] shrink-0" aria-hidden="true" />
               <time dateTime={activity.date}>{activity.date}</time>
             </span>
             <span>•</span>
             <span className="flex items-center gap-1.5 text-muted-blue dark:text-[#91A7B8] truncate max-w-[170px]">
-              <MapPin className="w-3.5 h-3.5 text-muted-blue dark:text-[#91A7B8] shrink-0" />
+              <MapPin className="w-3.5 h-3.5 text-muted-blue dark:text-[#91A7B8] shrink-0" aria-hidden="true" />
               <span className="truncate">{getLocalized(activity.location)}</span>
             </span>
           </div>
@@ -84,7 +84,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
             className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
           >
             <span>{t("readMore")}</span>
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-copper dark:text-[#D29A78]" />
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-copper dark:text-[#D29A78]" aria-hidden="true" />
           </Link>
           <span className="text-[10px] text-slate dark:text-[#A09F97] font-mono">
             {language === "ml" ? "രേഖകൾ" : "Diary Log"}

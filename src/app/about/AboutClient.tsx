@@ -129,7 +129,7 @@ export default function AboutPage() {
             </h2>
             <div className="p-5 rounded-sm bg-copper/10 border border-copper/30 dark:border-[#D29A78]/30 text-charcoal dark:text-[#F4F1E9] text-sm leading-relaxed space-y-2">
               <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-copper dark:text-[#D29A78]">
-                <Info className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0" />
+                <Info className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0" aria-hidden="true" />
                 <span>
                   {language === "ml"
                     ? "ഓഫീസ് ജീവചരിത്ര രേഖ"
@@ -159,7 +159,7 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div className="p-5 rounded-sm bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] space-y-2 shadow-xs">
                 <div className="w-8 h-8 rounded-xs bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] flex items-center justify-center font-bold">
-                  <UserCheck className="w-4 h-4" />
+                  <UserCheck className="w-4 h-4" aria-hidden="true" />
                 </div>
                 <h4 className="font-display text-lg text-charcoal dark:text-[#F4F1E9]">
                   {language === "ml" ? "ജനസമ്പർക്കവും പരാതി പരിഹാരവും" : "Constituency Grievance Redressal"}
@@ -173,7 +173,7 @@ export default function AboutPage() {
 
               <div className="p-5 rounded-sm bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] space-y-2 shadow-xs">
                 <div className="w-8 h-8 rounded-xs bg-stone text-charcoal dark:bg-[#222320] dark:text-[#F4F1E9] border border-warm-grey dark:border-[#41413B] flex items-center justify-center font-bold">
-                  <Building2 className="w-4 h-4" />
+                  <Building2 className="w-4 h-4" aria-hidden="true" />
                 </div>
                 <h4 className="font-display text-lg text-charcoal dark:text-[#F4F1E9]">
                   {language === "ml" ? "വികസന പദ്ധതി മേൽനോട്ടം" : "Infrastructure Review & Liaison"}
@@ -187,7 +187,7 @@ export default function AboutPage() {
 
               <div className="p-5 rounded-sm bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] space-y-2 shadow-xs">
                 <div className="w-8 h-8 rounded-xs bg-copper text-white dark:bg-[#D29A78] dark:text-[#191A18] flex items-center justify-center font-bold">
-                  <ShieldCheck className="w-4 h-4" />
+                  <ShieldCheck className="w-4 h-4" aria-hidden="true" />
                 </div>
                 <h4 className="font-display text-lg text-charcoal dark:text-[#F4F1E9]">
                   {language === "ml" ? "കാർഷിക-ഗ്രാമീണ ക്ഷേമം" : "Agrarian Support Services"}
@@ -201,7 +201,7 @@ export default function AboutPage() {
 
               <div className="p-5 rounded-sm bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] space-y-2 shadow-xs">
                 <div className="w-8 h-8 rounded-xs bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] flex items-center justify-center font-bold">
-                  <Landmark className="w-4 h-4" />
+                  <Landmark className="w-4 h-4" aria-hidden="true" />
                 </div>
                 <h4 className="font-display text-lg text-charcoal dark:text-[#F4F1E9]">
                   {language === "ml" ? "സാംസ്കാരിക പൈതൃക സംരക്ഷണം" : "Heritage & Youth Engagement"}
@@ -222,7 +222,7 @@ export default function AboutPage() {
             </h2>
             <div className="bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-6 space-y-4 text-xs sm:text-sm shadow-xs">
               <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <span className="font-bold text-charcoal dark:text-[#F4F1E9] block uppercase tracking-wider text-xs">
                     {language === "ml" ? "വിലാസം:" : "Constituency Secretariat:"}
@@ -234,7 +234,7 @@ export default function AboutPage() {
               </div>
 
               <div className="flex items-start gap-3 pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60">
-                <Clock className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
+                <Clock className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <span className="font-bold text-charcoal dark:text-[#F4F1E9] block uppercase tracking-wider text-xs">
                     {language === "ml" ? "സന്ദർശന സമയം:" : "Office & Visiting Hours:"}
@@ -246,7 +246,7 @@ export default function AboutPage() {
               </div>
 
               <div className="flex items-start gap-3 pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60">
-                <Mail className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
+                <Mail className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <span className="font-bold text-charcoal dark:text-[#F4F1E9] block uppercase tracking-wider text-xs">
                     {language === "ml" ? "ഇമെയിൽ:" : "Electronic Correspondence:"}
@@ -263,7 +263,7 @@ export default function AboutPage() {
                 href="/contact"
                 variant="primary"
                 size="md"
-                icon={<ArrowRight className="w-4 h-4 text-white dark:text-[#191A18]" />}
+                icon={<ArrowRight className="w-4 h-4 text-white dark:text-[#191A18]" aria-hidden="true" />}
               >
                 {language === "ml" ? "ഓഫീസുമായി ബന്ധപ്പെടുക" : "Contact the Secretariat"}
               </Button>

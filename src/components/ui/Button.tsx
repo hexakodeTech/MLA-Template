@@ -67,6 +67,7 @@ export const Button: React.FC<ButtonProps> = ({
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
+          aria-hidden="true"
         >
           <circle
             className="opacity-25"
@@ -83,9 +84,9 @@ export const Button: React.FC<ButtonProps> = ({
           />
         </svg>
       )}
-      {icon && iconPosition === "left" && <span className="shrink-0">{icon}</span>}
+      {icon && iconPosition === "left" && <span className="shrink-0" aria-hidden="true">{icon}</span>}
       <span>{children}</span>
-      {icon && iconPosition === "right" && <span className="shrink-0">{icon}</span>}
+      {icon && iconPosition === "right" && <span className="shrink-0" aria-hidden="true">{icon}</span>}
     </>
   );
 
@@ -108,6 +109,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
+      type={props.type || "button"}
       className={combinedClasses}
       disabled={disabled || isLoading}
       {...props}

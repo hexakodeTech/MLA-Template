@@ -316,7 +316,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
             : "bg-white/70 dark:bg-[#2C2D29]/70 text-charcoal dark:text-[#F4F1E9] border-warm-grey dark:border-[#41413B] hover:border-charcoal/40 dark:hover:border-[#C6C5BD]/40 hover:bg-stone/50 dark:hover:bg-[#2C2D29]"
         )}
       >
-        <Accessibility className="w-4 h-4" />
+        <Accessibility className="w-4 h-4" aria-hidden="true" />
         {/* Visual indicator badge when settings are customized */}
         {isCustomized && (
           <span
@@ -361,7 +361,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
           <div className="sticky top-0 z-10 bg-ivory/95 dark:bg-[#222320]/95 backdrop-blur-md px-3.5 sm:px-4 py-3 sm:py-3.5 border-b border-warm-grey dark:border-[#41413B] flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <div className="p-1.5 rounded-xs bg-copper/10 dark:bg-[#D29A78]/15 text-copper dark:text-[#D29A78]">
-                <Accessibility className="w-4 h-4" />
+                <Accessibility className="w-4 h-4" aria-hidden="true" />
               </div>
               <div>
                 <h2 className="text-sm font-bold tracking-tight text-charcoal dark:text-[#F4F1E9]">
@@ -388,14 +388,14 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
               }
               className="p-2 rounded-xs text-slate dark:text-[#C6C5BD] hover:text-charcoal dark:hover:text-[#F4F1E9] hover:bg-stone/60 dark:hover:bg-[#2C2D29] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] min-h-[36px] min-w-[36px] flex items-center justify-center"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4" aria-hidden="true" />
             </button>
           </div>
 
           {/* Status Banner when updated */}
           {statusMessage && (
             <div className="mx-4 mt-3 px-3 py-2 rounded-xs bg-stone/70 dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] text-[11px] font-medium text-charcoal dark:text-[#F4F1E9] flex items-center gap-2">
-              <Check className="w-3.5 h-3.5 text-copper dark:text-[#D29A78] shrink-0" />
+              <Check className="w-3.5 h-3.5 text-copper dark:text-[#D29A78] shrink-0" aria-hidden="true" />
               <span>{statusMessage}</span>
             </div>
           )}
@@ -408,7 +408,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-[11px] text-slate dark:text-[#C6C5BD]">
-                  <Type className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
+                  <Type className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
                   <span id="a11y-text-heading">
                     {language === "ml" ? "അക്ഷര വലിപ്പം" : "Text Size"}
                   </span>
@@ -421,6 +421,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                     <button
                       onClick={resetTextSize}
                       type="button"
+                      aria-label={language === "ml" ? "അക്ഷര വലിപ്പം റീസെറ്റ് ചെയ്യുക" : "Reset text size"}
                       className="text-[10px] text-copper dark:text-[#D29A78] hover:underline"
                     >
                       {language === "ml" ? "റീസെറ്റ്" : "Reset"}
@@ -477,7 +478,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-[11px] text-slate dark:text-[#C6C5BD]">
-                  <SunMoon className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
+                  <SunMoon className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
                   <span id="a11y-display-heading">
                     {language === "ml" ? "ഡിസ്‌പ്ലേ ക്രമീകരണം" : "Display"}
                   </span>
@@ -489,6 +490,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                   <button
                     onClick={() => resetCategory("display")}
                     type="button"
+                    aria-label={language === "ml" ? "ഡിസ്‌പ്ലേ ക്രമീകരണങ്ങൾ റീസെറ്റ് ചെയ്യുക" : "Reset display settings"}
                     className="text-[10px] text-copper dark:text-[#D29A78] hover:underline"
                   >
                     {language === "ml" ? "റീസെറ്റ്" : "Reset"}
@@ -642,7 +644,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-[11px] text-slate dark:text-[#C6C5BD]">
-                  <BookOpen className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
+                  <BookOpen className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
                   <span id="a11y-reading-heading">
                     {language === "ml" ? "വായനാ ക്രമീകരണം" : "Reading Aids"}
                   </span>
@@ -653,6 +655,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                   <button
                     onClick={() => resetCategory("reading")}
                     type="button"
+                    aria-label={language === "ml" ? "വായനാ ക്രമീകരണങ്ങൾ റീസെറ്റ് ചെയ്യുക" : "Reset reading aids"}
                     className="text-[10px] text-copper dark:text-[#D29A78] hover:underline"
                   >
                     {language === "ml" ? "റീസെറ്റ്" : "Reset"}
@@ -758,7 +761,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-[11px] text-slate dark:text-[#C6C5BD]">
-                  <Activity className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
+                  <Activity className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
                   <span id="a11y-motion-heading">
                     {language === "ml" ? "ആനിമേഷൻ നിയന്ത്രണം" : "Motion"}
                   </span>
@@ -767,6 +770,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                   <button
                     onClick={() => resetCategory("motion")}
                     type="button"
+                    aria-label={language === "ml" ? "ആനിമേഷൻ ക്രമീകരണങ്ങൾ റീസെറ്റ് ചെയ്യുക" : "Reset motion settings"}
                     className="text-[10px] text-copper dark:text-[#D29A78] hover:underline"
                   >
                     {language === "ml" ? "റീസെറ്റ്" : "Reset"}
@@ -816,7 +820,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-[11px] text-slate dark:text-[#C6C5BD]">
-                  <Compass className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
+                  <Compass className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
                   <span id="a11y-navigation-heading">
                     {language === "ml" ? "കീബോർഡ് നാവിഗേഷൻ" : "Keyboard Navigation"}
                   </span>
@@ -825,6 +829,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                   <button
                     onClick={() => resetCategory("navigation")}
                     type="button"
+                    aria-label={language === "ml" ? "നാവിഗേഷൻ ക്രമീകരണങ്ങൾ റീസെറ്റ് ചെയ്യുക" : "Reset navigation settings"}
                     className="text-[10px] text-copper dark:text-[#D29A78] hover:underline"
                   >
                     {language === "ml" ? "റീസെറ്റ്" : "Reset"}
@@ -875,12 +880,13 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                   className="w-full px-3 py-2 text-[11px] font-semibold text-slate dark:text-[#C6C5BD] hover:text-charcoal dark:hover:text-[#F4F1E9] flex items-center justify-between text-left transition-colors"
                 >
                   <span className="flex items-center gap-1.5">
-                    <Info className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
+                    <Info className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
                     {language === "ml"
                       ? "കീബോർഡ് കുറുക്കുവഴികൾ കാണുക"
                       : "View Keyboard Shortcuts"}
                   </span>
                   <ChevronDown
+                    aria-hidden="true"
                     className={clsx(
                       "w-3.5 h-3.5 transition-transform",
                       showKeyboardGuide && "rotate-180"
@@ -933,7 +939,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
               type="button"
               className="w-full py-2.5 px-3 rounded-xs border border-warm-grey dark:border-[#41413B] bg-white dark:bg-[#2C2D29] hover:bg-stone/80 dark:hover:bg-[#353631] text-charcoal dark:text-[#F4F1E9] font-bold text-xs flex items-center justify-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
             >
-              <RotateCcw className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
+              <RotateCcw className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
               <span>
                 {language === "ml"
                   ? "എല്ലാ ക്രമീകരണങ്ങളും റീസെറ്റ് ചെയ്യുക"
@@ -952,7 +958,7 @@ export const AccessibilityMenu: React.FC<AccessibilityMenuProps> = ({
                     ? "പ്രവേശനക്ഷമതാ പ്രസ്താവന"
                     : "Accessibility Statement"}
                 </span>
-                <ExternalLink className="w-3 h-3" />
+                <ExternalLink className="w-3 h-3" aria-hidden="true" />
               </Link>
 
               <span className="text-slate/70 dark:text-[#A09F97]">

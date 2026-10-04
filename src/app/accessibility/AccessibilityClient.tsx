@@ -67,7 +67,7 @@ export default function AccessibilityPage() {
         <section className="space-y-4">
           <div className="flex items-center gap-2">
             <div className="p-1 rounded-xs bg-copper/10 dark:bg-[#D29A78]/15 text-copper dark:text-[#D29A78]">
-              <Accessibility className="w-5 h-5" />
+              <Accessibility className="w-5 h-5" aria-hidden="true" />
             </div>
             <h2 className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
               How to Use the Accessibility Menu
@@ -100,7 +100,7 @@ export default function AccessibilityPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="p-4 rounded-xs bg-stone/60 dark:bg-[#222320] border border-warm-grey dark:border-[#41413B] space-y-1.5">
               <div className="flex items-center gap-2 font-semibold text-charcoal dark:text-[#F4F1E9]">
-                <Sliders className="w-4 h-4 text-copper dark:text-[#D29A78]" />
+                <Sliders className="w-4 h-4 text-copper dark:text-[#D29A78]" aria-hidden="true" />
                 <span>Text Size Scaling (80% to 150%)</span>
               </div>
               <p className="text-xs text-slate dark:text-[#C6C5BD]">
@@ -110,7 +110,7 @@ export default function AccessibilityPage() {
 
             <div className="p-4 rounded-xs bg-stone/60 dark:bg-[#222320] border border-warm-grey dark:border-[#41413B] space-y-1.5">
               <div className="flex items-center gap-2 font-semibold text-charcoal dark:text-[#F4F1E9]">
-                <SunMoon className="w-4 h-4 text-copper dark:text-[#D29A78]" />
+                <SunMoon className="w-4 h-4 text-copper dark:text-[#D29A78]" aria-hidden="true" />
                 <span>High Contrast &amp; Grayscale</span>
               </div>
               <p className="text-xs text-slate dark:text-[#C6C5BD]">
@@ -120,7 +120,7 @@ export default function AccessibilityPage() {
 
             <div className="p-4 rounded-xs bg-stone/60 dark:bg-[#222320] border border-warm-grey dark:border-[#41413B] space-y-1.5">
               <div className="flex items-center gap-2 font-semibold text-charcoal dark:text-[#F4F1E9]">
-                <BookOpen className="w-4 h-4 text-copper dark:text-[#D29A78]" />
+                <BookOpen className="w-4 h-4 text-copper dark:text-[#D29A78]" aria-hidden="true" />
                 <span>Reading Aids (Spacing &amp; Underlines)</span>
               </div>
               <p className="text-xs text-slate dark:text-[#C6C5BD]">
@@ -130,7 +130,7 @@ export default function AccessibilityPage() {
 
             <div className="p-4 rounded-xs bg-stone/60 dark:bg-[#222320] border border-warm-grey dark:border-[#41413B] space-y-1.5">
               <div className="flex items-center gap-2 font-semibold text-charcoal dark:text-[#F4F1E9]">
-                <Activity className="w-4 h-4 text-copper dark:text-[#D29A78]" />
+                <Activity className="w-4 h-4 text-copper dark:text-[#D29A78]" aria-hidden="true" />
                 <span>Reduce Motion &amp; Transparency</span>
               </div>
               <p className="text-xs text-slate dark:text-[#C6C5BD]">
@@ -140,7 +140,7 @@ export default function AccessibilityPage() {
 
             <div className="p-4 rounded-xs bg-stone/60 dark:bg-[#222320] border border-warm-grey dark:border-[#41413B] space-y-1.5">
               <div className="flex items-center gap-2 font-semibold text-charcoal dark:text-[#F4F1E9]">
-                <Compass className="w-4 h-4 text-copper dark:text-[#D29A78]" />
+                <Compass className="w-4 h-4 text-copper dark:text-[#D29A78]" aria-hidden="true" />
                 <span>Highlight Keyboard Focus</span>
               </div>
               <p className="text-xs text-slate dark:text-[#C6C5BD]">
@@ -150,7 +150,7 @@ export default function AccessibilityPage() {
 
             <div className="p-4 rounded-xs bg-stone/60 dark:bg-[#222320] border border-warm-grey dark:border-[#41413B] space-y-1.5">
               <div className="flex items-center gap-2 font-semibold text-charcoal dark:text-[#F4F1E9]">
-                <Sparkles className="w-4 h-4 text-copper dark:text-[#D29A78]" />
+                <Sparkles className="w-4 h-4 text-copper dark:text-[#D29A78]" aria-hidden="true" />
                 <span>Bilingual Unicode Typography</span>
               </div>
               <p className="text-xs text-slate dark:text-[#C6C5BD]">
@@ -163,7 +163,7 @@ export default function AccessibilityPage() {
         {/* Keyboard Navigation Guidance */}
         <section className="space-y-3">
           <div className="flex items-center gap-2">
-            <Keyboard className="w-5 h-5 text-copper dark:text-[#D29A78]" />
+            <Keyboard className="w-5 h-5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
             <h2 className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
               Keyboard Navigation Guidance
             </h2>

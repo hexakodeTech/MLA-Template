@@ -41,7 +41,7 @@ export const Footer: React.FC = () => {
                 href="/contact"
                 variant="outline-light"
                 size="md"
-                icon={<ArrowUpRight className="w-4 h-4" />}
+                icon={<ArrowUpRight className="w-4 h-4" aria-hidden="true" />}
               >
                 {language === "ml" ? "ഓഫീസുമായി ബന്ധപ്പെടുക" : "Contact the Secretariat"}
               </Button>
@@ -64,7 +64,7 @@ export const Footer: React.FC = () => {
                 : "Engineered to deliver high editorial clarity, accessibility, and public accountability for citizens across Palakkad, Chittur, Alathur, Ottapalam, Mannarkkad, and Pattambi."}
             </p>
             <div className="p-3 bg-[#2C2D29] rounded-xs border border-[#41413B] text-[11px] text-[#C6C5BD] leading-normal flex items-start gap-2">
-              <ShieldAlert className="w-3.5 h-3.5 text-[#D29A78] shrink-0 mt-0.5" />
+              <ShieldAlert className="w-3.5 h-3.5 text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
               <span>
                 <strong>Client Presentation Concept:</strong> Commissioned by HexaKode. Bio and contact particulars await final secretarial clearance.
               </span>
@@ -122,7 +122,7 @@ export const Footer: React.FC = () => {
             </h4>
             <div className="space-y-3 text-xs text-[#F4F1E9]">
               <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-[#D29A78] shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <span className="font-semibold block text-[#F4F1E9]">Constituency Secretariat</span>
                   <span className="text-[#C6C5BD] leading-relaxed block">
@@ -132,7 +132,7 @@ export const Footer: React.FC = () => {
               </div>
 
               <div className="flex items-start gap-2.5">
-                <Phone className="w-4 h-4 text-[#D29A78] shrink-0 mt-0.5" />
+                <Phone className="w-4 h-4 text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <span className="font-semibold block text-[#F4F1E9]">Telephone Desk</span>
                   <span className="text-[#C6C5BD] block">[Official phone to be published] · Demo: +91 491 2500000</span>
@@ -140,7 +140,7 @@ export const Footer: React.FC = () => {
               </div>
 
               <div className="flex items-start gap-2.5">
-                <Mail className="w-4 h-4 text-[#D29A78] shrink-0 mt-0.5" />
+                <Mail className="w-4 h-4 text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <span className="font-semibold block text-[#F4F1E9]">Electronic Mail</span>
                   <span className="text-[#C6C5BD] block">office.pisharady@demo.gov.in (Placeholder)</span>
@@ -148,7 +148,7 @@ export const Footer: React.FC = () => {
               </div>
 
               <div className="flex items-start gap-2.5">
-                <Clock className="w-4 h-4 text-[#D29A78] shrink-0 mt-0.5" />
+                <Clock className="w-4 h-4 text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <span className="font-semibold block text-[#F4F1E9]">Visiting Hours</span>
                   <span className="text-[#C6C5BD] block">Mon – Fri: 09:30 AM – 05:00 PM (Public Hearings: 10:00 AM – 01:00 PM)</span>

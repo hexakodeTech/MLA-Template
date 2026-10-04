@@ -82,15 +82,23 @@ export const ResourceDirectory: React.FC<ResourceDirectoryProps> = ({
 
             <div className="mt-5 pt-4 border-t space-y-2 text-xs border-warm-grey dark:border-[#41413B]">
               <div className="flex items-center gap-2 font-mono font-bold p-2.5 rounded-xs bg-stone/50 dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] border border-warm-grey dark:border-[#41413B]">
-                <Phone className="w-3.5 h-3.5 text-copper dark:text-[#D29A78] shrink-0" />
-                <a href={`tel:${item.phone.split("/")[0].trim()}`} className="hover:underline rounded-xs px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]">
+                <Phone className="w-3.5 h-3.5 text-copper dark:text-[#D29A78] shrink-0" aria-hidden="true" />
+                <a
+                  href={`tel:${item.phone.split("/")[0].trim()}`}
+                  aria-label={
+                    language === "ml"
+                      ? `${getLocalized(item.serviceName)}: ${item.phone} എന്ന നമ്പറിലേക്ക് വിളിക്കുക`
+                      : `Call ${getLocalized(item.serviceName)}: ${item.phone}`
+                  }
+                  className="hover:underline rounded-xs px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
+                >
                   {item.phone}
                 </a>
               </div>
 
               {item.address && (
                 <div className="flex items-start gap-2 text-[11px] text-slate dark:text-[#A09F97]">
-                  <MapPin className="w-3 h-3 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
+                  <MapPin className="w-3 h-3 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                   <span>{getLocalized(item.address)}</span>
                 </div>
               )}
@@ -101,10 +109,15 @@ export const ResourceDirectory: React.FC<ResourceDirectoryProps> = ({
                     href={item.portalUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={
+                      language === "ml"
+                        ? `${getLocalized(item.serviceName)} ഔദ്യോഗിക പോർട്ടൽ (പുതിയ ടാബിൽ തുറക്കുന്നു)`
+                        : `${getLocalized(item.serviceName)} Official Portal (opens in a new tab)`
+                    }
                     className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-blue dark:text-[#91A7B8] hover:underline rounded-xs px-1 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
                   >
                     <span>{language === "ml" ? "ഔദ്യോഗിക പോർട്ടൽ" : "Official Portal"}</span>
-                    <ExternalLink className="w-3 h-3" />
+                    <ExternalLink className="w-3 h-3" aria-hidden="true" />
                   </a>
                 </div>
               )}

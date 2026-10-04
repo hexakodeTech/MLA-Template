@@ -25,7 +25,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
             href="/"
             className="flex items-center gap-1 hover:text-copper dark:hover:text-[#D29A78] transition-colors rounded-xs px-1 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
           >
-            <Home className="w-3.5 h-3.5" />
+            <Home className="w-3.5 h-3.5" aria-hidden="true" />
             <span>{t("navHome")}</span>
           </Link>
         </li>
@@ -33,7 +33,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
           const isLast = index === items.length - 1;
           return (
             <React.Fragment key={index}>
-              <ChevronRight className="w-3 h-3 text-charcoal/30 dark:text-[#41413B] shrink-0" />
+              <ChevronRight className="w-3 h-3 text-charcoal/30 dark:text-[#41413B] shrink-0" aria-hidden="true" />
               <li>
                 {item.href && !isLast ? (
                   <Link

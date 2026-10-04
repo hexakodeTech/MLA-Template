@@ -150,7 +150,7 @@ export default function NewsPage() {
         </div>
       ) : (
         <div className="text-center py-20 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-8 shadow-xs">
-          <Bell className="w-8 h-8 text-copper dark:text-[#D29A78] mx-auto mb-3" />
+          <Bell className="w-8 h-8 text-copper dark:text-[#D29A78] mx-auto mb-3" aria-hidden="true" />
           <h3 className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
             {language === "ml" ? "അറിയിപ്പുകൾ ലഭ്യമല്ല" : "No Announcements Found"}
           </h3>
@@ -160,6 +160,7 @@ export default function NewsPage() {
               : "Try adjusting your search criteria or selecting a different category."}
           </p>
           <button
+            type="button"
             onClick={() => {
               setSearchQuery("");
               setSelectedCategory("All");

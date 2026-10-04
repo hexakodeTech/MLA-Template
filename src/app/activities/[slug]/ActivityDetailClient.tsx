@@ -71,7 +71,7 @@ export default function ActivityDetailPage() {
           href="/activities"
           className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors rounded-xs px-1.5 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
         >
-          <ArrowLeft className="w-4 h-4 text-copper dark:text-[#D29A78]" />
+          <ArrowLeft className="w-4 h-4 text-copper dark:text-[#D29A78]" aria-hidden="true" />
           <span>{language === "ml" ? "എല്ലാ പ്രവർത്തനങ്ങളിലേക്കും" : "Back to All Activities"}</span>
         </Link>
       </div>
@@ -93,11 +93,11 @@ export default function ActivityDetailPage() {
 
         <div className="flex flex-wrap items-center gap-4 text-xs text-slate dark:text-[#A09F97] font-mono">
           <span className="flex items-center gap-1.5">
-            <Calendar className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" />
+            <Calendar className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
             <time dateTime={activity.date}>{activity.date}</time>
           </span>
           <span className="flex items-center gap-1.5 text-muted-blue dark:text-[#91A7B8] font-semibold">
-            <MapPin className="w-3.5 h-3.5" />
+            <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
             <span>{getLocalized(activity.location)}</span>
           </span>
         </div>
@@ -134,7 +134,7 @@ export default function ActivityDetailPage() {
           </div>
 
           <div className="p-4 rounded-sm bg-copper/10 border border-copper/30 dark:border-[#D29A78]/30 text-xs text-charcoal dark:text-[#F4F1E9] flex items-start gap-2.5">
-            <Info className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
+            <Info className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
             <p className="leading-relaxed">
               <strong>Office Verification Note:</strong> Official activity updates will be cleared and published by the representative&apos;s secretariat. No unauthorized claims are implied.
             </p>
@@ -193,14 +193,14 @@ export default function ActivityDetailPage() {
                 className="group flex items-center justify-between text-xs text-slate dark:text-[#C6C5BD] hover:text-copper dark:hover:text-[#D29A78] transition-colors py-1 rounded-xs px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
               >
                 <span>{language === "ml" ? "പാലക്കാട് മണ്ഡലം വിവരങ്ങൾ" : "Palakkad Constituency Profile"}</span>
-                <span className="text-copper dark:text-[#D29A78] font-bold">→</span>
+                <span className="text-copper dark:text-[#D29A78] font-bold" aria-hidden="true">→</span>
               </Link>
               <Link
                 href="/news"
                 className="group flex items-center justify-between text-xs text-slate dark:text-[#C6C5BD] hover:text-copper dark:hover:text-[#D29A78] transition-colors py-1 border-t border-warm-grey/40 dark:border-[#41413B]/40 rounded-xs px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
               >
                 <span>{language === "ml" ? "ഔദ്യോഗിക അറിയിപ്പുകളും വാർത്തകളും" : "Official News & Releases"}</span>
-                <span className="text-copper dark:text-[#D29A78] font-bold">→</span>
+                <span className="text-copper dark:text-[#D29A78] font-bold" aria-hidden="true">→</span>
               </Link>
             </div>
           </div>

@@ -69,7 +69,7 @@ export default function ConstituencyPage() {
             </p>
 
             <div className="p-4 rounded-sm bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] text-xs text-charcoal dark:text-[#F4F1E9] flex items-start gap-3 shadow-xs">
-              <Info className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" />
+              <Info className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
               <p className="text-slate dark:text-[#C6C5BD]">
                 <strong className="text-charcoal dark:text-[#F4F1E9]">Data Accuracy Note:</strong> All demographic, geographic, and administrative references adhere to verified public domain records. Official demographic census sheets will be formally attached upon office confirmation.
               </p>
@@ -218,7 +218,7 @@ export default function ConstituencyPage() {
             <div>
               <div className="flex items-center justify-between text-xs text-copper dark:text-[#D29A78] font-bold uppercase tracking-wider mb-2">
                 <span>{language === "ml" ? "പ്രവർത്തനങ്ങൾ" : "Activities"}</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </div>
               <h3 className="font-display text-lg text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors">
                 {language === "ml" ? "പൊതു പ്രവർത്തനങ്ങൾ" : "Public Engagements"}
@@ -236,7 +236,7 @@ export default function ConstituencyPage() {
             <div>
               <div className="flex items-center justify-between text-xs text-copper dark:text-[#D29A78] font-bold uppercase tracking-wider mb-2">
                 <span>{language === "ml" ? "അറിയിപ്പുകൾ" : "Announcements"}</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </div>
               <h3 className="font-display text-lg text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors">
                 {language === "ml" ? "വാർത്തകളും അറിയിപ്പുകളും" : "News & Advisories"}
@@ -254,7 +254,7 @@ export default function ConstituencyPage() {
             <div>
               <div className="flex items-center justify-between text-xs text-copper dark:text-[#D29A78] font-bold uppercase tracking-wider mb-2">
                 <span>{language === "ml" ? "ചിത്രശാല" : "Photo Gallery"}</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </div>
               <h3 className="font-display text-lg text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors">
                 {language === "ml" ? "പാലക്കാടിന്റെ ചിത്രശാല" : "Visual Highlights"}
@@ -272,7 +272,7 @@ export default function ConstituencyPage() {
             <div>
               <div className="flex items-center justify-between text-xs text-copper dark:text-[#D29A78] font-bold uppercase tracking-wider mb-2">
                 <span>{language === "ml" ? "സമ്പർക്കം" : "Secretariat"}</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </div>
               <h3 className="font-display text-lg text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors">
                 {language === "ml" ? "ഓഫീസുമായി ബന്ധപ്പെടുക" : "Contact the Office"}

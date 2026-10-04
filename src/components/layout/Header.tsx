@@ -174,7 +174,7 @@ export const Header: React.FC = () => {
               title="Switch language between English and Malayalam"
               aria-label={`Switch to ${language === "en" ? "Malayalam" : "English"}`}
             >
-              <Globe className="w-3.5 h-3.5 text-slate dark:text-[#C6C5BD]" />
+              <Globe className="w-3.5 h-3.5 text-slate dark:text-[#C6C5BD]" aria-hidden="true" />
               <span className={language === "en" ? "font-bold text-charcoal dark:text-[#F4F1E9]" : "text-slate dark:text-[#A09F97]"}>
                 EN
               </span>
@@ -189,7 +189,7 @@ export const Header: React.FC = () => {
               href="/contact"
               variant="primary"
               size="sm"
-              icon={<ArrowRight className="w-3.5 h-3.5 text-white dark:text-[#191A18] group-hover:translate-x-0.5 transition-transform" />}
+              icon={<ArrowRight className="w-3.5 h-3.5 text-white dark:text-[#191A18] group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />}
               iconPosition="right"
               className="hidden md:inline-flex shadow-xs"
             >
@@ -209,7 +209,7 @@ export const Header: React.FC = () => {
               title="Switch language between English and Malayalam"
               aria-label={`Switch to ${language === "en" ? "Malayalam" : "English"}`}
             >
-              <Globe className="w-3.5 h-3.5 text-slate dark:text-[#C6C5BD] shrink-0" />
+              <Globe className="w-3.5 h-3.5 text-slate dark:text-[#C6C5BD] shrink-0" aria-hidden="true" />
               <span className="hidden min-[420px]:inline">{language === "en" ? "മലയാളം" : "EN"}</span>
               <span className="min-[420px]:hidden">{language === "en" ? "മല" : "EN"}</span>
             </button>
@@ -224,15 +224,19 @@ export const Header: React.FC = () => {
                 }
               }}
               type="button"
-              aria-label={mobileMenuOpen ? "Close menu" : "Open navigation menu"}
+              aria-label={
+                mobileMenuOpen
+                  ? (language === "ml" ? "മെനു അടയ്ക്കുക" : "Close menu")
+                  : (language === "ml" ? "നാവിഗേഷൻ മെനു തുറക്കുക" : "Open navigation menu")
+              }
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-navigation"
               className="p-2 sm:p-2.5 rounded-sm border border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9] hover:bg-stone/50 dark:hover:bg-[#2C2D29] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78] min-h-[40px] min-w-[40px] sm:min-h-[44px] sm:min-w-[44px] flex items-center justify-center shrink-0"
             >
               {mobileMenuOpen ? (
-                <X className="w-4 h-4 sm:w-5 sm:h-5" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
               ) : (
-                <Menu className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Menu className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -298,7 +302,7 @@ export const Header: React.FC = () => {
               size="md"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full justify-center"
-              icon={<ArrowRight className="w-4 h-4 text-white dark:text-[#191A18]" />}
+              icon={<ArrowRight className="w-4 h-4 text-white dark:text-[#191A18]" aria-hidden="true" />}
               iconPosition="right"
             >
               {language === "ml" ? "ഓഫീസുമായി ബന്ധപ്പെടുക" : "Contact the Office"}

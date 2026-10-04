@@ -133,16 +133,17 @@ export const Lightbox: React.FC<LightboxProps> = ({
 
           <div className="flex items-center gap-3">
             <span className="hidden sm:inline-flex items-center gap-1 text-[10px] text-[#D29A78] uppercase tracking-wider font-semibold bg-[#D29A78]/10 px-2 py-0.5 rounded-xs border border-[#D29A78]/30">
-              <Info className="w-3 h-3" />
+              <Info className="w-3 h-3" aria-hidden="true" />
               {language === "ml" ? "മാതൃകാ ചിത്രം" : "Sample Asset"}
             </span>
             <button
               ref={closeBtnRef}
+              type="button"
               onClick={handleClose}
               className="p-1.5 rounded-xs hover:bg-[#2C2D29] text-[#C6C5BD] hover:text-[#F4F1E9] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D29A78]"
-              aria-label="Close image viewer"
+              aria-label={language === "ml" ? "ചിത്രം അടയ്ക്കുക" : "Close image viewer"}
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5" aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -150,11 +151,12 @@ export const Lightbox: React.FC<LightboxProps> = ({
         {/* Main image area */}
         <div className="relative flex-1 bg-black/40 flex items-center justify-center min-h-[300px] sm:min-h-[460px] overflow-hidden">
           <button
+            type="button"
             onClick={handlePrev}
-            aria-label="Previous photograph"
+            aria-label={language === "ml" ? "മുൻപത്തെ ചിത്രം" : "Previous photograph"}
             className="absolute left-4 z-10 p-3 rounded-full bg-[#191A18]/80 hover:bg-[#2C2D29] text-[#F4F1E9] border border-[#41413B] transition-all hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D29A78]"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-5 h-5" aria-hidden="true" />
           </button>
 
           <div className="relative w-full h-full max-h-[60vh] flex items-center justify-center p-3">
@@ -167,11 +169,12 @@ export const Lightbox: React.FC<LightboxProps> = ({
           </div>
 
           <button
+            type="button"
             onClick={handleNext}
-            aria-label="Next photograph"
+            aria-label={language === "ml" ? "അടുത്ത ചിത്രം" : "Next photograph"}
             className="absolute right-4 z-10 p-3 rounded-full bg-[#191A18]/80 hover:bg-[#2C2D29] text-[#F4F1E9] border border-[#41413B] transition-all hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D29A78]"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-5 h-5" aria-hidden="true" />
           </button>
         </div>
 
@@ -191,12 +194,12 @@ export const Lightbox: React.FC<LightboxProps> = ({
           <div className="flex items-center gap-4 text-[#C6C5BD] shrink-0 text-[11px] font-mono">
             {currentItem.location && (
               <span className="flex items-center gap-1 text-[#F4F1E9]">
-                <MapPin className="w-3.5 h-3.5 text-[#D29A78]" />
+                <MapPin className="w-3.5 h-3.5 text-[#D29A78]" aria-hidden="true" />
                 {getLocalized(currentItem.location)}
               </span>
             )}
             <span className="flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5 text-[#D29A78]" />
+              <Calendar className="w-3.5 h-3.5 text-[#D29A78]" aria-hidden="true" />
               {currentItem.date}
             </span>
           </div>
