@@ -110,6 +110,36 @@ const translations: Record<string, { en: string; ml: string }> = {
   },
   privacyPolicy: { en: "Privacy Policy", ml: "സ്വകാര്യതാ നയം" },
   accessibilityStatement: { en: "Accessibility Statement", ml: "പ്രവേശനക്ഷമത പ്രസ്താവന" },
+
+  // 404 Not Found Page
+  notFoundTitle: {
+    en: "Page Not Found",
+    ml: "പേജ് കണ്ടെത്താനായില്ല",
+  },
+  notFoundNotice: {
+    en: "Official Notice",
+    ml: "ഔദ്യോഗിക അറിയിപ്പ്",
+  },
+  notFoundDescription: {
+    en: "The page you're looking for may have moved, been removed, or is no longer available. Please verify the web address or navigate using the verified links below.",
+    ml: "നിങ്ങൾ തിരയുന്ന വെബ് പേജ് മാറ്റപ്പെടുകയോ നീക്കം ചെയ്യപ്പെടുകയോ ചെയ്തിരിക്കാം, അല്ലെങ്കിൽ ഇപ്പോൾ ലഭ്യമല്ല. ദയവായി വെബ് വിലാസം പരിശോധിക്കുക അല്ലെങ്കിൽ താഴെ നൽകിയിരിക്കുന്ന ലിങ്കുകൾ ഉപയോഗിക്കുക.",
+  },
+  notFoundReturnHome: {
+    en: "Return to Home",
+    ml: "ഹോം പേജിലേക്ക് മടങ്ങുക",
+  },
+  notFoundGoBack: {
+    en: "Go Back",
+    ml: "മുൻപത്തെ പേജിലേക്ക്",
+  },
+  notFoundHelpfulHeading: {
+    en: "You May Also Want to Visit",
+    ml: "പ്രധാന വിഭാഗങ്ങൾ സന്ദർശിക്കുക",
+  },
+  notFoundHelpfulSubheading: {
+    en: "Access verified portals, documented projects, and official secretariat communication channels.",
+    ml: "ഔദ്യോഗിക വാർത്തകൾ, മണ്ഡല പദ്ധതികൾ, പൗരസേവനങ്ങൾ എന്നിവ എളുപ്പത്തിൽ കണ്ടെത്തുക.",
+  },
 };
 
 export const LANGUAGE_STORAGE_KEY = "website_language";

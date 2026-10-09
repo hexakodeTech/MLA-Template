@@ -74,6 +74,7 @@ const ROUTES = [
   { path: "/accessibility", name: "Accessibility" },
   { path: "/contact", name: "Contact" },
   { path: "/privacy-policy", name: "Privacy Policy" },
+  { path: "/non-existent-sample-page-404", name: "404 Not Found" },
 ];
 
 async function run() {

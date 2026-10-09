@@ -136,7 +136,7 @@ export const Header: React.FC = () => {
           {/* Desktop Navigation */}
           <nav
             aria-label="Primary Navigation"
-            className="hidden lg:flex items-center gap-5 xl:gap-7"
+            className="hidden lg:flex items-center gap-3 xl:gap-4"
           >
             {navLinks.map((link) => (
               <Link
@@ -191,7 +191,7 @@ export const Header: React.FC = () => {
               size="sm"
               icon={<ArrowRight className="w-3.5 h-3.5 text-white dark:text-[#191A18] group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />}
               iconPosition="right"
-              className="hidden md:inline-flex shadow-xs"
+              className="hidden 2xl:inline-flex shadow-xs shrink-0"
             >
               {language === "ml" ? "ഓഫീസ് ബന്ധപ്പെടുക" : "Contact Office"}
             </Button>
