@@ -247,6 +247,47 @@ const translations: Record<string, { en: string; ml: string }> = {
     ml: "നിങ്ങൾ ആവശ്യപ്പെട്ട പ്രവർത്തന വിവരങ്ങൾ കണ്ടെത്താനായില്ല.",
   },
   returnToActivities: { en: "Return to Activities", ml: "പ്രവർത്തനങ്ങളിലേക്ക് മടങ്ങുക" },
+
+  // System & Segment Error Boundaries
+  errorGenericBadge: { en: "Application Notice", ml: "ആപ്ലിക്കേഷൻ അറിയിപ്പ്" },
+  errorGenericTitle: { en: "Something Went Wrong", ml: "അപ്രതീക്ഷിതമായ ഒരു പിശക് സംഭവിച്ചു" },
+  errorGenericDesc: {
+    en: "The application encountered a problem while processing this page. Your details are safe.",
+    ml: "ഈ പേജ് ലോഡ് ചെയ്യുന്നതിൽ തടസ്സം നേരിട്ടു. നിങ്ങളുടെ വിവരങ്ങൾ സുരക്ഷിതമാണ്.",
+  },
+  errorTryAgain: { en: "Try Again", ml: "വീണ്ടും ശ്രമിക്കുക" },
+  errorReturnHome: { en: "Return to Home", ml: "ഹോം പേജിലേക്ക് മടങ്ങുക" },
+
+  errorNewsTitle: { en: "Unable to Load Announcements", ml: "വാർത്തകൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല" },
+  errorNewsDesc: {
+    en: "A temporary issue prevented loading the official announcements. Please try again.",
+    ml: "വാർത്തകളും അറിയിപ്പുകളും ലഭ്യമാക്കുന്നതിൽ തടസ്സം നേരിട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+  },
+  errorActivitiesTitle: { en: "Unable to Load Activities", ml: "പ്രവർത്തനങ്ങൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല" },
+  errorActivitiesDesc: {
+    en: "A temporary issue prevented loading the public activity records. Please try again.",
+    ml: "പ്രവർത്തന രേഖകൾ ലഭ്യമാക്കുന്നതിൽ തടസ്സം നേരിട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+  },
+  errorGalleryTitle: { en: "Unable to Load Photo Gallery", ml: "ഫോട്ടോ ഗാലറി ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല" },
+  errorGalleryDesc: {
+    en: "A temporary issue prevented loading the photographic archives. Please try again.",
+    ml: "ചിത്ര ശേഖരം ലഭ്യമാക്കുന്നതിൽ തടസ്സം നേരിട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+  },
+  errorConstituencyTitle: { en: "Unable to Load Constituency Hub", ml: "മണ്ഡലം വിവരങ്ങൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല" },
+  errorConstituencyDesc: {
+    en: "A temporary issue prevented loading constituency project and resource records. Please try again.",
+    ml: "വികസന പദ്ധതികളും പൊതുസേവന വിവരങ്ങളും ലഭ്യമാക്കുന്നതിൽ തടസ്സം നേരിട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+  },
+  errorContactTitle: { en: "Unable to Load Contact Desk", ml: "ഓഫീസ് ഡെസ്ക് ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല" },
+  errorContactDesc: {
+    en: "A temporary issue prevented initializing the communication desk. Please try again.",
+    ml: "സമ്പർക്ക ഫോമുകൾ തയ്യാറാക്കുന്നതിൽ തടസ്സം നേരിട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+  },
+  errorNetworkTitle: { en: "Network Connection Issue", ml: "നെറ്റ്‌വർക്ക് തകരാർ" },
+  errorNetworkDesc: {
+    en: "Please check your internet connection and try again.",
+    ml: "ദയവായി ഇന്റർനെറ്റ് കണക്ഷൻ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.",
+  },
 };
 
 export const LANGUAGE_STORAGE_KEY = "website_language";

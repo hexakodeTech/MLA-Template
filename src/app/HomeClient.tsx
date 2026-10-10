@@ -10,6 +10,7 @@ import {
   Clock,
   MapPin,
   Info,
+  Camera,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Button } from "@/components/ui/Button";
@@ -32,6 +33,7 @@ export default function HomeClient() {
   const { language, getLocalized, t } = useLanguage();
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [failedHomeGallery, setFailedHomeGallery] = useState<Set<string>>(new Set());
   const [constituencyTab, setConstituencyTab] = useState<"projects" | "directory">("projects");
 
   // ── Dynamic shadow refs ──────────────────────────────────────────────────
@@ -829,14 +831,24 @@ export default function HomeClient() {
                 }
                 className="sm:col-span-2 lg:col-span-7 group relative aspect-[16/11] rounded-sm overflow-hidden bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={mockGallery[0].imageUrl}
-                  alt={getLocalized(mockGallery[0].altText)}
-                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                {failedHomeGallery.has(mockGallery[0].id) ? (
+                  <div className="w-full h-full flex flex-col items-center justify-center bg-stone/40 dark:bg-[#222320]/40 text-slate/40 dark:text-[#A09F97]/40 p-6">
+                    <Camera className="w-10 h-10 mb-2" aria-hidden="true" />
+                    <span className="text-[10px] uppercase font-mono tracking-wider">{t("emptyImageError")}</span>
+                  </div>
+                ) : (
+                  <>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={mockGallery[0].imageUrl}
+                      alt={getLocalized(mockGallery[0].altText)}
+                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                      loading="lazy"
+                      onError={() => setFailedHomeGallery((prev) => new Set(prev).add(mockGallery[0].id))}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                  </>
+                )}
                 <div className="absolute top-4 left-4">
                   <span className="text-[10px] font-bold uppercase tracking-wider bg-white dark:bg-[#2C2D29] text-charcoal dark:text-[#F4F1E9] px-2.5 py-0.5 rounded-xs border border-warm-grey dark:border-[#41413B]">
                     {mockGallery[0].category}
@@ -874,14 +886,24 @@ export default function HomeClient() {
                     }
                     className="group relative aspect-[16/10] rounded-sm overflow-hidden bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={item.imageUrl}
-                      alt={getLocalized(item.altText)}
-                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+                    {failedHomeGallery.has(item.id) ? (
+                      <div className="w-full h-full flex flex-col items-center justify-center bg-stone/40 dark:bg-[#222320]/40 text-slate/40 dark:text-[#A09F97]/40 p-4">
+                        <Camera className="w-8 h-8 mb-1" aria-hidden="true" />
+                        <span className="text-[10px] uppercase font-mono tracking-wider">{t("emptyImageError")}</span>
+                      </div>
+                    ) : (
+                      <>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={item.imageUrl}
+                          alt={getLocalized(item.altText)}
+                          className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                          loading="lazy"
+                          onError={() => setFailedHomeGallery((prev) => new Set(prev).add(item.id))}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+                      </>
+                    )}
                     <div className="absolute bottom-3 left-3 right-3 text-white">
                       <p className="font-display text-base leading-snug line-clamp-1">
                         {getLocalized(item.title)}

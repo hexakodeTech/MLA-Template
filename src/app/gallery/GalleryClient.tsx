@@ -15,6 +15,7 @@ export default function GalleryPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [failedThumbnails, setFailedThumbnails] = useState<Set<string>>(new Set());
 
   const categories: GalleryCategory[] = [
     "All",
@@ -122,15 +123,25 @@ export default function GalleryPage() {
                 }
                 className="group relative rounded-sm overflow-hidden bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] shadow-xs hover:border-slate/40 dark:hover:border-[#C6C5BD]/40 transition-all duration-300 cursor-pointer flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
               >
-                <div className="relative aspect-[4/3] bg-stone dark:bg-[#222320] overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={item.imageUrl}
-                    alt={getLocalized(item.altText)}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative aspect-[4/3] bg-stone dark:bg-[#222320] overflow-hidden flex items-center justify-center">
+                  {failedThumbnails.has(item.id) ? (
+                    <div className="w-full h-full flex flex-col items-center justify-center bg-stone/40 dark:bg-[#222320]/40 text-slate/40 dark:text-[#A09F97]/40 p-4">
+                      <Camera className="w-8 h-8 mb-1" aria-hidden="true" />
+                      <span className="text-[10px] uppercase font-mono tracking-wider">{t("emptyImageError")}</span>
+                    </div>
+                  ) : (
+                    <>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={item.imageUrl}
+                        alt={getLocalized(item.altText)}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                        onError={() => setFailedThumbnails((prev) => new Set(prev).add(item.id))}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </>
+                  )}
 
                   <div className="absolute top-3 left-3">
                     <span className="text-[10px] font-bold uppercase tracking-wider bg-white dark:bg-[#2C2D29] text-charcoal dark:text-[#F4F1E9] border border-warm-grey dark:border-[#41413B] px-2.5 py-0.5 rounded-xs">

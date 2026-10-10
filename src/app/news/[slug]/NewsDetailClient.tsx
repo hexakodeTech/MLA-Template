@@ -8,6 +8,7 @@ import {
   ArrowLeft,
   Info,
   Bell,
+  Newspaper,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
@@ -20,6 +21,7 @@ export default function NewsDetailPage() {
   const params = useParams();
   const slug = params?.slug as string;
   const { language, getLocalized, t } = useLanguage();
+  const [imgError, setImgError] = React.useState(false);
 
   const article = mockNews.find((item) => item.slug === slug);
 
@@ -113,13 +115,21 @@ export default function NewsDetailPage() {
       {/* Main Image & Caption */}
       {article.imageUrl && (
         <div className="space-y-2">
-          <div className="relative aspect-[16/9] rounded-sm overflow-hidden bg-stone dark:bg-[#222320] border border-warm-grey dark:border-[#41413B] shadow-xs">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={article.imageUrl}
-              alt={getLocalized(article.title)}
-              className="w-full h-full object-cover"
-            />
+          <div className="relative aspect-[16/9] rounded-sm overflow-hidden bg-stone dark:bg-[#222320] border border-warm-grey dark:border-[#41413B] shadow-xs flex items-center justify-center">
+            {imgError ? (
+              <div className="w-full h-full flex flex-col items-center justify-center bg-stone/40 dark:bg-[#222320]/40 text-slate/40 dark:text-[#A09F97]/40 p-6">
+                <Newspaper className="w-12 h-12 mb-2" aria-hidden="true" />
+                <span className="text-xs uppercase font-mono tracking-wider">{t("emptyImageError")}</span>
+              </div>
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={article.imageUrl}
+                alt={getLocalized(article.title)}
+                onError={() => setImgError(true)}
+                className="w-full h-full object-cover"
+              />
+            )}
           </div>
           {article.imageCaption && (
             <p className="text-xs text-slate dark:text-[#A09F97] italic text-center font-mono">

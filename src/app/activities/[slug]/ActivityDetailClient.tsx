@@ -20,6 +20,7 @@ export default function ActivityDetailPage() {
   const params = useParams();
   const slug = params?.slug as string;
   const { language, getLocalized, t } = useLanguage();
+  const [imgError, setImgError] = React.useState(false);
 
   const activity = mockActivities.find((item) => item.slug === slug);
 
@@ -111,13 +112,21 @@ export default function ActivityDetailPage() {
       {/* Main image */}
       {activity.imageUrl && (
         <div className="space-y-2">
-          <div className="relative aspect-[16/9] rounded-sm overflow-hidden bg-stone dark:bg-[#222320] border border-warm-grey dark:border-[#41413B] shadow-xs">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={activity.imageUrl}
-              alt={getLocalized(activity.title)}
-              className="w-full h-full object-cover"
-            />
+          <div className="relative aspect-[16/9] rounded-sm overflow-hidden bg-stone dark:bg-[#222320] border border-warm-grey dark:border-[#41413B] shadow-xs flex items-center justify-center">
+            {imgError ? (
+              <div className="w-full h-full flex flex-col items-center justify-center bg-stone/40 dark:bg-[#222320]/40 text-slate/40 dark:text-[#A09F97]/40 p-6">
+                <Calendar className="w-12 h-12 mb-2" aria-hidden="true" />
+                <span className="text-xs uppercase font-mono tracking-wider">{t("emptyImageError")}</span>
+              </div>
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={activity.imageUrl}
+                alt={getLocalized(activity.title)}
+                onError={() => setImgError(true)}
+                className="w-full h-full object-cover"
+              />
+            )}
           </div>
           {activity.imageCaption && (
             <p className="text-xs text-slate dark:text-[#A09F97] italic text-center font-mono">

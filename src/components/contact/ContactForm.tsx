@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { AlertCircle, Info, ArrowRight, ArrowLeft, HelpCircle, FileText, CheckCircle2 } from "lucide-react";
+import { AlertCircle, Info, ArrowRight, ArrowLeft, HelpCircle, FileText, CheckCircle2, RefreshCw, WifiOff } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { getFocusableElements } from "@/utils/focusTrap";
@@ -51,6 +51,7 @@ export const ContactForm: React.FC = () => {
   const [selectedWorkflow, setSelectedWorkflow] = useState<WorkflowType | null>(null);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>("idle");
+  const [submissionErrorType, setSubmissionErrorType] = useState<"server" | "offline">("server");
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [submitAttemptCount, setSubmitAttemptCount] = useState(0);
   const errorRef = useRef<HTMLDivElement>(null);
@@ -375,6 +376,13 @@ export const ContactForm: React.FC = () => {
       consent: formData.consent,
     };
 
+    // Pre-flight network connectivity check
+    if (typeof navigator !== "undefined" && !navigator.onLine) {
+      setSubmissionErrorType("offline");
+      setSubmissionStatus("error");
+      return;
+    }
+
     try {
       // Asynchronous dispatch processing
       await new Promise<void>((resolve, reject) => {
@@ -390,6 +398,7 @@ export const ContactForm: React.FC = () => {
       setSubmissionStatus("success");
     } catch {
       // On failure, preserve all entered form data intact and re-enable submission
+      setSubmissionErrorType("server");
       setSubmissionStatus("error");
     }
   };
@@ -856,7 +865,7 @@ export const ContactForm: React.FC = () => {
                 </div>
               </section>
 
-              {/* SUBMISSION SERVER ERROR ALERT (Requirement 7) */}
+              {/* SUBMISSION SERVER / NETWORK ERROR ALERT */}
               {submissionStatus === "error" && (
                 <div
                   ref={errorRef}
@@ -867,16 +876,44 @@ export const ContactForm: React.FC = () => {
                   className="mb-8 p-5 rounded-xs bg-red-50/90 dark:bg-red-950/30 border border-red-200 dark:border-red-900/60 text-charcoal dark:text-[#F4F1E9] animate-in fade-in duration-200 focus:outline-none"
                 >
                   <div className="flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 shrink-0 mt-0.5" aria-hidden="true" />
-                    <div className="space-y-1">
+                    {submissionErrorType === "offline" ? (
+                      <WifiOff className="w-5 h-5 text-red-600 dark:text-red-400 shrink-0 mt-0.5" aria-hidden="true" />
+                    ) : (
+                      <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 shrink-0 mt-0.5" aria-hidden="true" />
+                    )}
+                    <div className="space-y-2 flex-1">
                       <h4 id="server-error-title" className="text-sm font-bold text-red-900 dark:text-red-300">
-                        {language === "ml" ? "സെർവർ പിശക്: സമർപ്പിക്കാൻ സാധിച്ചില്ല" : "Server Error: Unable to Submit"}
+                        {submissionErrorType === "offline"
+                          ? language === "ml"
+                            ? "നെറ്റ്‌വർക്ക് തകരാർ: നിങ്ങൾ ഓഫ്‌ലൈനാണ്"
+                            : "Network Error: You Are Offline"
+                          : language === "ml"
+                          ? "സെർവർ പിശക്: സമർപ്പിക്കാൻ സാധിച്ചില്ല"
+                          : "Server Error: Unable to Submit"}
                       </h4>
                       <p className="text-xs text-red-800 dark:text-red-300/90 leading-relaxed">
-                        {language === "ml"
+                        {submissionErrorType === "offline"
+                          ? language === "ml"
+                            ? "ഇന്റർനെറ്റ് കണക്ഷൻ ലഭ്യമല്ല. ദയവായി കണക്ഷൻ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക. നിങ്ങളുടെ വിവരങ്ങൾ സുരക്ഷിതമാണ്."
+                            : "No internet connection detected. Please verify your connection and try again. Your details have been preserved."
+                          : language === "ml"
                           ? "സെർവർ അല്ലെങ്കിൽ നെറ്റ്‌വർക്ക് തകരാർ കാരണം ഈ സമയത്ത് ഫോം സമർപ്പിക്കാൻ സാധിച്ചില്ല. നിങ്ങളുടെ വിവരങ്ങൾ സുരക്ഷിതമാണ്. ദയവായി അല്പം കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക."
                           : "We couldn't submit your form due to a server or network error. Your details have been preserved. Please try again."}
                       </p>
+                      <div className="pt-1">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSubmissionStatus("idle");
+                            const firstInput = document.getElementById(orderedFieldKeys[0]);
+                            firstInput?.focus();
+                          }}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-xs bg-red-100 hover:bg-red-200 dark:bg-red-900/50 dark:hover:bg-red-900/80 text-red-950 dark:text-red-200 border border-red-300 dark:border-red-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
+                        >
+                          <RefreshCw className="w-3.5 h-3.5" aria-hidden="true" />
+                          <span>{language === "ml" ? "വീണ്ടും ശ്രമിക്കുക" : "Try Again"}</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
