@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle2, Clock, AlertTriangle, Filter } from "lucide-react";
+import { CheckCircle2, Clock, AlertTriangle, Filter, Briefcase } from "lucide-react";
 import { DevelopmentProject, ProjectStatus } from "@/types";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -15,7 +15,7 @@ export const ProjectTracker: React.FC<ProjectTrackerProps> = ({
   darkTheme = false,
 }) => {
   const [selectedStatus, setSelectedStatus] = useState<string>("All");
-  const { getLocalized, language } = useLanguage();
+  const { getLocalized, language, t } = useLanguage();
 
   const statusOptions = ["All", "Ongoing", "Completed", "In Planning"];
 
@@ -94,15 +94,33 @@ export const ProjectTracker: React.FC<ProjectTrackerProps> = ({
 
       {/* Projects List Grid */}
       {filteredProjects.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-6 shadow-xs">
-          <p className="font-display text-xl text-charcoal dark:text-[#F4F1E9]">
-            {language === "ml" ? "പദ്ധതികൾ ലഭ്യമല്ല" : "No Projects Found"}
+        <div
+          role="status"
+          aria-live="polite"
+          className="text-center py-14 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-6 shadow-xs"
+        >
+          <Briefcase className="w-8 h-8 text-copper dark:text-[#D29A78] mx-auto mb-3" aria-hidden="true" />
+          <h3 className="font-display text-xl text-charcoal dark:text-[#F4F1E9]">
+            {projects.length === 0
+              ? t("emptyProjectsInitialTitle")
+              : t("emptyProjectsTitle")}
+          </h3>
+          <p className="text-xs text-slate dark:text-[#C6C5BD] mt-1 max-w-md mx-auto">
+            {projects.length === 0
+              ? t("emptyProjectsInitialDesc")
+              : t("emptyProjectsFilterDesc")}
           </p>
-          <p className="text-xs text-slate dark:text-[#C6C5BD] mt-1">
-            {language === "ml"
-              ? "തിരഞ്ഞെടുത്ത വിഭാഗത്തിൽ വിവരങ്ങൾ ലഭ്യമല്ല."
-              : "No development projects match the selected status filter."}
-          </p>
+          {projects.length > 0 && selectedStatus !== "All" && (
+            <div className="mt-4 flex items-center justify-center">
+              <button
+                type="button"
+                onClick={() => setSelectedStatus("All")}
+                className="text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] underline transition-colors rounded-xs p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
+              >
+                {t("emptyProjectsReset")}
+              </button>
+            </div>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -557,22 +557,40 @@ export default function HomeClient() {
         </div>
 
         {/* Magazine Asymmetrical Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Dominant Lead Article on Left */}
-          <div className="lg:col-span-7">
-            {leadNews && <NewsCard item={leadNews} featured />}
-          </div>
+        {mockNews.length > 0 ? (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Dominant Lead Article on Left */}
+            <div className={sideNews.length > 0 ? "lg:col-span-7" : "lg:col-span-12"}>
+              {leadNews && <NewsCard item={leadNews} featured />}
+            </div>
 
-          {/* Compact Vertical Stack of Supporting Articles on Right */}
-          <div className="lg:col-span-5 bg-white dark:bg-[#2C2D29] p-6 sm:p-7 rounded-sm border border-warm-grey dark:border-[#41413B] space-y-1 shadow-xs">
-            <span className="text-xs font-bold uppercase tracking-widest text-slate dark:text-[#A09F97] block pb-3 border-b border-warm-grey dark:border-[#41413B]">
-              Recent Notices &amp; Bulletins
-            </span>
-            {sideNews.map((item) => (
-              <NewsCard key={item.id} item={item} compact />
-            ))}
+            {/* Compact Vertical Stack of Supporting Articles on Right */}
+            {sideNews.length > 0 && (
+              <div className="lg:col-span-5 bg-white dark:bg-[#2C2D29] p-6 sm:p-7 rounded-sm border border-warm-grey dark:border-[#41413B] space-y-1 shadow-xs">
+                <span className="text-xs font-bold uppercase tracking-widest text-slate dark:text-[#A09F97] block pb-3 border-b border-warm-grey dark:border-[#41413B]">
+                  Recent Notices &amp; Bulletins
+                </span>
+                {sideNews.map((item) => (
+                  <NewsCard key={item.id} item={item} compact />
+                ))}
+              </div>
+            )}
           </div>
-        </div>
+        ) : (
+          <div className="p-8 sm:p-12 text-center bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] shadow-xs space-y-3">
+            <p className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
+              {t("emptyNewsInitialTitle")}
+            </p>
+            <p className="text-xs sm:text-sm text-slate dark:text-[#C6C5BD] max-w-lg mx-auto leading-relaxed">
+              {t("emptyNewsInitialDesc")}
+            </p>
+            <div className="pt-2">
+              <Button href="/contact" variant="secondary" size="sm">
+                {t("navContact")}
+              </Button>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* =========================================================================
@@ -734,11 +752,27 @@ export default function HomeClient() {
         </div>
 
         {/* Clean, Consistent 3-Column Responsive Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
-          {homeActivities.map((act) => (
-            <ActivityCard key={act.id} activity={act} />
-          ))}
-        </div>
+        {homeActivities.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+            {homeActivities.map((act) => (
+              <ActivityCard key={act.id} activity={act} />
+            ))}
+          </div>
+        ) : (
+          <div className="p-8 sm:p-12 text-center bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] shadow-xs space-y-3">
+            <p className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
+              {t("emptyActivitiesInitialTitle")}
+            </p>
+            <p className="text-xs sm:text-sm text-slate dark:text-[#C6C5BD] max-w-lg mx-auto leading-relaxed">
+              {t("emptyActivitiesInitialDesc")}
+            </p>
+            <div className="pt-2">
+              <Button href="/contact" variant="secondary" size="sm">
+                {t("navContact")}
+              </Button>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* =========================================================================
@@ -775,88 +809,99 @@ export default function HomeClient() {
           </div>
 
           {/* Asymmetrical Masonry Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6">
-            {/* Large Lead Photo */}
-            <div
-              onClick={() => openLightbox(0)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  openLightbox(0);
-                }
-              }}
-              tabIndex={0}
-              role="button"
-              aria-label={
-                language === "ml"
-                  ? `ചിത്രം കാണുക: ${getLocalized(mockGallery[0].title)}`
-                  : `View photo: ${getLocalized(mockGallery[0].title)}`
-              }
-              className="sm:col-span-2 lg:col-span-7 group relative aspect-[16/11] rounded-sm overflow-hidden bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={mockGallery[0].imageUrl}
-                alt={getLocalized(mockGallery[0].altText)}
-                className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-              <div className="absolute top-4 left-4">
-                <span className="text-[10px] font-bold uppercase tracking-wider bg-white dark:bg-[#2C2D29] text-charcoal dark:text-[#F4F1E9] px-2.5 py-0.5 rounded-xs border border-warm-grey dark:border-[#41413B]">
-                  {mockGallery[0].category}
-                </span>
-              </div>
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <p className="font-display text-xl sm:text-2xl leading-snug">
-                  {getLocalized(mockGallery[0].title)}
-                </p>
-                <div className="flex items-center justify-between text-xs text-white/80 mt-1 font-mono">
-                  <span>{mockGallery[0].date}</span>
-                  <span className="text-[#D29A78] group-hover:underline">Click to expand</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Smaller Stacked Photos on Right */}
-            <div className="sm:col-span-2 lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
-              {mockGallery.slice(1, 3).map((item, idx) => (
-                <div
-                  key={item.id}
-                  onClick={() => openLightbox(idx + 1)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      openLightbox(idx + 1);
-                    }
-                  }}
-                  tabIndex={0}
-                  role="button"
-                  aria-label={
-                    language === "ml"
-                      ? `ചിത്രം കാണുക: ${getLocalized(item.title)}`
-                      : `View photo: ${getLocalized(item.title)}`
+          {mockGallery.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6">
+              {/* Large Lead Photo */}
+              <div
+                onClick={() => openLightbox(0)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    openLightbox(0);
                   }
-                  className="group relative aspect-[16/10] rounded-sm overflow-hidden bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={item.imageUrl}
-                    alt={getLocalized(item.altText)}
-                    className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3 text-white">
-                    <p className="font-display text-base leading-snug line-clamp-1">
-                      {getLocalized(item.title)}
-                    </p>
-                    <span className="text-[10px] text-white/70 font-mono">{item.date}</span>
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label={
+                  language === "ml"
+                    ? `ചിത്രം കാണുക: ${getLocalized(mockGallery[0].title)}`
+                    : `View photo: ${getLocalized(mockGallery[0].title)}`
+                }
+                className="sm:col-span-2 lg:col-span-7 group relative aspect-[16/11] rounded-sm overflow-hidden bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={mockGallery[0].imageUrl}
+                  alt={getLocalized(mockGallery[0].altText)}
+                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                <div className="absolute top-4 left-4">
+                  <span className="text-[10px] font-bold uppercase tracking-wider bg-white dark:bg-[#2C2D29] text-charcoal dark:text-[#F4F1E9] px-2.5 py-0.5 rounded-xs border border-warm-grey dark:border-[#41413B]">
+                    {mockGallery[0].category}
+                  </span>
+                </div>
+                <div className="absolute bottom-4 left-4 right-4 text-white">
+                  <p className="font-display text-xl sm:text-2xl leading-snug">
+                    {getLocalized(mockGallery[0].title)}
+                  </p>
+                  <div className="flex items-center justify-between text-xs text-white/80 mt-1 font-mono">
+                    <span>{mockGallery[0].date}</span>
+                    <span className="text-[#D29A78] group-hover:underline">Click to expand</span>
                   </div>
                 </div>
-              ))}
+              </div>
+
+              {/* Smaller Stacked Photos on Right */}
+              <div className="sm:col-span-2 lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+                {mockGallery.slice(1, 3).map((item, idx) => (
+                  <div
+                    key={item.id}
+                    onClick={() => openLightbox(idx + 1)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        openLightbox(idx + 1);
+                      }
+                    }}
+                    tabIndex={0}
+                    role="button"
+                    aria-label={
+                      language === "ml"
+                        ? `ചിത്രം കാണുക: ${getLocalized(item.title)}`
+                        : `View photo: ${getLocalized(item.title)}`
+                    }
+                    className="group relative aspect-[16/10] rounded-sm overflow-hidden bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={item.imageUrl}
+                      alt={getLocalized(item.altText)}
+                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+                    <div className="absolute bottom-3 left-3 right-3 text-white">
+                      <p className="font-display text-base leading-snug line-clamp-1">
+                        {getLocalized(item.title)}
+                      </p>
+                      <span className="text-[10px] text-white/70 font-mono">{item.date}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="p-8 sm:p-12 text-center bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] shadow-xs space-y-3">
+              <p className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
+                {t("emptyGalleryInitialTitle")}
+              </p>
+              <p className="text-xs sm:text-sm text-slate dark:text-[#C6C5BD] max-w-lg mx-auto leading-relaxed">
+                {t("emptyGalleryInitialDesc")}
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Lightbox Modal */}

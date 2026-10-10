@@ -140,6 +140,113 @@ const translations: Record<string, { en: string; ml: string }> = {
     en: "Access verified portals, documented projects, and official secretariat communication channels.",
     ml: "ഔദ്യോഗിക വാർത്തകൾ, മണ്ഡല പദ്ധതികൾ, പൗരസേവനങ്ങൾ എന്നിവ എളുപ്പത്തിൽ കണ്ടെത്തുക.",
   },
+
+  // Empty States: News
+  emptyNewsTitle: { en: "No Announcements Found", ml: "അറിയിപ്പുകൾ കണ്ടെത്താനായില്ല" },
+  emptyNewsInitialTitle: { en: "No Announcements Published Yet", ml: "അറിയിപ്പുകൾ ഇതുവരെ പ്രസിദ്ധീകരിച്ചിട്ടില്ല" },
+  emptyNewsInitialDesc: {
+    en: "Official press releases and circulars will be published here upon verification by the representative's office.",
+    ml: "ഓഫീസിന്റെ സ്ഥിരീകരണത്തിന് ശേഷം ഔദ്യോഗിക പത്രക്കുറിപ്പുകളും അറിയിപ്പുകളും ഇവിടെ പ്രസിദ്ധീകരിക്കുന്നതാണ്.",
+  },
+  emptyNewsSearchDesc: {
+    en: "No announcements matched your search query.",
+    ml: "നിങ്ങൾ തിരഞ്ഞ വാക്കുകളുമായി പൊരുത്തപ്പെടുന്ന അറിയിപ്പുകൾ കണ്ടെത്താനായില്ല.",
+  },
+  emptyNewsCategoryDesc: {
+    en: "No announcements are currently published under this category.",
+    ml: "തിരഞ്ഞെടുത്ത വിഭാഗത്തിൽ ഇപ്പോൾ അറിയിപ്പുകൾ ലഭ്യമല്ല.",
+  },
+  emptyNewsCombinedDesc: {
+    en: "No announcements matched your search query in this category.",
+    ml: "തിരഞ്ഞെടുത്ത വിഭാഗത്തിൽ ഈ വാക്കുകളുമായി പൊരുത്തപ്പെടുന്ന അറിയിപ്പുകൾ കണ്ടെത്താനായില്ല.",
+  },
+  emptyNewsReset: { en: "Reset Filters", ml: "ഫിൽട്ടറുകൾ ഒഴിവാക്കുക" },
+  emptyNewsClearSearch: { en: "Clear Search", ml: "തിരച്ചിൽ ഒഴിവാക്കുക" },
+
+  // Empty States: Activities
+  emptyActivitiesTitle: { en: "No Activities Found", ml: "പ്രവർത്തനങ്ങൾ കണ്ടെത്താനായില്ല" },
+  emptyActivitiesInitialTitle: { en: "No Activities Scheduled Yet", ml: "പ്രവർത്തനങ്ങൾ ഇതുവരെ രേഖപ്പെടുത്തിയിട്ടില്ല" },
+  emptyActivitiesInitialDesc: {
+    en: "Public meetings, on-site inspections, and official visits will be documented here once scheduled.",
+    ml: "ഔദ്യോഗിക സന്ദർശനങ്ങളും ജനസമ്പർക്ക പരിപാടികളും തീരുമാനിക്കുന്ന മുറയ്ക്ക് ഇവിടെ പ്രസിദ്ധീകരിക്കും.",
+  },
+  emptyActivitiesSearchDesc: {
+    en: "No activities matched your search query.",
+    ml: "നിങ്ങൾ തിരഞ്ഞ വാക്കുകളുമായി പൊരുത്തപ്പെടുന്ന പ്രവർത്തനങ്ങൾ കണ്ടെത്താനായില്ല.",
+  },
+  emptyActivitiesCategoryDesc: {
+    en: "No activities are currently listed under this category.",
+    ml: "തിരഞ്ഞെടുത്ത വിഭാഗത്തിൽ ഇപ്പോൾ പ്രവർത്തനങ്ങൾ ലഭ്യമല്ല.",
+  },
+  emptyActivitiesCombinedDesc: {
+    en: "No activities matched your search query in this category.",
+    ml: "തിരഞ്ഞെടുത്ത വിഭാഗത്തിൽ ഈ വാക്കുകളുമായി പൊരുത്തപ്പെടുന്ന പ്രവർത്തനങ്ങൾ കണ്ടെത്താനായില്ല.",
+  },
+  emptyActivitiesReset: { en: "Reset Filter", ml: "ഫിൽട്ടർ മാറ്റുക" },
+  emptyActivitiesClearSearch: { en: "Clear Search", ml: "തിരച്ചിൽ ഒഴിവാക്കുക" },
+
+  // Empty States: Gallery
+  emptyGalleryTitle: { en: "No Photographs Found", ml: "ചിത്രങ്ങൾ കണ്ടെത്താനായില്ല" },
+  emptyGalleryInitialTitle: { en: "Photo Gallery in Preparation", ml: "ചിത്രശേഖരം തയ്യാറാക്കുന്നു" },
+  emptyGalleryInitialDesc: {
+    en: "Approved photographs documenting public meetings and constituency walkthroughs will be cataloged here.",
+    ml: "ഔദ്യോഗിക പരിപാടികളുടെയും സന്ദർശനങ്ങളുടെയും ചിത്രങ്ങൾ ഉടൻ ചേർക്കുന്നതാണ്.",
+  },
+  emptyGalleryCategoryDesc: {
+    en: "No photographs found in the selected album.",
+    ml: "തിരഞ്ഞെടുത്ത ആൽബത്തിൽ ചിത്രങ്ങൾ ലഭ്യമല്ല.",
+  },
+  emptyGalleryReset: { en: "Show All Photos", ml: "എല്ലാ ചിത്രങ്ങളും കാണുക" },
+
+  // Empty States: Projects
+  emptyProjectsTitle: { en: "No Projects Found", ml: "പദ്ധതികൾ ലഭ്യമല്ല" },
+  emptyProjectsInitialTitle: { en: "No Development Projects Recorded Yet", ml: "പദ്ധതികൾ ഇതുവരെ രേഖപ്പെടുത്തിയിട്ടില്ല" },
+  emptyProjectsInitialDesc: {
+    en: "Verified public works and infrastructure projects will appear here following official sanction.",
+    ml: "അംഗീകൃത വികസന പദ്ധതികളുടെ വിവരങ്ങൾ ഔദ്യോഗിക അനുമതി ലഭിച്ച ശേഷം ഇവിടെ ഉൾപ്പെടുത്തും.",
+  },
+  emptyProjectsFilterDesc: {
+    en: "No projects match the selected status filter.",
+    ml: "തിരഞ്ഞെടുത്ത പദവിയിൽ പദ്ധതികൾ കണ്ടെത്താനായില്ല.",
+  },
+  emptyProjectsReset: { en: "Show All Projects", ml: "എല്ലാ പദ്ധതികളും കാണുക" },
+
+  // Empty States: Resources
+  emptyResourcesTitle: { en: "No Services Found", ml: "സേവനങ്ങൾ ലഭ്യമല്ല" },
+  emptyResourcesInitialTitle: { en: "No Public Resources Listed Yet", ml: "സേവനങ്ങൾ ഇതുവരെ ലിസ്റ്റ് ചെയ്തിട്ടില്ല" },
+  emptyResourcesInitialDesc: {
+    en: "Verified administrative, helpline, and utility contacts are currently being cataloged.",
+    ml: "അവശ്യ സർവീസ് നമ്പറുകളും വിലാസങ്ങളും പരിശോധിച്ചു വരികയാണ്.",
+  },
+  emptyResourcesFilterDesc: {
+    en: "No services match the selected service category.",
+    ml: "തിരഞ്ഞെടുത്ത വിഭാഗത്തിൽ സേവനങ്ങൾ കണ്ടെത്താനായില്ല.",
+  },
+  emptyResourcesReset: { en: "Show All Services", ml: "എല്ലാ സേവനങ്ങളും കാണുക" },
+
+  // Empty States: Media & Fallbacks
+  emptyImageError: { en: "Photograph Unavailable", ml: "ചിത്രം ലഭ്യമല്ല" },
+  emptyImageFailedDesc: {
+    en: "The photograph could not be loaded from the server.",
+    ml: "ചിത്രം സെർവറിൽ നിന്ന് ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല.",
+  },
+  emptyImageRetry: { en: "Retry Loading", ml: "വീണ്ടും ശ്രമിക്കുക" },
+
+  // Detail Pages Not-Found
+  announcementNotFoundTitle: { en: "Announcement Not Found", ml: "അറിയിപ്പ് കണ്ടെത്താനായില്ല" },
+  announcementNotFoundDesc: {
+    en: "The requested news announcement could not be located.",
+    ml: "നിങ്ങൾ ആവശ്യപ്പെട്ട വാർത്താ അറിയിപ്പ് കണ്ടെത്താനായില്ല.",
+  },
+  returnToAnnouncements: { en: "Return to Announcements", ml: "വാർത്തകളിലേക്ക് മടങ്ങുക" },
+  contactSecretariatDesk: { en: "Contact Secretariat Desk", ml: "സെക്രട്ടേറിയറ്റ് ഡെസ്കുമായി ബന്ധപ്പെടുക" },
+
+  activityNotFoundTitle: { en: "Activity Record Not Found", ml: "പ്രവർത്തന രേഖ കണ്ടെത്താനായില്ല" },
+  activityNotFoundDesc: {
+    en: "The requested public activity entry could not be found.",
+    ml: "നിങ്ങൾ ആവശ്യപ്പെട്ട പ്രവർത്തന വിവരങ്ങൾ കണ്ടെത്താനായില്ല.",
+  },
+  returnToActivities: { en: "Return to Activities", ml: "പ്രവർത്തനങ്ങളിലേക്ക് മടങ്ങുക" },
 };
 
 export const LANGUAGE_STORAGE_KEY = "website_language";

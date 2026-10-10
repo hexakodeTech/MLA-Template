@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { Calendar, ArrowRight } from "lucide-react";
+import { Calendar, ArrowRight, Newspaper } from "lucide-react";
 import { NewsItem } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { useLanguage } from "@/context/LanguageContext";
@@ -19,19 +19,25 @@ export const NewsCard: React.FC<NewsCardProps> = ({
   compact = false,
 }) => {
   const { getLocalized, t } = useLanguage();
+  const [imgError, setImgError] = useState(false);
 
   if (compact) {
     return (
       <article className="group py-4.5 border-b border-warm-grey dark:border-[#41413B] first:pt-0 last:border-b-0 flex items-start gap-4">
-        {item.imageUrl && (
+        {item.imageUrl && !imgError ? (
           <div className="w-20 sm:w-24 aspect-[4/3] rounded-xs bg-stone dark:bg-[#222320] overflow-hidden shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={item.imageUrl}
               alt={getLocalized(item.title)}
+              onError={() => setImgError(true)}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               loading="lazy"
             />
+          </div>
+        ) : (
+          <div className="w-20 sm:w-24 aspect-[4/3] rounded-xs bg-stone/60 dark:bg-[#222320]/60 border border-warm-grey/50 dark:border-[#41413B]/50 flex items-center justify-center shrink-0">
+            <Newspaper className="w-6 h-6 text-slate/30 dark:text-[#A09F97]/30" aria-hidden="true" />
           </div>
         )}
         <div className="flex-1 min-w-0">
@@ -57,15 +63,20 @@ export const NewsCard: React.FC<NewsCardProps> = ({
   if (featured) {
     return (
       <article className="group bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] overflow-hidden grid grid-cols-1 lg:grid-cols-12 hover:border-slate/40 dark:hover:border-[#C6C5BD]/40 transition-all duration-300">
-        <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto min-h-[280px] bg-stone dark:bg-[#222320] overflow-hidden">
-          {item.imageUrl && (
+        <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto min-h-[280px] bg-stone dark:bg-[#222320] overflow-hidden flex items-center justify-center">
+          {item.imageUrl && !imgError ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={item.imageUrl}
               alt={getLocalized(item.title)}
+              onError={() => setImgError(true)}
               className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
               loading="lazy"
             />
+          ) : (
+            <div className="w-full h-full min-h-[280px] flex items-center justify-center bg-stone/40 dark:bg-[#222320]/40">
+              <Newspaper className="w-16 h-16 text-slate/20 dark:text-[#A09F97]/20" aria-hidden="true" />
+            </div>
           )}
           <div className="absolute top-4 left-4 flex gap-2">
             <Badge variant="copper">{item.category}</Badge>
@@ -125,15 +136,20 @@ export const NewsCard: React.FC<NewsCardProps> = ({
   return (
     <article className="group bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] overflow-hidden flex flex-col justify-between hover:border-slate/40 dark:hover:border-[#C6C5BD]/40 transition-all duration-300">
       <div>
-        <div className="relative aspect-[16/10] bg-stone dark:bg-[#222320] overflow-hidden">
-          {item.imageUrl && (
+        <div className="relative aspect-[16/10] bg-stone dark:bg-[#222320] overflow-hidden flex items-center justify-center">
+          {item.imageUrl && !imgError ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={item.imageUrl}
               alt={getLocalized(item.title)}
+              onError={() => setImgError(true)}
               className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
               loading="lazy"
             />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-stone/40 dark:bg-[#222320]/40">
+              <Newspaper className="w-12 h-12 text-slate/20 dark:text-[#A09F97]/20" aria-hidden="true" />
+            </div>
           )}
           <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap">
             <Badge variant="copper">{item.category}</Badge>

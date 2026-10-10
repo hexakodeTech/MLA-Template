@@ -138,35 +138,61 @@ export default function ActivitiesPage() {
         </div>
       </div>
 
-      {/* Activities Grid */}
-      <h2 className="sr-only">
-        {language === "ml" ? "പൊതു പ്രവർത്തനങ്ങളുടെ പട്ടിക" : "Activities Directory"}
-      </h2>
+      {/* Activities Content Area */}
       {filteredActivities.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredActivities.map((act) => (
-            <ActivityCard key={act.id} activity={act} />
-          ))}
-        </div>
+        <section aria-label={language === "ml" ? "പൊതു പ്രവർത്തനങ്ങൾ" : "Public Activities"}>
+          <h2 className="sr-only">
+            {language === "ml" ? "പൊതു പ്രവർത്തനങ്ങളുടെ പട്ടിക" : "Activities Directory"}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredActivities.map((act) => (
+              <ActivityCard key={act.id} activity={act} />
+            ))}
+          </div>
+        </section>
       ) : (
-        <div className="text-center py-20 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-8 shadow-xs">
+        <div
+          role="status"
+          aria-live="polite"
+          className="text-center py-20 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-8 shadow-xs"
+        >
           <Calendar className="w-8 h-8 text-copper dark:text-[#D29A78] mx-auto mb-3" aria-hidden="true" />
           <h2 className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
-            {language === "ml" ? "പ്രവർത്തനങ്ങൾ കണ്ടെത്താനായില്ല" : "No Activities Found"}
+            {mockActivities.length === 0
+              ? t("emptyActivitiesInitialTitle")
+              : t("emptyActivitiesTitle")}
           </h2>
-          <p className="text-xs text-slate dark:text-[#C6C5BD] mt-1">
-            Try adjusting your search query or reset the category filter.
+          <p className="text-xs text-slate dark:text-[#C6C5BD] mt-1 max-w-md mx-auto">
+            {mockActivities.length === 0
+              ? t("emptyActivitiesInitialDesc")
+              : searchQuery.trim().length > 0 && selectedCategory !== "All"
+              ? t("emptyActivitiesCombinedDesc")
+              : searchQuery.trim().length > 0
+              ? t("emptyActivitiesSearchDesc")
+              : t("emptyActivitiesCategoryDesc")}
           </p>
-          <button
-            type="button"
-            onClick={() => {
-              setSearchQuery("");
-              setSelectedCategory("All");
-            }}
-            className="mt-4 text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] underline transition-colors rounded-xs p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
-          >
-            {language === "ml" ? "ഫിൽട്ടർ മാറ്റുക" : "Reset Filter"}
-          </button>
+          {mockActivities.length > 0 && (
+            <div className="mt-4 flex items-center justify-center gap-3">
+              {searchQuery.trim().length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] underline transition-colors rounded-xs p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
+                >
+                  {t("emptyActivitiesClearSearch")}
+                </button>
+              )}
+              {selectedCategory !== "All" && (
+                <button
+                  type="button"
+                  onClick={() => setSelectedCategory("All")}
+                  className="text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] underline transition-colors rounded-xs p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
+                >
+                  {t("emptyActivitiesReset")}
+                </button>
+              )}
+            </div>
+          )}
         </div>
       )}
     </div>

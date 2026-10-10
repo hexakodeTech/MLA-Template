@@ -17,20 +17,26 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
   featured = false,
 }) => {
   const { getLocalized, language, t } = useLanguage();
+  const [imgError, setImgError] = React.useState(false);
 
   return (
     <article className="group bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] overflow-hidden flex flex-col justify-between hover:border-slate/40 dark:hover:border-[#C6C5BD]/40 transition-all duration-300 shadow-xs hover:shadow-sm h-full">
       <div className="flex-1 flex flex-col">
         {/* Standardized 16:10 Aspect Ratio Image */}
-        <div className="relative aspect-[16/10] bg-stone dark:bg-[#222320] overflow-hidden shrink-0">
-          {activity.imageUrl && (
+        <div className="relative aspect-[16/10] bg-stone dark:bg-[#222320] overflow-hidden shrink-0 flex items-center justify-center">
+          {activity.imageUrl && !imgError ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={activity.imageUrl}
               alt={getLocalized(activity.title)}
+              onError={() => setImgError(true)}
               className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
               loading="lazy"
             />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-stone/40 dark:bg-[#222320]/40">
+              <Calendar className="w-12 h-12 text-slate/20 dark:text-[#A09F97]/20" aria-hidden="true" />
+            </div>
           )}
           <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap">
             <Badge variant="copper">{activity.category}</Badge>

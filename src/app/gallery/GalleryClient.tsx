@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { MapPin, Calendar, Info, Filter } from "lucide-react";
+import { MapPin, Calendar, Info, Filter, Camera } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Badge } from "@/components/ui/Badge";
@@ -96,77 +96,110 @@ export default function GalleryPage() {
         </div>
       </div>
 
-      {/* Responsive Gallery Grid */}
-      <h2 className="sr-only">
-        {language === "ml" ? "ചിത്ര ശേഖരം" : "Photo Gallery Directory"}
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredGallery.map((item, index) => (
-          <div
-            key={item.id}
-            onClick={() => openLightbox(index)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                openLightbox(index);
-              }
-            }}
-            tabIndex={0}
-            role="button"
-            aria-label={
-              language === "ml"
-                ? `ചിത്രം വലുതാക്കി കാണുക: ${getLocalized(item.title)}`
-                : `View photo in lightbox: ${getLocalized(item.title)}`
-            }
-            className="group relative rounded-sm overflow-hidden bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] shadow-xs hover:border-slate/40 dark:hover:border-[#C6C5BD]/40 transition-all duration-300 cursor-pointer flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
-          >
-            <div className="relative aspect-[4/3] bg-stone dark:bg-[#222320] overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={item.imageUrl}
-                alt={getLocalized(item.altText)}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+      {/* Gallery Content Area */}
+      {filteredGallery.length > 0 ? (
+        <section aria-label={language === "ml" ? "ഫോട്ടോ ഗാലറി" : "Photo Gallery"}>
+          <h2 className="sr-only">
+            {language === "ml" ? "ചിത്ര ശേഖരം" : "Photo Gallery Directory"}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredGallery.map((item, index) => (
+              <div
+                key={item.id}
+                onClick={() => openLightbox(index)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    openLightbox(index);
+                  }
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label={
+                  language === "ml"
+                    ? `ചിത്രം വലുതാക്കി കാണുക: ${getLocalized(item.title)}`
+                    : `View photo in lightbox: ${getLocalized(item.title)}`
+                }
+                className="group relative rounded-sm overflow-hidden bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] shadow-xs hover:border-slate/40 dark:hover:border-[#C6C5BD]/40 transition-all duration-300 cursor-pointer flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
+              >
+                <div className="relative aspect-[4/3] bg-stone dark:bg-[#222320] overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.imageUrl}
+                    alt={getLocalized(item.altText)}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
-              <div className="absolute top-3 left-3">
-                <span className="text-[10px] font-bold uppercase tracking-wider bg-white dark:bg-[#2C2D29] text-charcoal dark:text-[#F4F1E9] border border-warm-grey dark:border-[#41413B] px-2.5 py-0.5 rounded-xs">
-                  {item.category}
-                </span>
-              </div>
+                  <div className="absolute top-3 left-3">
+                    <span className="text-[10px] font-bold uppercase tracking-wider bg-white dark:bg-[#2C2D29] text-charcoal dark:text-[#F4F1E9] border border-warm-grey dark:border-[#41413B] px-2.5 py-0.5 rounded-xs">
+                      {item.category}
+                    </span>
+                  </div>
 
-              <div className="absolute bottom-3 left-3 right-3 text-white opacity-0 group-hover:opacity-100 transition-opacity text-xs font-semibold">
-                Click to expand view
-              </div>
-            </div>
+                  <div className="absolute bottom-3 left-3 right-3 text-white opacity-0 group-hover:opacity-100 transition-opacity text-xs font-semibold">
+                    Click to expand view
+                  </div>
+                </div>
 
-            <div className="p-4 flex-1 flex flex-col justify-between">
-              <div>
-                <h3 className="font-display text-base text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors line-clamp-1">
-                  {getLocalized(item.title)}
-                </h3>
-                <p className="mt-1 text-xs text-slate dark:text-[#C6C5BD] line-clamp-2 leading-relaxed">
-                  {item.caption ? getLocalized(item.caption) : getLocalized(item.altText)}
-                </p>
-              </div>
+                <div className="p-4 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="font-display text-base text-charcoal dark:text-[#F4F1E9] group-hover:text-copper dark:group-hover:text-[#D29A78] transition-colors line-clamp-1">
+                      {getLocalized(item.title)}
+                    </h3>
+                    <p className="mt-1 text-xs text-slate dark:text-[#C6C5BD] line-clamp-2 leading-relaxed">
+                      {item.caption ? getLocalized(item.caption) : getLocalized(item.altText)}
+                    </p>
+                  </div>
 
-              <div className="mt-3 pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60 flex items-center justify-between text-xs text-slate dark:text-[#A09F97]">
-                <span className="flex items-center gap-1 font-mono text-[11px]">
-                  <Calendar className="w-3 h-3 text-copper dark:text-[#D29A78]" aria-hidden="true" />
-                  {item.date}
-                </span>
-                {item.location && (
-                  <span className="flex items-center gap-1 text-[11px] truncate max-w-[140px] text-muted-blue dark:text-[#91A7B8] font-medium">
-                    <MapPin className="w-3 h-3 shrink-0" aria-hidden="true" />
-                    <span>{getLocalized(item.location)}</span>
-                  </span>
-                )}
+                  <div className="mt-3 pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60 flex items-center justify-between text-xs text-slate dark:text-[#A09F97]">
+                    <span className="flex items-center gap-1 font-mono text-[11px]">
+                      <Calendar className="w-3 h-3 text-copper dark:text-[#D29A78]" aria-hidden="true" />
+                      {item.date}
+                    </span>
+                    {item.location && (
+                      <span className="flex items-center gap-1 text-[11px] truncate max-w-[140px] text-muted-blue dark:text-[#91A7B8] font-medium">
+                        <MapPin className="w-3 h-3 shrink-0" aria-hidden="true" />
+                        <span>{getLocalized(item.location)}</span>
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </section>
+      ) : (
+        <div
+          role="status"
+          aria-live="polite"
+          className="text-center py-20 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-8 shadow-xs"
+        >
+          <Camera className="w-8 h-8 text-copper dark:text-[#D29A78] mx-auto mb-3" aria-hidden="true" />
+          <h2 className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
+            {mockGallery.length === 0
+              ? t("emptyGalleryInitialTitle")
+              : t("emptyGalleryTitle")}
+          </h2>
+          <p className="text-xs text-slate dark:text-[#C6C5BD] mt-1 max-w-md mx-auto">
+            {mockGallery.length === 0
+              ? t("emptyGalleryInitialDesc")
+              : t("emptyGalleryCategoryDesc")}
+          </p>
+          {mockGallery.length > 0 && selectedCategory !== "All" && (
+            <div className="mt-4 flex items-center justify-center">
+              <button
+                type="button"
+                onClick={() => setSelectedCategory("All")}
+                className="text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] underline transition-colors rounded-xs p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
+              >
+                {t("emptyGalleryReset")}
+              </button>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Contextual links to Activities and News */}
       <div className="pt-8 border-t border-warm-grey dark:border-[#41413B] bg-white dark:bg-[#2C2D29] rounded-sm p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xs">

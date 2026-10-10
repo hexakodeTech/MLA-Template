@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import {
   ArrowLeft,
   ArrowRight,
@@ -24,13 +24,41 @@ import { Button } from "@/components/ui/Button";
 export default function NotFoundClient() {
   const { language, t } = useLanguage();
   const router = useRouter();
+  const pathname = usePathname() || "";
+
+  const isNewsRoute = pathname.startsWith("/news/");
+  const isActivitiesRoute = pathname.startsWith("/activities/");
+
+  const pageTitle = isNewsRoute
+    ? t("announcementNotFoundTitle")
+    : isActivitiesRoute
+    ? t("activityNotFoundTitle")
+    : t("notFoundTitle");
+
+  const pageDescription = isNewsRoute
+    ? t("announcementNotFoundDesc")
+    : isActivitiesRoute
+    ? t("activityNotFoundDesc")
+    : t("notFoundDescription");
+
+  const contextualReturnHref = isNewsRoute
+    ? "/news"
+    : isActivitiesRoute
+    ? "/activities"
+    : "/";
+
+  const contextualReturnLabel = isNewsRoute
+    ? t("returnToAnnouncements")
+    : isActivitiesRoute
+    ? t("returnToActivities")
+    : t("notFoundReturnHome");
 
   const handleGoBack = () => {
     if (typeof window !== "undefined") {
       if (window.history.length > 1) {
         window.history.back();
       } else {
-        router.push("/");
+        router.push(contextualReturnHref);
       }
     }
   };
@@ -154,29 +182,33 @@ export default function NotFoundClient() {
           id="not-found-heading"
           className="font-display text-2xl sm:text-3xl md:text-4xl text-charcoal dark:text-[#F4F1E9] tracking-tight"
         >
-          {t("notFoundTitle")}
+          {pageTitle}
         </h1>
 
         {/* Warm, Professional Explanation */}
         <p className="mt-3 text-slate dark:text-[#C6C5BD] text-sm sm:text-base max-w-xl mx-auto leading-relaxed font-light">
-          {t("notFoundDescription")}
+          {pageDescription}
         </p>
 
         {/* Primary and Secondary Recovery Action Buttons */}
         <div className="mt-8 pt-6 border-t border-warm-grey/60 dark:border-[#41413B]/60 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4">
           <Button
-            href="/"
+            href={contextualReturnHref}
             variant="primary"
             size="md"
-            icon={<Home className="w-4 h-4 text-white dark:text-[#191A18]" aria-hidden="true" />}
-            iconPosition="left"
-            aria-label={
-              language === "ml"
-                ? "ഹോം പേജിലേക്ക് മടങ്ങുക: പ്രധാന പേജിലേക്ക് പോവുക"
-                : "Return to Home: Navigate to the portal homepage"
+            icon={
+              isNewsRoute ? (
+                <Newspaper className="w-4 h-4 text-white dark:text-[#191A18]" aria-hidden="true" />
+              ) : isActivitiesRoute ? (
+                <Calendar className="w-4 h-4 text-white dark:text-[#191A18]" aria-hidden="true" />
+              ) : (
+                <Home className="w-4 h-4 text-white dark:text-[#191A18]" aria-hidden="true" />
+              )
             }
+            iconPosition="left"
+            aria-label={`${contextualReturnLabel}: ${contextualReturnHref}`}
           >
-            {t("notFoundReturnHome")}
+            {contextualReturnLabel}
           </Button>
 
           <Button

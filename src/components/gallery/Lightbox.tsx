@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { X, ChevronLeft, ChevronRight, MapPin, Calendar, Info } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, MapPin, Calendar, Info, AlertCircle, RefreshCw } from "lucide-react";
 import { GalleryItem } from "@/types";
 import { useLanguage } from "@/context/LanguageContext";
 import { getFocusableElements } from "@/utils/focusTrap";
@@ -21,9 +21,10 @@ export const Lightbox: React.FC<LightboxProps> = ({
   onClose,
   onNavigate,
 }) => {
-  const { getLocalized, language } = useLanguage();
+  const { getLocalized, language, t } = useLanguage();
   const [loadedIndex, setLoadedIndex] = useState<number | null>(null);
-  const isImageLoading = loadedIndex !== currentIndex;
+  const [failedIndexes, setFailedIndexes] = useState<Set<number>>(new Set());
+  const isImageLoading = loadedIndex !== currentIndex && !failedIndexes.has(currentIndex);
   const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -44,6 +45,15 @@ export const Lightbox: React.FC<LightboxProps> = ({
 
   const handleNext = useCallback(() => {
     onNavigateRef.current((currentIndexRef.current + 1) % itemsLengthRef.current);
+  }, []);
+
+  const handleRetry = useCallback(() => {
+    setFailedIndexes((prev) => {
+      const next = new Set(prev);
+      next.delete(currentIndexRef.current);
+      return next;
+    });
+    setLoadedIndex(null);
   }, []);
 
   const handleClose = useCallback(() => {
@@ -174,27 +184,62 @@ export const Lightbox: React.FC<LightboxProps> = ({
           </button>
 
           <div className="relative w-full h-full max-h-[60vh] flex items-center justify-center p-3">
-            {isImageLoading && (
+            {failedIndexes.has(currentIndex) ? (
               <div
                 role="status"
                 aria-live="polite"
-                className="absolute inset-0 flex flex-col items-center justify-center gap-2 z-0"
+                className="flex flex-col items-center justify-center p-8 text-center text-[#F4F1E9] space-y-3"
               >
-                <div className="w-8 h-8 rounded-full border-2 border-[#D29A78]/30 border-t-[#D29A78] animate-spin motion-reduce:animate-none" />
-                <span className="sr-only">
-                  {language === "ml" ? "ചിത്രം ലഭ്യമാക്കുന്നു…" : "Loading photograph…"}
-                </span>
+                <div className="w-12 h-12 rounded-full bg-[#1C1D1A] border border-[#41413B] flex items-center justify-center text-[#D29A78]">
+                  <AlertCircle className="w-6 h-6" aria-hidden="true" />
+                </div>
+                <div>
+                  <h3 className="font-display text-lg text-[#F4F1E9]">
+                    {t("emptyImageError")}
+                  </h3>
+                  <p className="text-xs text-[#C6C5BD] mt-1 max-w-sm">
+                    {t("emptyImageFailedDesc")}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleRetry}
+                  className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-xs bg-[#2C2D29] hover:bg-[#343530] text-[#F4F1E9] border border-[#41413B] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D29A78]"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span>{t("emptyImageRetry")}</span>
+                </button>
               </div>
+            ) : (
+              <>
+                {isImageLoading && (
+                  <div
+                    role="status"
+                    aria-live="polite"
+                    className="absolute inset-0 flex flex-col items-center justify-center gap-2 z-0"
+                  >
+                    <div className="w-8 h-8 rounded-full border-2 border-[#D29A78]/30 border-t-[#D29A78] animate-spin motion-reduce:animate-none" />
+                    <span className="sr-only">
+                      {language === "ml" ? "ചിത്രം ലഭ്യമാക്കുന്നു…" : "Loading photograph…"}
+                    </span>
+                  </div>
+                )}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  key={`img-${currentIndex}-${failedIndexes.has(currentIndex) ? 'err' : 'ok'}`}
+                  src={currentItem.imageUrl}
+                  alt={getLocalized(currentItem.altText)}
+                  onLoad={() => setLoadedIndex(currentIndex)}
+                  onError={() => {
+                    setFailedIndexes((prev) => new Set(prev).add(currentIndex));
+                    setLoadedIndex(currentIndex);
+                  }}
+                  className={`max-h-[58vh] max-w-full object-contain rounded-xs select-none shadow-md transition-opacity duration-200 ${
+                    isImageLoading ? "opacity-0" : "opacity-100"
+                  }`}
+                />
+              </>
             )}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={currentItem.imageUrl}
-              alt={getLocalized(currentItem.altText)}
-              onLoad={() => setLoadedIndex(currentIndex)}
-              className={`max-h-[58vh] max-w-full object-contain rounded-xs select-none shadow-md transition-opacity duration-200 ${
-                isImageLoading ? "opacity-0" : "opacity-100"
-              }`}
-            />
           </div>
 
           <button

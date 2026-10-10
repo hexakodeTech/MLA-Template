@@ -141,37 +141,61 @@ export default function NewsPage() {
         </div>
       </div>
 
-      {/* News Grid */}
-      <h2 className="sr-only">
-        {language === "ml" ? "വാർത്താ ലേഖനങ്ങളുടെ പട്ടിക" : "News Articles Directory"}
-      </h2>
+      {/* News Content Area */}
       {filteredNews.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredNews.map((item) => (
-            <NewsCard key={item.id} item={item} />
-          ))}
-        </div>
+        <section aria-label={language === "ml" ? "വാർത്താ ലേഖനങ്ങൾ" : "News Articles"}>
+          <h2 className="sr-only">
+            {language === "ml" ? "വാർത്താ ലേഖനങ്ങളുടെ പട്ടിക" : "News Articles Directory"}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredNews.map((item) => (
+              <NewsCard key={item.id} item={item} />
+            ))}
+          </div>
+        </section>
       ) : (
-        <div className="text-center py-20 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-8 shadow-xs">
+        <div
+          role="status"
+          aria-live="polite"
+          className="text-center py-20 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-8 shadow-xs"
+        >
           <Bell className="w-8 h-8 text-copper dark:text-[#D29A78] mx-auto mb-3" aria-hidden="true" />
           <h2 className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
-            {language === "ml" ? "അറിയിപ്പുകൾ ലഭ്യമല്ല" : "No Announcements Found"}
+            {mockNews.length === 0
+              ? t("emptyNewsInitialTitle")
+              : t("emptyNewsTitle")}
           </h2>
-          <p className="text-xs text-slate dark:text-[#C6C5BD] mt-1">
-            {language === "ml"
-              ? "നിങ്ങൾ നൽകിയ വാക്കുകളുമായി പൊരുത്തപ്പെടുന്ന അറിയിപ്പുകൾ കണ്ടെത്താനായില്ല."
-              : "Try adjusting your search criteria or selecting a different category."}
+          <p className="text-xs text-slate dark:text-[#C6C5BD] mt-1 max-w-md mx-auto">
+            {mockNews.length === 0
+              ? t("emptyNewsInitialDesc")
+              : searchQuery.trim().length > 0 && selectedCategory !== "All"
+              ? t("emptyNewsCombinedDesc")
+              : searchQuery.trim().length > 0
+              ? t("emptyNewsSearchDesc")
+              : t("emptyNewsCategoryDesc")}
           </p>
-          <button
-            type="button"
-            onClick={() => {
-              setSearchQuery("");
-              setSelectedCategory("All");
-            }}
-            className="mt-4 text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] underline transition-colors rounded-xs p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
-          >
-            {language === "ml" ? "ഫിൽട്ടറുകൾ ഒഴിവാക്കുക" : "Reset Filters"}
-          </button>
+          {mockNews.length > 0 && (
+            <div className="mt-4 flex items-center justify-center gap-3">
+              {searchQuery.trim().length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] underline transition-colors rounded-xs p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
+                >
+                  {t("emptyNewsClearSearch")}
+                </button>
+              )}
+              {selectedCategory !== "All" && (
+                <button
+                  type="button"
+                  onClick={() => setSelectedCategory("All")}
+                  className="text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] underline transition-colors rounded-xs p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
+                >
+                  {t("emptyNewsReset")}
+                </button>
+              )}
+            </div>
+          )}
         </div>
       )}
     </div>

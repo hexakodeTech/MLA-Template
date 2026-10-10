@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Phone, MapPin, ExternalLink } from "lucide-react";
+import { Phone, MapPin, ExternalLink, PhoneCall } from "lucide-react";
 import { PublicResource } from "@/types";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -15,7 +15,7 @@ export const ResourceDirectory: React.FC<ResourceDirectoryProps> = ({
   darkTheme = false,
 }) => {
   const [selectedCat, setSelectedCat] = useState<string>("All");
-  const { getLocalized, language } = useLanguage();
+  const { getLocalized, language, t } = useLanguage();
 
   const categories = ["All", "Emergency", "Revenue", "Utilities", "Healthcare"];
 
@@ -64,15 +64,33 @@ export const ResourceDirectory: React.FC<ResourceDirectoryProps> = ({
 
       {/* Directory Grid */}
       {filtered.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-6 shadow-xs">
-          <p className="font-display text-xl text-charcoal dark:text-[#F4F1E9]">
-            {language === "ml" ? "സേവനങ്ങൾ ലഭ്യമല്ല" : "No Services Found"}
+        <div
+          role="status"
+          aria-live="polite"
+          className="text-center py-14 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-6 shadow-xs"
+        >
+          <PhoneCall className="w-8 h-8 text-copper dark:text-[#D29A78] mx-auto mb-3" aria-hidden="true" />
+          <h3 className="font-display text-xl text-charcoal dark:text-[#F4F1E9]">
+            {resources.length === 0
+              ? t("emptyResourcesInitialTitle")
+              : t("emptyResourcesTitle")}
+          </h3>
+          <p className="text-xs text-slate dark:text-[#C6C5BD] mt-1 max-w-md mx-auto">
+            {resources.length === 0
+              ? t("emptyResourcesInitialDesc")
+              : t("emptyResourcesFilterDesc")}
           </p>
-          <p className="text-xs text-slate dark:text-[#C6C5BD] mt-1">
-            {language === "ml"
-              ? "തിരഞ്ഞെടുത്ത വിഭാഗത്തിൽ വിവരങ്ങൾ ലഭ്യമല്ല."
-              : "No public resources match the selected service category."}
-          </p>
+          {resources.length > 0 && selectedCat !== "All" && (
+            <div className="mt-4 flex items-center justify-center">
+              <button
+                type="button"
+                onClick={() => setSelectedCat("All")}
+                className="text-xs font-bold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] underline transition-colors rounded-xs p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal dark:focus-visible:ring-[#D29A78]"
+              >
+                {t("emptyResourcesReset")}
+              </button>
+            </div>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
