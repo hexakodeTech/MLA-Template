@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { X, ChevronLeft, ChevronRight, MapPin, Calendar, Info } from "lucide-react";
 import { GalleryItem } from "@/types";
 import { useLanguage } from "@/context/LanguageContext";
@@ -22,6 +22,8 @@ export const Lightbox: React.FC<LightboxProps> = ({
   onNavigate,
 }) => {
   const { getLocalized, language } = useLanguage();
+  const [loadedIndex, setLoadedIndex] = useState<number | null>(null);
+  const isImageLoading = loadedIndex !== currentIndex;
   const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -172,11 +174,26 @@ export const Lightbox: React.FC<LightboxProps> = ({
           </button>
 
           <div className="relative w-full h-full max-h-[60vh] flex items-center justify-center p-3">
+            {isImageLoading && (
+              <div
+                role="status"
+                aria-live="polite"
+                className="absolute inset-0 flex flex-col items-center justify-center gap-2 z-0"
+              >
+                <div className="w-8 h-8 rounded-full border-2 border-[#D29A78]/30 border-t-[#D29A78] animate-spin motion-reduce:animate-none" />
+                <span className="sr-only">
+                  {language === "ml" ? "ചിത്രം ലഭ്യമാക്കുന്നു…" : "Loading photograph…"}
+                </span>
+              </div>
+            )}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={currentItem.imageUrl}
               alt={getLocalized(currentItem.altText)}
-              className="max-h-[58vh] max-w-full object-contain rounded-xs select-none shadow-md"
+              onLoad={() => setLoadedIndex(currentIndex)}
+              className={`max-h-[58vh] max-w-full object-contain rounded-xs select-none shadow-md transition-opacity duration-200 ${
+                isImageLoading ? "opacity-0" : "opacity-100"
+              }`}
             />
           </div>
 

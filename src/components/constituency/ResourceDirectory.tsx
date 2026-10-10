@@ -50,8 +50,32 @@ export const ResourceDirectory: React.FC<ResourceDirectoryProps> = ({
         </div>
       </div>
 
+      {/* Live Status Announcement */}
+      <div
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+      >
+        {language === "ml"
+          ? `${selectedCat} വിഭാഗത്തിൽ ${filtered.length} സേവനങ്ങൾ ലഭ്യമാണ്`
+          : `Showing ${filtered.length} services for category ${selectedCat}`}
+      </div>
+
       {/* Directory Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {filtered.length === 0 ? (
+        <div className="text-center py-12 bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-6 shadow-xs">
+          <p className="font-display text-xl text-charcoal dark:text-[#F4F1E9]">
+            {language === "ml" ? "സേവനങ്ങൾ ലഭ്യമല്ല" : "No Services Found"}
+          </p>
+          <p className="text-xs text-slate dark:text-[#C6C5BD] mt-1">
+            {language === "ml"
+              ? "തിരഞ്ഞെടുത്ത വിഭാഗത്തിൽ വിവരങ്ങൾ ലഭ്യമല്ല."
+              : "No public resources match the selected service category."}
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filtered.map((item) => (
           <div
             key={item.id}
@@ -125,6 +149,7 @@ export const ResourceDirectory: React.FC<ResourceDirectoryProps> = ({
           </div>
         ))}
       </div>
+      )}
     </div>
   );
 };

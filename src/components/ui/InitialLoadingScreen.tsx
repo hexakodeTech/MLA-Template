@@ -264,10 +264,10 @@ export function InitialLoadingScreen() {
                 </span>
 
                 {/* 3. Random Activity Title */}
-                <h2 className="font-display text-xl sm:text-2xl md:text-3xl text-charcoal dark:text-[#F4F1E9] tracking-tight leading-snug sm:leading-tight mt-1.5 px-2 max-w-lg">
+                <p className="font-display text-xl sm:text-2xl md:text-3xl font-semibold text-charcoal dark:text-[#F4F1E9] tracking-tight leading-snug sm:leading-tight mt-1.5 px-2 max-w-lg">
                   <span className="loading-lang-en">{act.title.en}</span>
                   <span className="loading-lang-ml">{act.title.ml}</span>
-                </h2>
+                </p>
 
                 {/* 4. Activity Description */}
                 <p className="text-xs sm:text-sm text-slate dark:text-[#C6C5BD] leading-relaxed font-light mt-2 max-w-sm sm:max-w-md px-2">
