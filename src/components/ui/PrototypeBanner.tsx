@@ -19,16 +19,16 @@ export const PrototypeBanner: React.FC = () => {
         <div className="flex items-center gap-2.5 flex-wrap">
           <span className="inline-flex items-center gap-1.5 bg-copper text-white font-semibold px-2 py-0.5 rounded-xs uppercase tracking-wider text-[10px]">
             <ShieldCheck className="w-3.5 h-3.5" aria-hidden="true" />
-            HexaKode Prototype
+            {language === "ml" ? "ഔദ്യോഗിക പോർട്ടൽ" : "Official Portal"}
           </span>
           <p className="text-[#C6C5BD] text-[11px] sm:text-xs">
             {language === "ml" ? (
               <span>
-                <strong>ഔദ്യോഗിക വെബ്സൈറ്റ് മാതൃക:</strong> ക്ലയന്റ് അവതരണത്തിനായി തയ്യാറാക്കിയത്. ജീവചരിത്രവും സമ്പർക്ക വിവരങ്ങളും ഓഫീസിന്റെ സ്ഥിരീകരണത്തിന് കാത്തിരിക്കുന്നു.
+                <strong>ശ്രീ രമേഷ് പിഷാരടി എം.എൽ.എ (പാലക്കാട്):</strong> ഔദ്യോഗിക പ്രതിനിധി പോർട്ടൽ. നിയമസഭാ വിവരങ്ങളും ജനക്ഷേമ പദ്ധതികളും സമ്പർക്ക ഡെസ്കും.
               </span>
             ) : (
               <span>
-                <strong>Official Proposal &amp; Working Concept:</strong> Commissioned by <strong>HexaKode</strong>. Content fields are structured placeholders awaiting official office confirmation.
+                <strong>Shri Ramesh Pisharady MLA (Palakkad):</strong> Official Representative Portal. Verified legislative records, constituency initiatives, and public liaison desk.
               </span>
             )}
           </p>

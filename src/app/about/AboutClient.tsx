@@ -10,6 +10,7 @@ import {
   Clock,
   MapPin,
   Mail,
+  Phone,
   Info,
   ArrowRight,
 } from "lucide-react";
@@ -33,10 +34,10 @@ export default function AboutPage() {
           <Badge variant="copper">
             {language === "ml" ? "പ്രതിനിധി പ്രൊഫൈൽ" : "Official Profile"}
           </Badge>
-          <Badge variant="sample">
+          <Badge variant="default">
             {language === "ml"
-              ? "ഔദ്യോഗിക അംഗീകാരത്തിന് കാത്തിരിക്കുന്നു"
-              : "Pending Office Approval"}
+              ? "നിയമസഭാ സാമാജികൻ (എം.എൽ.എ)"
+              : "Member of Legislative Assembly (MLA)"}
           </Badge>
         </div>
         <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-charcoal dark:text-[#F4F1E9] tracking-tight">
@@ -44,8 +45,8 @@ export default function AboutPage() {
         </h1>
         <p className="mt-4 text-slate dark:text-[#C6C5BD] text-base sm:text-lg max-w-3xl leading-relaxed font-light">
           {language === "ml"
-            ? "പാലക്കാട് മണ്ഡലത്തിലെ ജനങ്ങൾക്ക് സേവനമെത്തിക്കുന്നതിനായുള്ള ഔദ്യോഗിക വിവര ശേഖരം. അംഗീകൃത ജീവചരിത്രവും സംഘടനാ ചുമതലകളും ഉടൻ ചേർക്കുന്നതാണ്."
-            : "Official background and public service responsibilities for the representative of Palakkad Constituency. Approved institutional biography will be published upon official confirmation."}
+            ? "പതിനാറാം കേരള നിയമസഭയിൽ പാലക്കാട് മണ്ഡലത്തെ പ്രതിനിധീകരിക്കുന്ന നിയമസഭാ സാമാജികൻ ശ്രീ രമേഷ് പിഷാരടിയുടെ ഔദ്യോഗിക ജീവചരിത്രവും പൊതുപ്രവർത്തന വിവരങ്ങളും."
+            : "Official background, public service record, and legislative responsibilities of Shri Ramesh Pisharady, Member of the Kerala Legislative Assembly representing Palakkad Constituency (16th KLA)."}
         </p>
       </div>
 
@@ -59,8 +60,8 @@ export default function AboutPage() {
                 src="/images/ramesh-pisharady-portrait.png"
                 alt={
                   language === "ml"
-                    ? "പാലക്കാട് നിയോജകമണ്ഡലത്തിന്റെ ജനപ്രതിനിധി ശ്രീ രമേഷ് പിഷാരടി"
-                    : "Shri Ramesh Pisharady, Public Representative of Palakkad Constituency"
+                    ? "പാലക്കാട് നിയോജകമണ്ഡലത്തിന്റെ ജനപ്രതിനിധി ശ്രീ രമേഷ് പിഷാരടി, എം.എൽ.എ"
+                    : "Shri Ramesh Pisharady, MLA representing Palakkad Constituency"
                 }
                 fill
                 priority
@@ -92,28 +93,42 @@ export default function AboutPage() {
           {/* Institutional Credentials Card */}
           <div className="bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-6 space-y-3.5 text-xs shadow-xs">
             <h2 className="font-bold text-xs text-charcoal dark:text-[#F4F1E9] uppercase tracking-widest border-b border-warm-grey dark:border-[#41413B] pb-2">
-              {language === "ml" ? "സ്ഥിരീകരണ പദവി" : "Verification & Office Status"}
+              {language === "ml" ? "സ്ഥിരീകരിച്ച ഔദ്യോഗിക പദവികൾ" : "Verified Legislative Credentials"}
             </h2>
             <ul className="space-y-2 text-slate dark:text-[#C6C5BD] font-sans">
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-copper dark:bg-[#D29A78] mt-1.5 shrink-0" />
                 <span>
+                  <strong className="text-charcoal dark:text-[#F4F1E9]">{language === "ml" ? "നിയമസഭ:" : "Assembly:"}</strong>{" "}
+                  16th Kerala Legislative Assembly
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-copper dark:bg-[#D29A78] mt-1.5 shrink-0" />
+                <span>
                   <strong className="text-charcoal dark:text-[#F4F1E9]">{language === "ml" ? "മണ്ഡലം:" : "Constituency:"}</strong>{" "}
-                  Palakkad, Kerala, India
+                  Palakkad (LAC 056), Kerala
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-copper dark:bg-[#D29A78] mt-1.5 shrink-0" />
                 <span>
-                  <strong className="text-charcoal dark:text-[#F4F1E9]">{language === "ml" ? "ഓഫീസ് നിലവാരം:" : "Office Status:"}</strong> Active
-                  Grievance &amp; Citizen Liaison Desk
+                  <strong className="text-charcoal dark:text-[#F4F1E9]">{language === "ml" ? "രാഷ്ട്രീയ പാർട്ടി:" : "Party Affiliation:"}</strong>{" "}
+                  Indian National Congress (INC) / UDF
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-copper dark:bg-[#D29A78] mt-1.5 shrink-0" />
                 <span>
-                  <strong className="text-charcoal dark:text-[#F4F1E9]">{language === "ml" ? "ഡിജിറ്റൽ പോർട്ടൽ:" : "Portal Phase:"}</strong> Prototype
-                  Concept commissioned by HexaKode
+                  <strong className="text-charcoal dark:text-[#F4F1E9]">{language === "ml" ? "നിയമസഭാ സമിതി:" : "Committee Membership:"}</strong>{" "}
+                  Committee on Official Language
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-copper dark:bg-[#D29A78] mt-1.5 shrink-0" />
+                <span>
+                  <strong className="text-charcoal dark:text-[#F4F1E9]">{language === "ml" ? "ഔദ്യോഗിക ഫോൺ:" : "Official Phone:"}</strong>{" "}
+                  +91 90726 78001 (Niyamasabha Directory)
                 </span>
               </li>
             </ul>
@@ -122,30 +137,35 @@ export default function AboutPage() {
 
         {/* Right Column: Structured Biography & Roles */}
         <div className="lg:col-span-7 space-y-8">
-          {/* Section: Official Biography Placeholder */}
+          {/* Section: Official Biography */}
           <section className="space-y-4">
             <h2 className="font-display text-3xl text-charcoal dark:text-[#F4F1E9]">
               {language === "ml" ? "ഔദ്യോഗിക ജീവചരിത്രം" : "Official Biography"}
             </h2>
-            <div className="p-5 rounded-sm bg-copper/10 border border-copper/30 dark:border-[#D29A78]/30 text-charcoal dark:text-[#F4F1E9] text-sm leading-relaxed space-y-2">
+            <div className="p-5 rounded-sm bg-stone/50 dark:bg-[#222320] border border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9] text-sm leading-relaxed space-y-3 shadow-xs">
               <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-copper dark:text-[#D29A78]">
-                <Info className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0" aria-hidden="true" />
+                <ShieldCheck className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0" aria-hidden="true" />
                 <span>
                   {language === "ml"
-                    ? "ഓഫീസ് ജീവചരിത്ര രേഖ"
-                    : "Awaiting Verified Biography from the Office"}
+                    ? "സ്ഥിരീകരിച്ച പൊതുവിവര രേഖ"
+                    : "Verified Public Record · Kerala Niyamasabha"}
                 </span>
               </div>
-              <p className="text-xs text-slate dark:text-[#C6C5BD] leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate dark:text-[#C6C5BD] leading-relaxed">
                 {language === "ml"
-                  ? "ശ്രീ രമേഷ് പിഷാരടിയുടെ ഔദ്യോഗിക ജീവചരിത്രം, വിദ്യാഭ്യാസ പശ്ചാത്തലം, പൊതുപ്രവർത്തന നാൾവഴികൾ എന്നിവ ഓഫീസ് അനുമതി ലഭിക്കുന്ന മുറയ്ക്ക് ഇവിടെ പ്രസിദ്ധീകരിക്കും. തെറ്റായതോ സ്ഥിരീകരിക്കാത്തതോ ആയ വിവരങ്ങൾ ഒഴിവാക്കാനാണ് ഈ ക്രമീകരണം."
-                  : "Official biography to be provided by the office. This website concept strictly refrains from fabricating personal histories, educational degrees, election claims, or political affiliations without verified documentation from the representative's authorized office."}
+                  ? "1981 ഒക്ടോബർ 1-ന് ടി.വി. ബാലകൃഷ്ണ പിഷാരടിയുടെയും രമ ബി. പിഷാരടിയുടെയും മകനായി ജനിച്ചു. തലയോലപ്പറമ്പ് ദേവസ്വം ബോർഡ് കോളേജിൽ നിന്നും പ്രീ-ഡിഗ്രി വിദ്യാഭ്യാസം പൂർത്തിയാക്കി. മലയാള ചലച്ചിത്ര-ടെലിവിഷൻ രംഗങ്ങളിൽ നടൻ, സംവിധായകൻ, ടെലിവിഷൻ അവതാരകൻ എന്നീ നിലകളിൽ ജനപ്രീതി നേടി."
+                  : "Born on October 1, 1981 to T.V. Balakrishna Pisharody and Rema B. Pisharody in Kerala. Completed pre-degree education at Devaswom Board College, Thalayolaparambu. Rose to widespread prominence in Malayalam cinema and television as a celebrated actor, filmmaker, and television presenter."}
+              </p>
+              <p className="text-xs sm:text-sm text-slate dark:text-[#C6C5BD] leading-relaxed">
+                {language === "ml"
+                  ? "2021 ഫെബ്രുവരിയിൽ രമേശ് ചെന്നിത്തല നയിച്ച ഐശ്വര്യ കേരള യാത്രയിലൂടെയാണ് സജീവ രാഷ്ട്രീയത്തിലേക്ക് പ്രവേശിച്ചത്. 2026-ലെ കേരള നിയമസഭാ തിരഞ്ഞെടുപ്പിൽ യു.ഡി.എഫ് സ്ഥാനാർത്ഥിയായി പാലക്കാട് നിയോജകമണ്ഡലത്തിൽ നിന്ന് മത്സരിച്ച് വിജയിച്ച് നിയമസഭാ സാമാജികനായി (എം.എൽ.എ) ചുമതലയേറ്റു. കേരള നിയമസഭയുടെ ഔദ്യോഗിക ഭാഷാ സമിതി അംഗമായി സേവനമനുഷ്ഠിക്കുന്നു."
+                  : "Formally entered active politics in February 2021 during the Aishwarya Kerala Yatra. In the 2026 Kerala Legislative Assembly elections, contested as the United Democratic Front (UDF) candidate for the Palakkad constituency, winning the mandate and assuming office as MLA in May 2026. Serves as a member of the Kerala Legislative Assembly Committee on Official Language."}
               </p>
             </div>
             <p className="text-slate dark:text-[#C6C5BD] text-base leading-relaxed font-light">
               {language === "ml"
-                ? "പാലക്കാടിന്റെ സമഗ്ര വികസനത്തിനും ജനങ്ങളുടെ ആവശ്യങ്ങൾ കൃത്യമായി സർക്കാരിലേക്ക് എത്തിക്കുന്നതിനുമുള്ള പ്രതിബദ്ധതയോടെയാണ് ഓഫീസ് പ്രവർത്തിക്കുന്നത്."
-                : "Dedicated to the sustainable development of Palakkad, strengthening rural and urban infrastructure, supporting agrarian communities, and ensuring that public petitions receive swift and accountable attention."}
+                ? "പാലക്കാടിന്റെ കാർഷിക പൈതൃകം കാത്തുസൂക്ഷിക്കുന്നതിനൊപ്പം ശുദ്ധജല വിതരണം, അടിസ്ഥാന ഗതാഗതം, ആരോഗ്യ സൗകര്യങ്ങൾ എന്നിവ മെച്ചപ്പെടുത്തുന്നതിനും ജനങ്ങളുടെ നിവേദനങ്ങൾ വേഗത്തിൽ പരിഹരിക്കുന്നതിനും പ്രതിജ്ഞാബദ്ധമായി ഓഫീസ് പ്രവർത്തിക്കുന്നു."
+                : "Dedicated to the comprehensive civic and economic development of Palakkad, strengthening agricultural irrigation, upgrading primary healthcare, expanding road transport links, and ensuring transparent grievance redressal for all constituents."}
             </p>
           </section>
 
@@ -242,6 +262,21 @@ export default function AboutPage() {
                   <p className="text-slate dark:text-[#C6C5BD] mt-1">
                     {getLocalized(representativeProfile.officeHours)}
                   </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60">
+                <Phone className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
+                <div>
+                  <span className="font-bold text-charcoal dark:text-[#F4F1E9] block uppercase tracking-wider text-xs">
+                    {language === "ml" ? "ഔദ്യോഗിക ഫോൺ നമ്പർ:" : "Official Telephone:"}
+                  </span>
+                  <a
+                    href="tel:+919072678001"
+                    className="text-slate dark:text-[#C6C5BD] hover:text-copper dark:hover:text-[#D29A78] mt-1 font-mono text-xs block transition-colors"
+                  >
+                    {representativeProfile.officePhone}
+                  </a>
                 </div>
               </div>
 

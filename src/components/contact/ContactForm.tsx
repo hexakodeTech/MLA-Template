@@ -471,8 +471,24 @@ export const ContactForm: React.FC = () => {
             </div>
             <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] bg-stone dark:bg-[#222320] text-charcoal dark:text-[#F4F1E9] border border-warm-grey dark:border-[#41413B] px-3 py-1 rounded-xs font-mono font-medium">
               <Info className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
-              {language === "ml" ? "ഔദ്യോഗിക ഡെസ്ക്" : "Official Desk"}
+              {language === "ml" ? "ഫ്രണ്ട്-എൻഡ് മാതൃക" : "Frontend Demo"}
             </span>
+          </div>
+
+          {/* Frontend-only transparency notice */}
+          <div className="mb-6 p-4 rounded-sm bg-stone/40 dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] text-xs text-charcoal dark:text-[#F4F1E9] flex items-start gap-2.5 shadow-2xs">
+            <Info className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
+            <p className="leading-relaxed text-slate dark:text-[#C6C5BD]">
+              {language === "ml" ? (
+                <span>
+                  <strong>ഫ്രണ്ട്-എൻഡ് പോർട്ടൽ അറിയിപ്പ്:</strong> ഈ വെബ്സൈറ്റ് ഒരു ബാക്കെൻഡ് ഡാറ്റാബേസോ സ്വയമേവയുള്ള പരാതി രജിസ്ട്രേഷൻ സെർവറോ ഇല്ലാതെ പൂർണ്ണമായും സ്റ്റാറ്റിക് ആയാണ് പ്രവർത്തിക്കുന്നത്. താഴെ നൽകിയിരിക്കുന്ന ഫോം സന്ദേശങ്ങൾ രൂപീകരിക്കാനും പരിശോധിക്കാനുമുള്ളതാണ്. നിങ്ങളുടെ ആശയവിനിമയം നേരിട്ട് MLA ഓഫീസിലെത്തിക്കാൻ direct verified email (<a href="mailto:mla.palakkad@niyamasabha.nic.in" className="underline font-semibold text-charcoal dark:text-[#F4F1E9]">mla.palakkad@niyamasabha.nic.in</a>) അല്ലെങ്കിൽ ഫോൺ (<a href="tel:+919072678001" className="underline font-semibold text-charcoal dark:text-[#F4F1E9]">+91 90726 78001</a>) ഉപയോഗിക്കുക.
+                </span>
+              ) : (
+                <span>
+                  <strong>Frontend Demonstration Notice:</strong> This portal functions as a static frontend application without a backend database or automated grievance server. The form below validates your communication and prepares a draft. To submit official correspondence directly to Shri Ramesh Pisharady MLA, please use the verified email (<a href="mailto:mla.palakkad@niyamasabha.nic.in" className="underline font-semibold text-charcoal dark:text-[#F4F1E9]">mla.palakkad@niyamasabha.nic.in</a>) or telephone helpline (<a href="tel:+919072678001" className="underline font-semibold text-charcoal dark:text-[#F4F1E9]">+91 90726 78001</a>).
+                </span>
+              )}
+            </p>
           </div>
 
           {/* Differentiated Cards - Both Entire Cards Single-Tab Keyboard Accessible */}
@@ -660,7 +676,7 @@ export const ContactForm: React.FC = () => {
           {submissionStatus === "success" ? (
             <div
               ref={successRef}
-              id="submission-success-panel"
+              id="form-success-alert"
               tabIndex={-1}
               role="status"
               aria-live="polite"
@@ -675,33 +691,39 @@ export const ContactForm: React.FC = () => {
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-copper dark:text-[#D29A78] bg-stone dark:bg-[#2C2D29] px-2.5 py-0.5 rounded-xs border border-warm-grey/60 dark:border-[#41413B]">
                       {selectedWorkflow === "grievance-request"
-                        ? (language === "ml" ? "പരാതി / നിവേദനം" : "Grievance / Request")
-                        : (language === "ml" ? "പൊതുവായ അന്വേഷണം" : "General Enquiry")}
+                        ? (language === "ml" ? "പരാതി / നിവേദനം കരട്" : "Grievance / Request Draft")
+                        : (language === "ml" ? "പൊതുവായ അന്വേഷണ കരട്" : "General Enquiry Draft")}
                     </span>
                   </div>
                   <h4 id="success-feedback-title" className="font-display text-2xl text-charcoal dark:text-[#F4F1E9]">
-                    {selectedWorkflow === "grievance-request"
-                      ? (language === "ml" ? "പരാതി / നിവേദനം സമർപ്പിച്ചു" : "Grievance / Request Submitted")
-                      : (language === "ml" ? "പൊതുവായ അന്വേഷണം സമർപ്പിച്ചു" : "General Enquiry Submitted")}
+                    {language === "ml"
+                      ? "കരട് തയ്യാറാക്കൽ പൂർത്തിയായി (ഫ്രണ്ട്-എൻഡ് മാതൃക)"
+                      : "Communication Draft Prepared (Frontend Demonstration)"}
                   </h4>
                   <p className="text-sm text-slate dark:text-[#C6C5BD] leading-relaxed">
-                    {selectedWorkflow === "grievance-request"
-                      ? (language === "ml"
-                          ? "നിങ്ങളുടെ അപേക്ഷ വിജയകരമായി സ്വീകരിച്ചു. നൽകിയ വിവരങ്ങൾ ഓഫീസ് പരിശോധിച്ചേക്കാം; കൂടുതൽ വിവരങ്ങളോ തുടർനടപടികളോ ആവശ്യമാണെങ്കിൽ ഓഫീസ് നിങ്ങളുമായി ബന്ധപ്പെട്ടേക്കാം."
-                          : "Your submission has been received successfully. The office may review the information provided and contact you if further information or follow-up is required.")
-                      : (language === "ml"
-                          ? "നിങ്ങളുടെ അന്വേഷണം വിജയകരമായി സമർപ്പിച്ചു. നൽകിയ വിവരങ്ങൾ ഓഫീസ് പരിശോധിച്ചേക്കാം; കൂടുതൽ വിവരങ്ങളോ തുടർനടപടികളോ ആവശ്യമാണെങ്കിൽ ഓഫീസ് നിങ്ങളുമായി ബന്ധപ്പെട്ടേക്കാം."
-                          : "Your enquiry has been submitted successfully. The office may review the information provided and contact you if further information or follow-up is required.")}
+                    {language === "ml"
+                      ? "ശ്രദ്ധിക്കുക: ഈ വെബ്സൈറ്റ് ബാക്കെൻഡ് സെർവറില്ലാത്ത സ്റ്റാറ്റിക് പോർട്ടലായതിനാൽ ഔദ്യോഗിക രജിസ്ട്രേഷൻ നടത്തിയിട്ടില്ല. നിങ്ങളുടെ വിവരങ്ങൾ പ്രാദേശികമായി സാധൂകരിച്ചിട്ടുണ്ട്. ഇത് ഔദ്യോഗികമായി അയക്കാൻ താഴെ നൽകിയിരിക്കുന്ന ഇമെയിൽ അല്ലെങ്കിൽ ഫോൺ ലിങ്കുകൾ ഉപയോഗിക്കുക:"
+                      : "Notice: No server-side registration or database submission has occurred because this portal operates as a static frontend application. Your entered information has been validated in your browser. To transmit this communication to the MLA's office, use the direct verified options below:"}
                   </p>
 
-                  {/* Prototype Transparency Note */}
-                  <div className="pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60 text-xs text-slate/80 dark:text-[#A09F97] flex items-start gap-2">
-                    <Info className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
-                    <p>
-                      {language === "ml"
-                        ? "പ്രോട്ടോടൈപ്പ് മാതൃക: ഫോം സാധുത പരിശോധനയും സിമുലേഷനും വിജയകരമാണ്. ഔദ്യോഗിക ഓഫീസ് സെർവർ ബന്ധിപ്പിക്കുമ്പോൾ നേരിട്ട് മണ്ഡലം ഓഫീസിലേക്ക് സന്ദേശം കൈമാറുന്നതാണ്."
-                        : "Prototype Mode Notice: Client-side validation and workflow processing completed successfully. Outbound transmission will route through the authorized constituency office mail server upon full activation."}
-                    </p>
+                  {/* Direct Verified Actions */}
+                  <div className="pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60 flex flex-wrap gap-3">
+                    <a
+                      href={`mailto:mla.palakkad@niyamasabha.nic.in?subject=${encodeURIComponent(`[Constituency Communication] ${formData.subject}`)}&body=${encodeURIComponent(
+                        `From: ${formData.fullName}\nPhone: ${formData.phone}\nEmail: ${formData.email}\n${formData.location ? `Location: ${formData.location}\n` : ""}\nMessage:\n${formData.message}`
+                      )}`}
+                      className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] hover:bg-copper dark:hover:bg-[#D29A78] rounded-sm transition-colors shadow-2xs"
+                    >
+                      <span>{language === "ml" ? "ഇമെയിൽ ആപ്പിൽ തുറക്കുക (ഔദ്യോഗിക വിലാസം)" : "Open in Email Client (Official Address)"}</span>
+                      <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                    </a>
+
+                    <a
+                      href="tel:+919072678001"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:bg-stone/60 dark:hover:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] transition-colors"
+                    >
+                      <span>{language === "ml" ? "ഓഫീസിലേക്ക് വിളിക്കുക (+91 90726 78001)" : "Call Office (+91 90726 78001)"}</span>
+                    </a>
                   </div>
                 </div>
               </div>

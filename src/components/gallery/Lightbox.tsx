@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { X, ChevronLeft, ChevronRight, MapPin, Calendar, Info, AlertCircle, RefreshCw } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, MapPin, Calendar, Info, AlertCircle, RefreshCw, ShieldCheck } from "lucide-react";
 import { GalleryItem } from "@/types";
 import { useLanguage } from "@/context/LanguageContext";
 import { getFocusableElements } from "@/utils/focusTrap";
@@ -156,10 +156,17 @@ export const Lightbox: React.FC<LightboxProps> = ({
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="hidden sm:inline-flex items-center gap-1 text-[10px] text-[#D29A78] uppercase tracking-wider font-semibold bg-[#D29A78]/10 px-2 py-0.5 rounded-xs border border-[#D29A78]/30">
-              <Info className="w-3 h-3" aria-hidden="true" />
-              {language === "ml" ? "മാതൃകാ ചിത്രം" : "Sample Asset"}
-            </span>
+            {currentItem.isSample ? (
+              <span className="hidden sm:inline-flex items-center gap-1 text-[10px] text-[#D29A78] uppercase tracking-wider font-semibold bg-[#D29A78]/10 px-2 py-0.5 rounded-xs border border-[#D29A78]/30">
+                <Info className="w-3 h-3" aria-hidden="true" />
+                {language === "ml" ? "മാതൃകാ ചിത്രം" : "Sample Asset"}
+              </span>
+            ) : (
+              <span className="hidden sm:inline-flex items-center gap-1 text-[10px] text-green-400 uppercase tracking-wider font-semibold bg-green-500/10 px-2 py-0.5 rounded-xs border border-green-500/30">
+                <ShieldCheck className="w-3 h-3" aria-hidden="true" />
+                {language === "ml" ? "സ്ഥിരീകരിച്ച ചിത്രം" : "Verified Record"}
+              </span>
+            )}
             <button
               ref={closeBtnRef}
               type="button"

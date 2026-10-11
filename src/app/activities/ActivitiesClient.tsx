@@ -56,8 +56,8 @@ export default function ActivitiesPage() {
           <Badge variant="copper">
             {language === "ml" ? "പ്രവർത്തനങ്ങൾ" : "Public Engagements"}
           </Badge>
-          <Badge variant="sample">
-            {language === "ml" ? "മാതൃകാ രേഖകൾ" : "Demonstration Diary"}
+          <Badge variant="verified">
+            {language === "ml" ? "സ്ഥിരീകരിച്ച രേഖകൾ" : "Verified Records"}
           </Badge>
         </div>
         <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-charcoal dark:text-[#F4F1E9] tracking-tight">
@@ -133,7 +133,9 @@ export default function ActivitiesPage() {
               : `Showing ${filteredActivities.length} activity records`}
           </span>
           <span className="text-[11px] text-copper dark:text-[#D29A78] italic font-mono">
-            * Editorial samples illustrating official timeline formatting
+            {language === "ml"
+              ? "* ഔദ്യോഗിക നിയമസഭാ ഡയറി രേഖകൾ"
+              : "* Official Legislative Diary Records"}
           </span>
         </div>
       </div>

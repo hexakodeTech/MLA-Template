@@ -6,7 +6,7 @@ export const siteConfig = {
   name: "Shri Ramesh Pisharady | Official Representative Portal",
   representativeName: "Shri Ramesh Pisharady",
   description:
-    "Official representative portal of Shri Ramesh Pisharady, featuring public activities, constituency information, news, announcements, gallery and citizen services.",
+    "Official representative portal of Shri Ramesh Pisharady, Member of the Kerala Legislative Assembly (MLA) for Palakkad Constituency (16th KLA), featuring verified public activities, constituency information, news, announcements, gallery, and citizen services.",
   url: "https://rameshpisharady.hexakode.com",
   ogImage: "https://rameshpisharady.hexakode.com/images/og-preview.png",
   portraitImage: "https://rameshpisharady.hexakode.com/images/ramesh-pisharady-portrait.png",

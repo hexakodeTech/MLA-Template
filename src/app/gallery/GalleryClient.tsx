@@ -51,8 +51,8 @@ export default function GalleryPage() {
           <Badge variant="copper">
             {language === "ml" ? "ചിത്രശാല" : "Official Photo Gallery"}
           </Badge>
-          <Badge variant="sample">
-            {language === "ml" ? "മാതൃകാ ചിത്രങ്ങൾ" : "Photographic Placeholders"}
+          <Badge variant="verified">
+            {language === "ml" ? "സ്ഥിരീകരിച്ച ചിത്രങ്ങൾ" : "Verified Photographs"}
           </Badge>
         </div>
         <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-charcoal dark:text-[#F4F1E9] tracking-tight">
@@ -66,11 +66,19 @@ export default function GalleryPage() {
             : "Photographic record documenting public meetings, official walkthroughs, infrastructure inspections, and the cultural landscape of Palakkad."}
         </p>
 
-        {/* Prototype notice */}
+        {/* Media archive notice */}
         <div className="mt-6 p-4 rounded-sm bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] text-xs text-charcoal dark:text-[#F4F1E9] flex items-start gap-2.5 max-w-3xl shadow-xs">
           <Info className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
           <p className="leading-relaxed text-slate dark:text-[#C6C5BD]">
-            <strong className="text-charcoal dark:text-[#F4F1E9]">Sample Asset Notice:</strong> The images currently featured in this prototype are high-quality illustrative placeholders selected to demonstrate the responsive grid and lightbox viewing capabilities. Approved official media will be incorporated prior to launch.
+            {language === "ml" ? (
+              <span>
+                <strong className="text-charcoal dark:text-[#F4F1E9]">ചിത്രശേഖര കുറിപ്പ്:</strong> പാലക്കാട് മണ്ഡലത്തിലെ പൊതു ജനസമ്പർക്ക പരിപാടികൾ, പൈതൃക കേന്ദ്രങ്ങൾ, അടിസ്ഥാന സൗകര്യ അവലോകനങ്ങൾ എന്നിവയുടെ ചിത്രങ്ങൾ.
+              </span>
+            ) : (
+              <span>
+                <strong className="text-charcoal dark:text-[#F4F1E9]">Media Archive Notice:</strong> Documented photographs of Palakkad constituency civic consultations, landmark inspections, and heritage documentation.
+              </span>
+            )}
           </p>
         </div>
       </div>

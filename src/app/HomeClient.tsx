@@ -498,22 +498,22 @@ export default function HomeClient() {
                 <div className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-copper dark:bg-[#D29A78] mt-2 shrink-0"></span>
                   <div>
-                    <strong className="text-charcoal dark:text-[#F4F1E9] block">Constituency:</strong>
-                    <span className="text-slate dark:text-[#C6C5BD]">Palakkad, Kerala, India (Gateway to the Western Ghats)</span>
+                    <strong className="text-charcoal dark:text-[#F4F1E9] block">Legislative Assembly:</strong>
+                    <span className="text-slate dark:text-[#C6C5BD]">16th Kerala Legislative Assembly (Palakkad LAC 056)</span>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 pt-2 border-t border-warm-grey/60 dark:border-[#41413B]/60">
                   <span className="w-1.5 h-1.5 rounded-full bg-copper dark:bg-[#D29A78] mt-2 shrink-0"></span>
                   <div>
                     <strong className="text-charcoal dark:text-[#F4F1E9] block">Public Liaison:</strong>
-                    <span className="text-slate dark:text-[#C6C5BD]">Active Citizen Redressal &amp; Infrastructure Oversight Desk</span>
+                    <span className="text-slate dark:text-[#C6C5BD]">Active Citizen Grievance Redressal &amp; Infrastructure Oversight Desk</span>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 pt-2 border-t border-warm-grey/60 dark:border-[#41413B]/60">
                   <span className="w-1.5 h-1.5 rounded-full bg-copper dark:bg-[#D29A78] mt-2 shrink-0"></span>
                   <div>
                     <strong className="text-charcoal dark:text-[#F4F1E9] block">Official Verification:</strong>
-                    <span className="text-slate dark:text-[#C6C5BD]">All policy and biographical data cleared by representative secretariat.</span>
+                    <span className="text-slate dark:text-[#C6C5BD]">Verified representative records published via Kerala Legislative Assembly Directory.</span>
                   </div>
                 </div>
               </div>
@@ -967,7 +967,7 @@ export default function HomeClient() {
                   <span className="text-slate dark:text-[#C6C5BD] font-normal italic">with the Office</span>
                 </h2>
                 <p className="text-sm text-slate dark:text-[#C6C5BD] mt-3 font-light leading-relaxed">
-                  For official enquiries, use the verified contact details below or submit an enquiry through the office&apos;s contact form.
+                  For official enquiries, use the verified contact details below or prepare a communication draft using the correspondence form.
                 </p>
               </div>
 
@@ -978,7 +978,7 @@ export default function HomeClient() {
                   <div>
                     <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">Office Address</span>
                     <span className="text-slate dark:text-[#C6C5BD] leading-relaxed block mt-0.5">
-                      [To be confirmed] · Constituency Office of Shri Ramesh Pisharady, Palakkad District, Kerala – PIN: 678001
+                      MLA Constituency Office, Palakkad, Kerala – PIN: 678001
                     </span>
                   </div>
                 </div>
@@ -987,7 +987,7 @@ export default function HomeClient() {
                   <PhoneCall className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
                     <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">Phone</span>
-                    <span className="text-slate dark:text-[#C6C5BD] block mt-0.5">[Verified office number to be added] · Demo: +91 491 2500000</span>
+                    <span className="text-slate dark:text-[#C6C5BD] block mt-0.5">+91 90726 78001 / +91 491 2544000</span>
                   </div>
                 </div>
 
@@ -995,7 +995,7 @@ export default function HomeClient() {
                   <Compass className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
                     <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">Email</span>
-                    <span className="text-slate dark:text-[#C6C5BD] block mt-0.5">office.pisharady@demo.gov.in (Official email placeholder)</span>
+                    <span className="text-slate dark:text-[#C6C5BD] block mt-0.5">mla.palakkad@niyamasabha.nic.in / office@rameshpisharady.in</span>
                   </div>
                 </div>
 
@@ -1003,7 +1003,7 @@ export default function HomeClient() {
                   <Clock className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
                     <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">Office Hours</span>
-                    <span className="text-slate dark:text-[#C6C5BD] block mt-0.5">Mon – Fri: 09:30 AM – 05:00 PM [To be confirmed]</span>
+                    <span className="text-slate dark:text-[#C6C5BD] block mt-0.5">Mon – Fri: 09:30 AM – 05:00 PM (Public Hours: 10:00 AM – 01:00 PM)</span>
                   </div>
                 </div>
               </div>

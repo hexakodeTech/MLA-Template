@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 interface BadgeProps {
   children: React.ReactNode;
-  variant?: "copper" | "charcoal" | "stone" | "blue" | "ivory" | "sample" | "forest" | "terracotta" | "sage" | "dark" | "neutral";
+  variant?: "copper" | "charcoal" | "stone" | "blue" | "ivory" | "sample" | "forest" | "terracotta" | "sage" | "dark" | "neutral" | "verified" | "default";
   size?: "sm" | "md";
   className?: string;
 }
@@ -21,6 +21,8 @@ export const Badge: React.FC<BadgeProps> = ({
     blue: "bg-muted-blue/10 text-muted-blue border-muted-blue/25 font-medium dark:bg-[#91A7B8]/15 dark:text-[#91A7B8] dark:border-[#91A7B8]/30",
     ivory: "bg-ivory text-charcoal border-warm-grey font-medium dark:bg-[#222320] dark:text-[#F4F1E9] dark:border-[#41413B]",
     sample: "bg-copper/10 text-copper-dark border-copper/25 font-medium tracking-wide dark:bg-[#D29A78]/15 dark:text-[#D29A78] dark:border-[#D29A78]/30",
+    verified: "bg-emerald-50 text-emerald-800 border-emerald-300 font-medium dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/60",
+    default: "bg-stone text-charcoal border-warm-grey font-medium dark:bg-[#2C2D29] dark:text-[#C6C5BD] dark:border-[#41413B]",
     // Backward compatibility aliases
     forest: "bg-copper/10 text-copper-dark border-copper/25 font-semibold dark:bg-[#D29A78]/15 dark:text-[#D29A78] dark:border-[#D29A78]/30",
     terracotta: "bg-copper/10 text-copper-dark border-copper/25 font-semibold dark:bg-[#D29A78]/15 dark:text-[#D29A78] dark:border-[#D29A78]/30",

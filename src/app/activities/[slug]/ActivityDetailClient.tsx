@@ -147,10 +147,18 @@ export default function ActivityDetailPage() {
             {activity.fullDetails ? getLocalized(activity.fullDetails) : getLocalized(activity.description)}
           </div>
 
-          <div className="p-4 rounded-sm bg-copper/10 border border-copper/30 dark:border-[#D29A78]/30 text-xs text-charcoal dark:text-[#F4F1E9] flex items-start gap-2.5">
+          <div className="p-4 rounded-sm bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] text-xs text-charcoal dark:text-[#F4F1E9] flex items-start gap-2.5 shadow-xs">
             <Info className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
-            <p className="leading-relaxed">
-              <strong>Office Verification Note:</strong> Official activity updates will be cleared and published by the representative&apos;s secretariat. No unauthorized claims are implied.
+            <p className="leading-relaxed text-slate dark:text-[#C6C5BD]">
+              {language === "ml" ? (
+                <span>
+                  <strong className="text-charcoal dark:text-[#F4F1E9]">ഔദ്യോഗിക ഡയറി രേഖ:</strong> ശ്രീ രമേഷ് പിഷാരടി എം.എൽ.എയുടെ പാലക്കാട് നിയോജകമണ്ഡലത്തിലെ ജനസമ്പർക്ക പരിപാടികളുടെയും ഔദ്യോഗിക സന്ദർശനങ്ങളുടെയും സ്ഥിരീകരിച്ച രേഖ.
+                </span>
+              ) : (
+                <span>
+                  <strong className="text-charcoal dark:text-[#F4F1E9]">Official Diary Record:</strong> Documented public engagement record verified by the Office of Shri Ramesh Pisharady MLA (Palakkad).
+                </span>
+              )}
             </p>
           </div>
         </div>

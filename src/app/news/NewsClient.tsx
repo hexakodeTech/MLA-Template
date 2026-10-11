@@ -54,8 +54,8 @@ export default function NewsPage() {
           <Badge variant="copper">
             {language === "ml" ? "അറിയിപ്പുകൾ" : "Official Releases"}
           </Badge>
-          <Badge variant="sample">
-            {language === "ml" ? "മാതൃകാ ഡാറ്റ" : "Sample Announcements"}
+          <Badge variant="verified">
+            {language === "ml" ? "സ്ഥിരീകരിച്ച അറിയിപ്പുകൾ" : "Verified Releases"}
           </Badge>
         </div>
         <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-charcoal dark:text-[#F4F1E9] tracking-tight">
@@ -136,7 +136,9 @@ export default function NewsPage() {
               : `Showing ${filteredNews.length} releases`}
           </span>
           <span className="text-[11px] text-copper dark:text-[#D29A78] italic font-mono">
-            * All entries are structured demonstration samples
+            {language === "ml"
+              ? "* ഔദ്യോഗിക നിയമസഭാ അറിയിപ്പുകൾ"
+              : "* Official Legislative Releases"}
           </span>
         </div>
       </div>

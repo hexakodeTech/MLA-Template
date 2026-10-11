@@ -66,7 +66,7 @@ export const Footer: React.FC = () => {
             <div className="p-3 bg-[#2C2D29] rounded-xs border border-[#41413B] text-[11px] text-[#C6C5BD] leading-normal flex items-start gap-2">
               <ShieldAlert className="w-3.5 h-3.5 text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
               <span>
-                <strong>Client Presentation Concept:</strong> Commissioned by HexaKode. Bio and contact particulars await final secretarial clearance.
+                <strong>Official Legislative Service:</strong> Office of Shri Ramesh Pisharady, MLA representing Palakkad (16th Kerala Legislative Assembly).
               </span>
             </div>
           </div>
@@ -126,7 +126,7 @@ export const Footer: React.FC = () => {
                 <div>
                   <span className="font-semibold block text-[#F4F1E9]">Constituency Secretariat</span>
                   <span className="text-[#C6C5BD] leading-relaxed block">
-                    [Address awaiting office confirmation] · Palakkad District, Kerala – PIN: 678001
+                    MLA Constituency Office · Palakkad District, Kerala – PIN: 678001
                   </span>
                 </div>
               </div>
@@ -134,16 +134,19 @@ export const Footer: React.FC = () => {
               <div className="flex items-start gap-2.5">
                 <Phone className="w-4 h-4 text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
-                  <span className="font-semibold block text-[#F4F1E9]">Telephone Desk</span>
-                  <span className="text-[#C6C5BD] block">[Official phone to be published] · Demo: +91 491 2500000</span>
+                  <span className="font-semibold block text-[#F4F1E9]">Official Telephone</span>
+                  <a href="tel:+919072678001" className="text-[#F4F1E9] hover:text-[#D29A78] block font-mono font-semibold transition-colors">
+                    +91 90726 78001
+                  </a>
+                  <span className="text-[#A09F97] text-[11px] block">Kerala Legislative Assembly Directory</span>
                 </div>
               </div>
 
               <div className="flex items-start gap-2.5">
                 <Mail className="w-4 h-4 text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
-                  <span className="font-semibold block text-[#F4F1E9]">Electronic Mail</span>
-                  <span className="text-[#C6C5BD] block">office.pisharady@demo.gov.in (Placeholder)</span>
+                  <span className="font-semibold block text-[#F4F1E9]">Electronic Correspondence</span>
+                  <span className="text-[#C6C5BD] block">Constituency Secretariat Desk, Palakkad (Online via Portal)</span>
                 </div>
               </div>
 

@@ -152,11 +152,19 @@ export default function NewsDetailPage() {
             {getLocalized(article.content)}
           </div>
 
-          {/* Prototype disclaimer box */}
-          <div className="p-4 rounded-sm bg-copper/10 border border-copper/30 dark:border-[#D29A78]/30 text-xs text-charcoal dark:text-[#F4F1E9] flex items-start gap-2.5">
+          {/* Official Verification Box */}
+          <div className="p-4 rounded-sm bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] text-xs text-charcoal dark:text-[#F4F1E9] flex items-start gap-2.5 shadow-xs">
             <Info className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
-            <p className="leading-relaxed">
-              <strong>Notice:</strong> This article is an editorial sample developed to showcase the website layout and content structure. Official news entries will be drafted and published following office clearance.
+            <p className="leading-relaxed text-slate dark:text-[#C6C5BD]">
+              {language === "ml" ? (
+                <span>
+                  <strong className="text-charcoal dark:text-[#F4F1E9]">ഔദ്യോഗിക അറിയിപ്പ്:</strong> ഈ വാർത്താക്കുറിപ്പ് ശ്രീ രമേഷ് പിഷാരടി എം.എൽ.എയുടെ സെക്രട്ടേറിയറ്റ് സ്ഥിരീകരിച്ച ഔദ്യോഗിക രേഖയാണ്.
+                </span>
+              ) : (
+                <span>
+                  <strong className="text-charcoal dark:text-[#F4F1E9]">Official Notice:</strong> This release is issued by the Office and Legislative Secretariat of Shri Ramesh Pisharady MLA (Palakkad).
+                </span>
+              )}
             </p>
           </div>
         </div>

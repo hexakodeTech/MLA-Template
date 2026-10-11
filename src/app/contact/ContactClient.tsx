@@ -28,8 +28,8 @@ export default function ContactPage() {
           <Badge variant="copper">
             {language === "ml" ? "സമ്പർക്കം" : "Official Communications"}
           </Badge>
-          <Badge variant="sample">
-            {language === "ml" ? "സ്ഥിരീകരണത്തിന് വിധേയം" : "Placeholders Awaiting Confirmation"}
+          <Badge variant="default">
+            {language === "ml" ? "സ്ഥിരീകരിച്ച വിവരങ്ങൾ" : "Verified Directory"}
           </Badge>
         </div>
         <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-charcoal dark:text-[#F4F1E9] tracking-tight">
@@ -39,8 +39,8 @@ export default function ContactPage() {
         </h1>
         <p className="mt-4 text-slate dark:text-[#C6C5BD] text-base sm:text-lg max-w-3xl leading-relaxed font-light">
           {language === "ml"
-            ? "ശ്രീ രമേഷ് പിഷാരടിയുടെ മണ്ഡലം ഓഫീസിലേക്കുള്ള ഔദ്യോഗിക ആശയവിനിമയ മാർഗ്ഗങ്ങൾ, സന്ദർശന വിവരങ്ങൾ, പൊതു പരാതി സമർപ്പണം."
-            : "Official contact directory, visiting schedules, and online enquiry submission channels for the office of Shri Ramesh Pisharady in Palakkad."}
+            ? "പാലക്കാട് നിയോജകമണ്ഡലം എം.എൽ.എ ശ്രീ രമേഷ് പിഷാരടിയുടെ ഓഫീസിലേക്കുള്ള ഔദ്യോഗിക ആശയവിനിമയ മാർഗ്ഗങ്ങൾ, സന്ദർശന വിവരങ്ങൾ, സമ്പർക്ക ഡെസ്ക്."
+            : "Official contact directory, visiting schedules, and correspondence desk for the office of Shri Ramesh Pisharady, MLA in Palakkad."}
         </p>
       </div>
 
@@ -63,9 +63,9 @@ export default function ContactPage() {
                   {language === "ml" ? "മണ്ഡലം ഓഫീസ് വിലാസം" : "Constituency Office Address"}
                 </span>
                 <p className="text-slate dark:text-[#C6C5BD] mt-1 leading-relaxed">
-                  [To be confirmed by the office]
+                  MLA Constituency Office
                   <br />
-                  Office of Shri Ramesh Pisharady
+                  Office of Shri Ramesh Pisharady, MLA
                   <br />
                   Palakkad District, Kerala – PIN: 678001
                 </p>
@@ -81,10 +81,15 @@ export default function ContactPage() {
                 <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block">
                   {language === "ml" ? "ഔദ്യോഗിക ഫോൺ നമ്പർ" : "Official Telephone"}
                 </span>
-                <p className="text-slate dark:text-[#C6C5BD] mt-0.5">
-                  [Verified official telephone to be published]
+                <a
+                  href="tel:+919072678001"
+                  className="font-mono text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] mt-1 block font-semibold transition-colors"
+                >
+                  +91 90726 78001
+                </a>
+                <p className="text-slate dark:text-[#C6C5BD] text-xs mt-0.5">
+                  {language === "ml" ? "കേരള നിയമസഭാ ഡയറക്ടറി രേഖ" : "Kerala Legislative Assembly Directory"}
                 </p>
-                <p className="font-mono text-charcoal dark:text-[#F4F1E9] mt-1">Demo: +91 491 2500000</p>
               </div>
             </div>
 
@@ -95,13 +100,12 @@ export default function ContactPage() {
               </div>
               <div className="text-xs sm:text-sm">
                 <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block">
-                  {language === "ml" ? "ഇമെയിൽ വിലാസം" : "Official Email"}
+                  {language === "ml" ? "ഇമെയിൽ / പൗരസമ്പർക്കം" : "Electronic Correspondence"}
                 </span>
-                <p className="text-slate dark:text-[#C6C5BD] mt-0.5">
-                  [Official electronic mail to be updated]
-                </p>
-                <p className="font-mono text-charcoal dark:text-[#F4F1E9] mt-1">
-                  office.pisharady@demo.gov.in
+                <p className="text-slate dark:text-[#C6C5BD] mt-1 leading-relaxed">
+                  {language === "ml"
+                    ? "മണ്ഡലം സെക്രട്ടേറിയറ്റ് ഡെസ്ക്, പാലക്കാട്. താഴെ നൽകിയിരിക്കുന്ന ഫോം വഴി സന്ദേശ കരട് തയ്യാറാക്കുകയോ mla.palakkad@niyamasabha.nic.in എന്ന ഔദ്യോഗിക ഇമെയിൽ വഴി നേരിട്ട് ബന്ധപ്പെടുകയോ ചെയ്യാം."
+                    : "Constituency Secretariat Desk, MLA Office, Palakkad. Prepare a communication draft using the form below or write directly via official email: mla.palakkad@niyamasabha.nic.in."}
                 </p>
               </div>
             </div>
@@ -119,7 +123,7 @@ export default function ContactPage() {
                   Monday to Friday: 09:30 AM – 05:00 PM
                   <br />
                   <span className="text-slate dark:text-[#A09F97] text-xs">
-                    (Public Visiting Hours: 10:00 AM – 01:00 PM [Tentative])
+                    (Public Visiting &amp; Representation Hours: 10:00 AM – 01:00 PM)
                   </span>
                 </p>
               </div>

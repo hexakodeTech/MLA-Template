@@ -17,7 +17,21 @@ export const PERSON_SCHEMA = {
   alternateName: "ശ്രീ രമേഷ് പിഷാരടി",
   url: siteConfig.url,
   image: siteConfig.portraitImage,
-  description: "Official representative portal of Shri Ramesh Pisharady.",
+  jobTitle: "Member of the Kerala Legislative Assembly (MLA)",
+  description:
+    "Member of the Kerala Legislative Assembly (MLA) representing Palakkad Constituency in the 16th Kerala Legislative Assembly.",
+  memberOf: {
+    "@type": "Organization",
+    name: "Kerala Legislative Assembly",
+  },
+  telephone: "+919072678001",
+  sameAs: [
+    "https://en.wikipedia.org/wiki/Ramesh_Pisharody",
+    "https://www.instagram.com/rameshpisharody/",
+    "https://www.facebook.com/RameshPisharodyofficial",
+    "https://www.youtube.com/@RameshPisharodyEntertainments",
+    "http://niyamasabha.nic.in",
+  ],
 };
 
 /**
@@ -185,7 +199,6 @@ export function getNewsArticleSchema(article: NewsItem, lang: "en" | "ml" = "en"
   const breadcrumbId = `${articleUrl}#breadcrumb`;
   const headline = lang === "ml" && article.title.ml ? article.title.ml : article.title.en;
   const description = lang === "ml" && article.summary.ml ? article.summary.ml : article.summary.en;
-  const langCode = lang === "ml" ? siteConfig.languages.ml : siteConfig.languages.en;
 
   const rawImageUrl = article.imageUrl?.trim() || siteConfig.ogImage;
   const absoluteImageUrl = rawImageUrl.startsWith("http")

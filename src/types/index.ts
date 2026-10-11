@@ -100,4 +100,14 @@ export interface RepresentativeProfile {
   officeAddress: LocalizedString;
   officeEmail: string;
   officePhone: string;
+  legislativeAssembly?: LocalizedString;
+  partyAffiliation?: LocalizedString;
+  committeeMembership?: LocalizedString;
+  born?: string;
+  education?: LocalizedString;
+  socialMedia?: {
+    instagram: string;
+    facebook: string;
+    youtube: string;
+  };
 }

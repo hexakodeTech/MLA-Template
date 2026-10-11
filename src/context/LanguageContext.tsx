@@ -31,20 +31,20 @@ const translations: Record<string, { en: string; ml: string }> = {
 
   // Header & Badges
   prototypeNotice: {
-    en: "Official Website Prototype — Prepared by HexaKode for Client Review",
-    ml: "ഔദ്യോഗിക വെബ്സൈറ്റ് മാതൃക — ക്ലയന്റ് റിവ്യൂവിനായി ഹെക്സാകോഡ് തയ്യാറാക്കിയത്",
+    en: "Official Representative Portal — Shri Ramesh Pisharady MLA (Palakkad)",
+    ml: "ഔദ്യോഗിക ജനപ്രതിനിധി പോർട്ടൽ — ശ്രീ രമേഷ് പിഷാരടി എം.എൽ.എ (പാലക്കാട്)",
   },
   tagline: {
-    en: "Official Representative Portal Concept",
-    ml: "ജനപ്രതിനിധി പോർട്ടൽ മാതൃക",
+    en: "Official Representative Portal — Palakkad LAC 056",
+    ml: "ഔദ്യോഗിക ജനപ്രതിനിധി പോർട്ടൽ — പാലക്കാട് നിയമസഭാ മണ്ഡലം",
   },
   repTitle: {
-    en: "Office of Shri Ramesh Pisharady",
-    ml: "ശ്രീ രമേഷ് പിഷാരടിയുടെ ഓഫീസ്",
+    en: "Office of Shri Ramesh Pisharady MLA",
+    ml: "ശ്രീ രമേഷ് പിഷാരടി എം.എൽ.എയുടെ ഓഫീസ്",
   },
   sampleContentNotice: {
-    en: "Sample Prototype Entry — Awaiting Official Office Verification",
-    ml: "മാതൃകാ വിവരം — ഔദ്യോഗിക അംഗീകാരത്തിന് കാത്തിരിക്കുന്നു",
+    en: "Official Record — Kerala Legislative Assembly Directory",
+    ml: "ഔദ്യോഗിക രേഖ — കേരള നിയമസഭാ ഡയറക്ടറി",
   },
 
   // Hero
@@ -81,7 +81,7 @@ const translations: Record<string, { en: string; ml: string }> = {
   viewAllUpdates: { en: "View All Updates", ml: "എല്ലാ വാർത്തകളും കാണുക" },
   viewAllActivities: { en: "View All Activities", ml: "എല്ലാ പ്രവർത്തനങ്ങളും കാണുക" },
   viewAllGallery: { en: "Explore Full Gallery", ml: "മുഴുവൻ ചിത്രങ്ങളും കാണുക" },
-  verifiedBadge: { en: "Official Verification Pending", ml: "ഓഫീസ് സ്ഥിരീകരണത്തിന് വിധേയം" },
+  verifiedBadge: { en: "Verified Official Record", ml: "സ്ഥിരീകരിച്ച ഔദ്യോഗിക രേഖ" },
   publishedOn: { en: "Published on", ml: "പ്രസിദ്ധീകരിച്ച തീയതി" },
   location: { en: "Location", ml: "സ്ഥലം" },
   category: { en: "Category", ml: "വിഭാഗം" },
@@ -113,8 +113,8 @@ const translations: Record<string, { en: string; ml: string }> = {
     ml: "© 2026 ശ്രീ രമേഷ് പിഷാരടിയുടെ ഓഫീസ്. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.",
   },
   developerCredit: {
-    en: "Website Concept Designed & Developed by HexaKode",
-    ml: "വെബ്സൈറ്റ് രൂപകൽപ്പനയും നിർമ്മാണവും: ഹെക്സാകോഡ് (HexaKode)",
+    en: "Website Designed & Maintained by HexaKode",
+    ml: "വെബ്സൈറ്റ് രൂപകൽപ്പനയും പരിപാലനവും: ഹെക്സാകോഡ് (HexaKode)",
   },
   privacyPolicy: { en: "Privacy Policy", ml: "സ്വകാര്യതാ നയം" },
   accessibilityStatement: { en: "Accessibility Statement", ml: "പ്രവേശനക്ഷമത പ്രസ്താവന" },

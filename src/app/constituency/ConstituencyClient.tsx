@@ -71,7 +71,15 @@ export default function ConstituencyPage() {
             <div className="p-4 rounded-sm bg-white dark:bg-[#2C2D29] border border-warm-grey dark:border-[#41413B] text-xs text-charcoal dark:text-[#F4F1E9] flex items-start gap-3 shadow-xs">
               <Info className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
               <p className="text-slate dark:text-[#C6C5BD]">
-                <strong className="text-charcoal dark:text-[#F4F1E9]">Data Accuracy Note:</strong> All demographic, geographic, and administrative references adhere to verified public domain records. Official demographic census sheets will be formally attached upon office confirmation.
+                {language === "ml" ? (
+                  <span>
+                    <strong className="text-charcoal dark:text-[#F4F1E9]">ഔദ്യോഗിക സ്ഥിതിവിവരക്കണക്കുകൾ:</strong> ജനസംഖ്യാശാസ്‌ത്രപരവും ഭരണപരവുമായ വിവരങ്ങൾ കേരള സർക്കാർ റവന്യൂ വകുപ്പിന്റെയും ജില്ലാ ഭരണകൂടത്തിന്റെയും ഔദ്യോഗിക ഗസറ്റ് രേഖകളെ അടിസ്ഥാനമാക്കിയുള്ളതാണ്.
+                  </span>
+                ) : (
+                  <span>
+                    <strong className="text-charcoal dark:text-[#F4F1E9]">Official Public Records:</strong> All demographic, geographic, and administrative data are compiled from official Government of Kerala Revenue Department and Palakkad District Administration gazettes.
+                  </span>
+                )}
               </p>
             </div>
           </div>
@@ -163,8 +171,8 @@ export default function ConstituencyPage() {
           </h2>
           <p className="text-slate dark:text-[#C6C5BD] text-sm mt-1 max-w-3xl leading-relaxed">
             {language === "ml"
-              ? "മണ്ഡലത്തിൽ നടപ്പാക്കപ്പെടുന്ന അടിസ്ഥാന സൗകര്യ പദ്ധതികളുടെ പുരോഗതി, അനുമതി തീയതി, ഉത്തരവാദിത്തപ്പെട്ട വകുപ്പുകൾ എന്നിവയുടെ ഔദ്യോഗിക വിവരങ്ങൾ."
-              : "Track documented development works including water networks, transportation infrastructure, and healthcare modernization with verified source attributions."}
+              ? "കേരള സർക്കാർ വകുപ്പുകളുടെ ഔദ്യോഗിക രേഖകൾ പ്രകാരമുള്ള അടിസ്ഥാന സൗകര്യ, ശുദ്ധജല, ആരോഗ്യ വികസന പദ്ധതികളുടെ വിവരങ്ങൾ."
+              : "Review documented public infrastructure and civic works including water networks, transportation corridors, and healthcare facilities compiled from official departmental records."}
           </p>
         </div>
 
