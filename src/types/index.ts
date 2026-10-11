@@ -104,6 +104,8 @@ export interface RepresentativeProfile {
   partyAffiliation?: LocalizedString;
   committeeMembership?: LocalizedString;
   born?: string;
+  birthPlace?: LocalizedString;
+  parents?: LocalizedString;
   education?: LocalizedString;
   socialMedia?: {
     instagram: string;

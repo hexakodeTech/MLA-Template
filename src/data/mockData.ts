@@ -47,9 +47,17 @@ export const representativeProfile: RepresentativeProfile = {
     ml: "ഔദ്യോഗിക ഭാഷാ സമിതി, കേരള നിയമസഭ",
   },
   born: "1981-10-01",
+  birthPlace: {
+    en: "Alathur, Palakkad District, Kerala",
+    ml: "ആലത്തൂർ, പാലക്കാട് ജില്ല, കേരളം",
+  },
+  parents: {
+    en: "T. V. Balakrishna Pisharody and Rema B. Pisharody",
+    ml: "ടി. വി. ബാലകൃഷ്ണ പിഷാരടിയും രമ ബി. പിഷാരടിയും",
+  },
   education: {
-    en: "Pre-degree, Devaswom Board College, Thalayolaparambu",
-    ml: "പ്രീ-ഡിഗ്രി, ദേവസ്വം ബോർഡ് കോളേജ്, തലയോലപ്പറമ്പ്",
+    en: "B.A. Politics, Devaswom Board College, Thalayolaparambu (Schooling: Kendriya Vidyalaya)",
+    ml: "ബി.എ പൊളിറ്റിക്സ്, ദേവസ്വം ബോർഡ് കോളേജ്, തലയോലപ്പറമ്പ് (സ്കൂൾ: കേന്ദ്രീയ വിദ്യാലയം)",
   },
   socialMedia: {
     instagram: "https://www.instagram.com/rameshpisharody/",

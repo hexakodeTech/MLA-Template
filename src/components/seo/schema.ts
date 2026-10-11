@@ -24,6 +24,15 @@ export const PERSON_SCHEMA = {
     "@type": "Organization",
     name: "Kerala Legislative Assembly",
   },
+  birthDate: "1981-10-01",
+  birthPlace: {
+    "@type": "Place",
+    name: "Alathur, Palakkad District, Kerala, India",
+  },
+  alumniOf: {
+    "@type": "EducationalOrganization",
+    name: "Devaswom Board College, Thalayolaparambu",
+  },
   telephone: "+919072678001",
   sameAs: [
     "https://en.wikipedia.org/wiki/Ramesh_Pisharody",

@@ -127,6 +127,20 @@ export default function AboutPage() {
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-copper dark:bg-[#D29A78] mt-1.5 shrink-0" />
                 <span>
+                  <strong className="text-charcoal dark:text-[#F4F1E9]">{language === "ml" ? "ജനനം:" : "Birthplace:"}</strong>{" "}
+                  Alathur, Palakkad (1 Oct 1981)
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-copper dark:bg-[#D29A78] mt-1.5 shrink-0" />
+                <span>
+                  <strong className="text-charcoal dark:text-[#F4F1E9]">{language === "ml" ? "വിദ്യാഭ്യാസം:" : "Education:"}</strong>{" "}
+                  B.A. Politics, DB College Thalayolaparambu
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-copper dark:bg-[#D29A78] mt-1.5 shrink-0" />
+                <span>
                   <strong className="text-charcoal dark:text-[#F4F1E9]">{language === "ml" ? "ഔദ്യോഗിക ഫോൺ:" : "Official Phone:"}</strong>{" "}
                   +91 90726 78001 (Niyamasabha Directory)
                 </span>
@@ -153,13 +167,13 @@ export default function AboutPage() {
               </div>
               <p className="text-xs sm:text-sm text-slate dark:text-[#C6C5BD] leading-relaxed">
                 {language === "ml"
-                  ? "1981 ഒക്ടോബർ 1-ന് ടി.വി. ബാലകൃഷ്ണ പിഷാരടിയുടെയും രമ ബി. പിഷാരടിയുടെയും മകനായി ജനിച്ചു. തലയോലപ്പറമ്പ് ദേവസ്വം ബോർഡ് കോളേജിൽ നിന്നും പ്രീ-ഡിഗ്രി വിദ്യാഭ്യാസം പൂർത്തിയാക്കി. മലയാള ചലച്ചിത്ര-ടെലിവിഷൻ രംഗങ്ങളിൽ നടൻ, സംവിധായകൻ, ടെലിവിഷൻ അവതാരകൻ എന്നീ നിലകളിൽ ജനപ്രീതി നേടി."
-                  : "Born on October 1, 1981 to T.V. Balakrishna Pisharody and Rema B. Pisharody in Kerala. Completed pre-degree education at Devaswom Board College, Thalayolaparambu. Rose to widespread prominence in Malayalam cinema and television as a celebrated actor, filmmaker, and television presenter."}
+                  ? "1981 ഒക്ടോബർ 1-ന് പാലക്കാട് ജില്ലയിലെ ആലത്തൂരിൽ ടി.വി. ബാലകൃഷ്ണ പിഷാരടിയുടെയും രമ ബി. പിഷാരടിയുടെയും മകനായി ജനിച്ചു. കേന്ദ്രീയ വിദ്യാലയത്തിലെ സ്കൂൾ വിദ്യാഭ്യാസത്തിന് ശേഷം തലയോലപ്പറമ്പ് ദേവസ്വം ബോർഡ് കോളേജിൽ നിന്ന് രാഷ്ട്രമീമാംസയിൽ (B.A. Politics) ബിരുദം നേടി. കൊച്ചിൻ സ്റ്റാലിയൻസ് ട്രൂപ്പിലൂടെ മിമിക്രി രംഗത്തും, സിനിമാല, ബഡായി ബംഗ്ലാവ് തുടങ്ങിയ പരിപാടികളിലൂടെ ടെലിവിഷൻ അവതാരകനായും പ്രശസ്തനായി. പഞ്ചവർണ്ണതത്ത, ഗാനഗന്ധർവ്വൻ എന്നീ ചലച്ചിത്രങ്ങൾ സംവിധാനം ചെയ്തു. കേരള സംഗീത നാടക അക്കാദമിയുടെ യുവപ്രതിഭാ പുരസ്കാരം നേടിയിട്ടുണ്ട്."
+                  : "Born on October 1, 1981 in Alathur, Palakkad district, Kerala, to T.V. Balakrishna Pisharody and Rema B. Pisharody. Following schooling at Kendriya Vidyalaya (Newsprint Nagar, Velloor), graduated with a Bachelor of Arts in Politics (B.A. Politics) from Devaswom Board College, Thalayolaparambu. Gained widespread acclaim across Kerala as a mimicry artist with Cochin Stallions, television host and writer (Cinemala, Badai Bungalow), actor, and feature film director (Panchavarnathatha, Ganagandharvan). Recipient of the Kerala Sangeetha Nataka Akademi Yuva Prathibha Puraskaram."}
               </p>
               <p className="text-xs sm:text-sm text-slate dark:text-[#C6C5BD] leading-relaxed">
                 {language === "ml"
-                  ? "2021 ഫെബ്രുവരിയിൽ രമേശ് ചെന്നിത്തല നയിച്ച ഐശ്വര്യ കേരള യാത്രയിലൂടെയാണ് സജീവ രാഷ്ട്രീയത്തിലേക്ക് പ്രവേശിച്ചത്. 2026-ലെ കേരള നിയമസഭാ തിരഞ്ഞെടുപ്പിൽ യു.ഡി.എഫ് സ്ഥാനാർത്ഥിയായി പാലക്കാട് നിയോജകമണ്ഡലത്തിൽ നിന്ന് മത്സരിച്ച് വിജയിച്ച് നിയമസഭാ സാമാജികനായി (എം.എൽ.എ) ചുമതലയേറ്റു. കേരള നിയമസഭയുടെ ഔദ്യോഗിക ഭാഷാ സമിതി അംഗമായി സേവനമനുഷ്ഠിക്കുന്നു."
-                  : "Formally entered active politics in February 2021 during the Aishwarya Kerala Yatra. In the 2026 Kerala Legislative Assembly elections, contested as the United Democratic Front (UDF) candidate for the Palakkad constituency, winning the mandate and assuming office as MLA in May 2026. Serves as a member of the Kerala Legislative Assembly Committee on Official Language."}
+                  ? "2021 ഫെബ്രുവരിയിൽ രമേശ് ചെന്നിത്തല നയിച്ച ഐശ്വര്യ കേരള യാത്രയിലൂടെയാണ് സജീവ രാഷ്ട്രീയത്തിലേക്ക് പ്രവേശിച്ചത്. 2026-ലെ കേരള നിയമസഭാ തിരഞ്ഞെടുപ്പിൽ യു.ഡി.എഫ് സ്ഥാനാർത്ഥിയായി പാലക്കാട് നിയോജകമണ്ഡലത്തിൽ (LAC 056) നിന്ന് വിജയിച്ച് പതിനാറാം കേരള നിയമസഭാംഗമായി 2026 മെയ് 21-ന് സത്യപ്രതിജ്ഞ ചെയ്ത് ചുമതലയേറ്റു. 2026 ജൂൺ 23-ന് രൂപീകരിച്ച കേരള നിയമസഭയുടെ ഔദ്യോഗിക ഭാഷാ സമിതി അംഗമായി സേവനമനുഷ്ഠിക്കുന്നു."
+                  : "Formally entered active politics in February 2021 during the Aishwarya Kerala Yatra. In the 2026 Kerala Legislative Assembly elections, contested as the United Democratic Front (UDF) candidate for the Palakkad constituency (LAC 056), winning the election and assuming office as MLA on May 21, 2026. Serves as a member of the Kerala Legislative Assembly Committee on Official Language, constituted on June 23, 2026."}
               </p>
             </div>
             <p className="text-slate dark:text-[#C6C5BD] text-base leading-relaxed font-light">
