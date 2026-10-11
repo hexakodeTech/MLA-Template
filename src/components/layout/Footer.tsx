@@ -124,9 +124,13 @@ export const Footer: React.FC = () => {
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
-                  <span className="font-semibold block text-[#F4F1E9]">Constituency Secretariat</span>
+                  <span className="font-semibold block text-[#F4F1E9]">
+                    {language === "ml" ? "ഔദ്യോഗിക വിലാസം" : "Legislative Address"}
+                  </span>
                   <span className="text-[#C6C5BD] leading-relaxed block">
-                    MLA Constituency Office · Palakkad District, Kerala – PIN: 678001
+                    {language === "ml"
+                      ? "റൂം നമ്പർ 701, ചന്ദ്രഗിരി ബ്ലോക്ക്, ലെജിസ്ലേറ്റേഴ്‌സ് ഹോസ്റ്റൽ (LH), തിരുവനന്തപുരം - 695033 (പാലക്കാട് LAC 056 ഡെസ്ക്)"
+                      : "Room No. 701, Chandragiri Block, Legislators' Hostel (LH), Thiruvananthapuram – PIN: 695033 (Palakkad LAC 056 Desk)"}
                   </span>
                 </div>
               </div>
@@ -134,27 +138,43 @@ export const Footer: React.FC = () => {
               <div className="flex items-start gap-2.5">
                 <Phone className="w-4 h-4 text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
-                  <span className="font-semibold block text-[#F4F1E9]">Official Telephone</span>
+                  <span className="font-semibold block text-[#F4F1E9]">
+                    {language === "ml" ? "ഔദ്യോഗിക ഫോൺ നമ്പർ" : "Official Telephone"}
+                  </span>
                   <a href="tel:+919072678001" className="text-[#F4F1E9] hover:text-[#D29A78] block font-mono font-semibold transition-colors">
                     +91 90726 78001
                   </a>
-                  <span className="text-[#A09F97] text-[11px] block">Kerala Legislative Assembly Directory</span>
+                  <span className="text-[#A09F97] text-[11px] block">
+                    {language === "ml" ? "കേരള നിയമസഭാ ഡയറക്ടറി രേഖ" : "Kerala Legislative Assembly Directory"}
+                  </span>
                 </div>
               </div>
 
               <div className="flex items-start gap-2.5">
                 <Mail className="w-4 h-4 text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
-                  <span className="font-semibold block text-[#F4F1E9]">Electronic Correspondence</span>
-                  <span className="text-[#C6C5BD] block">Constituency Secretariat Desk, Palakkad (Online via Portal)</span>
+                  <span className="font-semibold block text-[#F4F1E9]">
+                    {language === "ml" ? "ഇലക്ട്രോണിക് സമ്പർക്കം" : "Electronic Correspondence"}
+                  </span>
+                  <span className="text-[#C6C5BD] block leading-relaxed">
+                    {language === "ml"
+                      ? "നിയമസഭാ ഡയറക്ടറിയിൽ നേരിട്ടുള്ള ഇമെയിൽ ലഭ്യമല്ല · ഹെൽപ്പ്‌ലൈൻ: +91 90726 78001"
+                      : "Direct email not listed in Assembly Directory · Enquiries via Helpline: +91 90726 78001"}
+                  </span>
                 </div>
               </div>
 
               <div className="flex items-start gap-2.5">
                 <Clock className="w-4 h-4 text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
-                  <span className="font-semibold block text-[#F4F1E9]">Visiting Hours</span>
-                  <span className="text-[#C6C5BD] block">Mon – Fri: 09:30 AM – 05:00 PM (Public Hearings: 10:00 AM – 01:00 PM)</span>
+                  <span className="font-semibold block text-[#F4F1E9]">
+                    {language === "ml" ? "സന്ദർശന സമയം" : "Visiting & Public Hours"}
+                  </span>
+                  <span className="text-[#C6C5BD] block leading-relaxed">
+                    {language === "ml"
+                      ? "മുൻകൂട്ടിയുള്ള അനുമതി പ്രകാരം · ഔദ്യോഗിക ഹെൽപ്പ്‌ലൈൻ (+91 90726 78001) മുഖേന"
+                      : "By prior appointment · Enquiries via official helpline (+91 90726 78001)"}
+                  </span>
                 </div>
               </div>
             </div>

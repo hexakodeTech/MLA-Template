@@ -976,9 +976,13 @@ export default function HomeClient() {
                 <div className="flex items-start gap-3.5">
                   <MapPin className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
-                    <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">Office Address</span>
+                    <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">
+                      {language === "ml" ? "ഓഫീസ് വിലാസം" : "Office Address"}
+                    </span>
                     <span className="text-slate dark:text-[#C6C5BD] leading-relaxed block mt-0.5">
-                      MLA Constituency Office, Palakkad, Kerala – PIN: 678001
+                      {language === "ml"
+                        ? "റൂം നമ്പർ 701, ചന്ദ്രഗിരി ബ്ലോക്ക്, ലെജിസ്ലേറ്റേഴ്‌സ് ഹോസ്റ്റൽ (LH), വികാസ് ഭവൻ പി.ഒ., തിരുവനന്തപുരം - 695033 (പാലക്കാട് LAC 056 ഡെസ്ക്)"
+                        : "Room No. 701, Chandragiri Block, Legislators' Hostel (LH), Vikas Bhavan P.O., Thiruvananthapuram – PIN: 695033 (Palakkad LAC 056 Desk)"}
                     </span>
                   </div>
                 </div>
@@ -986,24 +990,46 @@ export default function HomeClient() {
                 <div className="flex items-start gap-3.5 pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60">
                   <PhoneCall className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
-                    <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">Phone</span>
-                    <span className="text-slate dark:text-[#C6C5BD] block mt-0.5">+91 90726 78001 / +91 491 2544000</span>
+                    <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">
+                      {language === "ml" ? "ഔദ്യോഗിക ഫോൺ" : "Phone"}
+                    </span>
+                    <a
+                      href="tel:+919072678001"
+                      className="text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] font-mono font-semibold block mt-0.5 transition-colors"
+                    >
+                      +91 90726 78001
+                    </a>
+                    <span className="text-[11px] text-slate dark:text-[#A09F97] block">
+                      {language === "ml" ? "കേരള നിയമസഭാ ഡയറക്ടറി രേഖ" : "Kerala Legislative Assembly Directory"}
+                    </span>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3.5 pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60">
                   <Compass className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
-                    <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">Email</span>
-                    <span className="text-slate dark:text-[#C6C5BD] block mt-0.5">mla.palakkad@niyamasabha.nic.in / office@rameshpisharady.in</span>
+                    <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">
+                      {language === "ml" ? "ഇലക്ട്രോണിക് സമ്പർക്കം" : "Electronic Correspondence"}
+                    </span>
+                    <span className="text-slate dark:text-[#C6C5BD] block mt-0.5 leading-relaxed">
+                      {language === "ml"
+                        ? "നിയമസഭാ ഡയറക്ടറിയിൽ നേരിട്ടുള്ള ഇമെയിൽ ലഭ്യമല്ല · ഹെൽപ്പ്‌ലൈൻ (+91 90726 78001) വഴി ബന്ധപ്പെടുക"
+                        : "Direct email not listed in Assembly Directory · Enquiries via Helpline: +91 90726 78001"}
+                    </span>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3.5 pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60">
                   <Clock className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
-                    <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">Office Hours</span>
-                    <span className="text-slate dark:text-[#C6C5BD] block mt-0.5">Mon – Fri: 09:30 AM – 05:00 PM (Public Hours: 10:00 AM – 01:00 PM)</span>
+                    <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">
+                      {language === "ml" ? "സന്ദർശന സമയം" : "Office & Visiting Hours"}
+                    </span>
+                    <span className="text-slate dark:text-[#C6C5BD] block mt-0.5 leading-relaxed">
+                      {language === "ml"
+                        ? "മുൻകൂട്ടിയുള്ള അനുമതി പ്രകാരം · ഔദ്യോഗിക ഹെൽപ്പ്‌ലൈൻ (+91 90726 78001) മുഖേന"
+                        : "By prior appointment · Enquiries via official helpline (+91 90726 78001)"}
+                    </span>
                   </div>
                 </div>
               </div>

@@ -60,14 +60,34 @@ export default function ContactPage() {
               </div>
               <div className="text-xs sm:text-sm">
                 <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block">
-                  {language === "ml" ? "മണ്ഡലം ഓഫീസ് വിലാസം" : "Constituency Office Address"}
+                  {language === "ml" ? "ഔദ്യോഗിക വിലാസം" : "Official Legislative Address"}
                 </span>
                 <p className="text-slate dark:text-[#C6C5BD] mt-1 leading-relaxed">
-                  MLA Constituency Office
-                  <br />
-                  Office of Shri Ramesh Pisharady, MLA
-                  <br />
-                  Palakkad District, Kerala – PIN: 678001
+                  {language === "ml" ? (
+                    <>
+                      റൂം നമ്പർ 701, ചന്ദ്രഗിരി ബ്ലോക്ക്
+                      <br />
+                      ലെജിസ്ലേറ്റേഴ്‌സ് ഹോസ്റ്റൽ (LH), വികാസ് ഭവൻ പി.ഒ.
+                      <br />
+                      തിരുവനന്തപുരം, കേരളം - പിൻ: 695033
+                      <br />
+                      <span className="text-[11px] text-copper dark:text-[#D29A78] font-semibold">
+                        · പാലക്കാട് നിയോജകമണ്ഡലം (LAC 056) ഡെസ്ക്
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      Room No. 701, Chandragiri Block
+                      <br />
+                      Legislators&apos; Hostel (LH), Vikas Bhavan P.O.
+                      <br />
+                      Thiruvananthapuram, Kerala – PIN: 695033
+                      <br />
+                      <span className="text-[11px] text-copper dark:text-[#D29A78] font-semibold">
+                        · Palakkad Assembly Constituency (LAC 056) Desk
+                      </span>
+                    </>
+                  )}
                 </p>
               </div>
             </div>
@@ -104,8 +124,8 @@ export default function ContactPage() {
                 </span>
                 <p className="text-slate dark:text-[#C6C5BD] mt-1 leading-relaxed">
                   {language === "ml"
-                    ? "മണ്ഡലം സെക്രട്ടേറിയറ്റ് ഡെസ്ക്, പാലക്കാട്. താഴെ നൽകിയിരിക്കുന്ന ഫോം വഴി സന്ദേശ കരട് തയ്യാറാക്കുകയോ mla.palakkad@niyamasabha.nic.in എന്ന ഔദ്യോഗിക ഇമെയിൽ വഴി നേരിട്ട് ബന്ധപ്പെടുകയോ ചെയ്യാം."
-                    : "Constituency Secretariat Desk, MLA Office, Palakkad. Prepare a communication draft using the form below or write directly via official email: mla.palakkad@niyamasabha.nic.in."}
+                    ? "കേരള നിയമസഭാ ഡയറക്ടറിയിൽ നേരിട്ടുള്ള ഇമെയിൽ വിലാസം പ്രസിദ്ധീകരിച്ചിട്ടില്ല. വിവരങ്ങൾക്കും ഔദ്യോഗിക കാര്യങ്ങൾക്കും ഔദ്യോഗിക ഫോൺ നമ്പർ (+91 90726 78001) വഴിയോ താഴെയുള്ള ഫോം മുഖേന കരട് തയ്യാറാക്കിയോ ബന്ധപ്പെടുക."
+                    : "Direct email is not listed in the official Kerala Legislative Assembly directory. Constituents and citizens are requested to communicate via the verified telephone helpline (+91 90726 78001) or prepare a correspondence draft using the form below."}
                 </p>
               </div>
             </div>
@@ -120,11 +140,9 @@ export default function ContactPage() {
                   {language === "ml" ? "ഓഫീസ് പ്രവർത്തന സമയം" : "Working & Visiting Hours"}
                 </span>
                 <p className="text-slate dark:text-[#C6C5BD] mt-1 leading-relaxed">
-                  Monday to Friday: 09:30 AM – 05:00 PM
-                  <br />
-                  <span className="text-slate dark:text-[#A09F97] text-xs">
-                    (Public Visiting &amp; Representation Hours: 10:00 AM – 01:00 PM)
-                  </span>
+                  {language === "ml"
+                    ? "പൊതുജന സന്ദർശനങ്ങളും നിവേദനങ്ങളും മുൻകൂട്ടിയുള്ള അനുമതി പ്രകാരം ക്രമീകരിക്കുന്നു. വിവരങ്ങൾക്കും അപ്പോയിന്റ്മെന്റുകൾക്കും ഹെൽപ്പ്‌ലൈൻ നമ്പറിൽ (+91 90726 78001) ബന്ധപ്പെടുക."
+                    : "Public representations and office visits are scheduled by prior appointment. For appointment scheduling and official enquiries, please contact the helpline (+91 90726 78001)."}
                 </p>
               </div>
             </div>

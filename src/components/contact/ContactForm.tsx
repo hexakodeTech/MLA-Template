@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { AlertCircle, Info, ArrowRight, ArrowLeft, HelpCircle, FileText, CheckCircle2, RefreshCw, WifiOff } from "lucide-react";
+import { AlertCircle, Info, ArrowRight, ArrowLeft, HelpCircle, FileText, CheckCircle2, RefreshCw, WifiOff, Phone, Copy } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useLanguage } from "@/context/LanguageContext";
 import { getFocusableElements } from "@/utils/focusTrap";
@@ -53,6 +53,7 @@ export const ContactForm: React.FC = () => {
   const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>("idle");
   const [submissionErrorType, setSubmissionErrorType] = useState<"server" | "offline">("server");
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
+  const [copiedDraft, setCopiedDraft] = useState(false);
   const [submitAttemptCount, setSubmitAttemptCount] = useState(0);
   const errorRef = useRef<HTMLDivElement>(null);
   const errorSummaryRef = useRef<HTMLDivElement>(null);
@@ -481,11 +482,11 @@ export const ContactForm: React.FC = () => {
             <p className="leading-relaxed text-slate dark:text-[#C6C5BD]">
               {language === "ml" ? (
                 <span>
-                  <strong>ഫ്രണ്ട്-എൻഡ് പോർട്ടൽ അറിയിപ്പ്:</strong> ഈ വെബ്സൈറ്റ് ഒരു ബാക്കെൻഡ് ഡാറ്റാബേസോ സ്വയമേവയുള്ള പരാതി രജിസ്ട്രേഷൻ സെർവറോ ഇല്ലാതെ പൂർണ്ണമായും സ്റ്റാറ്റിക് ആയാണ് പ്രവർത്തിക്കുന്നത്. താഴെ നൽകിയിരിക്കുന്ന ഫോം സന്ദേശങ്ങൾ രൂപീകരിക്കാനും പരിശോധിക്കാനുമുള്ളതാണ്. നിങ്ങളുടെ ആശയവിനിമയം നേരിട്ട് MLA ഓഫീസിലെത്തിക്കാൻ direct verified email (<a href="mailto:mla.palakkad@niyamasabha.nic.in" className="underline font-semibold text-charcoal dark:text-[#F4F1E9]">mla.palakkad@niyamasabha.nic.in</a>) അല്ലെങ്കിൽ ഫോൺ (<a href="tel:+919072678001" className="underline font-semibold text-charcoal dark:text-[#F4F1E9]">+91 90726 78001</a>) ഉപയോഗിക്കുക.
+                  <strong>ഫ്രണ്ട്-എൻഡ് പോർട്ടൽ അറിയിപ്പ്:</strong> ഈ വെബ്സൈറ്റ് ഒരു ബാക്കെൻഡ് ഡാറ്റാബേസോ സ്വയമേവയുള്ള പരാതി രജിസ്ട്രേഷൻ സെർവറോ ഇല്ലാതെ പൂർണ്ണമായും സ്റ്റാറ്റിക് ആയാണ് പ്രവർത്തിക്കുന്നത്. താഴെ നൽകിയിരിക്കുന്ന ഫോം സന്ദേശങ്ങൾ രൂപീകരിക്കാനും പരിശോധിക്കാനുമുള്ളതാണ്. നിങ്ങളുടെ ആശയവിനിമയം നേരിട്ട് MLA ഓഫീസിലെത്തിക്കാൻ ഔദ്യോഗിക ഹെൽപ്പ്‌ലൈൻ നമ്പറിൽ (<a href="tel:+919072678001" className="underline font-semibold text-charcoal dark:text-[#F4F1E9]">+91 90726 78001</a>) ബന്ധപ്പെടുക.
                 </span>
               ) : (
                 <span>
-                  <strong>Frontend Demonstration Notice:</strong> This portal functions as a static frontend application without a backend database or automated grievance server. The form below validates your communication and prepares a draft. To submit official correspondence directly to Shri Ramesh Pisharady MLA, please use the verified email (<a href="mailto:mla.palakkad@niyamasabha.nic.in" className="underline font-semibold text-charcoal dark:text-[#F4F1E9]">mla.palakkad@niyamasabha.nic.in</a>) or telephone helpline (<a href="tel:+919072678001" className="underline font-semibold text-charcoal dark:text-[#F4F1E9]">+91 90726 78001</a>).
+                  <strong>Frontend Demonstration Notice:</strong> This portal functions as a static frontend application without a backend database or automated grievance server. The form below validates your communication and prepares a draft. To submit official correspondence directly to Shri Ramesh Pisharady MLA, please use the verified telephone helpline (<a href="tel:+919072678001" className="underline font-semibold text-charcoal dark:text-[#F4F1E9]">+91 90726 78001</a>).
                 </span>
               )}
             </p>
@@ -702,28 +703,35 @@ export const ContactForm: React.FC = () => {
                   </h4>
                   <p className="text-sm text-slate dark:text-[#C6C5BD] leading-relaxed">
                     {language === "ml"
-                      ? "ശ്രദ്ധിക്കുക: ഈ വെബ്സൈറ്റ് ബാക്കെൻഡ് സെർവറില്ലാത്ത സ്റ്റാറ്റിക് പോർട്ടലായതിനാൽ ഔദ്യോഗിക രജിസ്ട്രേഷൻ നടത്തിയിട്ടില്ല. നിങ്ങളുടെ വിവരങ്ങൾ പ്രാദേശികമായി സാധൂകരിച്ചിട്ടുണ്ട്. ഇത് ഔദ്യോഗികമായി അയക്കാൻ താഴെ നൽകിയിരിക്കുന്ന ഇമെയിൽ അല്ലെങ്കിൽ ഫോൺ ലിങ്കുകൾ ഉപയോഗിക്കുക:"
-                      : "Notice: No server-side registration or database submission has occurred because this portal operates as a static frontend application. Your entered information has been validated in your browser. To transmit this communication to the MLA's office, use the direct verified options below:"}
+                      ? "ശ്രദ്ധിക്കുക: ഈ വെബ്സൈറ്റ് ബാക്കെൻഡ് സെർവറില്ലാത്ത സ്റ്റാറ്റിക് പോർട്ടലായതിനാൽ ഔദ്യോഗിക രജിസ്ട്രേഷൻ നടത്തിയിട്ടില്ല. നിങ്ങളുടെ വിവരങ്ങൾ ബ്രൗസറിൽ പരിശോധിച്ചുറപ്പിച്ചിട്ടുണ്ട്. ഔദ്യോഗിക ആശയവിനിമയത്തിനായി താഴെ നൽകിയിരിക്കുന്ന ഹെൽപ്പ്‌ലൈൻ നമ്പറിൽ നേരിട്ട് ബന്ധപ്പെടുകയോ കരട് പകർത്തിയെടുക്കുകയോ ചെയ്യാം:"
+                      : "Notice: No server-side registration or database submission has occurred because this portal operates as a static frontend application. Your entered information has been validated in your browser. To transmit this communication to the MLA's office, please call the verified helpline or copy your drafted text below:"}
                   </p>
 
                   {/* Direct Verified Actions */}
                   <div className="pt-3 border-t border-warm-grey/60 dark:border-[#41413B]/60 flex flex-wrap gap-3">
                     <a
-                      href={`mailto:mla.palakkad@niyamasabha.nic.in?subject=${encodeURIComponent(`[Constituency Communication] ${formData.subject}`)}&body=${encodeURIComponent(
-                        `From: ${formData.fullName}\nPhone: ${formData.phone}\nEmail: ${formData.email}\n${formData.location ? `Location: ${formData.location}\n` : ""}\nMessage:\n${formData.message}`
-                      )}`}
+                      href="tel:+919072678001"
                       className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider bg-charcoal text-white dark:bg-[#F4F1E9] dark:text-[#191A18] hover:bg-copper dark:hover:bg-[#D29A78] rounded-sm transition-colors shadow-2xs"
                     >
-                      <span>{language === "ml" ? "ഇമെയിൽ ആപ്പിൽ തുറക്കുക (ഔദ്യോഗിക വിലാസം)" : "Open in Email Client (Official Address)"}</span>
-                      <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                      <Phone className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
+                      <span>{language === "ml" ? "ഓഫീസിലേക്ക് വിളിക്കുക (+91 90726 78001)" : "Call Office Helpline (+91 90726 78001)"}</span>
                     </a>
 
-                    <a
-                      href="tel:+919072678001"
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const draftText = `From: ${formData.fullName}\nPhone: ${formData.phone}\n${formData.email ? `Email: ${formData.email}\n` : ""}${formData.location ? `Location: ${formData.location}\n` : ""}Subject: ${formData.subject}\n\nMessage:\n${formData.message}`;
+                        if (navigator.clipboard) {
+                          navigator.clipboard.writeText(draftText);
+                          setCopiedDraft(true);
+                          setTimeout(() => setCopiedDraft(false), 3000);
+                        }
+                      }}
                       className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-charcoal dark:text-[#F4F1E9] hover:bg-stone/60 dark:hover:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] transition-colors"
                     >
-                      <span>{language === "ml" ? "ഓഫീസിലേക്ക് വിളിക്കുക (+91 90726 78001)" : "Call Office (+91 90726 78001)"}</span>
-                    </a>
+                      <Copy className="w-3.5 h-3.5 text-copper dark:text-[#D29A78]" aria-hidden="true" />
+                      <span>{copiedDraft ? (language === "ml" ? "കരട് പകർത്തി!" : "Draft Copied!") : (language === "ml" ? "കരട് പകർത്തുക" : "Copy Draft Text")}</span>
+                    </button>
                   </div>
                 </div>
               </div>

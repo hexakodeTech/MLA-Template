@@ -25,14 +25,14 @@ export const representativeProfile: RepresentativeProfile = {
     ml: "പതിനാറാം കേരള നിയമസഭയിൽ പാലക്കാട് മണ്ഡലത്തെ പ്രതിനിധീകരിക്കുന്ന നിയമസഭാ സാമാജികൻ (യു.ഡി.എഫ് / കോൺഗ്രസ്). കേരള നിയമസഭയുടെ ഔദ്യോഗിക ഭാഷാ സമിതി അംഗം. സാംസ്കാരിക-കലാ രംഗങ്ങളിലെ സജീവ സാന്നിധ്യത്തിന് ശേഷം പൊതുരംഗത്തേക്ക് പ്രവേശിച്ചു.",
   },
   officeHours: {
-    en: "Monday to Friday: 09:30 AM – 05:00 PM (Public Enquiries & Grievances: 10:00 AM – 01:00 PM)",
-    ml: "തിങ്കൾ മുതൽ വെള്ളി വരെ: 09:30 AM – 05:00 PM (പൊതുജന സന്ദർശനം: 10:00 AM – 01:00 PM)",
+    en: "By prior appointment · Enquiries via official helpline (+91 90726 78001)",
+    ml: "മുൻകൂട്ടിയുള്ള അനുമതി പ്രകാരം · ഔദ്യോഗിക ഹെൽപ്പ്‌ലൈൻ (+91 90726 78001) മുഖേന",
   },
   officeAddress: {
-    en: "MLA Constituency Office, Palakkad, Kerala – PIN: 678001",
-    ml: "എം.എൽ.എ മണ്ഡലം ഓഫീസ്, പാലക്കാട്, കേരളം - പിൻ: 678001",
+    en: "Room No. 701, Chandragiri Block, Legislators' Hostel (LH), Vikas Bhavan P.O., Thiruvananthapuram – PIN: 695033 (Palakkad LAC 056 Desk)",
+    ml: "റൂം നമ്പർ 701, ചന്ദ്രഗിരി ബ്ലോക്ക്, ലെജിസ്ലേറ്റേഴ്‌സ് ഹോസ്റ്റൽ (LH), വികാസ് ഭവൻ പി.ഒ., തിരുവനന്തപുരം - 695033 (പാലക്കാട് LAC 056 ഡെസ്ക്)",
   },
-  officeEmail: "Constituency Correspondence Desk, MLA Office, Palakkad",
+  officeEmail: "Direct email not listed in Kerala Legislative Assembly directory · Enquiries via official helpline (+91 90726 78001)",
   officePhone: "+91 90726 78001",
   legislativeAssembly: {
     en: "16th Kerala Legislative Assembly",
@@ -149,18 +149,18 @@ export const mockNews: NewsItem[] = [
     id: "news-4",
     slug: "constituency-office-public-visiting-hours-notice",
     title: {
-      en: "MLA Constituency Office Notice: Public Visiting Hours & Petition Submission Guidelines",
-      ml: "എം.എൽ.എ ഓഫീസ് അറിയിപ്പ്: പൊതുജന സന്ദർശന സമയവും നിവേദന സമർപ്പണവും",
+      en: "MLA Office Notice: Representation Submission Guidelines & Citizen Consultations",
+      ml: "എം.എൽ.എ ഓഫീസ് അറിയിപ്പ്: നിവേദന സമർപ്പണവും പൗരസമ്പർക്കവും",
     },
     category: "Office Notices",
     date: "2026-08-10",
     summary: {
-      en: "Constituents submitting representations and petitions are requested to follow updated office hours and provide supporting administrative details.",
-      ml: "നിവേദനങ്ങൾ സമർപ്പിക്കുമ്പോൾ ആവശ്യമായ രേഖകൾ സഹിതം ഓഫീസിൽ നേരിട്ടോ ഓൺലൈനായോ ലഭ്യമാക്കുക.",
+      en: "Constituents submitting representations and petitions are advised on consultation scheduling via helpline and guidelines for attaching supporting documents.",
+      ml: "നിവേദനങ്ങൾ സമർപ്പിക്കുമ്പോൾ ഹെൽപ്പ്‌ലൈൻ വഴിയുള്ള വിവരങ്ങളും ആവശ്യമായ രേഖകളും ലഭ്യമാക്കുക.",
     },
     content: {
-      en: "To facilitate orderly review and swift departmental forwarding, citizens visiting the MLA Constituency Office in Palakkad are notified of regular public visiting hours from 10:00 AM to 01:00 PM on working weekdays. Petitions regarding land revenue, public health, road maintenance, and educational grants should include relevant survey numbers or applicant identification.",
-      ml: "പാലക്കാട് എം.എൽ.എ ഓഫീസിൽ പൊതുജന സമ്പർക്ക സമയം പ്രവൃത്തി ദിവസങ്ങളിൽ രാവിലെ 10:00 മുതൽ ഉച്ചയ്ക്ക് 01:00 വരെ ക്രമീകരിച്ചു. നിവേദനങ്ങൾ വേഗത്തിൽ തീർപ്പാക്കാൻ ആവശ്യമായ വിവരങ്ങളും അനുബന്ധ രേഖകളും ഉൾപ്പെടുത്താൻ അഭ്യർത്ഥിക്കുന്നു.",
+      en: "To facilitate orderly review and swift departmental forwarding, citizens wishing to submit representations or meet with constituency representatives are advised that meetings are arranged by prior appointment through the official helpline (+91 90726 78001). Petitions regarding land revenue, public health, road maintenance, and educational grants should include relevant survey numbers or applicant identification.",
+      ml: "നിവേദനങ്ങൾ സമർപ്പിക്കുന്നതിനും ജനപ്രതിനിധിയുമായി കൂടിക്കാഴ്ച നടത്തുന്നതിനും ഔദ്യോഗിക ഹെൽപ്പ്‌ലൈൻ (+91 90726 78001) വഴി മുൻകൂട്ടി സമയം ക്രമീകരിക്കാൻ അഭ്യർത്ഥിക്കുന്നു. നിവേദനങ്ങൾ വേഗത്തിൽ തീർപ്പാക്കാൻ ആവശ്യമായ വിവരങ്ങളും അനുബന്ധ രേഖകളും ഉൾപ്പെടുത്തുക.",
     },
     imageUrl: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80",
     imageCaption: {

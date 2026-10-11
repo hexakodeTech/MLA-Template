@@ -298,10 +298,12 @@ export default function AboutPage() {
                 <Mail className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <span className="font-bold text-charcoal dark:text-[#F4F1E9] block uppercase tracking-wider text-xs">
-                    {language === "ml" ? "ഇമെയിൽ:" : "Electronic Correspondence:"}
+                    {language === "ml" ? "ഇലക്ട്രോണിക് സമ്പർക്കം:" : "Electronic Correspondence:"}
                   </span>
-                  <p className="text-slate dark:text-[#C6C5BD] mt-1 font-mono text-xs">
-                    {representativeProfile.officeEmail}
+                  <p className="text-slate dark:text-[#C6C5BD] mt-1 text-xs leading-relaxed">
+                    {language === "ml"
+                      ? "കേരള നിയമസഭാ ഡയറക്ടറിയിൽ നേരിട്ടുള്ള ഇമെയിൽ വിലാസം പ്രസിദ്ധീകരിച്ചിട്ടില്ല · ഹെൽപ്പ്‌ലൈൻ: +91 90726 78001"
+                      : representativeProfile.officeEmail}
                   </p>
                 </div>
               </div>
