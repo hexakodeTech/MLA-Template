@@ -16,8 +16,13 @@ import { useLanguage } from "@/context/LanguageContext";
 import { Button } from "@/components/ui/Button";
 import { NewsCard } from "@/components/news/NewsCard";
 import { ActivityCard } from "@/components/activities/ActivityCard";
+import dynamic from "next/dynamic";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { Lightbox } from "@/components/gallery/Lightbox";
+
+const Lightbox = dynamic(
+  () => import("@/components/gallery/Lightbox").then((mod) => mod.Lightbox),
+  { ssr: false }
+);
 import { ProjectTracker } from "@/components/constituency/ProjectTracker";
 import { ResourceDirectory } from "@/components/constituency/ResourceDirectory";
 import {
@@ -349,6 +354,7 @@ export default function HomeClient() {
                       }
                       fill
                       priority
+                      loading="eager"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
                       className="object-cover object-top filter contrast-105"
                     />
@@ -927,13 +933,15 @@ export default function HomeClient() {
         </div>
 
         {/* Lightbox Modal */}
-        <Lightbox
-          items={mockGallery}
-          currentIndex={lightboxIndex}
-          isOpen={lightboxOpen}
-          onClose={() => setLightboxOpen(false)}
-          onNavigate={(newIdx) => setLightboxIndex(newIdx)}
-        />
+        {lightboxOpen && (
+          <Lightbox
+            items={mockGallery}
+            currentIndex={lightboxIndex}
+            isOpen={lightboxOpen}
+            onClose={() => setLightboxOpen(false)}
+            onNavigate={(newIdx) => setLightboxIndex(newIdx)}
+          />
+        )}
       </section>
 
       {/* =========================================================================

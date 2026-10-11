@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useState,
   useCallback,
+  useMemo,
 } from "react";
 
 export type Theme = "light" | "dark";
@@ -107,16 +108,19 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     setTheme(theme === "dark" ? "light" : "dark");
   }, [theme, setTheme]);
 
+  const value = useMemo(
+    () => ({
+      theme,
+      resolvedTheme: theme,
+      toggleTheme,
+      setTheme,
+      mounted,
+    }),
+    [theme, toggleTheme, setTheme, mounted]
+  );
+
   return (
-    <ThemeContext.Provider
-      value={{
-        theme,
-        resolvedTheme: theme,
-        toggleTheme,
-        setTheme,
-        mounted,
-      }}
-    >
+    <ThemeContext.Provider value={value}>
       {children}
     </ThemeContext.Provider>
   );

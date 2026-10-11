@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useState,
   useCallback,
+  useMemo,
 } from "react";
 
 export interface AccessibilitySettings {
@@ -76,7 +77,6 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [settings, setSettings] = useState<AccessibilitySettings>(DEFAULT_A11Y_SETTINGS);
   const [statusMessage, setStatusMessage] = useState("");
-  const [mounted, setMounted] = useState(false);
 
   // Announce status to screen readers and auto-clear after 4s
   const announce = useCallback((msg: string) => {
@@ -220,7 +220,6 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
     } catch {
       applySettingsToDOM(DEFAULT_A11Y_SETTINGS);
     }
-    setMounted(true);
   }, [applySettingsToDOM]);
 
   // Check if any setting differs from default
@@ -408,30 +407,53 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
     announce("Accessibility settings have been reset.");
   }, [applySettingsToDOM, announce]);
 
+  const value = useMemo(
+    () => ({
+      settings,
+      isCustomized,
+      statusMessage,
+      setFontScale,
+      increaseTextSize,
+      decreaseTextSize,
+      resetTextSize,
+      toggleHighContrast,
+      toggleGrayscale,
+      toggleHighlightLinks,
+      toggleReduceTransparency,
+      setLineHeight,
+      setLetterSpacing,
+      toggleUnderlineLinks,
+      toggleReduceMotion,
+      toggleHighlightFocus,
+      resetCategory,
+      resetAllSettings,
+      clearStatusMessage,
+    }),
+    [
+      settings,
+      isCustomized,
+      statusMessage,
+      setFontScale,
+      increaseTextSize,
+      decreaseTextSize,
+      resetTextSize,
+      toggleHighContrast,
+      toggleGrayscale,
+      toggleHighlightLinks,
+      toggleReduceTransparency,
+      setLineHeight,
+      setLetterSpacing,
+      toggleUnderlineLinks,
+      toggleReduceMotion,
+      toggleHighlightFocus,
+      resetCategory,
+      resetAllSettings,
+      clearStatusMessage,
+    ]
+  );
+
   return (
-    <AccessibilityContext.Provider
-      value={{
-        settings,
-        isCustomized,
-        statusMessage,
-        setFontScale,
-        increaseTextSize,
-        decreaseTextSize,
-        resetTextSize,
-        toggleHighContrast,
-        toggleGrayscale,
-        toggleHighlightLinks,
-        toggleReduceTransparency,
-        setLineHeight,
-        setLetterSpacing,
-        toggleUnderlineLinks,
-        toggleReduceMotion,
-        toggleHighlightFocus,
-        resetCategory,
-        resetAllSettings,
-        clearStatusMessage,
-      }}
-    >
+    <AccessibilityContext.Provider value={value}>
       {children}
     </AccessibilityContext.Provider>
   );

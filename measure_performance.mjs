@@ -73,9 +73,10 @@ async function measureRoute(cdp, route) {
     const paint = performance.getEntriesByType("paint");
     const fcpEntry = paint.find(p => p.name === "first-contentful-paint");
     
-    // Check if preloader is still in DOM
-    const preloaderActive = Boolean(document.querySelector('[role="status"][aria-live="polite"]'));
-    const mainVisible = Boolean(document.querySelector("#main-content") && window.getComputedStyle(document.querySelector("#main-content")).display !== "none");
+    // Check if progress bar is still active in DOM
+    const preloaderActive = Boolean(document.querySelector('[role="progressbar"]'));
+    const mainEl = document.querySelector("#main-content") || document.querySelector("main");
+    const mainVisible = Boolean(mainEl && window.getComputedStyle(mainEl).display !== "none");
     
     return {
       ttfb: nav ? Math.round(nav.responseStart - nav.requestStart) : null,

@@ -347,13 +347,13 @@ export const ContactForm: React.FC = () => {
       setSubmitAttemptCount((prev) => prev + 1);
 
       if (firstInvalidField) {
-        setTimeout(() => {
+        requestAnimationFrame(() => {
           const el = document.getElementById(firstInvalidField);
           if (el) {
             el.focus();
             el.scrollIntoView({ behavior: "smooth", block: "center" });
           }
-        }, 50);
+        });
       }
       return;
     }

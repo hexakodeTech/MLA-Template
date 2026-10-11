@@ -5,8 +5,13 @@ import { MapPin, Calendar, Info, Filter, Camera } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Badge } from "@/components/ui/Badge";
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/Button";
-import { Lightbox } from "@/components/gallery/Lightbox";
+
+const Lightbox = dynamic(
+  () => import("@/components/gallery/Lightbox").then((mod) => mod.Lightbox),
+  { ssr: false }
+);
 import { mockGallery } from "@/data/mockData";
 import { GalleryCategory } from "@/types";
 
@@ -238,13 +243,15 @@ export default function GalleryPage() {
       </div>
 
       {/* Lightbox Viewer */}
-      <Lightbox
-        items={filteredGallery}
-        currentIndex={lightboxIndex}
-        isOpen={lightboxOpen}
-        onClose={() => setLightboxOpen(false)}
-        onNavigate={(newIdx) => setLightboxIndex(newIdx)}
-      />
+      {lightboxOpen && (
+        <Lightbox
+          items={filteredGallery}
+          currentIndex={lightboxIndex}
+          isOpen={lightboxOpen}
+          onClose={() => setLightboxOpen(false)}
+          onNavigate={(newIdx) => setLightboxIndex(newIdx)}
+        />
+      )}
     </div>
   );
 }

@@ -7,10 +7,11 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { AccessibilityProvider } from "@/context/AccessibilityContext";
 import { PrototypeBanner } from "@/components/ui/PrototypeBanner";
 import { InitialLoadingScreen } from "@/components/ui/InitialLoadingScreen";
-import { MouseFollowDot } from "@/components/ui/MouseFollowDot";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { siteConfig } from "@/config/site";
+
+import { MouseFollowDot } from "@/components/ui/MouseFollowDot";
 
 const dmSerifDisplay = DM_Serif_Display({
   variable: "--font-dm-serif",

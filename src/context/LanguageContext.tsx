@@ -1,6 +1,14 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState, useTransition } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useTransition,
+  useCallback,
+  useMemo,
+} from "react";
 import { Language, LocalizedString } from "@/types";
 
 interface LanguageContextType {
@@ -333,7 +341,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, []);
 
-  const handleSetLanguage = (lang: Language) => {
+  const handleSetLanguage = useCallback((lang: Language) => {
     startTransition(() => {
       setLanguageState(lang);
     });
@@ -347,37 +355,46 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
         // ignore storage errors
       }
     }
-  };
+  }, [startTransition]);
 
-  const toggleLanguage = () => {
+  const toggleLanguage = useCallback(() => {
     const nextLang = language === "en" ? "ml" : "en";
     handleSetLanguage(nextLang);
-  };
+  }, [language, handleSetLanguage]);
 
-  const getLocalized = (item: LocalizedString | undefined): string => {
-    if (!item) return "";
-    if (language === "ml") {
-      return item.ml && item.ml.trim() !== "" ? item.ml : item.en;
-    }
-    return item.en;
-  };
+  const getLocalized = useCallback(
+    (item: LocalizedString | undefined): string => {
+      if (!item) return "";
+      if (language === "ml") {
+        return item.ml && item.ml.trim() !== "" ? item.ml : item.en;
+      }
+      return item.en;
+    },
+    [language]
+  );
 
-  const t = (key: string): string => {
-    const entry = translations[key];
-    if (!entry) return key;
-    return entry[language] || entry.en;
-  };
+  const t = useCallback(
+    (key: string): string => {
+      const entry = translations[key];
+      if (!entry) return key;
+      return entry[language] || entry.en;
+    },
+    [language]
+  );
+
+  const value = useMemo(
+    () => ({
+      language,
+      setLanguage: handleSetLanguage,
+      toggleLanguage,
+      getLocalized,
+      t,
+    }),
+    [language, handleSetLanguage, toggleLanguage, getLocalized, t]
+  );
 
   return (
-    <LanguageContext.Provider
-      value={{
-        language,
-        setLanguage: handleSetLanguage,
-        toggleLanguage,
-        getLocalized,
-        t,
-      }}
-    >
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );
