@@ -140,16 +140,6 @@ export default function RootLayout({
                 if (l !== "ml" && l !== "en") l = "en";
                 document.documentElement.lang = l;
                 document.documentElement.setAttribute("data-lang", l);
-
-                // 4. Random Activity Bootstrap (Zero Flash & Anti-Repetition)
-                var actIds = ["act-1", "act-2", "act-3", "act-4"];
-                var lastAct = localStorage.getItem("last_loading_activity_id");
-                var pool = actIds.filter(function(id) { return id !== lastAct; });
-                var chosenAct = (pool.length > 0 ? pool : actIds)[Math.floor(Math.random() * (pool.length > 0 ? pool.length : actIds.length))];
-                if (chosenAct) {
-                  localStorage.setItem("last_loading_activity_id", chosenAct);
-                  document.documentElement.setAttribute("data-loading-activity", chosenAct);
-                }
               } catch(e) {}
             })()`,
           }}
