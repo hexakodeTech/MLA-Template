@@ -259,11 +259,19 @@ export default function AboutPage() {
                 <MapPin className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <span className="font-bold text-charcoal dark:text-[#F4F1E9] block uppercase tracking-wider text-xs">
-                    {language === "ml" ? "വിലാസം:" : "Constituency Secretariat:"}
+                    {language === "ml" ? "മണ്ഡലം ഓഫീസ് വിലാസം:" : "Constituency Office Address:"}
                   </span>
                   <p className="text-slate dark:text-[#C6C5BD] mt-1 leading-relaxed">
                     {getLocalized(representativeProfile.officeAddress)}
                   </p>
+                  <a
+                    href="https://maps.google.com/?q=6%2C+Palakkad-Chittur+Rd%2C+Durga+Nagar%2C+Kenathuparambu%2C+Manapullikavu%2C+Palakkad%2C+Kerala+678013"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs text-copper dark:text-[#D29A78] hover:underline font-semibold mt-1.5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-copper rounded-2xs"
+                  >
+                    <span>{language === "ml" ? "മാപ്പിൽ കാണുക ↗" : "View Location on Map ↗"}</span>
+                  </a>
                 </div>
               </div>
 

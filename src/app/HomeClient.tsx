@@ -977,12 +977,12 @@ export default function HomeClient() {
                   <MapPin className="w-4 h-4 text-copper dark:text-[#D29A78] shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
                     <span className="font-bold uppercase tracking-wider block text-charcoal dark:text-[#F4F1E9]">
-                      {language === "ml" ? "ഓഫീസ് വിലാസം" : "Office Address"}
+                      {language === "ml" ? "മണ്ഡലം ഓഫീസ് വിലാസം" : "Constituency Office Address"}
                     </span>
                     <span className="text-slate dark:text-[#C6C5BD] leading-relaxed block mt-0.5">
                       {language === "ml"
-                        ? "റൂം നമ്പർ 701, ചന്ദ്രഗിരി ബ്ലോക്ക്, ലെജിസ്ലേറ്റേഴ്‌സ് ഹോസ്റ്റൽ (LH), വികാസ് ഭവൻ പി.ഒ., തിരുവനന്തപുരം - 695033 (പാലക്കാട് LAC 056 ഡെസ്ക്)"
-                        : "Room No. 701, Chandragiri Block, Legislators' Hostel (LH), Vikas Bhavan P.O., Thiruvananthapuram – PIN: 695033 (Palakkad LAC 056 Desk)"}
+                        ? "6, പാലക്കാട്-ചിറ്റൂർ റോഡ്, ദുർഗ്ഗ നഗർ, കിണത്തുപറമ്പ്, മണപ്പുള്ളിക്കാവ്, പാലക്കാട്, കേരളം - പിൻ: 678013"
+                        : "6, Palakkad-Chittur Road, Durga Nagar, Kenathuparambu, Manapullikavu, Palakkad, Kerala – PIN: 678013"}
                     </span>
                   </div>
                 </div>

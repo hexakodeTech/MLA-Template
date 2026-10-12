@@ -34,6 +34,14 @@ export const PERSON_SCHEMA = {
     name: "Devaswom Board College, Thalayolaparambu",
   },
   telephone: "+919072678001",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "6, Palakkad-Chittur Road, Durga Nagar, Kenathuparambu",
+    addressLocality: "Manapullikavu, Palakkad",
+    addressRegion: "Kerala",
+    postalCode: "678013",
+    addressCountry: "IN",
+  },
   sameAs: [
     "https://en.wikipedia.org/wiki/Ramesh_Pisharody",
     "https://www.instagram.com/rameshpisharody/",

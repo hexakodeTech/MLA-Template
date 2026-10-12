@@ -29,8 +29,8 @@ export const representativeProfile: RepresentativeProfile = {
     ml: "മുൻകൂട്ടിയുള്ള അനുമതി പ്രകാരം · ഔദ്യോഗിക ഹെൽപ്പ്‌ലൈൻ (+91 90726 78001) മുഖേന",
   },
   officeAddress: {
-    en: "Room No. 701, Chandragiri Block, Legislators' Hostel (LH), Vikas Bhavan P.O., Thiruvananthapuram – PIN: 695033 (Palakkad LAC 056 Desk)",
-    ml: "റൂം നമ്പർ 701, ചന്ദ്രഗിരി ബ്ലോക്ക്, ലെജിസ്ലേറ്റേഴ്‌സ് ഹോസ്റ്റൽ (LH), വികാസ് ഭവൻ പി.ഒ., തിരുവനന്തപുരം - 695033 (പാലക്കാട് LAC 056 ഡെസ്ക്)",
+    en: "6, Palakkad-Chittur Road, Durga Nagar, Kenathuparambu, Manapullikavu, Palakkad, Kerala – PIN: 678013",
+    ml: "6, പാലക്കാട്-ചിറ്റൂർ റോഡ്, ദുർഗ്ഗ നഗർ, കിണത്തുപറമ്പ്, മണപ്പുള്ളിക്കാവ്, പാലക്കാട്, കേരളം - പിൻ: 678013",
   },
   officeEmail: "Direct email not listed in Kerala Legislative Assembly directory · Enquiries via official helpline (+91 90726 78001)",
   officePhone: "+91 90726 78001",

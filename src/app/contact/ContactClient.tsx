@@ -60,35 +60,45 @@ export default function ContactPage() {
               </div>
               <div className="text-xs sm:text-sm">
                 <span className="font-semibold text-charcoal dark:text-[#F4F1E9] block">
-                  {language === "ml" ? "ഔദ്യോഗിക വിലാസം" : "Official Legislative Address"}
+                  {language === "ml" ? "മണ്ഡലം ഓഫീസ് വിലാസം" : "Constituency Office Address"}
                 </span>
                 <p className="text-slate dark:text-[#C6C5BD] mt-1 leading-relaxed">
                   {language === "ml" ? (
                     <>
-                      റൂം നമ്പർ 701, ചന്ദ്രഗിരി ബ്ലോക്ക്
+                      6, പാലക്കാട്-ചിറ്റൂർ റോഡ്, ദുർഗ്ഗ നഗർ
                       <br />
-                      ലെജിസ്ലേറ്റേഴ്‌സ് ഹോസ്റ്റൽ (LH), വികാസ് ഭവൻ പി.ഒ.
+                      കിണത്തുപറമ്പ്, മണപ്പുള്ളിക്കാവ്
                       <br />
-                      തിരുവനന്തപുരം, കേരളം - പിൻ: 695033
+                      പാലക്കാട്, കേരളം - പിൻ: 678013
                       <br />
-                      <span className="text-[11px] text-copper dark:text-[#D29A78] font-semibold">
-                        · പാലക്കാട് നിയോജകമണ്ഡലം (LAC 056) ഡെസ്ക്
+                      <span className="text-[11px] text-copper dark:text-[#D29A78] font-semibold block mt-1">
+                        · മണ്ഡലം പബ്ലിക് ഓഫീസ് · പാലക്കാട് LAC 056
                       </span>
                     </>
                   ) : (
                     <>
-                      Room No. 701, Chandragiri Block
+                      6, Palakkad-Chittur Road, Durga Nagar
                       <br />
-                      Legislators&apos; Hostel (LH), Vikas Bhavan P.O.
+                      Kenathuparambu, Manapullikavu
                       <br />
-                      Thiruvananthapuram, Kerala – PIN: 695033
+                      Palakkad, Kerala – PIN: 678013
                       <br />
-                      <span className="text-[11px] text-copper dark:text-[#D29A78] font-semibold">
-                        · Palakkad Assembly Constituency (LAC 056) Desk
+                      <span className="text-[11px] text-copper dark:text-[#D29A78] font-semibold block mt-1">
+                        · Constituency Public Office · Palakkad LAC 056
                       </span>
                     </>
                   )}
                 </p>
+                <div className="mt-2.5">
+                  <a
+                    href="https://maps.google.com/?q=6%2C+Palakkad-Chittur+Rd%2C+Durga+Nagar%2C+Kenathuparambu%2C+Manapullikavu%2C+Palakkad%2C+Kerala+678013"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs text-copper dark:text-[#D29A78] hover:underline font-semibold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-copper rounded-2xs"
+                  >
+                    <span>{language === "ml" ? "മാപ്പിൽ കാണുക ↗" : "View Location on Map ↗"}</span>
+                  </a>
+                </div>
               </div>
             </div>
 
