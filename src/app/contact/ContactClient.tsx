@@ -182,6 +182,38 @@ export default function ContactPage() {
             </div>
           </div>
 
+          {/* Public Figure Social Channels (Not for official petitions) */}
+          <div className="bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-5 space-y-3 text-xs shadow-xs">
+            <h3 className="font-bold text-charcoal dark:text-[#F4F1E9] uppercase tracking-wider text-xs">
+              {language === "ml" ? "പബ്ലിക് സോഷ്യൽ മീഡിയ" : "Public Media Channels"}
+            </h3>
+            <p className="text-slate dark:text-[#C6C5BD]">
+              {language === "ml"
+                ? "കലാ-പൊതുപ്രവർത്തന വിശേഷങ്ങൾക്കായി ഔദ്യോഗിക സോഷ്യൽ പ്രൊഫൈലുകൾ (നിവേദനങ്ങൾ നേരിട്ട് ഓഫീസിൽ സമർപ്പിക്കുക):"
+                : "Public figure & media channels for announcements (formal petitions must be directed to the MLA office helpline):"}
+            </p>
+            <div className="flex flex-wrap gap-2 pt-1 font-medium">
+              <a
+                href="https://www.instagram.com/rameshpisharody/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-stone/50 dark:bg-[#222320] px-2.5 py-1.5 rounded-xs border border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors"
+                aria-label="Instagram Profile @rameshpisharody (opens in new tab)"
+              >
+                Instagram ↗
+              </a>
+              <a
+                href="https://www.facebook.com/RameshPisharodyofficial"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-stone/50 dark:bg-[#222320] px-2.5 py-1.5 rounded-xs border border-warm-grey dark:border-[#41413B] text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] transition-colors"
+                aria-label="Facebook Page @RameshPisharodyofficial (opens in new tab)"
+              >
+                Facebook ↗
+              </a>
+            </div>
+          </div>
+
           {/* Contextual Links to Constituency & About */}
           <div className="bg-white dark:bg-[#2C2D29] rounded-sm border border-warm-grey dark:border-[#41413B] p-5 space-y-3 shadow-xs">
             <h3 className="font-bold text-charcoal dark:text-[#F4F1E9] uppercase tracking-wider text-xs">

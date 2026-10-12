@@ -317,6 +317,40 @@ export default function AboutPage() {
               </div>
             </div>
 
+            {/* Verified Public Figure & Cultural Channels */}
+            <div className="bg-stone/30 dark:bg-[#222320]/60 rounded-sm border border-warm-grey dark:border-[#41413B] p-5 space-y-3 text-xs shadow-2xs">
+              <div>
+                <span className="font-bold text-charcoal dark:text-[#F4F1E9] block uppercase tracking-wider text-xs">
+                  {language === "ml" ? "പബ്ലിക് ഫിഗർ & കൾച്ചറൽ പ്രൊഫൈലുകൾ" : "Verified Public Figure & Media Channels"}
+                </span>
+                <p className="text-slate dark:text-[#A09F97] text-[11px] mt-0.5 leading-relaxed">
+                  {language === "ml"
+                    ? "ശ്രീ രമേഷ് പിഷാരടിയുടെ കലാ-പൊതുപ്രവർത്തന ചാനലുകൾ (ഔദ്യോഗിക നിവേദനങ്ങൾ മണ്ഡലം ഓഫീസ് മുഖേനയാണ് സമർപ്പിക്കേണ്ടത്)."
+                    : "Shri Ramesh Pisharady's public figure and media channels. Formal constituency petitions must be submitted through the MLA Office helpline."}
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2.5 pt-1">
+                <a
+                  href="https://www.instagram.com/rameshpisharody/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 bg-white dark:bg-[#2C2D29] hover:bg-stone/50 dark:hover:bg-[#383934] text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] text-xs rounded-xs border border-warm-grey dark:border-[#41413B] font-semibold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-copper"
+                  aria-label="Instagram Profile @rameshpisharody (opens in new tab)"
+                >
+                  Instagram (@rameshpisharody) ↗
+                </a>
+                <a
+                  href="https://www.facebook.com/RameshPisharodyofficial"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 bg-white dark:bg-[#2C2D29] hover:bg-stone/50 dark:hover:bg-[#383934] text-charcoal dark:text-[#F4F1E9] hover:text-copper dark:hover:text-[#D29A78] text-xs rounded-xs border border-warm-grey dark:border-[#41413B] font-semibold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-copper"
+                  aria-label="Facebook Page @RameshPisharodyofficial (opens in new tab)"
+                >
+                  Facebook (@RameshPisharodyofficial) ↗
+                </a>
+              </div>
+            </div>
+
             <div className="pt-2 flex flex-wrap items-center gap-3">
               <Button
                 href="/contact"

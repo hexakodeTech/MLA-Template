@@ -69,6 +69,38 @@ export const Footer: React.FC = () => {
                 <strong>Official Legislative Service:</strong> Office of Shri Ramesh Pisharady, MLA representing Palakkad (16th Kerala Legislative Assembly).
               </span>
             </div>
+
+            {/* Verified Public Figure Profiles */}
+            <div className="pt-1">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#D29A78] block mb-1.5">
+                {language === "ml" ? "പബ്ലിക് മീഡിയ പ്രൊഫൈലുകൾ" : "Public & Artist Profiles"}
+              </span>
+              <p className="text-[11px] text-[#A09F97] mb-2 leading-relaxed">
+                {language === "ml"
+                  ? "കലാ-പൊതുപ്രവർത്തന ചാനലുകൾ (ഔദ്യോഗിക ഭരണപരമായ പരാതികൾക്കല്ല)"
+                  : "Public figure & creative channels (not for official constituent petitions)"}
+              </p>
+              <div className="flex flex-wrap items-center gap-2">
+                <a
+                  href="https://www.instagram.com/rameshpisharody/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2.5 py-1 bg-[#2C2D29] hover:bg-[#383934] text-[#F4F1E9] hover:text-[#D29A78] text-xs rounded-xs border border-[#41413B] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#D29A78]"
+                  aria-label="Instagram Profile @rameshpisharody (opens in new tab)"
+                >
+                  Instagram
+                </a>
+                <a
+                  href="https://www.facebook.com/RameshPisharodyofficial"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2.5 py-1 bg-[#2C2D29] hover:bg-[#383934] text-[#F4F1E9] hover:text-[#D29A78] text-xs rounded-xs border border-[#41413B] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#D29A78]"
+                  aria-label="Facebook Page @RameshPisharodyofficial (opens in new tab)"
+                >
+                  Facebook
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* Col 2: Navigation Links */}

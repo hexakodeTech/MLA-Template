@@ -46,7 +46,6 @@ export const PERSON_SCHEMA = {
     "https://en.wikipedia.org/wiki/Ramesh_Pisharody",
     "https://www.instagram.com/rameshpisharody/",
     "https://www.facebook.com/RameshPisharodyofficial",
-    "https://www.youtube.com/@RameshPisharodyEntertainments",
     "http://niyamasabha.nic.in",
   ],
 };

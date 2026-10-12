@@ -21,6 +21,8 @@ export {
   constituencyProjects,
   publicResources,
   palakkadTaluks,
+  constituencyLocalBodies,
+  officialLocalBodies,
   // Backward-compatible aliases
   mockNews,
   mockActivities,

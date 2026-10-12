@@ -5,6 +5,7 @@ import {
   DevelopmentProject,
   PublicResource,
   RepresentativeProfile,
+  ConstituencyLocalBody,
 } from "@/types";
 
 export const representativeProfile: RepresentativeProfile = {
@@ -19,6 +20,16 @@ export const representativeProfile: RepresentativeProfile = {
   constituencyName: {
     en: "Palakkad Constituency, 16th Kerala Legislative Assembly",
     ml: "പാലക്കാട് നിയോജകമണ്ഡലം, പതിനാറാം കേരള നിയമസഭ",
+  },
+  constituencyNumber: "056",
+  constituencyCode: "LAC 056",
+  parliamentaryConstituency: {
+    en: "Palakkad Parliamentary Constituency (PC 08)",
+    ml: "പാലക്കാട് ലോക്‌സഭാ മണ്ഡലം (പി.സി 08)",
+  },
+  delimitationBasis: {
+    en: "Delimitation Commission of India (Order 2008) / Chief Electoral Officer, Kerala",
+    ml: "ഡിലിമിറ്റേഷൻ കമ്മീഷൻ ഓഫ് ഇന്ത്യ (ഉത്തരവ് 2008) / ചീഫ് ഇലക്ടറൽ ഓഫീസർ, കേരളം",
   },
   officialBioNotice: {
     en: "Elected Member of the Kerala Legislative Assembly representing Palakkad (16th KLA). Member of the Committee on Official Language, Kerala Legislative Assembly. Background as acclaimed artist, director, and television presenter prior to active public service with the Indian National Congress.",
@@ -62,8 +73,37 @@ export const representativeProfile: RepresentativeProfile = {
   socialMedia: {
     instagram: "https://www.instagram.com/rameshpisharody/",
     facebook: "https://www.facebook.com/RameshPisharodyofficial",
-    youtube: "https://www.youtube.com/@RameshPisharodyEntertainments",
   },
+  socialAccounts: [
+    {
+      platform: "Instagram",
+      handle: "@rameshpisharody",
+      url: "https://www.instagram.com/rameshpisharody/",
+      accountType: {
+        en: "Public Figure Profile (MLA & Artist)",
+        ml: "പബ്ലിക് ഫിഗർ പ്രൊഫൈൽ (എം.എൽ.എ & കലാകാരൻ)",
+      },
+      isVerified: true,
+      notes: {
+        en: "Official personal and public figure channel. Not an institutional grievance desk.",
+        ml: "വ്യക്തിഗത-പൊതുപ്രവർത്തന ചാനൽ. ഔദ്യോഗിക പരാതി പരിഹാര ഡെസ്കല്ല.",
+      },
+    },
+    {
+      platform: "Facebook",
+      handle: "@RameshPisharodyofficial",
+      url: "https://www.facebook.com/RameshPisharodyofficial",
+      accountType: {
+        en: "Artist & Public Figure Page",
+        ml: "ആർട്ടിസ്റ്റ് & പബ്ലിക് ഫിഗർ പേജ്",
+      },
+      isVerified: true,
+      notes: {
+        en: "Team-managed public announcements and cultural engagements.",
+        ml: "സാംസ്കാരിക വിവരങ്ങൾക്കും പൊതുവിശേഷങ്ങൾക്കുമുള്ള ഔദ്യോഗിക പേജ്.",
+      },
+    },
+  ],
 };
 
 export const mockNews: NewsItem[] = [
@@ -411,92 +451,14 @@ export const mockGallery: GalleryItem[] = [
   },
 ];
 
-export const mockProjects: DevelopmentProject[] = [
-  {
-    id: "proj-1",
-    title: {
-      en: "Drinking Water Augmentation & Pipeline Renewal Scheme",
-      ml: "ശുദ്ധജല വിതരണ പൈപ്പ്‌ലൈൻ നവീകരണ പദ്ധതി",
-    },
-    sector: "Water Resources & Public Health",
-    status: "Ongoing",
-    sanctionDate: "2025-11-15",
-    location: {
-      en: "Palakkad Municipality & Peruvemba Wards",
-      ml: "പാലക്കാട് മുനിസിപ്പാലിറ്റിയും പെരുവെമ്പ് വാർഡുകളും",
-    },
-    description: {
-      en: "Replacing aging distribution pipelines and connecting automated flow-meters to reduce distribution loss and ensure consistent daily household pressure.",
-      ml: "പഴയ പൈപ്പുകൾ മാറ്റി പുതിയ ലൈനുകൾ സ്ഥാപിക്കുകയും എല്ലാ വീടുകളിലും ശുദ്ധജലം എത്തിക്കുകയും ചെയ്യുന്നു.",
-    },
-    budgetAllocation: "Documented in State Budget Allocation Records",
-    sourceAttribution: "Kerala Water Authority & Local Self Government Department",
-    isVerified: true,
-  },
-  {
-    id: "proj-2",
-    title: {
-      en: "Rural Road Resurfacing & Drainage Culvert Construction",
-      ml: "ഗ്രാമീണ റോഡ് പുനരുദ്ധാരണവും കലുങ്ക് നിർമ്മാണവും",
-    },
-    sector: "Public Works & Transport",
-    status: "Ongoing",
-    sanctionDate: "2026-02-10",
-    location: {
-      en: "Pirayiri - Kodumba Feeder Road Link",
-      ml: "പിരായിരി - കൊടുമ്പ് ലിങ്ക് റോഡ്",
-    },
-    description: {
-      en: "Upgrading sub-base with stone-matrix macadam and reconstructing concrete storm drainage to prevent monsoon waterlogging.",
-      ml: "മഴക്കാലത്ത് റോഡുകളിൽ വെള്ളക്കെട്ട് ഒഴിവാക്കാൻ ഡ്രെയിനേജ് സൗകര്യങ്ങളോടെയുള്ള റോഡ് നിർമ്മാണം.",
-    },
-    budgetAllocation: "Documented in Constituency PWD Asset Registry",
-    sourceAttribution: "Public Works Department (Roads Division), Palakkad",
-    isVerified: true,
-  },
-  {
-    id: "proj-3",
-    title: {
-      en: "Primary Health Centre (PHC) Diagnostic Modernization",
-      ml: "പ്രാഥമികാരോഗ്യ കേന്ദ്രം ഡയഗ്നോസ്റ്റിക് ലാബ് നവീകരണം",
-    },
-    sector: "Healthcare Infrastructure",
-    status: "Completed",
-    sanctionDate: "2025-06-20",
-    location: {
-      en: "Mundur Community Health Centre",
-      ml: "മുണ്ടൂർ കമ്മ്യൂണിറ്റി ഹെൽത്ത് സെന്റർ",
-    },
-    description: {
-      en: "Installation of automated hematology analyzers, digital biochemistry units, and patient electronic token display systems.",
-      ml: "ആധുനിക രക്തപരിശോധനാ ഉപകരണങ്ങളും ഡിജിറ്റൽ ടോക്കൺ സംവിധാനങ്ങളും ഏർപ്പെടുത്തി.",
-    },
-    budgetAllocation: "National Health Mission & Local Self Govt Grant",
-    sourceAttribution: "District Medical Office (Health), Palakkad",
-    isVerified: true,
-  },
-  {
-    id: "proj-4",
-    title: {
-      en: "Heritage Canal Greenway & Pedestrian Promenade Feasibility",
-      ml: "പൈതൃക കനാൽ സംരക്ഷണവും കാൽനട നടപ്പാത പദ്ധതിയും",
-    },
-    sector: "Urban Heritage & Environment",
-    status: "In Planning",
-    sanctionDate: "2026-07-01",
-    location: {
-      en: "Palakkad Town Fort-Canal Corridor",
-      ml: "പാലക്കാട് ഫോർട്ട്-കനാൽ പരിസരം",
-    },
-    description: {
-      en: "Detailed project report (DPR) preparation for eco-friendly pedestrian greenway, stone revetment, and solar night lighting.",
-      ml: "കനാലിന്റെ വശങ്ങൾ സംരക്ഷിച്ചുകൊണ്ട് പരിസ്ഥിതി സൗഹൃദ നടപ്പാതയും സൗരോർജ്ജ വിളക്കുകളും സ്ഥാപിക്കുന്നതിനുള്ള സാധ്യതാ പഠനം.",
-    },
-    budgetAllocation: "Planning & Preliminary DPR Stage",
-    sourceAttribution: "Town Planning Department & District Tourism Promotion Council (DTPC)",
-    isVerified: false,
-  },
-];
+/**
+ * Verified Constituency Development Projects (LAC 056)
+ * In strict adherence to governmental transparency standards:
+ * Unverified sample initiatives, placeholder progress indicators, and works outside
+ * LAC 056 have been removed. Verified public works are published exclusively following
+ * formal administrative sanction and departmental gazetted notification.
+ */
+export const mockProjects: DevelopmentProject[] = [];
 
 export const publicResources: PublicResource[] = [
   {
@@ -576,6 +538,69 @@ export const publicResources: PublicResource[] = [
   },
 ];
 
+/**
+ * Official Administrative Composition of Palakkad Assembly Constituency (LAC 056)
+ * Source of Truth: Delimitation Commission of India (Delimitation of Parliamentary and Assembly
+ * Constituencies Order, 2008, Schedule XVIII - Kerala, Serial No. 056) & Chief Electoral Officer, Kerala.
+ *
+ * Geographical Components:
+ * 1. Palakkad Municipality (Palakkad Taluk)
+ * 2. Kannadi Grama Panchayat (Palakkad Taluk)
+ * 3. Pirayiri Grama Panchayat (Palakkad Taluk)
+ * 4. Mathur Grama Panchayat (Alathur Taluk)
+ */
+export const constituencyLocalBodies: ConstituencyLocalBody[] = [
+  {
+    id: "palakkad-municipality",
+    name: { en: "Palakkad Municipality", ml: "പാലക്കാട് നഗരസഭ" },
+    bodyType: { en: "Municipality", ml: "നഗരസഭ" },
+    taluk: { en: "Palakkad Taluk", ml: "പാലക്കാട് താലൂക്ക്" },
+    officialNotification: "Delimitation Commission of India (Order 2008) / CEO Kerala",
+    description: {
+      en: "Urban civic core and administrative headquarters of LAC 056, encompassing municipal wards, civil station, and heritage zones.",
+      ml: "പാലക്കാട് നിയമസഭാ മണ്ഡലത്തിന്റെ നഗര കേന്ദ്രവും ഭരണ ആസ്ഥാനവും; മുനിസിപ്പൽ വാർഡുകളും സിവിൽ സ്റ്റേഷനും ഇതിൽ ഉൾപ്പെടുന്നു.",
+    },
+  },
+  {
+    id: "pirayiri-gp",
+    name: { en: "Pirayiri Grama Panchayat", ml: "പിരായിരി ഗ്രാമപഞ്ചായത്ത്" },
+    bodyType: { en: "Grama Panchayat", ml: "ഗ്രാമപഞ്ചായത്ത്" },
+    taluk: { en: "Palakkad Taluk", ml: "പാലക്കാട് താലൂക്ക്" },
+    officialNotification: "Delimitation Commission of India (Order 2008) / CEO Kerala",
+    description: {
+      en: "Suburban and residential local self-government located along the western perimeter of Palakkad town within Palakkad Taluk.",
+      ml: "പാലക്കാട് നഗരത്തോട് ചേർന്ന പടിഞ്ഞാറൻ അതിർത്തിയിലുള്ള പ്രധാന ജനവാസ ഗ്രാമപഞ്ചായത്ത് (പാലക്കാട് താലൂക്ക്).",
+    },
+  },
+  {
+    id: "kannadi-gp",
+    name: { en: "Kannadi Grama Panchayat", ml: "കണ്ണാടി ഗ്രാമപഞ്ചായത്ത്" },
+    bodyType: { en: "Grama Panchayat", ml: "ഗ്രാമപഞ്ചായത്ത്" },
+    taluk: { en: "Palakkad Taluk", ml: "പാലക്കാട് താലൂക്ക്" },
+    officialNotification: "Delimitation Commission of India (Order 2008) / CEO Kerala",
+    description: {
+      en: "Agrarian and cultural local self-government situated directly south of Palakkad town within Palakkad Taluk.",
+      ml: "പാലക്കാട് താലൂക്കിൽ ഉൾപ്പെടുന്ന തെക്കൻ കാർഷിക-പൈതൃക ഗ്രാമപഞ്ചായത്ത്.",
+    },
+  },
+  {
+    id: "mathur-gp",
+    name: { en: "Mathur Grama Panchayat", ml: "മാത്തൂർ ഗ്രാമപഞ്ചായത്ത്" },
+    bodyType: { en: "Grama Panchayat", ml: "ഗ്രാമപഞ്ചായത്ത്" },
+    taluk: { en: "Alathur Taluk", ml: "ആലത്തൂർ താലൂക്ക്" },
+    officialNotification: "Delimitation Commission of India (Order 2008) / CEO Kerala",
+    description: {
+      en: "Agrarian local self-government included in LAC 056 under Delimitation Commission Order 2008, administratively situated in Alathur Taluk.",
+      ml: "ഡിലിമിറ്റേഷൻ ഉത്തരവ് പ്രകാരം പാലക്കാട് നിയോജകമണ്ഡലത്തിൽ ഉൾപ്പെടുത്തിയിട്ടുള്ള ആലത്തൂർ താലൂക്കിലെ ഗ്രാമപഞ്ചായത്ത്.",
+    },
+  },
+];
+
+/**
+ * Palakkad Revenue District Taluks (Regional Context)
+ * Note: Palakkad Revenue District comprises 6 administrative taluks and 12 Assembly constituencies.
+ * Palakkad Assembly Constituency (LAC 056) specifically spans parts of Palakkad Taluk and Alathur Taluk.
+ */
 export const palakkadTaluks = [
   {
     name: { en: "Palakkad", ml: "പാലക്കാട്" },
@@ -618,5 +643,7 @@ export const officialActivities = mockActivities;
 export const officialGallery = mockGallery;
 export const constituencyProjects = mockProjects;
 export const mockResources = publicResources;
+export const officialLocalBodies = constituencyLocalBodies;
+
 
 

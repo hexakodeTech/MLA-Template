@@ -101,6 +101,10 @@ export interface RepresentativeProfile {
   officeEmail: string;
   officePhone: string;
   legislativeAssembly?: LocalizedString;
+  constituencyNumber?: string;
+  constituencyCode?: string;
+  parliamentaryConstituency?: LocalizedString;
+  delimitationBasis?: LocalizedString;
   partyAffiliation?: LocalizedString;
   committeeMembership?: LocalizedString;
   born?: string;
@@ -110,6 +114,24 @@ export interface RepresentativeProfile {
   socialMedia?: {
     instagram: string;
     facebook: string;
-    youtube: string;
   };
+  socialAccounts?: SocialAccount[];
+}
+
+export interface ConstituencyLocalBody {
+  id: string;
+  name: LocalizedString;
+  bodyType: LocalizedString;
+  taluk: LocalizedString;
+  officialNotification: string;
+  description: LocalizedString;
+}
+
+export interface SocialAccount {
+  platform: "Instagram" | "Facebook";
+  handle: string;
+  url: string;
+  accountType: LocalizedString;
+  isVerified: boolean;
+  notes: LocalizedString;
 }
